@@ -1,22 +1,40 @@
 import * as React from "react"
+import { graphql } from "gatsby"
 import { Link } from "gatsby"
-
+import "../components/reset.css"
 import Layout from "../components/layout"
 import Image from "../components/image"
 import SEO from "../components/seo"
+import { AllBlogsQuery } from "../../types/graphql-types"
 
-const IndexPage = () => (
+interface IProps {
+  data: AllBlogsQuery
+}
+
+const IndexPage: React.FC<IProps> = ({ data }) => (
   <Layout>
     <SEO title="Home" />
-    <h1>Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great.</p>
-    <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
-      <Image />
-    </div>
-    <Link to="/page-2/">Go to page 2</Link> <br />
-    <Link to="/using-typescript/">Go to "Using TypeScript"</Link>
+    {data.allMarkdownRemark.nodes.map(node => (
+      <Link to={node.frontmatter?.path || "/"}>{node.frontmatter?.title}</Link>
+    ))}
   </Layout>
 )
+
+export const pageQuery = graphql`
+  query AllBlogs {
+    markdownRemark {
+      tableOfContents(absolute: false)
+    }
+    allMarkdownRemark {
+      nodes {
+        html
+        frontmatter {
+          title
+          path
+        }
+      }
+    }
+  }
+`
 
 export default IndexPage

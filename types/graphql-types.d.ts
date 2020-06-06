@@ -2891,15 +2891,18 @@ export type SiteTitleQueryQueryVariables = {};
 
 export type SiteTitleQueryQuery = { site?: Maybe<{ siteMetadata?: Maybe<Pick<SiteSiteMetadata, 'title'>> }> };
 
-export type Unnamed_2_QueryVariables = {};
+export type SeoQueryQueryVariables = {};
 
 
-export type Unnamed_2_Query = { site?: Maybe<{ siteMetadata?: Maybe<Pick<SiteSiteMetadata, 'title' | 'description' | 'author'>> }> };
+export type SeoQueryQuery = { site?: Maybe<{ siteMetadata?: Maybe<Pick<SiteSiteMetadata, 'title' | 'description' | 'author'>> }> };
 
-export type Unnamed_3_QueryVariables = {};
+export type AllBlogsQueryVariables = {};
 
 
-export type Unnamed_3_Query = { site?: Maybe<Pick<Site, 'buildTime'>> };
+export type AllBlogsQuery = { markdownRemark?: Maybe<Pick<MarkdownRemark, 'tableOfContents'>>, allMarkdownRemark: { nodes: Array<(
+      Pick<MarkdownRemark, 'html'>
+      & { frontmatter?: Maybe<Pick<MarkdownRemarkFrontmatter, 'title' | 'path'>> }
+    )> } };
 
 export type BlogTemplateQueryVariables = {
   path: Scalars['String'];
