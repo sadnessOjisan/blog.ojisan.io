@@ -19,6 +19,7 @@
     "react-helmet": "^6.0.0"
   },
   "devDependencies": {
+    "gatsby-plugin-graphql-codegen": "^2.7.1",
     "prettier": "2.0.5"
   },
   "keywords": [
