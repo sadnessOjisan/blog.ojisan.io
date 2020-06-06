@@ -1,2 +1,5 @@
-# blog.ojisan.io
-ojisan blog
+```
+yarn develop
+
+yarn tsc -p . --noEmit
+```
