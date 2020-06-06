@@ -4,13 +4,10 @@
   "version": "1.0.0",
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "dependencies": {
-    "@types/node": "^8.0.7",
-    "@types/react": "15.0.21",
-    "@types/react-dom": "0.14.23",
-    "gatsby": "^1.9.119",
-    "gatsby-link": "^1.6.28",
-    "gatsby-plugin-react-helmet": "^1.0.8",
-    "gatsby-plugin-typescript": "^1.4.10"
+    "gatsby": "^2.23.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-helmet": "^6.0.0"
   },
   "keywords": [
     "gatsby, typescript"
@@ -24,7 +21,10 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
-    "prettier": "^1.8.2"
+    "@types/react": "^16.9.35",
+    "gatsby-plugin-graphql-codegen": "^2.7.1",
+    "gatsby-plugin-react-helmet": "^3.3.3",
+    "gatsby-plugin-typescript": "^2.4.4"
   },
   "contributors": [
     "fabien0102 <fabien0102@gmail.com>",
