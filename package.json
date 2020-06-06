@@ -1,19 +1,33 @@
 {
-  "name": "blog.ojisan.io",
+  "name": "gatsby-starter-typescript",
+  "description": "Gatsby TypeScript starter",
   "version": "1.0.0",
-  "description": "ojisan blog",
-  "main": "index.js",
+  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "dependencies": {
+    "@types/node": "^8.0.7",
+    "@types/react": "15.0.21",
+    "@types/react-dom": "0.14.23",
+    "gatsby": "^1.9.119",
+    "gatsby-link": "^1.6.28",
+    "gatsby-plugin-react-helmet": "^1.0.8",
+    "gatsby-plugin-typescript": "^1.4.10"
+  },
+  "keywords": [
+    "gatsby, typescript"
+  ],
+  "license": "MIT",
+  "main": "n/a",
   "scripts": {
+    "build": "gatsby build",
+    "develop": "gatsby develop",
+    "format": "prettier --parser typescript --trailing-comma es5 --no-semi --single-quote --write \"src/**/*.ts*\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/sadnessOjisan/blog.ojisan.io.git"
+  "devDependencies": {
+    "prettier": "^1.8.2"
   },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/sadnessOjisan/blog.ojisan.io/issues"
-  },
-  "homepage": "https://github.com/sadnessOjisan/blog.ojisan.io#readme"
+  "contributors": [
+    "fabien0102 <fabien0102@gmail.com>",
+    "Hays Clark <hays.clark@gmail.com>"
+  ]
 }
