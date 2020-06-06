@@ -12,6 +12,7 @@
     "gatsby-plugin-react-helmet": "^3.3.2",
     "gatsby-plugin-sharp": "^2.6.9",
     "gatsby-source-filesystem": "^2.3.8",
+    "gatsby-transformer-remark": "^2.8.14",
     "gatsby-transformer-sharp": "^2.5.3",
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
@@ -19,7 +20,12 @@
     "react-helmet": "^6.0.0"
   },
   "devDependencies": {
+    "@types/node": "^14.0.11",
+    "@types/react": "^16.9.35",
+    "@types/react-dom": "^16.9.8",
+    "@types/react-helmet": "^6.0.0",
     "gatsby-plugin-graphql-codegen": "^2.7.1",
+    "gatsby-remark-autolink-headers": "^2.3.4",
     "prettier": "2.0.5"
   },
   "keywords": [

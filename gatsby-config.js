@@ -13,6 +13,13 @@ module.exports = {
         path: `${__dirname}/src/images`,
       },
     },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `${__dirname}/src/contents`,
+        name: `contents`,
+      },
+    },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     {
@@ -31,6 +38,12 @@ module.exports = {
       resolve: "gatsby-plugin-graphql-codegen",
       options: {
         fileName: `types/graphql-types.d.ts`,
+      },
+    },
+    {
+      resolve: `gatsby-transformer-remark`,
+      options: {
+        plugins: [`gatsby-remark-autolink-headers`],
       },
     },
   ],
