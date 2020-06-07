@@ -1,5 +1,6 @@
 import * as React from "react"
 import { graphql } from "gatsby"
+import Image from "gatsby-image"
 import styles from "./blogTemplate.module.css"
 import { BlogTemplateQuery } from "../../types/graphql-types"
 import Layout from "../components/layout"
@@ -11,6 +12,7 @@ interface IProps {
 
 export default function Template({ data }: IProps) {
   const { markdownRemark } = data // data.markdownRemark holds your post data
+  console.log(markdownRemark)
 
   return (
     <Layout>
@@ -26,6 +28,11 @@ export default function Template({ data }: IProps) {
                 {markdownRemark.frontmatter.title}
               </h1>
               <h2 className={styles.date}>{markdownRemark.frontmatter.date}</h2>
+              <Image
+                fluid={
+                  markdownRemark.frontmatter.visual?.childImageSharp?.fluid
+                }
+              />
               <div
                 className={styles.content}
                 dangerouslySetInnerHTML={{ __html: markdownRemark.html }}
@@ -47,6 +54,13 @@ export const pageQuery = graphql`
         date(formatString: "MMMM DD, YYYY")
         path
         title
+        visual {
+          childImageSharp {
+            fluid(maxWidth: 300) {
+              ...GatsbyImageSharpFluid
+            }
+          }
+        }
       }
     }
   }
