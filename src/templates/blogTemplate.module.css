@@ -1,3 +1,28 @@
-.gatsby-highlight {
-  z-index: 1;
+.headline {
+  color: rgba(0, 0, 0, 0.84);
+  line-height: 40px;
+  font-size: 40px;
+  margin: 20px 0px;
+}
+
+.date {
+  color: rgba(0, 0, 0, 0.54);
+  font-size: 16px;
+  margin-bottom: 12px;
+}
+
+.content {
+  margin-top: 32px;
+  color: rgba(0, 0, 0, 0.84);
+}
+
+.content > p {
+  font-size: 20px;
+  line-height: 32px;
+}
+
+.content > p,
+.content > img,
+.content > div {
+  margin-bottom: 32px;
 }

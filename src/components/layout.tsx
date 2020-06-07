@@ -32,9 +32,14 @@ const Layout: React.FC = ({ children }) => {
       >
         <main>{children}</main>
         <footer>
-          © {new Date().getFullYear()}, Built with
-          {` `}
-          <a href="https://www.gatsbyjs.org">Gatsby</a>
+          <div>
+            © {new Date().getFullYear()}, Built with
+            <a href="https://www.gatsbyjs.org">Gatsby</a>
+          </div>
+          <div>
+            createdBy
+            <a href="https://twitter.com/sadnessOjisan">@sadnessOjisan</a>
+          </div>
         </footer>
       </div>
     </>

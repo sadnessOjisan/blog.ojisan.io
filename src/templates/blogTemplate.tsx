@@ -12,7 +12,6 @@ interface IProps {
 
 export default function Template({ data }: IProps) {
   const { markdownRemark } = data // data.markdownRemark holds your post data
-  console.log(markdownRemark)
 
   return (
     <Layout>
@@ -27,7 +26,11 @@ export default function Template({ data }: IProps) {
               <h1 className={styles.headline}>
                 {markdownRemark.frontmatter.title}
               </h1>
-              <h2 className={styles.date}>{markdownRemark.frontmatter.date}</h2>
+              <h2 className={styles.date}>
+                {markdownRemark.frontmatter.created}(created)
+                {markdownRemark.frontmatter.updated &&
+                  `/${markdownRemark.frontmatter.updated}(updated)`}
+              </h2>
               <Image
                 fluid={
                   markdownRemark.frontmatter.visual?.childImageSharp?.fluid
@@ -51,7 +54,8 @@ export const pageQuery = graphql`
     markdownRemark(frontmatter: { path: { eq: $path } }) {
       html
       frontmatter {
-        date(formatString: "MMMM DD, YYYY")
+        created(formatString: "YYYY-MM-DD")
+        updated(formatString: "YYYY-MM-DD")
         path
         title
         visual {

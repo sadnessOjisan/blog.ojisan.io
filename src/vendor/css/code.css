@@ -10,7 +10,8 @@
   border-radius: 4px 4px 0px 0px;
   padding: 0.25rem 0.5rem;
   display: inline-block;
-  margin-left: 5em;
+  margin-left: 1em;
+  margin-bottom: 0px !important;
 }
 
 .line-numbers-rows {

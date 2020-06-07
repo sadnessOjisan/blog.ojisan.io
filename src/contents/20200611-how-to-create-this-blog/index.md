@@ -1,8 +1,7 @@
 ---
-path: /babel-parse-traverse-regenerate
+path: /this-blog-build-stack-1st
 created: "2020-06-10"
-updated: "2020-06-10"
-title: Babelって本当にparse/traverse/regenerateをしているの？
+title: Gatsby + TypeScript で技術ブログを書くために
 visual: "./babel.jpeg"
 ---
 
