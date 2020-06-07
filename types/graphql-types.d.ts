@@ -3025,7 +3025,10 @@ export type BlogTemplateQueryVariables = {
 
 export type BlogTemplateQuery = { markdownRemark?: Maybe<(
     Pick<MarkdownRemark, 'html'>
-    & { frontmatter?: Maybe<Pick<MarkdownRemarkFrontmatter, 'date' | 'path' | 'title'>> }
+    & { frontmatter?: Maybe<(
+      Pick<MarkdownRemarkFrontmatter, 'date' | 'path' | 'title'>
+      & { visual?: Maybe<{ childImageSharp?: Maybe<{ fluid?: Maybe<GatsbyImageSharpFluidFragment> }> }> }
+    )> }
   )> };
 
 export type GatsbyImageSharpFixedFragment = Pick<ImageSharpFixed, 'base64' | 'width' | 'height' | 'src' | 'srcSet'>;

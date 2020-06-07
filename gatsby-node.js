@@ -16,9 +16,6 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
               path
               date
               title
-              visual {
-                absolutePath
-              }
             }
           }
         }
