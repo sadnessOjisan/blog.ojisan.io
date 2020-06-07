@@ -44,6 +44,11 @@ module.exports = {
       resolve: `gatsby-transformer-remark`,
       options: {
         plugins: [
+          // NOTE: title を前におく必要あり
+          {
+            resolve: "gatsby-remark-code-titles",
+            options: {},
+          },
           {
             resolve: `gatsby-remark-prismjs`,
             options: {
@@ -52,9 +57,28 @@ module.exports = {
               aliases: {},
               showLineNumbers: true,
               noInlineHighlight: false,
+              languageExtensions: [
+                {
+                  language: "superscript",
+                  extend: "javascript",
+                  definition: {
+                    superscript_types: /(SuperType)/,
+                  },
+                  insertBefore: {
+                    function: {
+                      superscript_keywords: /(superif|superelse)/,
+                    },
+                  },
+                },
+              ],
+              prompt: {
+                user: "root",
+                host: "localhost",
+                global: false,
+              },
             },
           },
-          `gatsby-remark-code-titles`,
+
           `gatsby-remark-autolink-headers`,
           {
             resolve: `gatsby-remark-images`,

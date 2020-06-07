@@ -1,7 +1,7 @@
 import * as React from "react"
 import { graphql } from "gatsby"
 import { Link } from "gatsby"
-import "../components/reset.css"
+import "../vendor/css/reset.css"
 import Layout from "../components/layout"
 import Image from "../components/image"
 import SEO from "../components/seo"

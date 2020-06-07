@@ -14,8 +14,25 @@ Babel のソースコード変換において、「ソースコードを AST に
 そこで Babel を読んでみて、そのような変換をしているのか確かめてみたいと思います。
 
 ```javascript:title=test.js
-const hello = "hello"
-const hello = "hello"
-const hello = "hello"
-const hello = "hello"
+import * as React from "react"
+import { graphql } from "gatsby"
+import { Link } from "gatsby"
+import "../vendor/css/reset.css"
+import Layout from "../components/layout"
+import Image from "../components/image"
+import SEO from "../components/seo"
+import { AllBlogsQuery } from "../../types/graphql-types"
+
+interface IProps {
+  data: AllBlogsQuery;
+}
+
+const IndexPage: React.FC<IProps> = ({ data }) => (
+  <Layout>
+    <SEO title="Home" />
+    {data.allMarkdownRemark.nodes.map(node => (
+      <Link to={node.frontmatter?.path || "/"}>{node.frontmatter?.title}</Link>
+    ))}
+  </Layout>
+)
 ```
