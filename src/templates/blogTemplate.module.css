@@ -1,0 +1,40 @@
+.gatsby-highlight {
+  font-size: 1.4rem;
+}
+
+pre[class*="language-"] {
+  background-color: #1c1b1b;
+  display: block;
+  margin: 0 0 20px;
+  padding-right: 1rem;
+  padding-left: 2rem;
+  border-radius: 0 4px 4px 4px;
+}
+
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #fff;
+}
+
+:not(pre) > code[class*="language-text"] {
+  font-size: 1.4rem;
+  padding: 2px 10px 3px 12px;
+  margin: 0 4px;
+  background-color: #3c3c3c;
+}
+
+.gatsby-highlight-code-line {
+  background: #545454;
+  display: block;
+}
+
+.gatsby-code-title {
+  background: #2e96b5;
+  color: #eee;
+  padding: 6px 12px;
+  font-size: 0.8em;
+  line-height: 1;
+  font-weight: bold;
+  display: table;
+  border-radius: 4px 4px 0 0;
+}

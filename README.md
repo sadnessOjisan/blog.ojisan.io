@@ -9,3 +9,9 @@ gql
 ```sh
 $ open http://localhost:8000/___graphql
 ```
+
+## todo
+
+- [ ] analytics
+- [ ] prism
+- [x] image

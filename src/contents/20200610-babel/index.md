@@ -12,3 +12,10 @@ Babel のソースコード変換において、「ソースコードを AST に
 
 とはいえ自分としてはあまり信じられなく、というのも Babel はソースコードを入れたら ES5 を吐く魔法の箱という認識が強いからです。
 そこで Babel を読んでみて、そのような変換をしているのか確かめてみたいと思います。
+
+```javascript:title=test.js
+const hello = "hello"
+const hello = "hello"
+const hello = "hello"
+const hello = "hello"
+```
