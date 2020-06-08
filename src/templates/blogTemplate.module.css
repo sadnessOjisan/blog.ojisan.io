@@ -19,12 +19,12 @@
 }
 
 .main > .socials {
-  width: 15%;
+  width: 5%;
   padding: 16px;
 }
 
 .main > .content {
-  width: 70%;
+  width: 80%;
   max-width: 960px;
 }
 

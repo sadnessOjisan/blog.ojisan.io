@@ -4,6 +4,8 @@ import * as React from "react"
 import cn from "classnames"
 import styles from "./tocMobile.module.css"
 import SocialMobile from "./socialsMobile"
+import Close from "../images/close.svg"
+import Open from "../images/open.svg"
 
 interface IProps {
   path: string
@@ -14,8 +16,17 @@ interface IProps {
 }
 
 const TocMobile: React.FC<IProps> = props => {
-  const { path, title, dateYYYYMMDD, tableOfContents } = props
+  const { path, title, dateYYYYMMDD } = props
   const [isOpen, setOpen] = React.useState(false)
+  React.useEffect(() => {
+    window.addEventListener(
+      "hashchange",
+      () => {
+        setOpen(false)
+      },
+      false
+    )
+  }, [])
   return props.tableOfContents ? (
     isOpen ? (
       <div className={styles.wrapper}>
@@ -30,12 +41,12 @@ const TocMobile: React.FC<IProps> = props => {
           dangerouslySetInnerHTML={{ __html: props.tableOfContents }}
         />
         <button onClick={() => setOpen(false)} className={styles.opener}>
-          close
+          <img src={Close} className={styles.icon}></img>
         </button>
       </div>
     ) : (
       <button onClick={() => setOpen(true)} className={styles.opener}>
-        open
+        <img src={Open} className={styles.icon}></img>
       </button>
     )
   ) : (

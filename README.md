@@ -28,4 +28,5 @@ $ open http://localhost:8000/___graphql
 
 ## icon
 
-https://www.flaticon.com/free-icon/clap-hands_109638
+https://www.flaticon.com/fre
+e-icon/clap-hands_109638

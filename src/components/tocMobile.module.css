@@ -2,6 +2,11 @@
   position: fixed;
   right: 12px;
   bottom: 12px;
+  width: 60px;
+  height: 60px;
+  background-color: #368ccb;
+  border-radius: 30px;
+  text-align: center;
 }
 
 .wrapper {
@@ -10,7 +15,7 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: antiquewhite;
+  background-color: whitesmoke;
 }
 
 .socialIcons {
@@ -41,8 +46,17 @@
   padding-left: 12px;
 }
 
+.icon {
+  width: 32px;
+  color: white;
+  fill: white;
+}
+
 @media screen and (min-width: 1024px) {
   .wrapper {
+    display: none;
+  }
+  .opener {
     display: none;
   }
 }
