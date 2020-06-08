@@ -1,4 +1,3 @@
-// // https://github.com/gatsbyjs/gatsby/blob/205847b833c5f7783182ea54a3ddd72f6369ee47/tsconfig.json で更新されるから好き放題書いて大丈夫
 {
   "compilerOptions": {
     "target": "ESNext",

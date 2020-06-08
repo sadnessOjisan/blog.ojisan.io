@@ -78,7 +78,6 @@ module.exports = {
               },
             },
           },
-
           `gatsby-remark-autolink-headers`,
           {
             resolve: `gatsby-remark-images`,
@@ -87,6 +86,29 @@ module.exports = {
             },
           },
         ],
+      },
+    },
+    {
+      resolve: `gatsby-plugin-google-analytics`,
+      options: {
+        trackingId: "UA-119542494-2",
+        head: true,
+      },
+    },
+    "gatsby-plugin-sitemap",
+    {
+      resolve: "gatsby-plugin-robots-txt",
+      options: {
+        host: "https://blog.ojisan.io",
+        sitemap: "https://blog.ojisan.io/sitemap.xml",
+        env: {
+          development: {
+            policy: [{ userAgent: "*", disallow: ["/"] }],
+          },
+          production: {
+            policy: [{ userAgent: "*", allow: "/" }],
+          },
+        },
       },
     },
   ],

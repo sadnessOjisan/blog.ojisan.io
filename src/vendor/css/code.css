@@ -16,6 +16,7 @@
 
 .line-numbers-rows {
   width: 3.6em !important;
+  background-color: white;
 }
 
 pre[class*="language-"] {
