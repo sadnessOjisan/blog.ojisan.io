@@ -1,6 +1,6 @@
 .wrapper > div {
-  position: sticky;
   top: 32px;
+  position: sticky;
 }
 
 .col {

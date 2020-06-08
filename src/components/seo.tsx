@@ -4,13 +4,13 @@ import { useStaticQuery, graphql } from "gatsby"
 import { SeoQuery } from "../../types/graphql-types"
 
 interface IProps {
-  description: string
+  description?: string
   meta?: any[]
   title: string
   image?: string
 }
 
-function SEO({ description, meta, title }: IProps & SeoQuery) {
+function SEO({ description, meta, title, image }: IProps & SeoQuery) {
   const { site } = useStaticQuery(
     graphql`
       query Seo {
@@ -44,6 +44,10 @@ function SEO({ description, meta, title }: IProps & SeoQuery) {
           content: title,
         },
         {
+          property: `og:image`,
+          content: image,
+        },
+        {
           property: `og:description`,
           content: metaDescription,
         },
@@ -66,6 +70,10 @@ function SEO({ description, meta, title }: IProps & SeoQuery) {
         {
           name: `twitter:description`,
           content: metaDescription,
+        },
+        {
+          name: `twitter:image`,
+          content: image,
         },
       ].concat(meta || [])}
     />
