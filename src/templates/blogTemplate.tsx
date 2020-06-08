@@ -42,6 +42,7 @@ export default function Template({ data }: IProps) {
 
             {markdownRemark.frontmatter.visual?.childImageSharp?.fluid && (
               <Image
+                style={{ maxHeight: "60vh" }}
                 // @ts-ignore FIXME: 型エラー
                 fluid={markdownRemark.frontmatter.visual.childImageSharp.fluid}
               />
