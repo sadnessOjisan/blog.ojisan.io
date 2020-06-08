@@ -3,6 +3,7 @@ module.exports = {
     title: `blog.ojisan.io`,
     description: `めもめも！`,
     author: `@sadnessOjisan`,
+    siteUrl: `https://blog.ojisan.io`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
