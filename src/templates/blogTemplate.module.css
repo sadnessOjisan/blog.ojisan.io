@@ -20,7 +20,7 @@
 
 .main > .socials {
   width: 5%;
-  padding: 16px;
+  padding-top: 32px;
 }
 
 .main > .content {
@@ -36,7 +36,8 @@
 
 .main > .tocwrapper {
   width: 15%;
-  padding: 16px;
+  padding-left: 16px;
+  padding-top: 32px;
 }
 
 /* 記事 */

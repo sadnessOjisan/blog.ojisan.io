@@ -4,7 +4,7 @@ import { useStaticQuery, graphql } from "gatsby"
 import { SeoQuery } from "../../types/graphql-types"
 
 interface IProps {
-  description: string
+  description?: string
   meta?: any[]
   title: string
   image?: string

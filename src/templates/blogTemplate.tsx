@@ -28,7 +28,7 @@ export default function Template({ data }: IProps) {
         <>
           <SEO
             title={markdownRemark.frontmatter.title}
-            description={markdownRemark.html}
+            description={markdownRemark.rawMarkdownBody?.slice(0, 100)}
             image={markdownRemark.frontmatter.visual?.absolutePath}
           />
           <div className={styles.body}>
@@ -93,6 +93,7 @@ export const pageQuery = graphql`
   query BlogTemplate($path: String!) {
     markdownRemark(frontmatter: { path: { eq: $path } }) {
       html
+      rawMarkdownBody
       frontmatter {
         created(formatString: "YYYY-MM-DD")
         updated(formatString: "YYYY-MM-DD")
