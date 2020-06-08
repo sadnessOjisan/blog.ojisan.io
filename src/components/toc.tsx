@@ -5,16 +5,18 @@ import cn from "classnames"
 import styles from "./toc.module.css"
 
 interface IProps {
-  tableOfContents: string
+  tableOfContents?: string | null
   className?: string
 }
 
 const Toc: React.FC<IProps> = props => {
-  return (
+  return props.tableOfContents ? (
     <nav
       className={cn(props.className, styles.toc)}
       dangerouslySetInnerHTML={{ __html: props.tableOfContents }}
     />
+  ) : (
+    <div></div>
   )
 }
 

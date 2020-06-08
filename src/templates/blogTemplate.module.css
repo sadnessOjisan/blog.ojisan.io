@@ -1,14 +1,16 @@
 .headline {
   color: rgba(0, 0, 0, 0.84);
-  line-height: 40px;
-  font-size: 40px;
-  margin: 20px 0px;
+  line-height: 48px;
+  font-size: 32px;
+  margin: 16px 0px;
+  padding: 0 8px;
 }
 
 .date {
   color: rgba(0, 0, 0, 0.54);
   font-size: 16px;
   margin-bottom: 12px;
+  padding: 0 8px;
 }
 
 .main {
@@ -26,6 +28,12 @@
   max-width: 960px;
 }
 
+@media screen and (max-width: 1024px) {
+  .main > .content {
+    width: 90%;
+  }
+}
+
 .main > .tocwrapper {
   width: 15%;
   padding: 16px;
@@ -35,6 +43,12 @@
 .content {
   margin-top: 32px;
   color: rgba(0, 0, 0, 0.84);
+}
+
+@media screen and (max-width: 1024px) {
+  .content {
+    margin-top: 16px;
+  }
 }
 
 .content > p,

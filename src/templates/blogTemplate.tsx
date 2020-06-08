@@ -6,7 +6,9 @@ import { BlogTemplateQuery } from "../../types/graphql-types"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import Toc from "../components/toc"
+import TocMobile from "../components/tocMoblie"
 import Social from "../components/socials"
+import SocialMobile from "../components/socialsMobile"
 
 interface IProps {
   data: BlogTemplateQuery
@@ -29,39 +31,53 @@ export default function Template({ data }: IProps) {
             description={markdownRemark.html}
           />
           <div className={styles.body}>
-            <div className="blog-post">
-              <h1 className={styles.headline}>
-                {markdownRemark.frontmatter.title}
-              </h1>
-              <h2 className={styles.date}>
-                {markdownRemark.frontmatter.created}(created)
-                {markdownRemark.frontmatter.updated &&
-                  `/${markdownRemark.frontmatter.updated}(updated)`}
-              </h2>
+            <h1 className={styles.headline}>
+              {markdownRemark.frontmatter.title}
+            </h1>
+            <h2 className={styles.date}>
+              {markdownRemark.frontmatter.created}(created)
+              {markdownRemark.frontmatter.updated &&
+                `/${markdownRemark.frontmatter.updated}(updated)`}
+            </h2>
+
+            {markdownRemark.frontmatter.visual?.childImageSharp?.fluid && (
               <Image
-                fluid={
-                  markdownRemark.frontmatter.visual?.childImageSharp?.fluid
-                }
+                // @ts-ignore FIXME: 型エラー
+                fluid={markdownRemark.frontmatter.visual.childImageSharp.fluid}
               />
-              <div className={styles.main}>
-                <Social
-                  className={styles.socials}
-                  path={markdownRemark.frontmatter.path}
-                  title={markdownRemark.frontmatter.title}
-                  dateYYYYMMDD={markdownRemark.frontmatter.created.replace(
-                    "-",
-                    ""
-                  )}
-                ></Social>
-                <div
-                  className={styles.content}
-                  dangerouslySetInnerHTML={{ __html: markdownRemark.html }}
-                />
-                <Toc
-                  tableOfContents={markdownRemark.tableOfContents}
-                  className={styles.tocwrapper}
-                ></Toc>
-              </div>
+            )}
+            <SocialMobile
+              path={markdownRemark.frontmatter.path}
+              title={markdownRemark.frontmatter.title}
+              dateYYYYMMDD={markdownRemark.frontmatter.created.replace("-", "")}
+            ></SocialMobile>
+            <div className={styles.main}>
+              <Social
+                className={styles.socials}
+                path={markdownRemark.frontmatter.path}
+                title={markdownRemark.frontmatter.title}
+                dateYYYYMMDD={markdownRemark.frontmatter.created.replace(
+                  "-",
+                  ""
+                )}
+              ></Social>
+              <div
+                className={styles.content}
+                dangerouslySetInnerHTML={{ __html: markdownRemark.html }}
+              />
+              <Toc
+                tableOfContents={markdownRemark.tableOfContents}
+                className={styles.tocwrapper}
+              ></Toc>
+              <TocMobile
+                tableOfContents={markdownRemark.tableOfContents}
+                path={markdownRemark.frontmatter.path}
+                title={markdownRemark.frontmatter.title}
+                dateYYYYMMDD={markdownRemark.frontmatter.created.replace(
+                  "-",
+                  ""
+                )}
+              ></TocMobile>
             </div>
           </div>
         </>

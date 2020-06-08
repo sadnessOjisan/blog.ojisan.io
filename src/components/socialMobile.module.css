@@ -1,0 +1,21 @@
+.col {
+  display: flex;
+  flex-direction: row;
+  padding-left: 12px;
+  margin-top: 12px;
+}
+
+.col > * {
+  margin-right: 16px;
+}
+
+.icon {
+  width: 30px;
+  cursor: pointer;
+}
+
+@media screen and (min-width: 1024px) {
+  .wrapper {
+    display: none;
+  }
+}

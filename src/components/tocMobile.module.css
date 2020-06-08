@@ -1,0 +1,48 @@
+.opener {
+  position: fixed;
+  right: 12px;
+  bottom: 12px;
+}
+
+.wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: antiquewhite;
+}
+
+.socialIcons {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.toc > ul {
+  position: sticky;
+  top: 32px;
+  color: rgba(0, 0, 0, 0.84);
+  font-size: 16px;
+  margin-bottom: 24px;
+}
+
+.toc > ul > li > ul {
+  margin-left: 16px;
+}
+
+.toc a:hover {
+  background-color: aliceblue;
+}
+
+.toc a {
+  display: block;
+  padding: 6px;
+  padding-left: 12px;
+}
+
+@media screen and (min-width: 1024px) {
+  .wrapper {
+    display: none;
+  }
+}

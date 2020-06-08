@@ -19,3 +19,9 @@
   padding: 6px;
   padding-left: 12px;
 }
+
+@media screen and (max-width: 1024px) {
+  .toc {
+    display: none;
+  }
+}
