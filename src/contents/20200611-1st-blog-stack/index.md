@@ -1,6 +1,7 @@
 ---
 path: /1st-blog-stack
 created: "2020-06-10"
+updated: "2020-06-11"
 title: Gatsby + TypeScript で技術ブログを書くための知見
 visual: "./visual.png"
 ---
