@@ -15,8 +15,13 @@ const IndexPage: React.FC<IProps> = ({ data }) => (
   <Layout>
     <SEO title="Home" />
     {data.allMarkdownRemark.nodes.map(node => (
-      <Link to={node.frontmatter?.path || "/"}>{node.frontmatter?.title}</Link>
+      <li>
+        <Link to={node.frontmatter?.path || "/"}>
+          {node.frontmatter?.title}
+        </Link>
+      </li>
     ))}
+    <b style={{ color: "red", fontSize: "48px" }}>工事中</b>
   </Layout>
 )
 
