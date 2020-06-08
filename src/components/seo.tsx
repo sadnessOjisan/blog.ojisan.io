@@ -7,6 +7,7 @@ interface IProps {
   description: string
   meta?: any[]
   title: string
+  image?: string
 }
 
 function SEO({ description, meta, title }: IProps & SeoQuery) {

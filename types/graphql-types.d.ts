@@ -3194,7 +3194,10 @@ export type BlogTemplateQuery = { markdownRemark?: Maybe<(
     Pick<MarkdownRemark, 'html' | 'tableOfContents'>
     & { frontmatter?: Maybe<(
       Pick<MarkdownRemarkFrontmatter, 'created' | 'updated' | 'path' | 'title'>
-      & { visual?: Maybe<{ childImageSharp?: Maybe<{ fluid?: Maybe<GatsbyImageSharpFluidFragment> }> }> }
+      & { visual?: Maybe<(
+        Pick<File, 'absolutePath'>
+        & { childImageSharp?: Maybe<{ fluid?: Maybe<GatsbyImageSharpFluidFragment> }> }
+      )> }
     )> }
   )> };
 
