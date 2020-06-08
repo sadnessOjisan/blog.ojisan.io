@@ -5,6 +5,7 @@ import styles from "./blogTemplate.module.css"
 import { BlogTemplateQuery } from "../../types/graphql-types"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
+import Toc from "../components/toc"
 
 interface IProps {
   data: BlogTemplateQuery
@@ -12,7 +13,7 @@ interface IProps {
 
 export default function Template({ data }: IProps) {
   const { markdownRemark } = data // data.markdownRemark holds your post data
-
+  console.log("markdownRemark", markdownRemark)
   return (
     <Layout>
       {markdownRemark && markdownRemark.html && markdownRemark.frontmatter ? (
@@ -36,10 +37,17 @@ export default function Template({ data }: IProps) {
                   markdownRemark.frontmatter.visual?.childImageSharp?.fluid
                 }
               />
-              <div
-                className={styles.content}
-                dangerouslySetInnerHTML={{ __html: markdownRemark.html }}
-              />
+              <div className={styles.main}>
+                <div className={styles.socials}>hakusyu</div>
+                <div
+                  className={styles.content}
+                  dangerouslySetInnerHTML={{ __html: markdownRemark.html }}
+                />
+                <Toc
+                  tableOfContents={markdownRemark.tableOfContents}
+                  className={styles.tocwrapper}
+                ></Toc>
+              </div>
             </div>
           </div>
         </>
@@ -66,6 +74,7 @@ export const pageQuery = graphql`
           }
         }
       }
+      tableOfContents(absolute: false)
     }
   }
 `

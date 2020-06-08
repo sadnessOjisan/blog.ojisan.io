@@ -15,3 +15,6 @@ $ open http://localhost:8000/___graphql
 - [ ] analytics
 - [ ] prism
 - [x] image
+- [ ] toc
+- [ ] first article
+- [ ] social share

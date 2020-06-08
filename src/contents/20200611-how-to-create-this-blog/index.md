@@ -1,38 +1,127 @@
 ---
-path: /this-blog-build-stack-1st
+path: /1st-blog-stack
 created: "2020-06-10"
-title: Gatsby + TypeScript で技術ブログを書くために
-visual: "./babel.jpeg"
+title: Gatsby + TypeScript で技術ブログを書くための知見
+visual: "./visual.png"
 ---
 
-Babel のソースコード変換において、「ソースコードを AST に変換した後に、AST から AST へ変換し、その AST をコードに戻している」という話は聞いたことがあるでしょうか？
-どうやら公式ドキュメントからはそのような説明を見つけられないのですが、識者的にはそうらしいです。
+Blog を作りました！！
+「プログラミングの修行する」と言って会社を辞めて 5 ヶ月経ったのですが、まあ堕落しきっています。
+最近ようやく、働いていないことに対する罪悪感に悩まされるようになりまして、「このままではいかん」という気持ちがこの Blog になりました。
+ここでは空白期間(=修行期間)に勉強したアウトプットをまとめていきたいと思っています。
 
-![ASTを使った変換](./tree.png)
+で、作ってみたものの書く内容が特にないので、このブログをどうやって作ったかについて書きます。
+「こういう記法にちゃんと対応しているかな？」とかを試す目的でも書いています。
 
-とはいえ自分としてはあまり信じられなく、というのも Babel はソースコードを入れたら ES5 を吐く魔法の箱という認識が強いからです。
-そこで Babel を読んでみて、そのような変換をしているのか確かめてみたいと思います。
+## 技術スタック
 
-```javascript:title=test.js
-import * as React from "react"
-import { graphql } from "gatsby"
-import { Link } from "gatsby"
-import "../vendor/css/reset.css"
-import Layout from "../components/layout"
-import Image from "../components/image"
-import SEO from "../components/seo"
-import { AllBlogsQuery } from "../../types/graphql-types"
+根幹になっているものは、
 
-interface IProps {
-  data: AllBlogsQuery;
-}
+- TypeScript
+- Gatsby
 
-const IndexPage: React.FC<IProps> = ({ data }) => (
-  <Layout>
-    <SEO title="Home" />
-    {data.allMarkdownRemark.nodes.map(node => (
-      <Link to={node.frontmatter?.path || "/"}>{node.frontmatter?.title}</Link>
-    ))}
-  </Layout>
-)
-```
+です。
+
+元々は [amdx](https://github.com/mizchi/amdx) + [NextJS](https://nextjs.org/), もしくは完全自作 SSG を考えていたのですが、ブログは完璧を目指しているといつまでも完成しないということは知っているので、一番自分が理解しているツールを使うことにしました。
+しかし、ただ使うだけなのはチャレンジ性がなかったので、TypeScript を使ってみることにしました。
+私が前職で書いていたときは Gatsby の TS サポートは全然なかったのですが、今はいろいろ頑張ればまあできるみたいです。
+で、このブログはその頑張りとかを書いて行きます。
+
+スタイリングは CSS Modules でやっています。styled-components も考えたのですが、静的ビルドしたときにパフォーマンスを出せるかが分からなかったので、シンプルに CSS をそのまま埋め込める CSS Modules を選択しました。
+ソースコードのハイライトは prismjs でやってます。
+
+## 作る流れ
+
+### 機能を考える
+
+いろんな人の blog を参考にしました。
+
+- [mizchi.dev](https://mizchi.dev/)
+- [blog.uhy.ooo](https://blog.uhy.ooo/)
+- [blog.jxck.io](https://blog.jxck.io/)
+
+を機能の参考にしていました。
+
+- TOC で共有
+- syntax hilight
+- github 連携、PR で修正とか issue でコメントとかを考えました。
+
+mizhi.dev にある git から履歴を作る機能はどうにかして入れたいなっていま試行錯誤してます。
+
+デザインは,
+
+- amp starters
+- medium
+
+を参考にしました。
+
+### 雛形作る
+
+`gatsby new` で blog 自体はできます。
+
+### TS 対応する
+
+plugin でできます。
+
+### md 入稿できるようにする
+
+remark を使います
+
+### on blur の画像を入れます
+
+### md 内の画像も入れられるようにしました
+
+### toc jump
+
+### social share
+
+自前で作りました。
+はてブのボタンは作り方がわからなかったので採用していません。
+公式を使わずにブックマークボタンを設置する方法があれば誰か教えてください。
+
+## がんばりポイント
+
+### TS のセットアップ（でも標準スターターでもされている）
+
+### tsconfig の設定
+
+### graphql-codegen を使って型定義を得る
+
+### prismjs の設定
+
+### GA の設定
+
+## 作ってみて
+
+すでに作り直したくなっています。
+
+### ヘビーすぎる
+
+頑張ったものの、 やってることって結局は md を HTML に変換しているだけなので、「Gatsby 使う必要あったか？」と思っています。
+もっと薄く作れるのではないかと思っています。
+
+### AMP 対応
+
+可能な限りいろんなものに対応させたいので AMP 対応はやりたいです。
+Gatsby が吐く HTML は amp valid ではないので、ちょっと辞めたい気持ちがあります。
+amdx はその辺りを解決しているので、amdx + Next.js でやって行きたい気持ちがあります。
+
+### 世界最速のテックブログを作りたい
+
+どうせなら世界最速・・・とは言わなくても東関東最速のテックブログを作りたいです。
+最速にするためには余計なものを削ぎ落とす必要があって、そうなると Gatsby は 相性が悪いと思いました。
+とは言っても gatsby-image が本当に強力すぎて、大きい画像を埋め込まれてもこいつがすべてよしなにやってくれるなど、遅くなるボトルネックを取り除いてくれるので、そこまでの実力者でない自分にとってはやっぱり Gatsby が最速になるのかなと思っています。
+
+なので、
+
+- 画像入稿はダブルチェックなどで気を付ける
+- gatsby-image がやっていることを自作する
+- 俺がパフォーマンス最強人材になる
+
+などができるようになったら、Gatsby を剥がして行きたいです。
+
+あと PWAMP(PWA + AMP)構成 にして、キャッシュや CDN 周りで速度を出して行きたいです。
+で、やっぱり AMP を考えると Gatsby が辛くなるので、将来的には剥がして行きたいです。
+
+Blog を作ったことなので、ゲームばっかりせずに頑張って修行します！！！
+Civ6 も Factorio もやりません！！！

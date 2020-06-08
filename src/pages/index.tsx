@@ -4,7 +4,6 @@ import { Link } from "gatsby"
 import "../vendor/css/reset.css"
 import "../vendor/css/base.css"
 import Layout from "../components/layout"
-import Image from "../components/image"
 import SEO from "../components/seo"
 import { AllBlogsQuery } from "../../types/graphql-types"
 
