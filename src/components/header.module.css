@@ -1,3 +1,13 @@
 .header {
-  background-color: red;
+  background-color: white;
+  height: 6vh;
+  color: #368ccb;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.title {
+  font-size: 32px;
 }

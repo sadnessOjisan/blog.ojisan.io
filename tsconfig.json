@@ -7,7 +7,7 @@
     "forceConsistentCasingInFileNames": true,
     "jsx": "preserve",
     "allowSyntheticDefaultImports": true,
-    "moduleResolution": "node" // これがないとgatsbyを解決できない
+    "moduleResolution": "node" // これがないとgatsbyを解決できない,
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"]
 }

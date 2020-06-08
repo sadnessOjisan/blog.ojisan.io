@@ -8,6 +8,7 @@
 import * as React from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import Header from "./header"
+import styles from "./layout.module.css"
 
 const Layout: React.FC = ({ children }) => {
   const data = useStaticQuery(graphql`
@@ -23,18 +24,38 @@ const Layout: React.FC = ({ children }) => {
   return (
     <>
       <Header siteTitle={data.site.siteMetadata.title} />
-      <div
-        style={{
-          margin: `0 auto`,
-          maxWidth: 960,
-          padding: `0 1.0875rem 1.45rem`,
-        }}
-      >
-        <main>{children}</main>
-        <footer>
-          © {new Date().getFullYear()}, Built with
-          {` `}
-          <a href="https://www.gatsbyjs.org">Gatsby</a>
+      <div>
+        <main className={styles.body}>{children}</main>
+        <footer className={styles.footer}>
+          <p>
+            © {new Date().getFullYear()}, Built with
+            <a href="https://www.gatsbyjs.org" target="_blank" rel="noopener">
+              {" "}
+              Gatsby
+            </a>
+          </p>
+          <p>
+            createdBy
+            <a
+              href="https://twitter.com/sadnessOjisan"
+              target="_blank"
+              rel="noopener"
+            >
+              {" "}
+              @sadnessOjisan
+            </a>
+          </p>
+          <p>
+            source code is{" "}
+            <a
+              href="https://github.com/sadnessOjisan/blog.ojisan.io"
+              target="_blank"
+              rel="noopener"
+            >
+              here
+            </a>
+          </p>
+          <p>This site uses Google Analytics.</p>
         </footer>
       </div>
     </>

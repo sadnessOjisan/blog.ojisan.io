@@ -8,11 +8,9 @@ interface IProps {
 
 const Header: React.FC<IProps> = ({ siteTitle }) => (
   <header className={styles.header}>
-    <div>
-      <h1>
-        <Link to="/">{siteTitle || ""}</Link>
-      </h1>
-    </div>
+    <h1 className={styles.title}>
+      <Link to="/">{siteTitle || ""}</Link>
+    </h1>
   </header>
 )
 

@@ -1,0 +1,22 @@
+.footer {
+  margin-bottom: 0;
+  margin-top: auto;
+  background-color: #368ccb;
+  padding: 8px;
+  text-align: center;
+  color: white;
+  height: 20vh;
+}
+
+.footer > p {
+  margin-top: 12px;
+}
+
+.footer > p > a {
+  text-decoration: underline;
+  color: aquamarine;
+}
+
+.body {
+  min-height: 74vh;
+}
