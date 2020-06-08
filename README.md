@@ -13,8 +13,13 @@ $ open http://localhost:8000/___graphql
 ## todo
 
 - [ ] analytics
-- [ ] prism
+- [x] prism
 - [x] image
-- [ ] toc
-- [ ] first article
-- [ ] social share
+- [x] toc
+- [x] first article
+- [x] social share
+- [ ] 全文検索
+
+## icon
+
+https://www.flaticon.com/free-icon/clap-hands_109638

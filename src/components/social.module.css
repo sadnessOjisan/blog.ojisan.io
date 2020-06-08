@@ -1,0 +1,18 @@
+.wrapper > div {
+  position: sticky;
+  top: 32px;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+}
+
+.col > * {
+  margin-bottom: 16px;
+}
+
+.icon {
+  width: 30px;
+  cursor: pointer;
+}

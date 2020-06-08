@@ -6,6 +6,7 @@ import { BlogTemplateQuery } from "../../types/graphql-types"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import Toc from "../components/toc"
+import Social from "../components/socials"
 
 interface IProps {
   data: BlogTemplateQuery
@@ -16,7 +17,12 @@ export default function Template({ data }: IProps) {
   console.log("markdownRemark", markdownRemark)
   return (
     <Layout>
-      {markdownRemark && markdownRemark.html && markdownRemark.frontmatter ? (
+      {markdownRemark &&
+      markdownRemark.html &&
+      markdownRemark.frontmatter &&
+      markdownRemark.frontmatter.title &&
+      markdownRemark.frontmatter.path &&
+      markdownRemark.frontmatter.created ? (
         <>
           <SEO
             title={markdownRemark.frontmatter.title}
@@ -38,7 +44,15 @@ export default function Template({ data }: IProps) {
                 }
               />
               <div className={styles.main}>
-                <div className={styles.socials}>hakusyu</div>
+                <Social
+                  className={styles.socials}
+                  path={markdownRemark.frontmatter.path}
+                  title={markdownRemark.frontmatter.title}
+                  dateYYYYMMDD={markdownRemark.frontmatter.created.replace(
+                    "-",
+                    ""
+                  )}
+                ></Social>
                 <div
                   className={styles.content}
                   dangerouslySetInnerHTML={{ __html: markdownRemark.html }}
