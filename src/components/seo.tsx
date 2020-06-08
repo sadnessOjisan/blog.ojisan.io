@@ -45,7 +45,7 @@ function SEO({ description, meta, title, image }: IProps & SeoQuery) {
         },
         {
           property: `og:image`,
-          content: image,
+          content: `https://blog.ojisa.io${image}`,
         },
         {
           property: `og:description`,
@@ -73,7 +73,7 @@ function SEO({ description, meta, title, image }: IProps & SeoQuery) {
         },
         {
           name: `twitter:image`,
-          content: image,
+          content: `https://blog.ojisa.io${image}`,
         },
       ].concat(meta || [])}
     />
