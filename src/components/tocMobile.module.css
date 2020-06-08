@@ -32,10 +32,9 @@
   margin-bottom: 24px;
 }
 
-.toc > ul > li > ul {
+.toc ul {
   margin-left: 16px;
 }
-
 .toc a:hover {
   background-color: aliceblue;
 }

@@ -76,6 +76,11 @@
   font-weight: bold;
 }
 
+.content > h4 {
+  font-size: 18px;
+  font-weight: bold;
+}
+
 .content strong {
   background: linear-gradient(transparent 75%, palegreen 25%);
 }
@@ -86,8 +91,15 @@
 .content > h1,
 .content > h2,
 .content > h3,
+.content > h4,
 .content > ul {
   margin-bottom: 24px;
+  word-break: break-all;
+}
+
+.content > h3,
+.content > h4 {
+  margin-bottom: 12px;
   word-break: break-all;
 }
 
