@@ -5,6 +5,7 @@
   padding: 32px;
   text-align: center;
   color: white;
+  height: 20vh;
 }
 
 .footer > p {
@@ -14,4 +15,8 @@
 .footer > p > a {
   text-decoration: underline;
   color: aquamarine;
+}
+
+.body {
+  min-height: 74vh;
 }

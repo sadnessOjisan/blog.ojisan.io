@@ -25,7 +25,7 @@ const Layout: React.FC = ({ children }) => {
     <>
       <Header siteTitle={data.site.siteMetadata.title} />
       <div>
-        <main>{children}</main>
+        <main className={styles.body}>{children}</main>
         <footer className={styles.footer}>
           <p>
             © {new Date().getFullYear()}, Built with

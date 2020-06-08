@@ -24,7 +24,11 @@ const Social: React.FC<IProps> = ({ className, path, title, dateYYYYMMDD }) => (
       >
         <img src={twitter} className={styles.icon}></img>
       </a>
-      <a href="http://www.facebook.com/share.php?u=https://blog.ojisan.io">
+      <a
+        href="http://www.facebook.com/share.php?u=https://blog.ojisan.io"
+        target="_blank"
+        rel="noopener"
+      >
         <img src={facebook} className={styles.icon}></img>
       </a>
       <img
@@ -36,6 +40,8 @@ const Social: React.FC<IProps> = ({ className, path, title, dateYYYYMMDD }) => (
       ></img>
       <a
         href={`https://github.com/sadnessOjisan/blog.ojisan.io/blob/master/src/contents/${dateYYYYMMDD}-${path}`}
+        target="_blank"
+        rel="noopener"
       >
         <img src={github} className={styles.icon}></img>
       </a>
