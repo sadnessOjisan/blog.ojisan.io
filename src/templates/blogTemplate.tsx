@@ -29,7 +29,7 @@ export default function Template({ data }: IProps) {
           <SEO
             title={markdownRemark.frontmatter.title}
             description={markdownRemark.html}
-            image={markdownRemark.frontmatter.visual.absolutePath}
+            image={markdownRemark.frontmatter.visual?.absolutePath}
           />
           <div className={styles.body}>
             <h1 className={styles.headline}>
