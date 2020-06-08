@@ -23,4 +23,8 @@ pre[class*="language-"] {
   margin: 0;
 }
 
+code[class*="language-"] {
+  color: rgba(0, 0, 0, 0.84);
+}
+
 /* [class="language-css"] */

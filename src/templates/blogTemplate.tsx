@@ -29,7 +29,9 @@ export default function Template({ data }: IProps) {
           <SEO
             title={markdownRemark.frontmatter.title}
             description={markdownRemark.rawMarkdownBody?.slice(0, 100)}
-            image={markdownRemark.frontmatter.visual?.absolutePath}
+            image={
+              markdownRemark.frontmatter.visual?.childImageSharp?.fluid?.src
+            }
           />
           <div className={styles.body}>
             <h1 className={styles.headline}>
@@ -105,7 +107,6 @@ export const pageQuery = graphql`
               ...GatsbyImageSharpFluid
             }
           }
-          absolutePath
         }
       }
       tableOfContents(absolute: false)

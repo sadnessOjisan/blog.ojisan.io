@@ -156,6 +156,8 @@ export default Layout
 
 Medium が一番分かりやすいと思うのですが、画像が「ぶわぁっ」って出るサイト見たことありませんか？
 
+![Blurの例](./blur.png)
+
 例)
 
 - https://medium.com/workshop-me/traced-svg-images-for-excellent-ux-d75a6bb4caed
