@@ -5,15 +5,15 @@ import { SeoQuery } from "../../types/graphql-types"
 
 interface IProps {
   description: string
-  lang: string
-  meta: any[]
+  meta?: any[]
   title: string
+  image?: string
 }
 
-function SEO({ description, lang, meta, title }: IProps & SeoQuery) {
+function SEO({ description, meta, title }: IProps & SeoQuery) {
   const { site } = useStaticQuery(
     graphql`
-      query SeoQuery {
+      query Seo {
         site {
           siteMetadata {
             title

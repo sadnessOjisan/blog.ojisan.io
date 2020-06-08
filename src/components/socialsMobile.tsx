@@ -36,13 +36,16 @@ const SocialMobile: React.FC<IProps> = ({
       >
         <img src={facebook} className={styles.icon}></img>
       </a>
-      <img
-        src={clap}
-        className={styles.icon}
-        onClick={() => {
-          alert("Thank you!")
-        }}
-      ></img>
+      {/* このaタグがないとsafariでのデザインが崩れる */}
+      <a>
+        <img
+          src={clap}
+          className={styles.icon}
+          onClick={() => {
+            alert("Thank you!")
+          }}
+        ></img>
+      </a>
       <a
         href={`https://github.com/sadnessOjisan/blog.ojisan.io/blob/master/src/contents/${dateYYYYMMDD}-${path}`}
         target="_blank"

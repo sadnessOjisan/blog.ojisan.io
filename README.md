@@ -2,8 +2,6 @@
 
 website: https://blog.ojisan.io
 
-deploy(netlify): https://amazing-goodall-59e3b0.netlify.app
-
 ```sh
 $ yarn develop
 

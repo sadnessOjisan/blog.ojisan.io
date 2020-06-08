@@ -65,11 +65,18 @@
 .content > h2 {
   font-size: 28px;
   line-height: 32px;
+  border-bottom: solid 2px #368ccb;
+  font-weight: bold;
 }
 
 .content > h3 {
-  font-size: 24px;
+  font-size: 20px;
   line-height: 32px;
+  font-weight: bold;
+}
+
+.content strong {
+  background: linear-gradient(transparent 75%, palegreen 25%);
 }
 
 .content > p,
@@ -80,14 +87,24 @@
 .content > h3,
 .content > ul {
   margin-bottom: 24px;
+  word-break: break-all;
 }
 
 .content li {
   margin-bottom: 8px;
 }
 
-.content > ul {
+.content ul {
   list-style: circle inside;
+  margin-left: 16px;
+}
+
+.content > ul {
+  list-style: square inside;
+}
+
+.content li p {
+  display: inline;
 }
 
 .content a {

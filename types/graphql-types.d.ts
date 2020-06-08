@@ -2247,6 +2247,7 @@ export type SiteFieldsEnum =
   | 'siteMetadata___title'
   | 'siteMetadata___description'
   | 'siteMetadata___author'
+  | 'siteMetadata___siteUrl'
   | 'polyfill'
   | 'pathPrefix'
   | 'id'
@@ -2565,17 +2566,10 @@ export type SitePageFieldsEnum =
   | 'pluginCreator___pluginOptions___prompt___host'
   | 'pluginCreator___pluginOptions___prompt___global'
   | 'pluginCreator___pluginOptions___maxWidth'
-  | 'pluginCreator___pluginOptions___pathPrefix'
-  | 'pluginCreator___pluginOptions___wrapperStyle'
-  | 'pluginCreator___pluginOptions___backgroundColor'
-  | 'pluginCreator___pluginOptions___linkImagesToOriginal'
-  | 'pluginCreator___pluginOptions___showCaptions'
-  | 'pluginCreator___pluginOptions___markdownCaptions'
-  | 'pluginCreator___pluginOptions___withWebp'
-  | 'pluginCreator___pluginOptions___tracedSVG'
-  | 'pluginCreator___pluginOptions___loading'
-  | 'pluginCreator___pluginOptions___disableBgImageOnAlpha'
-  | 'pluginCreator___pluginOptions___disableBgImage'
+  | 'pluginCreator___pluginOptions___trackingId'
+  | 'pluginCreator___pluginOptions___head'
+  | 'pluginCreator___pluginOptions___host'
+  | 'pluginCreator___pluginOptions___sitemap'
   | 'pluginCreator___pluginOptions___pathCheck'
   | 'pluginCreator___nodeAPIs'
   | 'pluginCreator___browserAPIs'
@@ -2773,17 +2767,6 @@ export type SitePluginFieldsEnum =
   | 'pluginOptions___plugins___pluginOptions___noInlineHighlight'
   | 'pluginOptions___plugins___pluginOptions___languageExtensions'
   | 'pluginOptions___plugins___pluginOptions___maxWidth'
-  | 'pluginOptions___plugins___pluginOptions___pathPrefix'
-  | 'pluginOptions___plugins___pluginOptions___wrapperStyle'
-  | 'pluginOptions___plugins___pluginOptions___backgroundColor'
-  | 'pluginOptions___plugins___pluginOptions___linkImagesToOriginal'
-  | 'pluginOptions___plugins___pluginOptions___showCaptions'
-  | 'pluginOptions___plugins___pluginOptions___markdownCaptions'
-  | 'pluginOptions___plugins___pluginOptions___withWebp'
-  | 'pluginOptions___plugins___pluginOptions___tracedSVG'
-  | 'pluginOptions___plugins___pluginOptions___loading'
-  | 'pluginOptions___plugins___pluginOptions___disableBgImageOnAlpha'
-  | 'pluginOptions___plugins___pluginOptions___disableBgImage'
   | 'pluginOptions___plugins___browserAPIs'
   | 'pluginOptions___plugins___ssrAPIs'
   | 'pluginOptions___plugins___pluginFilepath'
@@ -2811,17 +2794,12 @@ export type SitePluginFieldsEnum =
   | 'pluginOptions___prompt___host'
   | 'pluginOptions___prompt___global'
   | 'pluginOptions___maxWidth'
-  | 'pluginOptions___pathPrefix'
-  | 'pluginOptions___wrapperStyle'
-  | 'pluginOptions___backgroundColor'
-  | 'pluginOptions___linkImagesToOriginal'
-  | 'pluginOptions___showCaptions'
-  | 'pluginOptions___markdownCaptions'
-  | 'pluginOptions___withWebp'
-  | 'pluginOptions___tracedSVG'
-  | 'pluginOptions___loading'
-  | 'pluginOptions___disableBgImageOnAlpha'
-  | 'pluginOptions___disableBgImage'
+  | 'pluginOptions___trackingId'
+  | 'pluginOptions___head'
+  | 'pluginOptions___host'
+  | 'pluginOptions___sitemap'
+  | 'pluginOptions___env___development___policy'
+  | 'pluginOptions___env___production___policy'
   | 'pluginOptions___pathCheck'
   | 'nodeAPIs'
   | 'browserAPIs'
@@ -2959,18 +2937,66 @@ export type SitePluginPluginOptions = {
   languageExtensions?: Maybe<Array<Maybe<SitePluginPluginOptionsLanguageExtensions>>>;
   prompt?: Maybe<SitePluginPluginOptionsPrompt>;
   maxWidth?: Maybe<Scalars['Int']>;
-  pathPrefix?: Maybe<Scalars['String']>;
-  wrapperStyle?: Maybe<Scalars['String']>;
-  backgroundColor?: Maybe<Scalars['String']>;
-  linkImagesToOriginal?: Maybe<Scalars['Boolean']>;
-  showCaptions?: Maybe<Scalars['Boolean']>;
-  markdownCaptions?: Maybe<Scalars['Boolean']>;
-  withWebp?: Maybe<Scalars['Boolean']>;
-  tracedSVG?: Maybe<Scalars['Boolean']>;
-  loading?: Maybe<Scalars['String']>;
-  disableBgImageOnAlpha?: Maybe<Scalars['Boolean']>;
-  disableBgImage?: Maybe<Scalars['Boolean']>;
+  trackingId?: Maybe<Scalars['String']>;
+  head?: Maybe<Scalars['Boolean']>;
+  host?: Maybe<Scalars['String']>;
+  sitemap?: Maybe<Scalars['String']>;
+  env?: Maybe<SitePluginPluginOptionsEnv>;
   pathCheck?: Maybe<Scalars['Boolean']>;
+};
+
+export type SitePluginPluginOptionsEnv = {
+  development?: Maybe<SitePluginPluginOptionsEnvDevelopment>;
+  production?: Maybe<SitePluginPluginOptionsEnvProduction>;
+};
+
+export type SitePluginPluginOptionsEnvDevelopment = {
+  policy?: Maybe<Array<Maybe<SitePluginPluginOptionsEnvDevelopmentPolicy>>>;
+};
+
+export type SitePluginPluginOptionsEnvDevelopmentFilterInput = {
+  policy?: Maybe<SitePluginPluginOptionsEnvDevelopmentPolicyFilterListInput>;
+};
+
+export type SitePluginPluginOptionsEnvDevelopmentPolicy = {
+  userAgent?: Maybe<Scalars['String']>;
+  disallow?: Maybe<Array<Maybe<Scalars['String']>>>;
+};
+
+export type SitePluginPluginOptionsEnvDevelopmentPolicyFilterInput = {
+  userAgent?: Maybe<StringQueryOperatorInput>;
+  disallow?: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePluginPluginOptionsEnvDevelopmentPolicyFilterListInput = {
+  elemMatch?: Maybe<SitePluginPluginOptionsEnvDevelopmentPolicyFilterInput>;
+};
+
+export type SitePluginPluginOptionsEnvFilterInput = {
+  development?: Maybe<SitePluginPluginOptionsEnvDevelopmentFilterInput>;
+  production?: Maybe<SitePluginPluginOptionsEnvProductionFilterInput>;
+};
+
+export type SitePluginPluginOptionsEnvProduction = {
+  policy?: Maybe<Array<Maybe<SitePluginPluginOptionsEnvProductionPolicy>>>;
+};
+
+export type SitePluginPluginOptionsEnvProductionFilterInput = {
+  policy?: Maybe<SitePluginPluginOptionsEnvProductionPolicyFilterListInput>;
+};
+
+export type SitePluginPluginOptionsEnvProductionPolicy = {
+  userAgent?: Maybe<Scalars['String']>;
+  allow?: Maybe<Scalars['String']>;
+};
+
+export type SitePluginPluginOptionsEnvProductionPolicyFilterInput = {
+  userAgent?: Maybe<StringQueryOperatorInput>;
+  allow?: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePluginPluginOptionsEnvProductionPolicyFilterListInput = {
+  elemMatch?: Maybe<SitePluginPluginOptionsEnvProductionPolicyFilterInput>;
 };
 
 export type SitePluginPluginOptionsFilterInput = {
@@ -2995,17 +3021,11 @@ export type SitePluginPluginOptionsFilterInput = {
   languageExtensions?: Maybe<SitePluginPluginOptionsLanguageExtensionsFilterListInput>;
   prompt?: Maybe<SitePluginPluginOptionsPromptFilterInput>;
   maxWidth?: Maybe<IntQueryOperatorInput>;
-  pathPrefix?: Maybe<StringQueryOperatorInput>;
-  wrapperStyle?: Maybe<StringQueryOperatorInput>;
-  backgroundColor?: Maybe<StringQueryOperatorInput>;
-  linkImagesToOriginal?: Maybe<BooleanQueryOperatorInput>;
-  showCaptions?: Maybe<BooleanQueryOperatorInput>;
-  markdownCaptions?: Maybe<BooleanQueryOperatorInput>;
-  withWebp?: Maybe<BooleanQueryOperatorInput>;
-  tracedSVG?: Maybe<BooleanQueryOperatorInput>;
-  loading?: Maybe<StringQueryOperatorInput>;
-  disableBgImageOnAlpha?: Maybe<BooleanQueryOperatorInput>;
-  disableBgImage?: Maybe<BooleanQueryOperatorInput>;
+  trackingId?: Maybe<StringQueryOperatorInput>;
+  head?: Maybe<BooleanQueryOperatorInput>;
+  host?: Maybe<StringQueryOperatorInput>;
+  sitemap?: Maybe<StringQueryOperatorInput>;
+  env?: Maybe<SitePluginPluginOptionsEnvFilterInput>;
   pathCheck?: Maybe<BooleanQueryOperatorInput>;
 };
 
@@ -3056,17 +3076,6 @@ export type SitePluginPluginOptionsPluginsPluginOptions = {
   languageExtensions?: Maybe<Array<Maybe<SitePluginPluginOptionsPluginsPluginOptionsLanguageExtensions>>>;
   prompt?: Maybe<SitePluginPluginOptionsPluginsPluginOptionsPrompt>;
   maxWidth?: Maybe<Scalars['Int']>;
-  pathPrefix?: Maybe<Scalars['String']>;
-  wrapperStyle?: Maybe<Scalars['String']>;
-  backgroundColor?: Maybe<Scalars['String']>;
-  linkImagesToOriginal?: Maybe<Scalars['Boolean']>;
-  showCaptions?: Maybe<Scalars['Boolean']>;
-  markdownCaptions?: Maybe<Scalars['Boolean']>;
-  withWebp?: Maybe<Scalars['Boolean']>;
-  tracedSVG?: Maybe<Scalars['Boolean']>;
-  loading?: Maybe<Scalars['String']>;
-  disableBgImageOnAlpha?: Maybe<Scalars['Boolean']>;
-  disableBgImage?: Maybe<Scalars['Boolean']>;
 };
 
 export type SitePluginPluginOptionsPluginsPluginOptionsFilterInput = {
@@ -3076,17 +3085,6 @@ export type SitePluginPluginOptionsPluginsPluginOptionsFilterInput = {
   languageExtensions?: Maybe<SitePluginPluginOptionsPluginsPluginOptionsLanguageExtensionsFilterListInput>;
   prompt?: Maybe<SitePluginPluginOptionsPluginsPluginOptionsPromptFilterInput>;
   maxWidth?: Maybe<IntQueryOperatorInput>;
-  pathPrefix?: Maybe<StringQueryOperatorInput>;
-  wrapperStyle?: Maybe<StringQueryOperatorInput>;
-  backgroundColor?: Maybe<StringQueryOperatorInput>;
-  linkImagesToOriginal?: Maybe<BooleanQueryOperatorInput>;
-  showCaptions?: Maybe<BooleanQueryOperatorInput>;
-  markdownCaptions?: Maybe<BooleanQueryOperatorInput>;
-  withWebp?: Maybe<BooleanQueryOperatorInput>;
-  tracedSVG?: Maybe<BooleanQueryOperatorInput>;
-  loading?: Maybe<StringQueryOperatorInput>;
-  disableBgImageOnAlpha?: Maybe<BooleanQueryOperatorInput>;
-  disableBgImage?: Maybe<BooleanQueryOperatorInput>;
 };
 
 export type SitePluginPluginOptionsPluginsPluginOptionsLanguageExtensions = {
@@ -3136,12 +3134,14 @@ export type SiteSiteMetadata = {
   title?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
   author?: Maybe<Scalars['String']>;
+  siteUrl?: Maybe<Scalars['String']>;
 };
 
 export type SiteSiteMetadataFilterInput = {
   title?: Maybe<StringQueryOperatorInput>;
   description?: Maybe<StringQueryOperatorInput>;
   author?: Maybe<StringQueryOperatorInput>;
+  siteUrl?: Maybe<StringQueryOperatorInput>;
 };
 
 export type SiteSortInput = {
@@ -3167,15 +3167,15 @@ export type Unnamed_1_QueryVariables = {};
 
 export type Unnamed_1_Query = { placeholderImage?: Maybe<{ childImageSharp?: Maybe<{ fluid?: Maybe<GatsbyImageSharpFluidFragment> }> }> };
 
-export type SiteTitleQueryQueryVariables = {};
+export type SiteTitleQueryVariables = {};
 
 
-export type SiteTitleQueryQuery = { site?: Maybe<{ siteMetadata?: Maybe<Pick<SiteSiteMetadata, 'title'>> }> };
+export type SiteTitleQuery = { site?: Maybe<{ siteMetadata?: Maybe<Pick<SiteSiteMetadata, 'title'>> }> };
 
-export type SeoQueryQueryVariables = {};
+export type SeoQueryVariables = {};
 
 
-export type SeoQueryQuery = { site?: Maybe<{ siteMetadata?: Maybe<Pick<SiteSiteMetadata, 'title' | 'description' | 'author'>> }> };
+export type SeoQuery = { site?: Maybe<{ siteMetadata?: Maybe<Pick<SiteSiteMetadata, 'title' | 'description' | 'author'>> }> };
 
 export type AllBlogsQueryVariables = {};
 
@@ -3194,7 +3194,10 @@ export type BlogTemplateQuery = { markdownRemark?: Maybe<(
     Pick<MarkdownRemark, 'html' | 'tableOfContents'>
     & { frontmatter?: Maybe<(
       Pick<MarkdownRemarkFrontmatter, 'created' | 'updated' | 'path' | 'title'>
-      & { visual?: Maybe<{ childImageSharp?: Maybe<{ fluid?: Maybe<GatsbyImageSharpFluidFragment> }> }> }
+      & { visual?: Maybe<(
+        Pick<File, 'absolutePath'>
+        & { childImageSharp?: Maybe<{ fluid?: Maybe<GatsbyImageSharpFluidFragment> }> }
+      )> }
     )> }
   )> };
 
