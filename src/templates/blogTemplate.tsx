@@ -16,7 +16,6 @@ interface IProps {
 
 export default function Template({ data }: IProps) {
   const { markdownRemark } = data // data.markdownRemark holds your post data
-  console.log("markdownRemark", markdownRemark)
   return (
     <Layout>
       {markdownRemark &&

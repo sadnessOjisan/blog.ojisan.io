@@ -39,7 +39,10 @@ const Social: React.FC<IProps> = ({ className, path, title, dateYYYYMMDD }) => (
         }}
       ></img>
       <a
-        href={`https://github.com/sadnessOjisan/blog.ojisan.io/blob/master/src/contents/${dateYYYYMMDD}-${path}`}
+        href={`https://github.com/sadnessOjisan/blog.ojisan.io/blob/master/src/contents/${dateYYYYMMDD}-${path.replace(
+          "/",
+          ""
+        )}`}
         target="_blank"
         rel="noopener"
       >
