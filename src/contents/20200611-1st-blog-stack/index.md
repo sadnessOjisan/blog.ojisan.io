@@ -7,8 +7,8 @@ visual: "./visual.png"
 ---
 
 Blog を作りました！！！！！
-もうすぐ「勉強する 💪」と言い会社を辞めて 5 ヶ月、見事に堕落しきってしまい、ようやく危機感が出てきました。
-そしてその危機感が結実してこの Blog が誕生しました。
+会社を辞めて 5 ヶ月経とうとしており、ついに堕落しきった生活による危機感が生まれはじめました。
+その危機感が結実したものがこの Blog です。
 
 で、Blog を作ってみたものの書く内容が特にないので、まずはこのブログをどうやって作ったかについて書きます。
 「こういう記法にちゃんと対応できてる？」を試す目的でもあります。
@@ -25,9 +25,9 @@ Blog を作りました！！！！！
 元々は [amdx](https://github.com/mizchi/amdx) + [NextJS](https://nextjs.org/), もしくは完全自作 SSG を考えていたのですが、 **ブログは完璧を目指しているといつまでも完成しない** ということは知っているので、自分にとって自信があるツールとして Gatsby を選びました。
 
 しかし、ただ使うだけなのはチャレンジ性がなかったので、TypeScript を使ってみることにしました。
-昔の Gatsby には TypeScript サポートは充実していなかった(特に Page に型を付けるのが大変で、型注釈を書いて信じるしか無かった)のですが、いまは　 graphql-codegen 　を活用すればできそうでしたので挑戦しました。
+昔の Gatsby には TypeScript サポートが充実していなかった(特に Page に型を付けるのが大変で、型注釈を書いて信じるしか無かった)のですが、いまは graphql-codegen を活用すればできそうでしたので挑戦しました。
 
-スタイリングは CSS Module を使っています。styled-components も考えたのですが、plugin があるとはいえ静的ビルド時のパフォーマンスに確証を持てないところがあったので、採用しませんでした。そもそも動的な状態によってスタイルが変わる場面があまりなかったので、CSS Module と予想しました。CSS Module は Gatsby の Built in なので環境構築もいらないところも採用理由です。ソースコードのハイライトは [prismjs](https://prismjs.com/) でやってます。
+スタイリングは CSS Module を使っています。styled-components も考えたのですが、plugin があるとはいえ静的ビルド時のパフォーマンスに確証を持てないところがあったので、採用しませんでした。そもそも動的な状態によってスタイルが変わる場面があまりなかったので、CSS Module で十分と予想しました。CSS Module は Gatsby の Built in なので環境構築もいらないところも採用理由です。ソースコードのハイライトは [prismjs](https://prismjs.com/) でやってます。
 
 ## どのようにして作ったか
 
@@ -42,9 +42,9 @@ Gatsby とはそもそもなんぞやという方は [公式サイト](https://w
 - [mizchi.dev](https://mizchi.dev/)
   - mizchi さんは、技術文書をアウトプットする仕組みについて一番詳しい方だと思っているので、mizchi さんのやりかたに従うことから始めました。
 - [blog.uhy.ooo](https://blog.uhy.ooo/)
-  - TS + Gatsby の組み合わせで作られてそうな雰囲気を感じていたので、コードを見てるとやはりそうでした。TypeScript 採用 で詰まったときのリファレンスとして参考にしていました。実際に TOC コンポーネントの設計や tsconfing の設定時に参考にしました。
+  - TS + Gatsby の組み合わせで作られていたので、TypeScript 採用で詰まったときのリファレンスとして参考にしていました。実際に TOC コンポーネントの設計や tsconfing の設定時に参考にしました。
 - [blog.jxck.io](https://blog.jxck.io/)
-  - 長く技術ブログを続けていらっしゃっており、ずっと読まれれている Blog を運用されている方なので、このブログにある機能を揃えることにしました。
+  - 長く技術ブログを続けていらっしゃっており、ずっと読まれている方なので、このブログにある機能は揃えた方が良いだろうな考えました。
 
 具体的には、Blog に付ける機能として、
 
@@ -153,7 +153,7 @@ Gatsby が提供するライブラリの [gatsby-image](https://www.gatsbyjs.org
 gatsby-image のそれは **Traced SVG** と呼ばれており、画像のロードがされるまではサイズが小さい SVG を表示させておき、それを本体の画像が load されたときに切り替えることで初回ロードを早められます。
 gatsby-image はその trace される SVG を Build 時に作ります。
 それが [sharp](https://github.com/lovell/sharp) です。
-おそらく Gatsby を経験されたことは sharp という文字で　「あぁ！あれ！」となったかもしれません。
+おそらく Gatsby を経験されたことは sharp という文字で「あぁ！あれ！」となったかもしれません。
 そうです、開発ビルドが急に落ちたときのエラーメッセージに書かれているアレです。
 
 gatsby-image は他にも様々な画像最適化機能を提供しており、たとえば
@@ -391,7 +391,7 @@ target に ESNext を指定している理由は、Gatsby それ自体の設定�
 この設定次第で lib の default 値も変わってくるので、使っているライブラリによっては型検査に失敗します。
 型検査に影響しそうなものは全部公式の設定に揃えておこうと思い、公式とお揃いの ESNext にしました。
 
-jsx に preserve を指定しているのは Gatsby が Babel を使っているということは多段ビルドをするはずで、Gatsby 自体の設定もそうなっていたので、揃えておこうかというくらいの気持ちです。
+jsx に preserve を指定しているのは Gatsby が Babel を使っているということは多段ビルドをするはずで、実際 Gatsby 自体の設定もそうなっていたので、揃えておこうかというくらいの気持ちです。
 ここは何に設定しても、型検査**は**動くと思います。
 
 skipLibCheck は true にしています。
@@ -464,9 +464,10 @@ module.exports = {
 ```
 
 Gatsby は元になる HTML を拡張する場所がないので既存の設定方法をどうしたらいいかで悩みがちですが、大抵のことは Plugin が行ってくれます。
+
 もしくは、gatsby-browser.js を使うのも手です。
-gatsby-browser.js は respond to actions within the browser, and wrap your site in additional components. とあり、Client サイドでの実行時に何かしらの hook を書けるファイルです。
-私は「Next.js の \_app.js でやれることを書ける場所」として見ています。
+gatsby-browser.js は respond to actions within the browser, and wrap your site in additional components. とあり、Client Side での実行時に何かしらの hook を書けるファイルです。
+Next.js の \_app.js みたいなものです。
 
 ### prismjs の設定
 
@@ -571,6 +572,15 @@ pre[class*="language-"] {
 どのような CSS が良いかわかっておらず、最適なものを解説できる自信がないのでここでは触れませんが、このようにユーザー側で CSS を書き換えて頑張って対応しましょう。
 その読み取り口は gatsby-browser.js です。
 
+### Deploy
+
+Netlify にデプロイしています。
+カスタムドメインも 1click, HTTPS 対応も 1click でとても楽でした。
+ただ CNAME 設定の時に www を付けるべきかという話で、どういう時に www を付けないといけないかがよくわかっておらず、この辺はあとで勉強しようとおもいます。
+まずは動けばいいということでデプロイしています。
+
+FYI: https://www.netlify.com/blog/2017/02/28/to-www-or-not-www/
+
 ## これからすること
 
 ### 0 から作り直す
@@ -580,17 +590,17 @@ pre[class*="language-"] {
 頑張ったものの、 やってることは md を HTML に変換しているだけなので、「Gatsby 使う必要ないじゃん」っていうのが今のお気持ちです。
 もっと薄く作れるのではないかと思っています。
 
-ただ Gatsby を剥がそうと勉強すればするほど、その利便性に気付き、特に gatsby-image は強力で、やらかしがちなボトルネックを取り除いてくれるので、そこまでの実力者でない自分にとってはやっぱり Gatsby が最速になるのかなと思っています。
+ただ Gatsby を剥がそうと勉強すればするほど、その利便性に気付き、特に gatsby-image は強力で、やらかしがちなボトルネックを取り除いてくれるので、そこまでの実力がない自分にとっては G
+atsby が最速になるのかなと思っています。
 
 **Gatsby は 最適化がとても難しい [Compiler](https://www.gatsbyjs.org/blog/2017-09-13-why-is-gatsby-so-fast/) だといういうのが自分の認識です。**
 
 ### AMP 対応
 
 可能な限りいろんなものに対応させたいので AMP 対応はやりたいです。
-~~AMP は無料で使える CDN なので~~、PWAMP(PWA + AMP)構成 で初回はエッジサーバーから返して、二回目からはキャッシュから返して爆速みたいなことをやりたいです。
+~~AMP は無料で使える CDN なので~~、PWAMP(PWA + AMP)構成 で初回はエッジから返して、二回目からは Disk Cache から返して爆速みたいなことをやりたいです。
 
-AMP 対応を考えると、Gatsby が吐く HTML は amp valid ではなく、一方で Next.js は Amp Optimizer が使えるので乗り換え先としてみています。
-その点で amdx + Next.js に利があるので乗り換え先候補として見ています。
+AMP 対応を考えると、Gatsby が吐く HTML は amp valid ではなく、一方で Next.js は [AMP Optimizer](https://github.com/ampproject/amp-toolbox/tree/master/packages/optimizer) が使えるので乗り換え先としてみています。
 もちろん Amp Optimizer を埋め込んだ Gatsby Plugin を書くという手もあるのですが、これはかなり大変そうなので乗り気ではないです。
 
 ### 全文検索
