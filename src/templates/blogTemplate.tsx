@@ -53,7 +53,10 @@ export default function Template({ data }: IProps) {
             <SocialMobile
               path={markdownRemark.frontmatter.path}
               title={markdownRemark.frontmatter.title}
-              dateYYYYMMDD={markdownRemark.frontmatter.created.replace("-", "")}
+              dateYYYYMMDD={markdownRemark.frontmatter.created.replace(
+                /-/g,
+                ""
+              )}
             ></SocialMobile>
             <div className={styles.main}>
               <Social
@@ -61,7 +64,7 @@ export default function Template({ data }: IProps) {
                 path={markdownRemark.frontmatter.path}
                 title={markdownRemark.frontmatter.title}
                 dateYYYYMMDD={markdownRemark.frontmatter.created.replace(
-                  "-",
+                  /-/g,
                   ""
                 )}
               ></Social>
@@ -78,7 +81,7 @@ export default function Template({ data }: IProps) {
                 path={markdownRemark.frontmatter.path}
                 title={markdownRemark.frontmatter.title}
                 dateYYYYMMDD={markdownRemark.frontmatter.created.replace(
-                  "-",
+                  /-/g,
                   ""
                 )}
               ></TocMobile>
