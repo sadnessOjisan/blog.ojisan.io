@@ -577,7 +577,7 @@ pre[class*="language-"] {
 Netlify にデプロイしています。
 カスタムドメインも 1click, HTTPS 対応も 1click でとても楽でした。
 ただ CNAME 設定の時に www を付けるべきかという話で、どういう時に www を付けないといけないかがよくわかっておらず、この辺はあとで勉強しようとおもいます。
-まずは動けばいいということでデプロイしています。
+まずは動けばいいということで一旦デプロイしています。
 
 FYI: https://www.netlify.com/blog/2017/02/28/to-www-or-not-www/
 
@@ -598,7 +598,7 @@ atsby が最速になるのかなと思っています。
 ### AMP 対応
 
 可能な限りいろんなものに対応させたいので AMP 対応はやりたいです。
-~~AMP は無料で使える CDN なので~~、PWAMP(PWA + AMP)構成 で初回はエッジから返して、二回目からは Disk Cache から返して爆速みたいなことをやりたいです。
+~~AMP は無料で使える CDN なので~~、PWAMP(PWA + AMP)構成 で初回はエッジから返して、二回目からは Cache から返して爆速みたいなことをやりたいです。
 
 AMP 対応を考えると、Gatsby が吐く HTML は amp valid ではなく、一方で Next.js は [AMP Optimizer](https://github.com/ampproject/amp-toolbox/tree/master/packages/optimizer) が使えるので乗り換え先としてみています。
 もちろん Amp Optimizer を埋め込んだ Gatsby Plugin を書くという手もあるのですが、これはかなり大変そうなので乗り気ではないです。
