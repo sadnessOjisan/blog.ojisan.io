@@ -21,5 +21,6 @@
 }
 
 .body {
-  min-height: 74vh;
+  min-height: 80vh;
+  padding-top: 6vh;
 }

@@ -1,5 +1,5 @@
 .wrapper > div {
-  top: 32px;
+  top: calc(6vh + 32px);
   position: sticky;
 }
 

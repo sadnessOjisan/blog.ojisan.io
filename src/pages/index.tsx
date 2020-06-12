@@ -14,14 +14,32 @@ interface IProps {
 const IndexPage: React.FC<IProps> = ({ data }) => (
   <Layout>
     <SEO title="Home" />
+    <h1 style={{ fontSize: "24px", marginTop: "12px", textAlign: "center" }}>
+      勉強したことまとめブログ
+    </h1>
     {data.allMarkdownRemark.nodes.map(node => (
-      <li>
+      <li
+        style={{
+          marginTop: "12px",
+          color: "blue",
+          textDecoration: "underline",
+        }}
+      >
         <Link to={node.frontmatter?.path || "/"}>
           {node.frontmatter?.title}
         </Link>
       </li>
     ))}
-    <b style={{ color: "red", fontSize: "48px" }}>工事中</b>
+    <p
+      style={{
+        color: "red",
+        fontSize: "40px",
+        marginTop: "40px",
+        fontWeight: "bold",
+      }}
+    >
+      工事中
+    </p>
   </Layout>
 )
 

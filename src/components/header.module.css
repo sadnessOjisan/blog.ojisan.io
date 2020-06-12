@@ -1,4 +1,5 @@
 .header {
+  box-shadow: 4px 0px 5px 1px #0000006b;
   background-color: white;
   height: 6vh;
   color: #368ccb;
@@ -6,8 +7,22 @@
   align-items: center;
   padding: 0 12px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  justify-content: space-between;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1;
 }
 
 .title {
-  font-size: 28px;
+  font-size: 30px;
+}
+
+.icon {
+  width: 30px;
+  height: 30px;
+}
+
+.icon:first-child {
+  margin-right: 16px;
 }

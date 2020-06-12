@@ -1,6 +1,6 @@
 .toc > ul {
   position: sticky;
-  top: 32px;
+  top: calc(6vh + 32px);
   color: rgba(0, 0, 0, 0.84);
   font-size: 16px;
   margin-bottom: 24px;
