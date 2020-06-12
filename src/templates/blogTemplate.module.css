@@ -85,6 +85,11 @@
   background: linear-gradient(transparent 75%, palegreen 25%);
 }
 
+.content > blockquote {
+  font-size: 18px;
+  font-style: italic;
+}
+
 .content > p,
 .content > img,
 .content > div,
@@ -92,9 +97,19 @@
 .content > h2,
 .content > h3,
 .content > h4,
-.content > ul {
+.content > ul,
+.content > blockquote {
   margin-bottom: 24px;
   word-break: break-all;
+}
+
+/* ジャンプ時の固定ヘッダずれ対策 */
+.content > h1,
+.content > h2,
+.content > h3,
+.content > h4 {
+  margin-top: -6vh;
+  padding-top: 6vh;
 }
 
 .content > h3,
