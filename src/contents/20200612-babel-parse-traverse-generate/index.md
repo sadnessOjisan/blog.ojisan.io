@@ -453,7 +453,56 @@ nextTokenStart(): number {
 }
 ```
 
-現在トークンを読み進めている位置、次のトークンの位置、先読みした文字を管理しながら実行といった処理が見えるので、parser の存在が確認できます。
+現在トークンを読み進めている位置、次のトークンの位置、先読みした文字を管理しながら実行といった処理が見えるので、字句解析している雰囲気が確認できます。
+
+また
+
+```js
+parseBlockOrModuleBlockBody(body, directives, topLevel, end, afterBlockParse) {
+  ...
+  const stmt = this.parseStatement(null, topLevel);
+  ...
+  body.push(stmt);
+}
+```
+
+などのように文を parse して構築対象に push するなど構文解析している雰囲気も感じられます。
+
+実際 このように logger をしかけて
+
+```js
+const ast = parser.parse(code)
+console.log(ast)
+```
+
+parse の結果を出力すると
+
+```sh
+> node index.js
+Node {
+  type: 'File',
+  start: 0,
+  end: 11,
+  loc: SourceLocation {
+    start: Position { line: 1, column: 0 },
+    end: Position { line: 1, column: 11 }
+  },
+  errors: [],
+  program: Node {
+    type: 'Program',
+    start: 0,
+    end: 11,
+    loc: SourceLocation { start: [Position], end: [Position] },
+    sourceType: 'script',
+    interpreter: null,
+    body: [ [Node] ],
+    directives: []
+  },
+  comments: []
+}
+```
+
+と言う風に AST が構築されているのがわかります。
 
 ### traverse
 
