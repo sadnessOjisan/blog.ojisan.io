@@ -13,16 +13,17 @@ interface IProps {
   dateYYYYMMDD: string
   tableOfContents?: string | null
   className?: string
+  isOpen: boolean
+  setTocOpenerState: (isOpen: boolean) => void
 }
 
 const TocMobile: React.FC<IProps> = props => {
-  const { path, title, dateYYYYMMDD } = props
-  const [isOpen, setOpen] = React.useState(false)
+  const { path, title, dateYYYYMMDD, isOpen, setTocOpenerState } = props
   React.useEffect(() => {
     window.addEventListener(
       "hashchange",
       () => {
-        setOpen(false)
+        setTocOpenerState(false)
       },
       false
     )
@@ -40,12 +41,15 @@ const TocMobile: React.FC<IProps> = props => {
           className={cn(props.className, styles.toc)}
           dangerouslySetInnerHTML={{ __html: props.tableOfContents }}
         />
-        <button onClick={() => setOpen(false)} className={styles.opener}>
+        <button
+          onClick={() => setTocOpenerState(false)}
+          className={styles.opener}
+        >
           <img src={Close} className={styles.icon}></img>
         </button>
       </div>
     ) : (
-      <button onClick={() => setOpen(true)} className={styles.opener}>
+      <button onClick={() => setTocOpenerState(true)} className={styles.opener}>
         <img src={Open} className={styles.icon}></img>
       </button>
     )

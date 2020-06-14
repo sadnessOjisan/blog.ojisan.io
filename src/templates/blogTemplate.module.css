@@ -1,3 +1,7 @@
+.modalOpenBody {
+  z-index: 1;
+}
+
 .headline {
   color: rgba(0, 0, 0, 0.84);
   line-height: 48px;
@@ -103,13 +107,22 @@
   word-break: break-all;
 }
 
-/* ジャンプ時の固定ヘッダずれ対策 */
+/* ジャンプ時の固定ヘッダ(9vh)ずれ対策(1vhは余白として10vhにしている) */
 .content > h1,
 .content > h2,
 .content > h3,
 .content > h4 {
-  margin-top: -6vh;
-  padding-top: 6vh;
+  margin-top: -10vh;
+  padding-top: 10vh;
+}
+
+/* ジャンプ時の固定ヘッダ(9vh)ずれ対策(1vhは余白として10vhにしている) */
+.content > h1 > a,
+.content > h2 > a,
+.content > h3 > a,
+.content > h4 > a {
+  /* .anchor.before の詳細度に勝てないのでimportant使う */
+  top: 10vh !important;
 }
 
 .content > h3,

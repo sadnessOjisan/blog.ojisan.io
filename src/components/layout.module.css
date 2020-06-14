@@ -1,3 +1,10 @@
+.body {
+  min-height: 85vh;
+  /* 9vh は headerの高さ分 */
+  padding-top: 9vh;
+  background-color: whitesmoke;
+}
+
 .footer {
   margin-bottom: 0;
   margin-top: auto;
@@ -5,7 +12,7 @@
   padding: 8px;
   text-align: center;
   color: white;
-  height: 20vh;
+  min-height: 15vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -18,9 +25,4 @@
 .footer > p > a {
   text-decoration: underline;
   color: aquamarine;
-}
-
-.body {
-  min-height: 80vh;
-  padding-top: 6vh;
 }

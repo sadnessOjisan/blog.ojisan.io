@@ -75,6 +75,10 @@ function SEO({ description, meta, title, image }: IProps & SeoQuery) {
           name: `twitter:image`,
           content: `https://blog.ojisan.io${image}`,
         },
+        {
+          name: "google-site-verification",
+          content: "fkXw7Bl_HSSeB9JeI3GWJ9fnhax0X_MHngOd7ji7FmM",
+        },
       ].concat(meta || [])}
     />
   )

@@ -1,12 +1,14 @@
 .opener {
   position: fixed;
-  right: 12px;
-  bottom: 12px;
+  right: 16px;
+  bottom: 16px;
   width: 60px;
   height: 60px;
   background-color: #368ccb;
   border-radius: 30px;
   text-align: center;
+  box-shadow: 2px 2px 5px 0px #0000006b;
+  border: solid 2px white;
 }
 
 .wrapper {
@@ -16,6 +18,8 @@
   width: 100vw;
   height: 100vh;
   background-color: whitesmoke;
+  z-index: 2;
+  overflow: scroll;
 }
 
 .socialIcons {

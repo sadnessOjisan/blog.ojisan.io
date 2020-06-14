@@ -1,6 +1,7 @@
 .toc > ul {
   position: sticky;
-  top: calc(6vh + 32px);
+  /* 9vh は headerの高さ分 */
+  top: calc(9vh + 32px);
   color: rgba(0, 0, 0, 0.84);
   font-size: 16px;
   margin-bottom: 24px;
