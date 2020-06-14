@@ -1,9 +1,9 @@
 {
-  "name": "gatsby-starter-default",
+  "name": "blog.ojisan.io",
   "private": true,
-  "description": "A simple starter to get up and developing quickly with Gatsby",
-  "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "description": "sadnessOjisanが就職活動に向けた実績作りのために嫌々書いてるブログ",
+  "version": "1.2.0",
+  "author": "sadnessOjisan",
   "dependencies": {
     "classnames": "^2.2.6",
     "gatsby": "^2.22.15",
@@ -38,7 +38,7 @@
     "prettier": "2.0.5"
   },
   "keywords": [
-    "gatsby"
+    "gatsby","blog","tech-blog"
   ],
   "license": "MIT",
   "scripts": {
@@ -52,9 +52,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/gatsbyjs/gatsby-starter-default"
+    "url": "https://github.com/sadnessOjisan/blog.ojisan.io"
   },
   "bugs": {
-    "url": "https://github.com/gatsbyjs/gatsby/issues"
+    "url": "https://github.com/sadnessOjisan/blog.ojisan.io/issues"
   }
 }
