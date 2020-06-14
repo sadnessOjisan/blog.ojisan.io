@@ -1,5 +1,6 @@
 .wrapper > div {
-  top: calc(6vh + 32px);
+  /* 9vh は headerの高さ分 */
+  top: calc(9vh + 32px);
   position: sticky;
 }
 
