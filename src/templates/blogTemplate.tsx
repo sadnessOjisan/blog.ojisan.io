@@ -1,6 +1,7 @@
 import * as React from "react"
 import { graphql } from "gatsby"
 import Image from "gatsby-image"
+import cn from "classnames"
 import styles from "./blogTemplate.module.css"
 import { BlogTemplateQuery } from "../../types/graphql-types"
 import Layout from "../components/layout"
@@ -15,7 +16,8 @@ interface IProps {
 }
 
 export default function Template({ data }: IProps) {
-  const { markdownRemark } = data // data.markdownRemark holds your post data
+  const [isOpen, setTocOpenerState] = React.useState(false)
+  const { markdownRemark } = data
   return (
     <Layout>
       {markdownRemark &&
@@ -32,7 +34,11 @@ export default function Template({ data }: IProps) {
               markdownRemark.frontmatter.visual?.childImageSharp?.fluid?.src
             }
           />
-          <div className={styles.body}>
+          <div
+            className={
+              isOpen ? cn(styles.body, styles.modalOpenBody) : styles.body
+            }
+          >
             <h1 className={styles.headline}>
               {markdownRemark.frontmatter.title}
             </h1>
@@ -76,6 +82,10 @@ export default function Template({ data }: IProps) {
                 className={styles.tocwrapper}
               ></Toc>
               <TocMobile
+                isOpen={isOpen}
+                setTocOpenerState={(isOpen: boolean) =>
+                  setTocOpenerState(isOpen)
+                }
                 tableOfContents={markdownRemark.tableOfContents}
                 path={markdownRemark.frontmatter.path}
                 title={markdownRemark.frontmatter.title}

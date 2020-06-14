@@ -1,8 +1,7 @@
 .header {
-  box-shadow: 4px 0px 5px 1px #0000006b;
+  box-shadow: 1px 1px 5px -1px #0000006b;
   background-color: white;
   height: 9vh;
-  color: #368ccb;
   display: flex;
   align-items: center;
   padding: 0 12px;
@@ -12,6 +11,7 @@
   top: 0;
   width: 100%;
   z-index: 1;
+  border-bottom: solid 1px #0000006b;
 }
 
 .title {

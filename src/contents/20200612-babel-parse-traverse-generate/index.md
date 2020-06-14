@@ -839,7 +839,7 @@ export default declare((api, options) => {
 ```
 
 ここでは visitor とあり enter も exit も出てきてないのですが、@babel/traverse が内部で enter などを持つように変換しているため大丈夫です。
-enter と exit を持つことは travese の explode が確証してくれて、その中には `ensureEntranceObjects(visitor)` という関数があります。
+enter と exit を持つことは travese の explode が確証してくれて、その中には ensureEntranceObjects(visitor) という関数があります。
 
 この関数は
 
