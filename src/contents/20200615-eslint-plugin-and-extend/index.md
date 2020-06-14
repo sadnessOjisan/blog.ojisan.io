@@ -1,5 +1,5 @@
 ---
-path: /eslint-plugin-extend
+path: /eslint-plugin-and-extend
 created: "2020-06-15"
 title: ESLint の Plugin と Extends の違い
 visual: "./visual.png"
