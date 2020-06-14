@@ -15,7 +15,7 @@ const IndexPage: React.FC<IProps> = ({ data }) => (
   <Layout>
     <SEO title="Home" />
     <h1 style={{ fontSize: "24px", marginTop: "12px", textAlign: "center" }}>
-      勉強したことまとめブログ
+      そろそろ飽きそうブログ
     </h1>
     {data.allMarkdownRemark.nodes.map(node => (
       <li
