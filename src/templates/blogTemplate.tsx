@@ -34,11 +34,7 @@ export default function Template({ data }: IProps) {
               markdownRemark.frontmatter.visual?.childImageSharp?.fluid?.src
             }
           />
-          <div
-            className={
-              isOpen ? cn(styles.body, styles.modalOpenBody) : styles.body
-            }
-          >
+          <div className={isOpen && styles.modalOpenBody}>
             <h1 className={styles.headline}>
               {markdownRemark.frontmatter.title}
             </h1>
