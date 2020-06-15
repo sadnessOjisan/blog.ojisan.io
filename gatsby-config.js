@@ -97,6 +97,11 @@ module.exports = {
       resolve: `gatsby-transformer-remark`,
       options: {
         plugins: [
+          // NOTE: title を前におく必要あり
+          {
+            resolve: "gatsby-remark-code-titles",
+            options: {},
+          },
           {
             resolve: `gatsby-remark-prismjs`,
             options: {
@@ -126,7 +131,14 @@ module.exports = {
               },
             },
           },
-          `gatsby-remark-autolink-headers`,
+          {
+            resolve: `gatsby-remark-autolink-headers`,
+            options: {
+              // そこにジャンプした時の上からの余白
+              offsetY: `10`,
+              className: `anchor-link`,
+            },
+          },
           {
             resolve: `gatsby-remark-images`,
             options: {
