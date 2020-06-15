@@ -104,21 +104,29 @@ module.exports = {
 Extends はルールを拡張できる機能として説明されてはいますが、私は extends を使った経験からしてこの説明は不十分だと感じました。
 
 そこでプラグイン開発者向けのページも確認してみましょう。
-[Using a Shareable Config](https://eslint.org/docs/developer-guide/shareable-configs#using-a-shareable-config) には Shareable configs are designed to work with the `extends` feature of `.eslintrc` files. とあり、どうやら **extends は sharable config を実現する機能** のようです。
+[Using a Shareable Config](https://eslint.org/docs/developer-guide/shareable-configs#using-a-shareable-config) には Shareable configs are designed to work with the `extends` feature of `.eslintrc` files. とあり、どうやら **shareable config は extends と協調する機能** のようです。
+ユーザー向けドキュメントの[Extending Configuration Files](https://eslint.org/docs/user-guide/configuring#extending-configuration-files)を再度確認すると、
 
-### sharable config とは何か
+> The extends property value is a string that specifies a configuration (either a path to a config file, the name of a shareable config, eslint:recommended, or eslint:all)
 
-では sharable config とは何かを探ってみましょう。
+(↑ 原文と比べ少しだけ説明を端折っています)
+
+とあり、Extends は config file の path もしくは shareable config の名前を受け取ることができます。
+どうやら、**extends で指定されているものは shareable config**です。
+
+### shareable config とは何か
+
+では shareable config とは何かを探ってみましょう。
 ドキュメントには Shareable configs are simply npm packages that export a configuration object. とあります。
 つまり設定を object として export しているライブラリを指すようです。
 
 さらに読み進めると Make sure the module name begins with eslint-config-, such as eslint-config-myconfig. ともあります。
-皆さんも経験あると思うのですが、ESLint の設定をする時に入れる eslint-config-xxxx のようなライブラリが extends のようです。
+皆さんも経験あると思うのですが、ESLint の設定をする時に入れる eslint-config-xxxx のようなライブラリが shareable config のようです。
 
-では次の疑問はこの sharable config は何をしているかということです。
+では次の疑問はこの shareable config は何をしているかということです。
 extends は rule の拡張を行うものという説明もありましたが、はたしてそれは正しい説明なのでしょうか。
 
-### sharable config は rule 以外も追加している
+### shareable config は rule 以外も追加している
 
 先ほどの開発者向けドキュメントを読むと、設定ファイルの例として
 
@@ -154,9 +162,13 @@ module.exports = {
 }
 ```
 
-どうやら、plugin は sharable config に含めることができるようです。
+どうやら、plugin は shareable config に含めることができるようです。
 
-実際のところ、たとえば
+### shareable config は plugin にも定義できる
+
+plugin と shareable config の関係はそれだけではありません。
+
+extends の指定で、
 
 ```javascript
 "extends": [
@@ -170,11 +182,20 @@ extends の項目に plugin という言葉が出てきています。
 
 これは plugin に含まれている config を extends に持ってきているためです。
 つまり、extends は eslint-config-xxx **以外**からも設定できることに注意しましょう。
-**sharable config のパッケージ名は eslint-config-xxx という名前を付ける慣習になっていますが、そもそも plugin に config を混ぜれるので必ずしも全ての extends がそのような命名でセットされるとは限りません。**
+**shareable config のパッケージ名は eslint-config-xxx という名前を付ける慣習になっていますが、そもそも plugin に config を混ぜれるので必ずしも全ての extends がそのような命名でセットされるとは限りません。**
 その気になればローカルファイルに config を書いて、それを extends にロードすることも可能です。
 config を自作するときやルールを一部書き換えたい時に使えるテクニックです。
 
 FYI: https://eslint.org/docs/developer-guide/shareable-configs#local-config-file-resolution
+
+### つまり Extends の挙動をまとめると
+
+- .eslintrc.js の extends に指定する値は shareable config(名前もしくは path)
+- plugin は shareable config の提供もできる
+- shareable config では使用 plugin の設定も行える
+
+その結果、extends には eslint-config-xxx の xxx だけでなく plugin:hoge といった指定が可能で、その hoge plugin の extends には hoge plugin の指定が書かれており、hoge plugin を入れて extends を書けば hoge plugin の設定もされるといったことが可能になっていたわけです。
+序盤に書いた私の混乱の「Plugin の設定をしていないのに Plugin が設定されている。Plugin って何？」というのはそれが原因です。
 
 ## plugin をセットする extends を読む
 
@@ -182,7 +203,14 @@ plugin をセットする extends の例として、[eslint-plugin-node](https:/
 この plugin の面白いところは plugin を設定ファイルに書かなくても plugin が使えることです。
 ただし、plugin 自体は install する必要があります。
 
-このような設定ファイルを用意します。
+簡単な実験をしてみましょう。
+まず実験に使うライブラリを入れます。
+
+```sh
+npm i -D eslint eslint-plugin-node
+```
+
+そしてこのような設定ファイルを用意します。
 
 ```javascript:title=.eslintrc.js
 module.exports = {
@@ -190,7 +218,7 @@ module.exports = {
 }
 ```
 
-そしてこのようなコードを書きます。
+lint 対象としてこのようなファイルを作ります。
 
 ```javascript:title=index.js
 exports = {
@@ -302,6 +330,8 @@ module.exports = {
 実際この plugin はこれらのルールを読み込んでいます。(index.js)
 
 ![pluginが読み込むルールたち](./rules.png)
+
+FYI: https://github.com/ojisan-toybox/eslint-plugin-node-config　(実験に使ったコード)
 
 私個人の意見ですが、この plugin に extends を入れるという挙動で一番悩まされるのは **ESLint と Prettier の設定を共存させるときの設定**です。
 共存設定に悩む人は多くいると思いますが、あれの混乱も plugin & extends の切り分けが原因でして、eslint-plugin-node と同じく plugin の config が plugin をセットしていることを知った上で設定する必要があります。
