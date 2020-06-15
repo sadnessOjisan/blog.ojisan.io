@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - "*"
+  pull_request:
+    branches:
+      - "*"
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - name: yarn install
+        run: |
+          yarn install
+      - name: format
+        run: |
+          yarn format:ci
+      # TODO: lint
+      - name: type check
+        run: |
+          yarn typecheck
