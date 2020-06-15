@@ -22,6 +22,10 @@ gql
 $ open http://localhost:8000/___graphql
 ```
 
+gatsby-image が完璧ではないので手動で圧縮しよう
+
+https://tinypng.com/
+
 ### deploy
 
 ```sh
