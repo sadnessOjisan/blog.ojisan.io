@@ -194,8 +194,8 @@ FYI: https://eslint.org/docs/developer-guide/shareable-configs#local-config-file
 - plugin は shareable config の提供もできる
 - shareable config では使用 plugin の設定も行える
 
-その結果、extends には eslint-config-xxx の xxx だけでなく plugin:hoge といった指定が可能で、その hoge plugin の extends には hoge plugin の指定が書かれており、hoge plugin を入れて extends を書けば hoge plugin の設定もされるといったことが可能になっていたわけです。
-序盤に書いた私の混乱の「Plugin の設定をしていないのに Plugin が設定されている。Plugin って何？」というのはそれが原因です。
+その結果、extends には eslint-config-xxx の xxx だけでなく plugin:hoge といった指定が可能で、その hoge plugin の extends には hoge plugin の指定が書かれており、hoge plugin を入れて extends を書けば 、hoge plugin の指定をせずとも hoge plugin が利用可能になっていたわけです。
+序盤に書いた私の混乱の「Plugin の設定をしていないのに Plugin が設定されている。Plugin って何？」といった疑問はこの挙動が原因です。
 
 ## plugin をセットする extends を読む
 
