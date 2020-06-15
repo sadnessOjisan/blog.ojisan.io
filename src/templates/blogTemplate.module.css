@@ -107,22 +107,6 @@
   word-break: break-all;
 }
 
-/* ジャンプ時の固定ヘッダ(9vh)ずれ対策(1vhは余白として10vhにしている) */
-.content > h1,
-.content > h2,
-.content > h3,
-.content > h4 {
-  margin-top: -10vh;
-  padding-top: 10vh;
-}
-
-.content a {
-  /* paddingがlinkとなってコピペできないのでそれをやめるために、そもそもリンクを消す。
-  FIXME: リンク機能も欲しいので恒久対応は考える
-  */
-  display: none;
-}
-
 .content > h3,
 .content > h4 {
   margin-bottom: 12px;

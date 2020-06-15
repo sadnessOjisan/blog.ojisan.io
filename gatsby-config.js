@@ -135,7 +135,7 @@ module.exports = {
             resolve: `gatsby-remark-autolink-headers`,
             options: {
               // そこにジャンプした時の上からの余白
-              offsetY: `10`,
+              offsetY: `100`,
               className: `anchor-link`,
             },
           },
