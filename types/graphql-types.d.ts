@@ -2586,6 +2586,8 @@ export type SitePageFieldsEnum =
   | 'pluginCreator___pluginOptions___prompt___user'
   | 'pluginCreator___pluginOptions___prompt___host'
   | 'pluginCreator___pluginOptions___prompt___global'
+  | 'pluginCreator___pluginOptions___offsetY'
+  | 'pluginCreator___pluginOptions___className'
   | 'pluginCreator___pluginOptions___maxWidth'
   | 'pluginCreator___pluginOptions___trackingId'
   | 'pluginCreator___pluginOptions___head'
@@ -2787,6 +2789,8 @@ export type SitePluginFieldsEnum =
   | 'pluginOptions___plugins___pluginOptions___showLineNumbers'
   | 'pluginOptions___plugins___pluginOptions___noInlineHighlight'
   | 'pluginOptions___plugins___pluginOptions___languageExtensions'
+  | 'pluginOptions___plugins___pluginOptions___offsetY'
+  | 'pluginOptions___plugins___pluginOptions___className'
   | 'pluginOptions___plugins___pluginOptions___maxWidth'
   | 'pluginOptions___plugins___browserAPIs'
   | 'pluginOptions___plugins___ssrAPIs'
@@ -2819,6 +2823,8 @@ export type SitePluginFieldsEnum =
   | 'pluginOptions___prompt___user'
   | 'pluginOptions___prompt___host'
   | 'pluginOptions___prompt___global'
+  | 'pluginOptions___offsetY'
+  | 'pluginOptions___className'
   | 'pluginOptions___maxWidth'
   | 'pluginOptions___trackingId'
   | 'pluginOptions___head'
@@ -2964,6 +2970,8 @@ export type SitePluginPluginOptions = {
   noInlineHighlight?: Maybe<Scalars['Boolean']>;
   languageExtensions?: Maybe<Array<Maybe<SitePluginPluginOptionsLanguageExtensions>>>;
   prompt?: Maybe<SitePluginPluginOptionsPrompt>;
+  offsetY?: Maybe<Scalars['String']>;
+  className?: Maybe<Scalars['String']>;
   maxWidth?: Maybe<Scalars['Int']>;
   trackingId?: Maybe<Scalars['String']>;
   head?: Maybe<Scalars['Boolean']>;
@@ -3066,6 +3074,8 @@ export type SitePluginPluginOptionsFilterInput = {
   noInlineHighlight?: Maybe<BooleanQueryOperatorInput>;
   languageExtensions?: Maybe<SitePluginPluginOptionsLanguageExtensionsFilterListInput>;
   prompt?: Maybe<SitePluginPluginOptionsPromptFilterInput>;
+  offsetY?: Maybe<StringQueryOperatorInput>;
+  className?: Maybe<StringQueryOperatorInput>;
   maxWidth?: Maybe<IntQueryOperatorInput>;
   trackingId?: Maybe<StringQueryOperatorInput>;
   head?: Maybe<BooleanQueryOperatorInput>;
@@ -3121,6 +3131,8 @@ export type SitePluginPluginOptionsPluginsPluginOptions = {
   noInlineHighlight?: Maybe<Scalars['Boolean']>;
   languageExtensions?: Maybe<Array<Maybe<SitePluginPluginOptionsPluginsPluginOptionsLanguageExtensions>>>;
   prompt?: Maybe<SitePluginPluginOptionsPluginsPluginOptionsPrompt>;
+  offsetY?: Maybe<Scalars['String']>;
+  className?: Maybe<Scalars['String']>;
   maxWidth?: Maybe<Scalars['Int']>;
 };
 
@@ -3130,6 +3142,8 @@ export type SitePluginPluginOptionsPluginsPluginOptionsFilterInput = {
   noInlineHighlight?: Maybe<BooleanQueryOperatorInput>;
   languageExtensions?: Maybe<SitePluginPluginOptionsPluginsPluginOptionsLanguageExtensionsFilterListInput>;
   prompt?: Maybe<SitePluginPluginOptionsPluginsPluginOptionsPromptFilterInput>;
+  offsetY?: Maybe<StringQueryOperatorInput>;
+  className?: Maybe<StringQueryOperatorInput>;
   maxWidth?: Maybe<IntQueryOperatorInput>;
 };
 

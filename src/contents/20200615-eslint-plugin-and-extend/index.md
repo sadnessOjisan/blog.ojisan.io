@@ -1,16 +1,17 @@
 ---
 path: /eslint-plugin-and-extend
 created: "2020-06-15"
-title: ESLint の Plugin と Extends の違い
+updated: "2020-06-15"
+title: ESLint の Plugin と Extend の違い
 visual: "./visual.png"
 ---
 
-ESLint の Plugin と Extends の違いを説明できますか？
-違いを知っている人からすれば（というかそもそも全然違うものなので）、「え、それ悩む？」となるところなのですが、ユーザー向けドキュメントには Plugin の定義が書かれておらず、Extends の説明も不十分で、さらに Plugin の設定をする Extends なんてものがあるお陰で、慣れないうちは混乱すると思います。
+ESLint の Plugin と Extend の違いを説明できますか？
+違いを知っている人からすれば（というかそもそも全然違うものなので）、「え、それ悩む？」となるところなのですが、ユーザー向けドキュメントには Plugin の定義が書かれておらず、Extend の説明も不十分で、さらに Plugin の設定をする Extend なんてものがあるお陰で、慣れないうちは混乱すると思います。
 特に最後の事象は個人的には印象的で、「Plugin の設定をしていないのに Plugin が設定されている。Plugin って何？」といった混乱の原因になっていました。
 この混乱は ESLint の全体感を掴むと混乱しなくなるのでそういう話を書きたいと思います。
 
-結論を言うと、**Extends は Extends です。設定を Extend する役割を持っています。Plugin は Plugin です。設定を Plug する役割を持っています。**
+結論を言うと、**Extend は Extend です。設定を Extend する役割を持っています。Plugin は Plugin です。設定を Plug する役割を持っています。**
 
 ## ESLint はルールを用いてコードを静的検証する
 
@@ -35,8 +36,8 @@ rule を中心に考えると ESLint の理解はしやすくなります。(は
 
 FYI: https://eslint.org/docs/developer-guide/architecture
 
-なぜ Extends と Plugin の説明で rule の話から始めたかと言うと、それらは共に rule を制御する機能だからです。
-**Plugin は rule を追加でき、Extends は rule の setting を設定できます。**
+なぜ Extend と Plugin の説明で rule の話から始めたかと言うと、それらは共に rule を制御する機能だからです。
+**Plugin は rule(つまり静的検証する関数そのもの) を追加でき、Extend は rule の setting を設定できます。**
 
 ## Plugin はルールを追加する
 
@@ -57,13 +58,13 @@ Plugin が何か、ユーザーガイドの [configuring-plugins](https://eslint
 一般的に plugin は何かを注入する機構なので、ここでもそれらを注入してくれるものだと考えておきましょう。
 実際 plugin の実装を読む限りはルールを注入しており、そのような使われた方が多いと言う点は合意が得られると思います。
 
-## Extends の役割について
+## Extend の役割について
 
-Extends の説明を公式ドキュメントで見てみましょう。
+Extend の説明を公式ドキュメントで見てみましょう。
 
 Configuring ESLint というドキュメントの[Extending Configuration Files](https://eslint.org/docs/user-guide/configuring#extending-configuration-files)には A configuration file can extend the set of enabled rules from base configurations.とあり、どうやらルールを拡張できる機能と説明しています。
 
-### Extends はルールの setting をする
+### Extend はルールの setting をする
 
 たとえばこのような設定ファイルがあるとします。
 
@@ -188,7 +189,7 @@ config を自作するときやルールを一部書き換えたい時に使え�
 
 FYI: https://eslint.org/docs/developer-guide/shareable-configs#local-config-file-resolution
 
-### つまり Extends の挙動をまとめると
+### つまり Extend の挙動をまとめると
 
 - .eslintrc.js の extends に指定する値は shareable config(名前もしくは path)
 - plugin は shareable config の提供もできる
@@ -339,5 +340,5 @@ FYI: https://github.com/ojisan-toybox/eslint-plugin-node-config　(実験に使�
 
 ## 結論
 
-**Extends は Extends, その名の通り設定ファイルを拡張するものです。Plugin は Plugin, その名の通り機能を追加するものです。Plugin を使うという設定を内部で Extend できるため、ユーザーは Plugin の設定を書かなくても済んでいる場合があった（そしてそのケースが多い）**というのがことの顛末です。
+**Extend は Extend, その名の通り設定ファイルを拡張するものです。Plugin は Plugin, その名の通り機能を追加するものです。Plugin を使うという設定を内部で Extend できるため、ユーザーは Plugin の設定を書かなくても済んでいる場合があった（そしてそのケースが多い）**というのがことの顛末です。
 ユーザー向けドキュメントからは読み取りにくいところはありますが、プラグインや ESLint そのものの開発者向けドキュメントにはヒントがあったりするので、ESLint で何か詰まったときは開発者向けドキュメントも読んでみると良いかもしれません。

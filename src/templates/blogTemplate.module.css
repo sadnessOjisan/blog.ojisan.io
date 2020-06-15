@@ -116,13 +116,11 @@
   padding-top: 10vh;
 }
 
-/* ジャンプ時の固定ヘッダ(9vh)ずれ対策(1vhは余白として10vhにしている) */
-.content > h1 > a,
-.content > h2 > a,
-.content > h3 > a,
-.content > h4 > a {
-  /* .anchor.before の詳細度に勝てないのでimportant使う */
-  top: 10vh !important;
+.content a {
+  /* paddingがlinkとなってコピペできないのでそれをやめるために、そもそもリンクを消す。
+  FIXME: リンク機能も欲しいので恒久対応は考える
+  */
+  display: none;
 }
 
 .content > h3,
