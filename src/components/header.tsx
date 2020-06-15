@@ -11,14 +11,20 @@ interface IProps {
 const Header: React.FC<IProps> = ({ siteTitle }) => (
   <header className={styles.header}>
     <h1 className={styles.title}>
-      <Link to="/">😭</Link>
+      <Link to="/">🎉</Link>
     </h1>
     <div>
-      <a href="https://twitter.com/sadnessOjisan">
-        <img src={twitter} className={styles.icon}></img>
+      <a
+        href="https://twitter.com/sadnessOjisan"
+        aria-label="twitterへのリンク"
+      >
+        <img src={twitter} className={styles.icon} alt="twitter-logo"></img>
       </a>
-      <a href="https://github.com/sadnessOjisan/blog.ojisan.io">
-        <img src={github} className={styles.icon}></img>
+      <a
+        href="https://github.com/sadnessOjisan/blog.ojisan.io"
+        aria-label="githubへのリンク"
+      >
+        <img src={github} className={styles.icon} alt="github-logo"></img>
       </a>
     </div>
   </header>

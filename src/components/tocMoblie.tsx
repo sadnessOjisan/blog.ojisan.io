@@ -44,13 +44,18 @@ const TocMobile: React.FC<IProps> = props => {
         <button
           onClick={() => setTocOpenerState(false)}
           className={styles.opener}
+          aria-label="目次を閉じる"
         >
-          <img src={Close} className={styles.icon}></img>
+          <img src={Close} className={styles.icon} alt="toc-closer"></img>
         </button>
       </div>
     ) : (
-      <button onClick={() => setTocOpenerState(true)} className={styles.opener}>
-        <img src={Open} className={styles.icon}></img>
+      <button
+        onClick={() => setTocOpenerState(true)}
+        className={styles.opener}
+        aria-label="目次を開く"
+      >
+        <img src={Open} className={styles.icon} alt="toc-opener"></img>
       </button>
     )
   ) : (

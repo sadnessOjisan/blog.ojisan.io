@@ -26,15 +26,17 @@ const SocialMobile: React.FC<IProps> = ({
         href={`https://twitter.com/intent/tweet?text=${title}%0ahttps://blog.ojisan.io${path}`}
         target="_blank"
         rel="noopener"
+        aria-label="twitterへのリンク"
       >
-        <img src={twitter} className={styles.icon}></img>
+        <img src={twitter} className={styles.icon} alt="twitter-logo"></img>
       </a>
       <a
         href="http://www.facebook.com/share.php?u=https://blog.ojisan.io"
         target="_blank"
         rel="noopener"
+        aria-label="facebookへのリンク"
       >
-        <img src={facebook} className={styles.icon}></img>
+        <img src={facebook} className={styles.icon} alt="facebook-logo"></img>
       </a>
       {/* このaタグがないとsafariでのデザインが崩れる */}
       <a>
@@ -44,6 +46,7 @@ const SocialMobile: React.FC<IProps> = ({
           onClick={() => {
             alert("Thank you!")
           }}
+          alt="clap-logo"
         ></img>
       </a>
       <a
@@ -53,8 +56,9 @@ const SocialMobile: React.FC<IProps> = ({
         )}`}
         target="_blank"
         rel="noopener"
+        aria-label="githubへのリンク"
       >
-        <img src={github} className={styles.icon}></img>
+        <img src={github} className={styles.icon} alt="github-logo"></img>
       </a>
     </div>
   </div>
