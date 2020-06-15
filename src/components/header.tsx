@@ -3,6 +3,7 @@ import { Link } from "gatsby"
 import styles from "./header.module.css"
 import twitter from "../images/twitter.svg"
 import github from "../images/github.svg"
+import rss from "../images/rss.svg"
 
 interface IProps {
   siteTitle: string
@@ -14,7 +15,10 @@ const Header: React.FC<IProps> = ({ siteTitle }) => (
       <Link to="/">🎉</Link>
     </h1>
     <div>
-      <a
+      <a href="https://blog.ojisan.io/rss.xml" aria-label="rssへのリンク">
+        <img src={rss} className={styles.icon} alt="rss-logo"></img>
+      </a>
+       <a
         href="https://twitter.com/sadnessOjisan"
         aria-label="twitterへのリンク"
       >
