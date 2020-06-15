@@ -78,8 +78,8 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `gatsby-starter-default`,
-        short_name: `starter`,
+        name: `blog.ojisan.io`,
+        short_name: `blog`,
         start_url: `/`,
         background_color: `#663399`,
         theme_color: `#663399`,
@@ -97,11 +97,6 @@ module.exports = {
       resolve: `gatsby-transformer-remark`,
       options: {
         plugins: [
-          // NOTE: title を前におく必要あり
-          {
-            resolve: "gatsby-remark-code-titles",
-            options: {},
-          },
           {
             resolve: `gatsby-remark-prismjs`,
             options: {
