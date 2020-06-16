@@ -1,8 +1,8 @@
 .body {
   min-height: 85vh;
   /* 9vh は headerの高さ分 */
-  padding-top: 9vh;
-  background-color: whitesmoke;
+  padding-top: 7vh;
+  background-color: #eeeef1;
 }
 
 .footer {

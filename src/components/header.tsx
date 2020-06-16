@@ -12,13 +12,13 @@ interface IProps {
 const Header: React.FC<IProps> = ({ siteTitle }) => (
   <header className={styles.header}>
     <h1 className={styles.title}>
-      <Link to="/">🎉</Link>
+      <Link to="/">BLOG</Link>
     </h1>
     <div>
       <a href="https://blog.ojisan.io/rss.xml" aria-label="rssへのリンク">
         <img src={rss} className={styles.icon} alt="rss-logo"></img>
       </a>
-       <a
+      <a
         href="https://twitter.com/sadnessOjisan"
         aria-label="twitterへのリンク"
       >

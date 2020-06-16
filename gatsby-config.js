@@ -87,6 +87,7 @@ module.exports = {
         icon: `src/images/icon.png`, // This path is relative to the root of the site.
       },
     },
+    `gatsby-plugin-offline`,
     {
       resolve: "gatsby-plugin-graphql-codegen",
       options: {
@@ -97,7 +98,6 @@ module.exports = {
       resolve: `gatsby-transformer-remark`,
       options: {
         plugins: [
-          // NOTE: title を前におく必要あり
           {
             resolve: "gatsby-remark-code-titles",
             options: {},
@@ -108,22 +108,8 @@ module.exports = {
               classPrefix: "language-",
               inlineCodeMarker: null,
               aliases: {},
-              showLineNumbers: true,
+              showLineNumbers: false,
               noInlineHighlight: false,
-              languageExtensions: [
-                {
-                  language: "superscript",
-                  extend: "javascript",
-                  definition: {
-                    superscript_types: /(SuperType)/,
-                  },
-                  insertBefore: {
-                    function: {
-                      superscript_keywords: /(superif|superelse)/,
-                    },
-                  },
-                },
-              ],
               prompt: {
                 user: "root",
                 host: "localhost",

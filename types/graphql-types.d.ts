@@ -2580,9 +2580,6 @@ export type SitePageFieldsEnum =
   | 'pluginCreator___pluginOptions___classPrefix'
   | 'pluginCreator___pluginOptions___showLineNumbers'
   | 'pluginCreator___pluginOptions___noInlineHighlight'
-  | 'pluginCreator___pluginOptions___languageExtensions'
-  | 'pluginCreator___pluginOptions___languageExtensions___language'
-  | 'pluginCreator___pluginOptions___languageExtensions___extend'
   | 'pluginCreator___pluginOptions___prompt___user'
   | 'pluginCreator___pluginOptions___prompt___host'
   | 'pluginCreator___pluginOptions___prompt___global'
@@ -2788,7 +2785,6 @@ export type SitePluginFieldsEnum =
   | 'pluginOptions___plugins___pluginOptions___classPrefix'
   | 'pluginOptions___plugins___pluginOptions___showLineNumbers'
   | 'pluginOptions___plugins___pluginOptions___noInlineHighlight'
-  | 'pluginOptions___plugins___pluginOptions___languageExtensions'
   | 'pluginOptions___plugins___pluginOptions___offsetY'
   | 'pluginOptions___plugins___pluginOptions___className'
   | 'pluginOptions___plugins___pluginOptions___maxWidth'
@@ -2817,9 +2813,6 @@ export type SitePluginFieldsEnum =
   | 'pluginOptions___classPrefix'
   | 'pluginOptions___showLineNumbers'
   | 'pluginOptions___noInlineHighlight'
-  | 'pluginOptions___languageExtensions'
-  | 'pluginOptions___languageExtensions___language'
-  | 'pluginOptions___languageExtensions___extend'
   | 'pluginOptions___prompt___user'
   | 'pluginOptions___prompt___host'
   | 'pluginOptions___prompt___global'
@@ -2968,7 +2961,6 @@ export type SitePluginPluginOptions = {
   classPrefix?: Maybe<Scalars['String']>;
   showLineNumbers?: Maybe<Scalars['Boolean']>;
   noInlineHighlight?: Maybe<Scalars['Boolean']>;
-  languageExtensions?: Maybe<Array<Maybe<SitePluginPluginOptionsLanguageExtensions>>>;
   prompt?: Maybe<SitePluginPluginOptionsPrompt>;
   offsetY?: Maybe<Scalars['String']>;
   className?: Maybe<Scalars['String']>;
@@ -3072,7 +3064,6 @@ export type SitePluginPluginOptionsFilterInput = {
   classPrefix?: Maybe<StringQueryOperatorInput>;
   showLineNumbers?: Maybe<BooleanQueryOperatorInput>;
   noInlineHighlight?: Maybe<BooleanQueryOperatorInput>;
-  languageExtensions?: Maybe<SitePluginPluginOptionsLanguageExtensionsFilterListInput>;
   prompt?: Maybe<SitePluginPluginOptionsPromptFilterInput>;
   offsetY?: Maybe<StringQueryOperatorInput>;
   className?: Maybe<StringQueryOperatorInput>;
@@ -3083,20 +3074,6 @@ export type SitePluginPluginOptionsFilterInput = {
   sitemap?: Maybe<StringQueryOperatorInput>;
   env?: Maybe<SitePluginPluginOptionsEnvFilterInput>;
   pathCheck?: Maybe<BooleanQueryOperatorInput>;
-};
-
-export type SitePluginPluginOptionsLanguageExtensions = {
-  language?: Maybe<Scalars['String']>;
-  extend?: Maybe<Scalars['String']>;
-};
-
-export type SitePluginPluginOptionsLanguageExtensionsFilterInput = {
-  language?: Maybe<StringQueryOperatorInput>;
-  extend?: Maybe<StringQueryOperatorInput>;
-};
-
-export type SitePluginPluginOptionsLanguageExtensionsFilterListInput = {
-  elemMatch?: Maybe<SitePluginPluginOptionsLanguageExtensionsFilterInput>;
 };
 
 export type SitePluginPluginOptionsPlugins = {
@@ -3129,7 +3106,6 @@ export type SitePluginPluginOptionsPluginsPluginOptions = {
   classPrefix?: Maybe<Scalars['String']>;
   showLineNumbers?: Maybe<Scalars['Boolean']>;
   noInlineHighlight?: Maybe<Scalars['Boolean']>;
-  languageExtensions?: Maybe<Array<Maybe<SitePluginPluginOptionsPluginsPluginOptionsLanguageExtensions>>>;
   prompt?: Maybe<SitePluginPluginOptionsPluginsPluginOptionsPrompt>;
   offsetY?: Maybe<Scalars['String']>;
   className?: Maybe<Scalars['String']>;
@@ -3140,25 +3116,10 @@ export type SitePluginPluginOptionsPluginsPluginOptionsFilterInput = {
   classPrefix?: Maybe<StringQueryOperatorInput>;
   showLineNumbers?: Maybe<BooleanQueryOperatorInput>;
   noInlineHighlight?: Maybe<BooleanQueryOperatorInput>;
-  languageExtensions?: Maybe<SitePluginPluginOptionsPluginsPluginOptionsLanguageExtensionsFilterListInput>;
   prompt?: Maybe<SitePluginPluginOptionsPluginsPluginOptionsPromptFilterInput>;
   offsetY?: Maybe<StringQueryOperatorInput>;
   className?: Maybe<StringQueryOperatorInput>;
   maxWidth?: Maybe<IntQueryOperatorInput>;
-};
-
-export type SitePluginPluginOptionsPluginsPluginOptionsLanguageExtensions = {
-  language?: Maybe<Scalars['String']>;
-  extend?: Maybe<Scalars['String']>;
-};
-
-export type SitePluginPluginOptionsPluginsPluginOptionsLanguageExtensionsFilterInput = {
-  language?: Maybe<StringQueryOperatorInput>;
-  extend?: Maybe<StringQueryOperatorInput>;
-};
-
-export type SitePluginPluginOptionsPluginsPluginOptionsLanguageExtensionsFilterListInput = {
-  elemMatch?: Maybe<SitePluginPluginOptionsPluginsPluginOptionsLanguageExtensionsFilterInput>;
 };
 
 export type SitePluginPluginOptionsPluginsPluginOptionsPrompt = {
