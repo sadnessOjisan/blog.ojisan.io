@@ -67,8 +67,11 @@
 
 @media screen and (max-width: 1024px) {
   .content {
+    padding: 0px;
     margin-top: 16px;
     border-radius: 8px;
+    background-color: initial;
+    box-shadow: initial;
   }
 }
 
