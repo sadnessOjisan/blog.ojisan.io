@@ -2,7 +2,7 @@
   min-height: 85vh;
   /* 9vh は headerの高さ分 */
   padding-top: 7vh;
-  background-color: whitesmoke;
+  background-color: #eeeef1;
 }
 
 .footer {
