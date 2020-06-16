@@ -1,6 +1,6 @@
 .gatsby-code-title {
-  color: #ffffff;
-  background: #368ccb;
+  color: #2c2e31;
+  background: rgba(0, 0, 0, 0.1);
   font-size: 0.75rem;
   font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
     "Courier New", monospace;
@@ -14,17 +14,18 @@
   margin-bottom: 0px !important;
 }
 
-.line-numbers-rows {
-  width: 3.6em !important;
-  background-color: white;
+pre {
+  border-radius: 8px;
+}
+
+.language-text {
+  font-size: 16px !important;
+  padding: 0.1em 0.4em !important;
+  background: rgba(0, 0, 0, 0.1) !important;
+  color: black !important;
+  border-radius: 8px;
 }
 
 pre[class*="language-"] {
   margin: 0;
 }
-
-code[class*="language-"] {
-  color: rgba(0, 0, 0, 0.84);
-}
-
-/* [class="language-css"] */

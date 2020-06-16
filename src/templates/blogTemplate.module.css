@@ -3,7 +3,7 @@
 }
 
 .headline {
-  color: rgba(0, 0, 0, 0.84);
+  color: #2c2e31;
   line-height: 48px;
   font-size: 32px;
   margin: 16px 0px;
@@ -46,8 +46,15 @@
 
 /* 記事 */
 .content {
-  margin-top: 32px;
-  color: rgba(0, 0, 0, 0.84);
+  padding: 32px;
+  color: #2c2e31;
+  background-color: white;
+  box-shadow: var(
+    --theme-container-box-shadow,
+    0px 1px 1px rgba(10, 10, 10, 0.1),
+    0px 1px 2px rgba(10, 10, 10, 0.1),
+    0px 0px 1px rgba(10, 10, 10, 0.8)
+  );
 }
 
 @media screen and (max-width: 1024px) {
@@ -58,35 +65,29 @@
 
 .content > p,
 .content > ul {
-  font-size: 18px;
-  line-height: 28px;
+  font-size: 16px;
+  line-height: 1.6;
 }
 
 .content > h1 {
-  font-size: 32px;
+  font-size: 40px;
   line-height: 32px;
+  margin-top: 40px;
 }
 
 .content > h2 {
-  font-size: 28px;
-  line-height: 32px;
-  border-bottom: solid 2px #368ccb;
-  font-weight: bold;
+  font-size: 36px;
+  margin-top: 50px;
 }
 
 .content > h3 {
-  font-size: 20px;
-  line-height: 32px;
-  font-weight: bold;
+  font-size: 28px;
+  margin-top: 20px;
 }
 
 .content > h4 {
-  font-size: 18px;
-  font-weight: bold;
-}
-
-.content strong {
-  background: linear-gradient(transparent 75%, palegreen 25%);
+  font-size: 24px;
+  margin-top: 16px;
 }
 
 .content > blockquote {
@@ -97,16 +98,14 @@
 .content > p,
 .content > img,
 .content > div,
-.content > h1,
-.content > h2,
-.content > h3,
-.content > h4,
 .content > ul,
 .content > blockquote {
-  margin-bottom: 24px;
+  margin-bottom: 20px;
   word-break: break-all;
 }
 
+.content > h1,
+.content > h2,
 .content > h3,
 .content > h4 {
   margin-bottom: 12px;
