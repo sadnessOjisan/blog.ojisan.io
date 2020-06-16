@@ -10,6 +10,14 @@
   padding: 0 8px;
 }
 
+@media screen and (max-width: 1024px) {
+  .headline {
+    margin: 8px 0px;
+    font-size: 28px;
+    line-height: 36px;
+  }
+}
+
 .date {
   color: rgba(0, 0, 0, 0.54);
   font-size: 16px;
@@ -60,6 +68,7 @@
 @media screen and (max-width: 1024px) {
   .content {
     margin-top: 16px;
+    border-radius: 8px;
   }
 }
 
@@ -88,6 +97,29 @@
 .content > h4 {
   font-size: 24px;
   margin-top: 16px;
+}
+
+@media screen and (max-width: 1024px) {
+  .content > h1 {
+    font-size: 30px;
+    line-height: 32px;
+    margin-top: 3px;
+  }
+
+  .content > h2 {
+    font-size: 28px;
+    margin-top: 30px;
+  }
+
+  .content > h3 {
+    font-size: 24px;
+    margin-top: 16px;
+  }
+
+  .content > h4 {
+    font-size: 20px;
+    margin-top: 12px;
+  }
 }
 
 .content > blockquote {
