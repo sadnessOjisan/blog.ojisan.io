@@ -5,13 +5,13 @@ title: JavaScriptライブラリを読むときのコツ
 visual: "./visual.png"
 ---
 
-私は半年くらい前からライブラリを読むっていうトレーニングをやっています。
-最近ようやく読み方がわかってきたので、やり始めた頃に知っておきたかったことをまとめました。
+私は 5 ヶ月前からライブラリを読むトレーニングをはじめました。
+最近ようやく読み方がわかってきたので、やり始めた頃に知っておきたかったことをまとめます。
 これから JavaScript/TypeScript で書かれたライブラリを読んでみようと思っている方の助けになれば嬉しいです。
 
 「私はこういう道具を使ったり、こういう工夫をしています」みたいな感じの内容ですので、もし「もっといい読み方があるよ」みたいなのがありましたら[Issue](https://github.com/sadnessOjisan/blog.ojisan.io/issues)などで教えていただけると嬉しいです。
 
-ライブラリを読むにあたって、ブラウザの話と NodeJS の話があると思うのですが、似てる点がほとんどなのでごった煮して書きます。
+（※ライブラリを読むにあたって、ブラウザの話と NodeJS の話があるのですが、似てる点がほとんどなのでごった煮します。）
 
 ## ドキュメントを読む
 
@@ -29,8 +29,8 @@ README や公式 HP に Developper Guide や How to Contribute のような名�
 
 などを考えると、ユーザーから渡された入力や呼び出しがどう変化していくかを追っていくことになります。
 そこで、**logger や debugger を入れる**ことが一つの読み方になってきます。
-ただ、それらをどこに入れるかは処理の呼び出しを辿っていくことになります。
-それらの関数はエントリポイントから export されて私たちの手元に来ているので、まずはエントリポイントを探しましょう。
+ただ、それらをどこに入れるかは、処理の呼び出しを辿らないと分かりません。
+そこで、その処理を辿るためのエントリポイントを探しましょう。
 
 ### pakage.json の main
 
@@ -102,8 +102,8 @@ export { TypeScript };
 トランスパイル前のコードは**src/などといった名前のディレクトリに、package.json の main で指定しているファイル名と同じ名前で作られている**ことが多いので、そこから探しましょう。
 **ただし node_modules の中にあるライブラリは配布用に build されたものなので、build 前のものは GitHub などから探す必要があります。**
 GitHub のリンクは、node_modules の中に package.json と README.md が入っているので、そこに書かれているであろうリンクから辿れます。
-ライブラリのエントリポイントはこのように他の関数を import してそれをまとめて export していることが多いです。
-基本的にはここから code jump で辿ると目的の処理を見つけられます。
+**ライブラリのエントリポイントはこのように他の関数を import してそれをまとめて export していることが多いです。**
+**基本的にはここから code jump で辿ると目的の処理を見つけられます。**
 
 ### bin に登録されているコマンド
 
@@ -150,13 +150,33 @@ if (opts) {
 といった関数を実行しています。
 この場合 `const fn = opts.cliOptions.outDir ? _dir.default : _file.default` の先を読んでいくことで、そのコマンドが何をしているのかを追っていけます。
 
-どういうときに.bin があるかというと、ライブラリを作ったときの package.json の bin フィールドを書いたときです。
-node_modules は package.json に bin を登録することで、コマンド名と処理を symbolic link として登録できます。
+どういうときに.bin があるかというと、**ライブラリを作ったときの package.json の bin フィールドを書いたとき**です。
+node_modules は package.json に `bin` を登録することで、コマンド名を実行関数への link として登録できます。
+
+```javascript:title=package.json
+{
+  ...
+  "bin": {
+    "main": "main.js",
+    "sub": "sub.js"
+  },
+}
+```
+
+```javascript:title=main.js
+#!/usr/bin/env node
+
+console.log("i am main")
+```
+
 ライブラリを作らないとイメージできないところだとは思いますが、bin の最小構成を用意したのでよければご覧ください。
 
 FYI: https://github.com/ojisan-toybox/node-bin-bin
 
 ## コードを読み進める
+
+エントリポイントから辿ったり検索して、読みたい処理を見つけたら、その周辺にあるコードを読んでいきましょう。
+イメージとしては少しずつ実験してヒントを集めていく感じです。
 
 ### print debug
 
@@ -372,24 +392,90 @@ see は参考になるサイトなどの情報をメモするのに便利で、t
 tsdoc に準拠して書いていると、（やる意味はないと思いますが）[typedoc](https://typedoc.org/) を使えばそれらをページとして出力もできます。
 
 この annotation は Language Server(tsserver) 的には tag 情報として扱われます。
+その tag 情報は@で始まっていれば何でもいいので正直なんでも入れることができます。
 
-```sh
-{"type": "response", "seq": 2, "command": "quickinfo", "arguments": {"file": "test/src/Error.ts", "line":9, "offset":14}}
-```
-
-```sh
-{
-    "seq":0,
-    ...,
-    "tags":[
-        {"name":"param","text":"hoge"},
-        {"name":"returns","text":"hogehgoehoge"},
-        {"name":"throws","text":"fewfwe"}
-        ]
+```javascript:title=babel
+/**
+ * なんかhogeする関数
+ * @param input 入力される数
+ * @今日のご飯 カレーライス
+ * @いきたい場所 横浜
+ * @ラーメンといえば とんこつ
+ * @returns number
+ */
+const hoge = (input: number): number => {
+  return input
 }
 ```
 
-その tag 情報は@で始まっていれば何でもいいので正直なんでも入れることができます。
+```sh
+$ tsserver
+
+# 標準入力
+{
+    "command": "open",
+    "arguments": {
+        "file": "./index.ts"
+    }
+}
+
+{
+    "type": "response",
+    "seq": 2,
+    "command": "quickinfo",
+    "arguments": {
+        "file": "./index.ts",
+        "line": 9,
+        "offset": 7
+    }
+}
+
+# 標準出力
+{
+    "seq": 0,
+    "type": "response",
+    "command": "quickinfo",
+    "request_seq": 2,
+    "success": true,
+    "body": {
+        "kind": "const",
+        "kindModifiers": "",
+        "start": {
+            "line": 9,
+            "offset": 7
+        },
+        "end": {
+            "line": 9,
+            "offset": 11
+        },
+        "displayString": "const hoge: (input: number) => number",
+        "documentation": "なんかhogeする関数",
+        "tags": [
+            {
+                "name": "param",
+                "text": "input 入力される数"
+            },
+            {
+                "name": "今日のご飯",
+                "text": "カレーライス"
+            },
+            {
+                "name": "いきたい場所",
+                "text": "横浜"
+            },
+            {
+                "name": "ラーメンといえば",
+                "text": "とんこつ"
+            },
+            {
+                "name": "returns",
+                "text": "number"
+            }
+        ]
+    }
+}
+```
+
 **typedoc で出力しないなら自分の見やすい annotation を使ってもいい**かもしれません。
 例えばこんな風に tsdoc のスキーマにないものを好き放題日本語で埋め込むこともできます。
 
@@ -455,7 +541,7 @@ const coordinate = Coordinate.doubleCoordinate(1, 5)
 
 FYI: https://dev.to/adtm/static-factory-methods-nnb
 
-static factory method を使うことが推奨されている場合もあり、こういうコードにもよく出会います。
+static factory method を使うことが推奨されている場合もあり、そういうコードに出会うこともあります。
 そのとき、インスタンス生成の順番を追おうとしても、new で検索しても出てこないので注意しましょう。
 new がなくて static factory method 使ってそうと思ったら、 `of` / `valueOf` のようなコードで検索するか、 `static` で検索をかけると見つかりやすいです。
 
@@ -613,7 +699,14 @@ console.log(mixed.returnOne())
 console.log(mixed.returnTwo())
 ```
 
-いま TypeScript では、クラスを引数でとり、それを extends して return する関数を作ることで実現できます。
+ただ クラスに対する mixin だと 戻り値は使わないので、そのようなコードだと Jump できないインスタンスに出会う可能性はあります。
+古いコードや TS が使われていないコードでは Object.assign での mixin に出会うかもしれません。
+**もしコードリーディング中に Jump できない関数にであったら mixin の可能性があります。しれっと mixin されているみたいなこともありました。**
+
+FYI: https://github.com/babel/babel/blob/master/packages/babel-traverse/src/path/index.js#L211
+
+ちなみに TypeScript を使っていると、クラスを引数でとり、それを extends して return する関数を作ることで実現できます。
+この場合は code jump が可能です。
 
 ```js
 function Timestamped<TBase extends Constructor>(Base: TBase) {
@@ -624,11 +717,6 @@ function Timestamped<TBase extends Constructor>(Base: TBase) {
 ```
 
 FYI: https://typescript-jp.gitbook.io/deep-dive/type-system/mixins
-
-この例だと Jump ができるのですが、古いコードや TS が使われていないコードは Object.assign での mixin が使われており Jump できません。
-**もしコードリーディング中に Jump できない関数にであったら mixin を疑うといいかもしれません。クラス定義したあとにしれっと下の方で mixin されているみたいなこともあります。**
-
-FYI: https://github.com/babel/babel/blob/master/packages/babel-traverse/src/path/index.js#L211
 
 ### 些末な関数は無視する
 
