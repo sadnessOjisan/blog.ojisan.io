@@ -31,12 +31,18 @@
 }
 
 .main > .socials {
-  width: 5%;
+  width: 15%;
   padding-top: 32px;
+  margin-left: auto;
+  padding-right: 36px;
+}
+
+.main > .socials * {
+  margin-left: auto;
 }
 
 .main > .content {
-  width: 80%;
+  width: 70%;
   max-width: 960px;
 }
 
@@ -50,6 +56,7 @@
   width: 15%;
   padding-left: 16px;
   padding-top: 32px;
+  margin-right: auto;
 }
 
 /* 記事 */

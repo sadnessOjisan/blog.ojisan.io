@@ -695,6 +695,7 @@ export type FileFieldsEnum =
   | 'childMarkdownRemark___frontmatter___title'
   | 'childMarkdownRemark___frontmatter___path'
   | 'childMarkdownRemark___frontmatter___created'
+  | 'childMarkdownRemark___frontmatter___updated'
   | 'childMarkdownRemark___frontmatter___visual___sourceInstanceName'
   | 'childMarkdownRemark___frontmatter___visual___absolutePath'
   | 'childMarkdownRemark___frontmatter___visual___relativePath'
@@ -731,7 +732,6 @@ export type FileFieldsEnum =
   | 'childMarkdownRemark___frontmatter___visual___publicURL'
   | 'childMarkdownRemark___frontmatter___visual___id'
   | 'childMarkdownRemark___frontmatter___visual___children'
-  | 'childMarkdownRemark___frontmatter___updated'
   | 'childMarkdownRemark___excerpt'
   | 'childMarkdownRemark___rawMarkdownBody'
   | 'childMarkdownRemark___fileAbsolutePath'
@@ -1498,6 +1498,7 @@ export type MarkdownRemarkFieldsEnum =
   | 'frontmatter___title'
   | 'frontmatter___path'
   | 'frontmatter___created'
+  | 'frontmatter___updated'
   | 'frontmatter___visual___sourceInstanceName'
   | 'frontmatter___visual___absolutePath'
   | 'frontmatter___visual___relativePath'
@@ -1559,7 +1560,6 @@ export type MarkdownRemarkFieldsEnum =
   | 'frontmatter___visual___childMarkdownRemark___timeToRead'
   | 'frontmatter___visual___childMarkdownRemark___tableOfContents'
   | 'frontmatter___visual___childMarkdownRemark___children'
-  | 'frontmatter___updated'
   | 'excerpt'
   | 'rawMarkdownBody'
   | 'fileAbsolutePath'
@@ -1683,8 +1683,8 @@ export type MarkdownRemarkFrontmatter = {
   title?: Maybe<Scalars['String']>;
   path?: Maybe<Scalars['String']>;
   created?: Maybe<Scalars['Date']>;
-  visual?: Maybe<File>;
   updated?: Maybe<Scalars['Date']>;
+  visual?: Maybe<File>;
 };
 
 
@@ -1707,8 +1707,8 @@ export type MarkdownRemarkFrontmatterFilterInput = {
   title?: Maybe<StringQueryOperatorInput>;
   path?: Maybe<StringQueryOperatorInput>;
   created?: Maybe<DateQueryOperatorInput>;
-  visual?: Maybe<FileFilterInput>;
   updated?: Maybe<DateQueryOperatorInput>;
+  visual?: Maybe<FileFilterInput>;
 };
 
 export type MarkdownRemarkGroupConnection = {
