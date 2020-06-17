@@ -1,6 +1,6 @@
 ---
 path: /how-to-read-js
-created: "2020-06-17"
+created: "2020-06-18"
 title: JavaScriptライブラリを読むときのコツ
 visual: "./visual.png"
 ---
