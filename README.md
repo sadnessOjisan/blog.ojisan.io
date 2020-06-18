@@ -48,6 +48,10 @@ deploy 自体は master に merge されると自動でデプロイされる
 - [x] social share
 - [ ] 全文検索(記事増えたら)
 - [ ] TOP ページ作る(記事増えたら)
+- [x] transition animation
+- [ ] push 通知
+- [ ] top にニュース作る
+- [ ] 目次をスムーススクロールにする
 
 ## icon
 
