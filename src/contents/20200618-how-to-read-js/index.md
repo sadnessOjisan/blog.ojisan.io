@@ -24,7 +24,7 @@ visual: "./visual.png"
 ただ、それらをどこに入れるかは、処理の呼び出しを辿らないと分かりません。
 そこで、その処理を辿るためのエントリポイントを探しましょう。
 
-### pakage.json の main
+### package.json の main
 
 ライブラリのエントリポイントは package.json の main に書かれています。
 hogeLib ライブラリが `main: 'lib/index.js'` を持つなら、`require("hogeLib")` としたときは lib/index.js が呼ばれます。
