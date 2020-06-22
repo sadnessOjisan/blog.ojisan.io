@@ -1,7 +1,7 @@
 module.exports = {
   siteMetadata: {
     title: `blog.ojisan.io`,
-    description: `めもめも！`,
+    description: `sadnessOjisanファン必携！sadnessOjisanの日常を垣間見れるアプリケーション！`,
     author: `@sadnessOjisan`,
     siteUrl: `https://blog.ojisan.io`,
   },
@@ -71,6 +71,13 @@ module.exports = {
       options: {
         path: `${__dirname}/src/contents`,
         name: `contents`,
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `${__dirname}/src/news`,
+        name: `news`,
       },
     },
     `gatsby-transformer-sharp`,

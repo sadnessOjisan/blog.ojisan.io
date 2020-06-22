@@ -3,11 +3,12 @@ const path = require(`path`)
 exports.createPages = async ({ actions, graphql, reporter }) => {
   const { createPage } = actions
   const blogPostTemplate = path.resolve(`src/templates/blogTemplate.tsx`)
-
-  const result = await graphql(`
+  // もっと正確にfilter書いた方が良い
+  const contentsResult = await graphql(`
     {
       allMarkdownRemark(
         sort: { order: DESC, fields: [frontmatter___created] }
+        filter: { fileAbsolutePath: { regex: "/src/contents/" } }
         limit: 1000
       ) {
         edges {
@@ -21,11 +22,12 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     }
   `)
   // Handle errors
-  if (result.errors) {
+  if (contentsResult.errors) {
     reporter.panicOnBuild(`Error while running GraphQL query.`)
     return
   }
-  result.data.allMarkdownRemark.edges.forEach(({ node }) => {
+  console.log(" contentsResult.data", contentsResult.data)
+  contentsResult.data.allMarkdownRemark.edges.forEach(({ node }) => {
     createPage({
       path: node.frontmatter.path,
       component: blogPostTemplate,
