@@ -1,7 +1,7 @@
 module.exports = {
   siteMetadata: {
     title: `blog.ojisan.io`,
-    description: `めもめも！`,
+    description: `sadnessOjisanファン必携！sadnessOjisanの日常を垣間見れるアプリケーション！`,
     author: `@sadnessOjisan`,
     siteUrl: `https://blog.ojisan.io`,
   },

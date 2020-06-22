@@ -1,11 +1,14 @@
 import * as React from "react"
-import { graphql, useStaticQuery } from "gatsby"
+import { graphql } from "gatsby"
 import { Link } from "gatsby"
 import "../vendor/css/reset.css"
 import "../vendor/css/base.css"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import { AllBlogsQuery } from "../../types/graphql-types"
+import { Newses } from "../components/newses"
+import Image from "gatsby-image"
+import styles from "./index.module.css"
 
 interface IProps {
   data: AllBlogsQuery
@@ -15,45 +18,28 @@ const IndexPage: React.FC<IProps> = ({ data }) => {
   console.log(data)
   return (
     <Layout>
-      <SEO title="Home" />
-      <h1 style={{ fontSize: "24px", marginTop: "12px", textAlign: "center" }}>
-        BLOG
+      <SEO title={data.site?.siteMetadata?.title || "HOME"} />
+      <h1 className={styles.title}>
+        {data.site?.siteMetadata?.title || "HOME"}
       </h1>
-      <div>
-        NEWS<br></br>
-        {data.newses.nodes.map(news => {
-          return (
-            <ul>
-              <li>{news.frontmatter?.created}</li>
-              <li>{news.frontmatter?.title}</li>
-            </ul>
-          )
-        })}
-      </div>{" "}
-      BLOGS<br></br>
-      {data.blogs.nodes.map(node => (
-        <li
-          style={{
-            marginTop: "12px",
-            color: "blue",
-            textDecoration: "underline",
-          }}
-        >
-          <Link to={node.frontmatter?.path || "/"}>
-            {node.frontmatter?.title}
-          </Link>
-        </li>
-      ))}
-      <p
-        style={{
-          color: "red",
-          fontSize: "40px",
-          marginTop: "40px",
-          fontWeight: "bold",
-        }}
-      >
-        工事中
-      </p>
+      <Newses data={data.newses} className={styles.newses}></Newses>
+      <div className={styles.cards}>
+        {data.blogs.nodes.map(node => (
+          <div className={styles.card}>
+            <Link to={node.frontmatter?.path || "/"}>
+              <Image
+                style={{
+                  width: "100%",
+                  margin: "auto",
+                }}
+                // @ts-ignore FIXME: 型エラー
+                fluid={node.frontmatter.visual.childImageSharp.fluid}
+              />
+              <h3 className={styles.articleTitle}>{node.frontmatter?.title}</h3>
+            </Link>
+          </div>
+        ))}
+      </div>
     </Layout>
   )
 }
@@ -68,6 +54,14 @@ export const pageQuery = graphql`
         frontmatter {
           title
           path
+          visual {
+            childImageSharp {
+              fluid(maxWidth: 800) {
+                ...GatsbyImageSharpFluid
+              }
+            }
+          }
+          created(formatString: "YYYY-MM-DD")
         }
       }
     }
@@ -80,6 +74,14 @@ export const pageQuery = graphql`
           created
           tags
         }
+      }
+    }
+
+    site {
+      siteMetadata {
+        title
+        description
+        author
       }
     }
   }

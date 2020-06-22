@@ -695,6 +695,7 @@ export type FileFieldsEnum =
   | 'childMarkdownRemark___frontmatter___title'
   | 'childMarkdownRemark___frontmatter___path'
   | 'childMarkdownRemark___frontmatter___created'
+  | 'childMarkdownRemark___frontmatter___updated'
   | 'childMarkdownRemark___frontmatter___visual___sourceInstanceName'
   | 'childMarkdownRemark___frontmatter___visual___absolutePath'
   | 'childMarkdownRemark___frontmatter___visual___relativePath'
@@ -731,7 +732,6 @@ export type FileFieldsEnum =
   | 'childMarkdownRemark___frontmatter___visual___publicURL'
   | 'childMarkdownRemark___frontmatter___visual___id'
   | 'childMarkdownRemark___frontmatter___visual___children'
-  | 'childMarkdownRemark___frontmatter___updated'
   | 'childMarkdownRemark___frontmatter___description'
   | 'childMarkdownRemark___frontmatter___tags'
   | 'childMarkdownRemark___excerpt'
@@ -1500,6 +1500,7 @@ export type MarkdownRemarkFieldsEnum =
   | 'frontmatter___title'
   | 'frontmatter___path'
   | 'frontmatter___created'
+  | 'frontmatter___updated'
   | 'frontmatter___visual___sourceInstanceName'
   | 'frontmatter___visual___absolutePath'
   | 'frontmatter___visual___relativePath'
@@ -1561,7 +1562,6 @@ export type MarkdownRemarkFieldsEnum =
   | 'frontmatter___visual___childMarkdownRemark___timeToRead'
   | 'frontmatter___visual___childMarkdownRemark___tableOfContents'
   | 'frontmatter___visual___childMarkdownRemark___children'
-  | 'frontmatter___updated'
   | 'frontmatter___description'
   | 'frontmatter___tags'
   | 'excerpt'
@@ -1687,8 +1687,8 @@ export type MarkdownRemarkFrontmatter = {
   title?: Maybe<Scalars['String']>;
   path?: Maybe<Scalars['String']>;
   created?: Maybe<Scalars['Date']>;
-  visual?: Maybe<File>;
   updated?: Maybe<Scalars['Date']>;
+  visual?: Maybe<File>;
   description?: Maybe<Scalars['String']>;
   tags?: Maybe<Array<Maybe<Scalars['String']>>>;
 };
@@ -1713,8 +1713,8 @@ export type MarkdownRemarkFrontmatterFilterInput = {
   title?: Maybe<StringQueryOperatorInput>;
   path?: Maybe<StringQueryOperatorInput>;
   created?: Maybe<DateQueryOperatorInput>;
-  visual?: Maybe<FileFilterInput>;
   updated?: Maybe<DateQueryOperatorInput>;
+  visual?: Maybe<FileFilterInput>;
   description?: Maybe<StringQueryOperatorInput>;
   tags?: Maybe<StringQueryOperatorInput>;
 };
@@ -3288,8 +3288,11 @@ export type AllBlogsQueryVariables = {};
 
 export type AllBlogsQuery = { blogs: { nodes: Array<(
       Pick<MarkdownRemark, 'html'>
-      & { frontmatter?: Maybe<Pick<MarkdownRemarkFrontmatter, 'title' | 'path'>> }
-    )> }, newses: { nodes: Array<{ frontmatter?: Maybe<Pick<MarkdownRemarkFrontmatter, 'title' | 'description' | 'created' | 'tags'>> }> } };
+      & { frontmatter?: Maybe<(
+        Pick<MarkdownRemarkFrontmatter, 'title' | 'path' | 'created'>
+        & { visual?: Maybe<{ childImageSharp?: Maybe<{ fluid?: Maybe<GatsbyImageSharpFluidFragment> }> }> }
+      )> }
+    )> }, newses: { nodes: Array<{ frontmatter?: Maybe<Pick<MarkdownRemarkFrontmatter, 'title' | 'description' | 'created' | 'tags'>> }> }, site?: Maybe<{ siteMetadata?: Maybe<Pick<SiteSiteMetadata, 'title' | 'description' | 'author'>> }> };
 
 export type BlogTemplateQueryVariables = {
   path: Scalars['String'];
