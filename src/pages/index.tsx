@@ -15,7 +15,6 @@ interface IProps {
 }
 
 const IndexPage: React.FC<IProps> = ({ data }) => {
-  console.log(data)
   return (
     <Layout>
       <SEO title={data.site?.siteMetadata?.title || "HOME"} />
@@ -46,9 +45,7 @@ const IndexPage: React.FC<IProps> = ({ data }) => {
 
 export const pageQuery = graphql`
   query AllBlogs {
-    blogs: allMarkdownRemark
-    (
-      filter: {fileAbsolutePath: {regex: "/(\/src\/contents)/.*\\.md$/"}}) {
+    blogs: allMarkdownRemark(sort: {order: ASC, fields: frontmatter___created}) {
       nodes {
         html
         frontmatter {
