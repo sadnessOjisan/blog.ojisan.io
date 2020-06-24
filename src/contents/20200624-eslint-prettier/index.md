@@ -391,7 +391,6 @@ module.exports = {
 ## なぜ extend の設定だけでいいか
 
 ここまでで 2 つの plugin の設定について書きました。
-
 情報を総合すると
 
 ```javascript:title=.eslintrc.js
@@ -404,8 +403,7 @@ module.exports = {
 }
 ```
 
-### plugin:prettier/recommended を設定すると何が起きるか
-
+となります。
 しかし、実際には
 
 ```javascript:title=.eslintrc.js
