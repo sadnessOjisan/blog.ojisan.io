@@ -230,7 +230,7 @@ FYI: https://github.com/prettier/eslint-config-prettier/blob/master/%40typescrip
 
 ### extends のどこに設定を書くか
 
-もちろん、extends には prettier の競合回避設定外の設定も書かれていると思います。
+もちろん、extends には prettier の競合回避設定以外の設定も書かれていると思います。
 たとえば最初の例では、
 
 ```javascript:title=.eslintrc.js
@@ -541,7 +541,6 @@ $ npm i -D eslint-plugin-prettier eslint-config-prettier prettier
 eslint-plugin-prettier を　 eslint で使うための config がそれ本体に含まれていることを知る必要がありました。
 これに気付くためには ESLint の extend の plugin の違いや関係を理解する必要があり、特に plugin に sharable config という仕組みを知っておく必要がありました。
 実際のところ Twitter で extend の plugin の違い についてアンケートを取ったところ大勢の方が混乱していそうです。
-（私のフォロワーはフロントエンドの方がほとんどなので、その方ですら混乱しているので非常に難しい分野なのだと思います）
 
 ![eslintのextendとpluginの混乱](eslint-config-plugin.png)
 
