@@ -197,7 +197,7 @@ module.exports = {
 }
 ```
 
-といった sharable config が定義され export されています。
+といった 特定のルールを OFF にする sharable config が定義され export されています。
 
 FYI: https://github.com/prettier/eslint-config-prettier/blob/master/index.js
 
@@ -226,7 +226,7 @@ module.exports = {
 
 FYI: https://github.com/prettier/eslint-config-prettier/blob/master/%40typescript-eslint.js
 
-といった sharable config が定義され export されています。
+といった 特定のルールを OFF にする sharable config が定義され export されています。
 
 ### extends のどこに設定を書くか
 
