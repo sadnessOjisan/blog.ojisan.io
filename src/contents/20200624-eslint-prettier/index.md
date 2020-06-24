@@ -334,7 +334,11 @@ module.exports = {
 }
 ```
 
-そのため prettier のエラーとしてこのように設定します。
+と書けば良さそうです。
+rules の プロパティは `${plugin名}/${ルール名}` です。
+plugin 名は、eslint-plugin-foo だと foo を指し、ここでは prettier が plugin 名です。
+
+FYI: https://eslint.org/docs/user-guide/configuring#use-a-plugin
 
 ### prettier はユーザーが install しておく必要がある
 
@@ -400,12 +404,6 @@ module.exports = {
   },
 }
 ```
-
-と書けば良さそうです。
-rules の プロパティは `${plugin名}/${ルール名}` です。
-plugin 名は、eslint-plugin-foo だと foo を指し、ここでは prettier が plugin 名です。
-
-FYI: https://eslint.org/docs/user-guide/configuring#use-a-plugin
 
 ### plugin:prettier/recommended を設定すると何が起きるか
 
