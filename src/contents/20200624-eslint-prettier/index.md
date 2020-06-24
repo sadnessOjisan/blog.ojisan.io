@@ -40,6 +40,9 @@ FYI: https://prettier.io/docs/en/integrating-with-linters.html
 その説明を始める前に前提知識として、ESLint の plugin と extend の違いと関係について知る必要があります。
 それは以前に書いた[ESLint の Plugin と Extend の違い](https://blog.ojisan.io/eslint-plugin-and-extend)にまとめてありますが、この記事を読むに当たっての前提だけをささっと書きます。
 もし既にご存知でしたらこの章は飛ばしても大丈夫です。
+このイメージがあれば大丈夫です。
+
+![eslintのextendとpluginのイメージ](plugimage.png)
 
 ESLint は
 
