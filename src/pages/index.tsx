@@ -45,7 +45,7 @@ const IndexPage: React.FC<IProps> = ({ data }) => {
 
 export const pageQuery = graphql`
   query AllBlogs {
-    blogs: allMarkdownRemark(sort: {order: ASC, fields: frontmatter___created}) {
+    blogs: allMarkdownRemark(filter: {fileAbsolutePath: {regex: "/(/src/contents)/.*\\.md$/"}}, sort: {order: DESC, fields: frontmatter___created}) {
       nodes {
         html
         frontmatter {
