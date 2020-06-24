@@ -1,7 +1,7 @@
 ---
 path: /eslint-prettier
 created: "2020-06-24"
-title: ESLint と Prettier の共存や競合についての答えとその根拠
+title: ESLint と Prettier の共存設定とその根拠について
 visual: "./visual.png"
 ---
 
