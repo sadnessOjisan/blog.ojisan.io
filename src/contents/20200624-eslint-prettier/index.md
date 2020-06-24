@@ -573,7 +573,7 @@ module.exports = {
 必要なパッケージを install します。
 
 ```sh
-npm install -D eslint-plugin-prettier prettier
+npm install -D eslint-plugin-prettier eslint-config-prettier prettier
 ```
 
 共存設定として eslint-plugin-prettier に含まれている sharable config を書きます。
