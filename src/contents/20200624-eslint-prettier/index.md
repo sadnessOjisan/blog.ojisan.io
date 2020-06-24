@@ -1,25 +1,31 @@
 ---
 path: /eslint-prettier
-created: "2020-06-23"
-title: ESLint と Prettier の共存や競合について根拠をもって解説する
+created: "2020-06-24"
+title: ESLint と Prettier の共存や競合についての答えとその根拠
 visual: "./visual.png"
 ---
 
-以前, [ESLint の plugin と extend について解説した記事](https://blog.ojisan.io/eslint-plugin-and-extend)を書いた時に、prettier と eslint の共存設定について触れました。
-いま Google で検索すると、間違った情報や根拠に欠ける情報が上の方に出てきておりまして、混乱を助長していると思いましたので、根拠を示した記事を書きたいと思います。
-この情報は 2020 年 6 月 23 日における公式ドキュメントやライブラリの実装を根拠に解説した記事です。
+以前, [ESLint の plugin と extend について解説した記事](https://blog.ojisan.io/eslint-plugin-and-extend)を書いた際に、[Prettier](https://github.com/prettier) と [ESLint](https://eslint.org/) の共存設定について触れました。
+いま Google で「Prettier ESLint」などで検索すると、最善とは言えない情報（重複した設定をしている）や根拠に欠ける情報が上の方に出てきており、混乱を助長していると思いましたので、根拠を示した記事を書きたいと思います。
+この情報は 2020 年 6 月 24 日における公式ドキュメントやライブラリの実装を根拠に解説した記事です。
 
-おそらく共存設定に悩んだことがある方は
+この記事は、根拠を明示するということに重きに置いて執筆しました。
+Prettier のような設定はいわゆる環境構築フェーズにするものです。
+環境構築は最初にした設定が後々に使い続けられるので、技術選定の理由は明確にされるべきだと筆者は考えております。
+特に設定内容や使われているプラグインが正しいことと、選定された根拠が明確になっていることは引継ぎをされた人にとっては勇気になるはずです。
+
+おそらく共存設定に悩んだことがある方、もしくはこれから悩む方は
 
 - [eslint-config-prettier](https://github.com/prettier/eslint-config-prettier) と [eslint-plugin-prettier](https://github.com/prettier/eslint-plugin-prettier) の設定は両方必要？
 - 公式 Doc みたら 2 つのプラグインを入れるのに、どうして ESLint の設定は extends だけでいいの？心配だし plugin にも設定書いていい？
 - prettier は自分で入れる必要がある？
 
-に悩むと思います。この記事ではそれらの疑問を解消していきます。
+に悩むと思います。この記事ではそれらの疑問を根拠を持って解消していきます。
 
 ## 結論
 
-ESLint と Prettier を共存させる場合、**「「「ESLint のスタイル設定を全部 OFF にし ESLint の中から Prettier を実行」」」**する。
+ESLint と Prettier を共存させる場合、**「「「ESLint のスタイル設定を全部 OFF にし ESLint の中から Prettier を実行」」」** します。
+公式ドキュメントにも明記されています。
 
 > Whatever linting tool you wish to integrate with, the steps are broadly similar. First disable any existing formatting rules in your linter that may conflict with how Prettier wishes to format your code. Then you can either add an extension to your linting tool to format your file with Prettier - so that you only need a single command for format a file, or run your linter then Prettier as separate steps.
 
@@ -29,10 +35,10 @@ FYI: https://prettier.io/docs/en/integrating-with-linters.html
 
 では、
 
-- なぜこの設定で ESLint のスタイル設定を全部 OFF にし ESLint の中から Prettier が実行できるのか
+- なぜこの設定で実現できるのか
 - どうして混乱しやすくなっていたのか
 
-といった、公式ドキュメントには書かれていないことについて説明します。
+といった、そのドキュメントには書かれていないことについて、ドキュメントの断片・実装・サンプルコードから説明します。
 
 ## ESLint の plugin と extend
 
@@ -54,16 +60,67 @@ module.exports = {
 }
 ```
 
-といった設定ファイルを持ちます。(これは `npx eslint --init` で生成したコードを適当に見やすく切り取ったもので、これ自体は設定としては不十分なものです。)
-
+といった設定ファイルを持ちます。
 上の設定では `extends: [...]` の 中に `plugins:hoge` が入っていて、plugin と extends の関係が気になります。
 
-extends は shareable config 読み込めます。
+### extends は config を読み込める
+
+**extends では shareable config 読み込めます。**
 この sharable config には rule の設定以外に、plugin, env などの設定を含められます。
 つまり、他のファイルに書かれている rules の記述や、plugin の記述を持ち込めます。
+sharable config とはこのファイルではない .eslintrc と捉えると良いかもしれません。
+他の人が書いた(自分が書いたものでもいいのですが) .eslintrc で 自分の .eslintrc を拡張できるイメージです。
+
+### plugin の中に sharable config を定義できる
+
+一方で plugin は config の実装を提供します。
+つまり config が rule の ON/OFF を設定するのに対して、その rule 自体の実装を提供します。
+ただそれだけではなく、ここが一番ややこしいポイントなのですが、plugin は sharable config も提供できます。
 そしてこの sharable config は plugin の中にも定義できます。
 
-そのため、 sharable config を extends に設定することで plugin を設定すると言ったことが可能になります。
+```js
+module.exports = {
+  configs: {
+    myConfig: {
+    plugins: [""],
+    env: [""],
+    rules: {
+    }
+  },
+}
+```
+
+FYI: https://eslint.org/docs/developer-guide/working-with-plugins
+
+これは Plugin の実装ですが、この Plugin に含まれた config は
+
+```javascript:title=eslint-plugin-myPlugin.js
+module.exports = {
+  extends: ["plugin:myPlugin/myConfig"],
+}
+```
+
+として読み込めます。
+
+### config の中に plugin の読み込み設定を読み込める
+
+先ほどの
+
+```js
+module.exports = {
+  configs: {
+    myConfig: {
+    plugins: [""],
+    env: [""],
+    rules: {
+    }
+  },
+}
+```
+
+が可能と言うことは、config の中で plugin を読めるということです。
+つまり **extends に指定するだけで plugin の設定を書かずとも、plugin の設定をできる**ということです。
+これは ESLint と Prettier の設定の混乱の原因の一つでもあるので覚えておきましょう。
 
 ## eslint-config-prettier の責務
 
@@ -71,8 +128,10 @@ extends は shareable config 読み込めます。
 
 > Turns off all rules that are unnecessary or might conflict with Prettier.
 
-とあり、ESLint と Prettier の競合設定における、ESLint 側の設定を全部 OFF にしてくれます。
+とあり、**ESLint と Prettier の競合設定における、ESLint 側の設定を全部 OFF** にしてくれます。
 具体的には style に関する設定を OFF にしくてれ、どのような設定がスタイルに関するものかどうかは eslint-config-prettier が管理しています。
+
+### 各 plugin が持つスタイル設定を OFF にできる
 
 公式サイトによると、
 
@@ -111,6 +170,8 @@ module.exports = {
 
 この "prettier/@typescript-eslint" という設定は、[@typescript-eslint/eslint-plugin](https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/eslint-plugin) が注入する rule のうち style に関するものを OFF にし、"prettier/react" という設定は、[eslint-plugin-react](https://github.com/yannickcr/eslint-plugin-react) が注入する rule のうち style に関するものを OFF にします。
 
+### スタイル設定を OFF にする config の実装
+
 実装を見てみると、例えば eslint 組み込みの rule に対しては
 
 ```js
@@ -120,7 +181,6 @@ module.exports = {
   rules: Object.assign(
     {
       "arrow-body-style": 0,
-      curly: 0,
       "lines-around-comment": 0,
       "max-len": 0,
       "no-confusing-arrow": 0,
@@ -131,7 +191,6 @@ module.exports = {
       "padded-blocks": "off",
       "quote-props": "off",
       "rest-spread-spacing": "off",
-      semi: "off",
       "semi-spacing": "off",
       "semi-style": "off",
 
@@ -172,7 +231,9 @@ FYI: https://github.com/prettier/eslint-config-prettier/blob/master/%40typescrip
 
 といった sharable config が定義され export されています。
 
-もちろん、extends には他の設定を書かれていると思います。
+### extends のどこに設定を書くか
+
+もちろん、extends には prettier の競合回避設定外の設定も書かれていると思います。
 たとえば最初の例では、
 
 ```javascript:title=.eslintrc.js
@@ -200,7 +261,7 @@ module.exports = {
 ## eslint-plugin-prettier の責務
 
 一方で [eslint-plugin-prettier](https://github.com/prettier/eslint-plugin-prettier) は何をしているでしょうか。
-これが prettier の実行をになっています。(本当はそれだけではないのですが、そのことが混乱の元凶でもあるので説明は後で詳しくします。)
+これが prettier の実行をになっています。
 
 この plugin は公式には
 
@@ -208,11 +269,16 @@ module.exports = {
 
 と説明されており、**ESLint の世界から prettier を実行し、そこで見つけた format のエラーを ESLint 上でのエラーとして報告してくれる**ライブラリです。
 
-ライブラリの実装も 1 ファイルだけでとてもシンプルなものです。
+### 1 ファイルだけのシンプルな実装
 
-FYI: https://github.com/prettier/eslint-plugin-prettier/blob/master/eslint-plugin-prettier.js
+ライブラリの本体も 1 ファイルだけでとてもシンプルなものです。
 
 ```js
+...
+
+rules: {
+    prettier: {
+
 ...
 
 // ここで prettier を読み込んで
@@ -238,6 +304,40 @@ context.report({ message, loc: err.loc });
 return;
 ```
 
+FYI: https://github.com/prettier/eslint-plugin-prettier/blob/master/eslint-plugin-prettier.js
+
+### prettier の実行エラーをエラーとして報告する
+
+ESLint の rule は `0, 1, 2` や `off, warn, error` といった値で、その rule の違反をどう扱うかを決められます。
+いわゆる rule field に書く プロパティとその設定をどう設定するかという話です。
+ここでは ESLint で起きた Prettier のエラーをエラーとして扱いたいので、そのことを rule に記述します。
+
+実装では
+
+```js
+module.exports = {
+  configs: {
+    ...
+  },
+  rules: {
+    prettier: {
+      ...
+```
+
+と定義されているので、ルール名は prettier です。
+
+```js
+module.exports = {
+  rules: {
+    "prettier/prettier": "error",
+  },
+}
+```
+
+そのため prettier のエラーとしてこのように設定します。
+
+### prettier はユーザーが install しておく必要がある
+
 ところで、 ESLint と Prettier の共通設定をする時は、あらかじめ prettier はユーザー側で読み込んでおく必要があるといった話を聞いたことがあるかもしれません。
 その理由がまさしく、 `prettier = require('prettier');` です。
 
@@ -261,12 +361,12 @@ return;
 }
 ```
 
-FYI: https://github.com/prettier/eslint-plugin-prettier/blob/master/package.json
-
 となっており、peerDependencies に prettier が指定されています。
 prettier は各自で入れておきましょう。
 
-そのため行うべき設定は
+FYI: https://github.com/prettier/eslint-plugin-prettier/blob/master/package.json
+
+そのため、行うべき設定とは
 
 ```sh
 npm install -D eslint-plugin-prettier prettier
@@ -303,6 +403,8 @@ module.exports = {
 
 と書けば良さそうです。
 
+### plugin:prettier/recommended を設定すると何が起きるか
+
 しかし、実際には
 
 ```js
@@ -312,11 +414,8 @@ module.exports = {
 ```
 
 が正解です。
-
 どういうことでしょうか。
-
 それは**eslint-plugin-prettier に含まれる sharable config が全て設定してくれる**ためです。
-
 `extends: ["plugin:prettier/recommended"]` の実体も [ここ](https://github.com/prettier/eslint-plugin-prettier/blob/master/eslint-plugin-prettier.js)に含まれており、
 
 ```js
@@ -337,11 +436,8 @@ module.exports = {
 ```
 
 として定義されています。
-
-そのため不要でした。
-
+そのため extends や rules の設定を書かずともそれらを設定できるというカラクリです。
 また extends に prettier が指定されていることは、[eslint-config-prettier](https://github.com/prettier/eslint-config-prettier) における ESLint 標準ルールのスタイル OFF 設定も含まれています。
-
 そのため
 
 ```sh
@@ -375,10 +471,9 @@ module.exports = {
 - style の崩れを prettier が検知すれば、それは ESLint のエラーとして報告される
 
 となります。
-
 もちろん ESLint 組み込みのルール以外(TS, React の設定など)を使っている場合は、その config は自分で入れる必要があります。
 
-例)
+### TS, React などを併用するときの設定
 
 ```sh
 $ npm i -D eslint-plugin-prettier eslint-config-prettier @typescript-eslint/eslint-plugin @typescript-eslint/eslint-plugin eslint-plugin-react prettier
@@ -439,6 +534,9 @@ plugin の設定はされるものの、その plugin 自体は手元に必要�
 $ npm i -D eslint-plugin-prettier eslint-config-prettier prettier
 ```
 
+**設定ファイルに `eslint-config-prettier` は出てこないのに、 それを入れる必要があるのが混乱の原因です。**
+一般的には その sharable config は plugin の実装も中に含まれるはずなので、plugin を入れるだけで済むはずなのに、Prettier は sharable config を cofig としてライブラリを分離しているのでそのようなことが起きています。
+
 ### plugin の sharable config で extends の設定を補えることに気づけない
 
 eslint-plugin-prettier を　 eslint で使うための config がそれ本体に含まれていることを知る必要がありました。
@@ -465,19 +563,20 @@ module.exports = {
 ```
 
 とあったとして、これらが何かが名前からでは見えづらいです。
+この設定から**これらは eslint-config-prettier に含まれる sharable config で、各 plugin が注入するルールのうちスタイルに関するルールの設定を OFF にする**とは読み取れないです。
 ましてや[eslint-config-prettier](https://github.com/prettier/eslint-config-prettier) と [eslint-plugin-prettier](https://github.com/prettier/eslint-plugin-prettier)といった似たような名前があるので、混乱もしやすいです。
-
-**これらは eslint-config-prettier に含まれる sharable config で、各 plugin が注入するルールのうちスタイルに関するルールの設定を OFF にするもの**と覚えておきましょう。
 
 ## 改めて結論
 
-必要なパッケージを install
+やることはたったのこれだけです。
+
+必要なパッケージを install します。
 
 ```sh
 npm install -D eslint-plugin-prettier prettier
 ```
 
-共存設定はこれだけ
+共存設定として eslint-plugin-prettier に含まれている sharable config を書きます。
 
 ```javascript:title=.eslintrc.js
 module.exports = {
@@ -485,8 +584,8 @@ module.exports = {
 }
 ```
 
-もし、他の ESLint plugin を使っているなら、その plugin が ON にできるスタイルを OFF にする config を追加する。
-その config はすでに eslint-config-prettier が持っているので npm から DL する必要はない。
+もし、他の ESLint plugin を使っているなら、その plugin が ON にできるスタイルを OFF にする config を追加します。
+それらは eslint-config-prettier に含まれています。
 たとえば、TS と React の plugin を使っているのならば、
 
 ```javascript:title=.eslintrc.js
@@ -501,4 +600,6 @@ module.exports = {
 }
 ```
 
-となる。
+となります。
+
+実際に plugin のルールにスタイル関連で怒られてみて、それを prettier の config を入れることで解消されるかどうかという実験は [こちら](https://github.com/ojisan-toybox/eslint-prettier-angry)で行いましたので、もしまだ実感が持てないという方はお手元でお試しください。
