@@ -119,6 +119,8 @@ module.exports = {
 つまり **extends に指定するだけで plugin の設定を書かずとも、plugin の設定をできる**ということです。
 これは ESLint と Prettier の設定の混乱の原因の一つでもあるので覚えておきましょう。
 
+それでは Prettier が提供している plugin や config についてみていきましょう。
+
 ## eslint-config-prettier の責務
 
 [eslint-config-prettier](https://github.com/prettier/eslint-config-prettier) は
