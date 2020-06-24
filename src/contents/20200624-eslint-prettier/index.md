@@ -12,7 +12,7 @@ visual: "./visual.png"
 おそらく共存設定に悩んだことがある方、もしくはこれから悩む方は
 
 - [eslint-config-prettier](https://github.com/prettier/eslint-config-prettier) と [eslint-plugin-prettier](https://github.com/prettier/eslint-plugin-prettier) の設定は両方必要？
-- 公式 Doc みたら 2 つのプラグインを入れるのに、どうして ESLint の設定は extends だけでいいの？心配だし plugin にも設定書いていい？
+- 公式 Doc みたら 2 つのライブラリを入れるのに、どうして ESLint の設定は extends だけでいいの？心配だし plugin にも設定書いていい？
 - prettier は自分で入れる必要がある？
 
 に悩むと思います。この記事ではそれらの疑問を根拠を持って解消していきます。
