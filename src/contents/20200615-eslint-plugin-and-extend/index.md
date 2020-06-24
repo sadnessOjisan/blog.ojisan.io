@@ -1,7 +1,7 @@
 ---
 path: /eslint-plugin-and-extend
 created: "2020-06-15"
-updated: "2020-06-15"
+updated: "2020-06-24"
 title: ESLint の Plugin と Extend の違い
 visual: "./visual.png"
 ---
@@ -10,6 +10,9 @@ ESLint の Plugin と Extend の違いを説明できますか？
 違いを知っている人からすれば（というかそもそも全然違うものなので）、「え、それ悩む？」となるところなのですが、ユーザー向けドキュメントには Plugin の定義が書かれておらず、Extend の説明も不十分で、さらに Plugin の設定をする Extend なんてものがあるお陰で、慣れないうちは混乱すると思います。
 特に最後の事象は個人的には印象的で、「Plugin の設定をしていないのに Plugin が設定されている。Plugin って何？」といった混乱の原因になっていました。
 この混乱は ESLint の全体感を掴むと混乱しなくなるのでそういう話を書きたいと思います。
+
+実際に混乱してた人も多そうです（6/24 更新)
+![eslintのextendとpluginの混乱](eslint-config-plugin.png)
 
 結論を言うと、**Extend は Extend です。設定を Extend する役割を持っています。Plugin は Plugin です。設定を Plug する役割を持っています。**
 

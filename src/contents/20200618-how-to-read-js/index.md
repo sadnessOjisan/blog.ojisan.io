@@ -386,7 +386,7 @@ tsdoc に準拠して書いていると、（やる意味はないと思いま�
 この annotation は Language Server(tsserver) 的には tag 情報として扱われます。
 その tag 情報は@で始まっていれば何でもいいので正直なんでも入れることができます。
 
-```javascript:title=babel
+```js
 /**
  * なんかhogeする関数
  * @param input 入力される数

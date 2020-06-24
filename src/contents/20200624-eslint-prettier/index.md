@@ -9,11 +9,6 @@ visual: "./visual.png"
 いま Google で「Prettier ESLint」などで検索すると、最善とは言えない情報（重複した設定をしている）や根拠に欠ける情報が上の方に出てきており、混乱を助長していると思いましたので、根拠を示した記事を書きたいと思います。
 この情報は 2020 年 6 月 24 日における公式ドキュメントやライブラリの実装を根拠に解説した記事です。
 
-この記事は、根拠を明示するということに重きに置いて執筆しました。
-Prettier のような設定はいわゆる環境構築フェーズにするものです。
-環境構築は最初にした設定が後々に使い続けられるので、技術選定の理由は明確にされるべきだと筆者は考えております。
-特に設定内容や使われているプラグインが正しいことと、選定された根拠が明確になっていることは引継ぎをされた人にとっては勇気になるはずです。
-
 おそらく共存設定に悩んだことがある方、もしくはこれから悩む方は
 
 - [eslint-config-prettier](https://github.com/prettier/eslint-config-prettier) と [eslint-plugin-prettier](https://github.com/prettier/eslint-plugin-prettier) の設定は両方必要？
@@ -78,13 +73,13 @@ sharable config とはこのファイルではない .eslintrc と捉えると�
 ただそれだけではなく、ここが一番ややこしいポイントなのですが、plugin は sharable config も提供できます。
 そしてこの sharable config は plugin の中にも定義できます。
 
-```js
+```javascript:title=eslint-plugin-myPlugin.js
 module.exports = {
   configs: {
     myConfig: {
-    plugins: [""],
-    env: [""],
-    rules: {
+      plugins: [""],
+      env: [""],
+      rules: {
     }
   },
 }
@@ -94,7 +89,7 @@ FYI: https://eslint.org/docs/developer-guide/working-with-plugins
 
 これは Plugin の実装ですが、この Plugin に含まれた config は
 
-```javascript:title=eslint-plugin-myPlugin.js
+```javascript:title=.eslintrc.js
 module.exports = {
   extends: ["plugin:myPlugin/myConfig"],
 }
@@ -106,13 +101,13 @@ module.exports = {
 
 先ほどの
 
-```js
+```javascript:title=eslint-plugin-myPlugin.js
 module.exports = {
   configs: {
     myConfig: {
-    plugins: [""],
-    env: [""],
-    rules: {
+      plugins: [""],
+      env: [""],
+      rules: {
     }
   },
 }
@@ -174,7 +169,7 @@ module.exports = {
 
 実装を見てみると、例えば eslint 組み込みの rule に対しては
 
-```js
+```javascript:title=index.js
 ...
 
 module.exports = {
@@ -206,7 +201,7 @@ FYI: https://github.com/prettier/eslint-config-prettier/blob/master/index.js
 
 他にも TypeScript の [@typescript-eslint/eslint-plugin](https://github.com/typescript-eslint/typescript-eslint/tree/master/packages/eslint-plugin)ルール に対しては
 
-```js
+```javascript:title=@typescript-eslint.js
 "use strict"
 
 module.exports = {
@@ -273,7 +268,7 @@ module.exports = {
 
 ライブラリの本体も 1 ファイルだけでとてもシンプルなものです。
 
-```js
+```javascript:title=eslint-plugin-prettier.js
 ...
 
 rules: {
@@ -314,7 +309,7 @@ ESLint の rule は `0, 1, 2` や `off, warn, error` といった値で、その
 
 実装では
 
-```js
+```javascript:title=eslint-plugin-prettier.js
 module.exports = {
   configs: {
     ...
@@ -326,7 +321,7 @@ module.exports = {
 
 と定義されているので、ルール名は prettier です。
 
-```js
+```javascript:title=.eslintrc.js
 module.exports = {
   rules: {
     "prettier/prettier": "error",
@@ -347,7 +342,7 @@ FYI: https://eslint.org/docs/user-guide/configuring#use-a-plugin
 
 実際、eslint-plugin-prettier の package.json は
 
-```json
+```json:title=package.json
 {
   ...
   "dependencies": {
@@ -378,7 +373,7 @@ npm install -D eslint-plugin-prettier prettier
 
 をした上で、
 
-```js
+```javascript:title=.eslintrc.js
 module.exports = {
   plugins: ["prettier"],
   rules: {
@@ -395,7 +390,7 @@ module.exports = {
 
 情報を総合すると
 
-```js
+```javascript:title=.eslintrc.js
 module.exports = {
   extends: ["prettier"],
   plugins: ["prettier"],
@@ -409,7 +404,7 @@ module.exports = {
 
 しかし、実際には
 
-```js
+```javascript:title=.eslintrc.js
 module.exports = {
   extends: ["plugin:prettier/recommended"],
 }
@@ -420,7 +415,7 @@ module.exports = {
 それは**eslint-plugin-prettier に含まれる sharable config が全て設定してくれる**ためです。
 `extends: ["plugin:prettier/recommended"]` の実体も [ここ](https://github.com/prettier/eslint-plugin-prettier/blob/master/eslint-plugin-prettier.js)に含まれており、
 
-```js
+```javascript:title=eslint-plugin-prettier.js
 module.exports = {
   configs: {
     recommended: {
@@ -448,7 +443,7 @@ $ npm i -D eslint-plugin-prettier eslint-config-prettier prettier
 
 を実行し、
 
-```js
+```javascript:title=.eslintrc.js
 module.exports = {
   extends: ["plugin:prettier/recommended"],
 }
@@ -456,7 +451,7 @@ module.exports = {
 
 とすれば、
 
-```js
+```javascript:title=.eslintrc.js
 module.exports = {
   extends: ["prettier"],
   plugins: ["prettier"],
