@@ -99,7 +99,7 @@ module.exports = {
 
 として読み込めます。
 
-### config の中に plugin の読み込み設定を読み込める
+### config の中に plugin の読み込み設定を書ける
 
 先ほどの
 
