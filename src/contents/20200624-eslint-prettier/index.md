@@ -74,7 +74,6 @@ sharable config とはこのファイルではない .eslintrc と捉えると�
 一方で plugin は config の実装を提供します。
 つまり config が rule の ON/OFF を設定するのに対して、その rule 自体の実装を提供します。
 ただそれだけではなく、ここが一番ややこしいポイントなのですが、plugin は sharable config も提供できます。
-そしてこの sharable config は plugin の中にも定義できます。
 
 ```javascript:title=eslint-plugin-myPlugin.js
 module.exports = {
