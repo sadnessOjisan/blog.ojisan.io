@@ -10,7 +10,7 @@ visual: "./visual.png"
 この情報は 2020 年 6 月 24 日における公式ドキュメントやライブラリの実装を根拠に解説した記事です。
 
 (追記) https://dackdive.hateblo.jp/entry/2019/03/15/100000 が日本語の文献だと正しく簡潔にまとまっています。
-この下にある解説はだらだらと長く続き読みにくいところもあるかと思いますので、正しく簡潔に理解したい方はこちらの記事を参照すると良いです。
+これから始める解説は少々分量があり読みにくいところもあるかと思いますので、正しく簡潔に理解したい方はこちらの記事を参照すると良いです。
 私も執筆時に参考にしていました。
 
 おそらく共存設定に悩んだことがある方、もしくはこれから悩む方は
@@ -93,7 +93,7 @@ module.exports = {
 
 FYI: https://eslint.org/docs/developer-guide/working-with-plugins
 
-これは Plugin の実装ですが、この Plugin に含まれた config は
+その Plugin に含まれた config は eslint の設定ファイル上で
 
 ```javascript:title=.eslintrc.js
 module.exports = {
@@ -105,7 +105,7 @@ module.exports = {
 
 ### config の中に plugin の読み込み設定を書ける
 
-先ほどの
+先ほどの eslint-plugin-myPlugin.js では
 
 ```javascript:title=eslint-plugin-myPlugin.js
 module.exports = {
@@ -119,8 +119,8 @@ module.exports = {
 }
 ```
 
-が可能と言うことは、config の中で plugin を読めるということです。
-つまり **extends に指定するだけで plugin の設定を書かずとも、plugin の設定をできる**ということです。
+とあるように、config の中で plugin を指定できます。
+これは、 **plugin に定義されている config を extends に指定するだけで、その config に plugin の読み込み設定が書かれていれば、 plugin の設定を書かずとも plugin の設定をできる**ということです。
 これは ESLint と Prettier の設定の混乱の原因の一つでもあるので覚えておきましょう。
 
 それでは Prettier が提供している plugin や config についてみていきましょう。
