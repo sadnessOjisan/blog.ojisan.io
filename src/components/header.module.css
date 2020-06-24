@@ -7,6 +7,7 @@
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   justify-content: space-between;
   position: fixed;
+  transform: translate3d(0, 0, 0);
   top: 0;
   width: 100%;
   z-index: 1;
