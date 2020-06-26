@@ -7,12 +7,13 @@ visual: "./visual.png"
 
 css-loader と style-loader どっちがどっちかってたまになるので、そうならないための備忘です。
 これらは webpack の loader であり、JS で構築されるアプリケーション内で CSS を扱うために利用されます。
-最近は CSS in JS が流行っているので、css ファイルを読み込む機会は減ってはきているものの、reset.css を読み込んだり、UI ライブラリが提供するグローバルな CSS を読み込んだりと CSS を直接 JS に import する機会はまだまだ多いと思います。
+最近は CSS in JS の利用も増え、CSS ファイルを読み込む機会は減ってはきているものの、reset.css を読み込んだり、UI ライブラリが提供するグローバルな CSS を読み込んだりと CSS を直接 JS に import する機会はまだまだ多いと思います。
 そして 1 ファイルでも CSS を読み込むなら loader にその設定が必要となるので、まだまだお世話になり続けるでしょう。
 
 そんな利用機会の多い css-loader & style-loader ですが、呪文のように使われ続けてる印象があります。
 そのせいかどっちがどっちか理解されていない印象もあります。
-そんな **css-loader と style-loader を取り違えてしまう大きな原因は、これらが同時に出現することにあると思うので、片方だけ使ってみる**ということに挑戦します。
+事実 [Stack overflow](https://stackoverflow.com/questions/34039826/webpack-style-loader-vs-css-loader) では vote も集まっています。
+そんな **css-loader と style-loader を取り違えてしまう大きな原因は、これらが同時に出現することにあると思うので、片方だけ使ってみる**ということに挑戦して、「この 2 つはこういう違いがあるよ」と言う説明を試みます。
 
 ## css-loader とは
 
@@ -25,6 +26,23 @@ JS ファイル内で読み込まれる CSS を文字列として JS の世界�
 
 JS 内で CSS を扱うための便利な機能が含まれており、たとえば modules option を使えば CSS Modules も実現できます。
 
+```javascript:title=webpack.config.js
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.css$/i,
+        loader: "css-loader",
+        options: {
+          // いろいろなオプションを使って、CSSをJSで扱うための便利な機能をONにできる！！！！
+          modules: true,
+        },
+      },
+    ],
+  },
+}
+```
+
 ## style-loader とは
 
 [style-loader](https://github.com/webpack-contrib/style-loader) は,
@@ -34,13 +52,36 @@ JS 内で CSS を扱うための便利な機能が含まれており、たとえ
 とあり、JS の中にある CSS 文字列を DOM に挿入する役割を担います。
 そのため、CSS をページに反映させるために必要になってくる loader です。
 
+DOM への挿入方法は、injectType option で指定できます。
+大きくは styleTag か linkTag のどちらかに挿入します。
+default では styleTag に挿入し、そのまま CSS を展開します。
+
+一方で linkTag オプションを使えば、file を import するための別の loader が必要になるものの、CSS ファイルへの path を埋め込むことができます。
+（HTML ファイルに CSS を展開しない）
+
+```js
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.link\.css$/i,
+        use: [
+          { loader: "style-loader", options: { injectType: "linkTag" } },
+          { loader: "file-loader" },
+        ],
+      },
+    ],
+  },
+}
+```
+
 ## なぜ取り違えるのか
 
 なぜかこの 2 つは同時に出現します。
 
 css-loader の公式は、
 
-```js
+```javascript:title=webpack.config.js
 module.exports = {
   module: {
     rules: [
@@ -55,7 +96,7 @@ module.exports = {
 
 というサンプルコードを提供し、style-loader も
 
-```js
+```javascript:title=webpack.config.js
 module.exports = {
   module: {
     rules: [
@@ -74,8 +115,8 @@ module.exports = {
 
 ## style-loader だけを使ってみよう
 
-css-loader を別のライブラリで代用すればよいだけです。
-JS で import したものを文字列として JS の世界に引きずり込めればなんでもいいので、それをやるためだけの役割を持つ [raw-loader](https://github.com/webpack-contrib/raw-loader)を使いましょう。
+css-loader は CSS を JS の世界に import できるようにしているだけと考えると、これは別のライブラリでも代用できそうです。
+それをシンプルに実現できる[raw-loader](https://github.com/webpack-contrib/raw-loader)を使います。
 
 raw-loader は,
 
@@ -110,15 +151,16 @@ export default function rawLoader(source) {
 }
 ```
 
-と、非常にシンプルです。これがやっていることは、import したコードを文字列に変換して、そのまま後続の loader に渡しているだけです。
+と、非常にシンプルです。
+これがやっていることは、import したコードを文字列に変換して、そのまま後続の loader に渡しているだけです。
 
 なぜ return する文字列が `export default` や `module.export=`しているかはそれこそが loader と webpack の仕組みだからです。
 bundle された文字列は最終的に eval されます。
 そのため loader で export しておくと、他のファイルの import を評価してそのコードが読み取れるようになります。
-この記事は loader の仕組みについて解説するものではないので説明は端折りますが、 [ミニマムな webpack loader](https://naoty.dev/posts/80.html)という記事を読むと良いでしょう。
+この記事は loader の仕組みについて解説するものではないので説明は端折りますが、詳しくは [ミニマムな webpack loader](https://naoty.dev/posts/80.html)という記事を読むと良いでしょう。
 最小構成の webpack loader を自作することを通して loader の仕組みを学べて面白いです。
 
-この raw-loader は JS の世界に CSS を持ち込む責務を担えるので、その役割に関しては css-loader の代わりに使えそうです。
+この raw-loader は JS の世界に CSS を持ち込む責務を担えるので、その役割に関しては css-loader の代わりに使えます。
 
 実際、
 
@@ -141,7 +183,7 @@ module.exports = {
 }
 ```
 
-こういう wepack.config.js を用意して、
+という wepack.config.js を用意して、
 
 ```javascript:title=index.tsx
 import * as React from "react"
@@ -172,8 +214,9 @@ ReactDOM.render(<App></App>, document.getElementById("root"))
 
 このように **css-loader は必ずしも style-loader と併用する必要はありません。**
 style-loader が JS の世界から style 文字列を DOM に style として差し込んでくれるので、style が書かれたファイルを JS の世界に読み込む何かさえこちらで用意してしまえばいいのです。
-この例ではそれを raw-loader でやり、さらに他の便利機能が使うために css-loader を使っていると言うのが実情です。
-つまり **style-loader さえ入れとけば、css-loader はなくてもどうにかなります**。
+この例ではそれを raw-loader で使いましたが、css-loader を使うと他の CSS を扱いやすくするための utility が付属してくると言うのが実情です。
+つまり **style-loader さえ入れとけば、css-loader はなくても、style の適用だけならばどうにかなります**。
+実際のところ、CSS in JS が流行りつつあるので、もしかすると CSS ファイルをシンプルに import するだけで済むならば raw-loader で置き換えてしまっても問題ないかもしれません。
 
 ## まとめ
 
