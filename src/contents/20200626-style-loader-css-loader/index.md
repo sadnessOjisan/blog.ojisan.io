@@ -212,7 +212,7 @@ ReactDOM.render(<App></App>, document.getElementById("root"))
 と CSS を読み込むことができました。
 （※ただし `use: ["style-loader", "raw-loader"]` という順番であることに注意、loader は後ろから読まれるので、style-loader より先に raw-loader を実行する必要がある。(CSS ファイルを先に読み込まないと style を当てれないため)）
 
-このように **css-loader は必ずしも style-loader と併用する必要はありません。**
+このように **style-loader は必ずしも css-loader と併用する必要はありません。**
 style-loader が JS の世界から style 文字列を DOM に style として差し込んでくれるので、style が書かれたファイルを JS の世界に読み込む何かさえこちらで用意してしまえばいいのです。
 この例ではそれを raw-loader で使いましたが、css-loader を使うと他の CSS を扱いやすくするための utility が付属してくると言うのが実情です。
 つまり **style-loader さえ入れとけば、css-loader はなくても、style の適用だけならばどうにかなります**。
