@@ -214,7 +214,7 @@ ReactDOM.render(<App></App>, document.getElementById("root"))
 
 このように **style-loader は必ずしも css-loader と併用する必要はありません。**
 style-loader が JS の世界から style 文字列を DOM に style として差し込んでくれるので、style が書かれたファイルを JS の世界に読み込む何かさえこちらで用意してしまえばいいのです。
-この例ではそれを raw-loader で使いましたが、css-loader を使うと他の CSS を扱いやすくするための utility が付属してくると言うのが実情です。
+この例ではそれを raw-loader で担いましたが、css-loader を使うと他の CSS を扱いやすくするための utility が付属してくるという利点はあります。
 つまり **style-loader さえ入れとけば、css-loader はなくても、style の適用だけならばどうにかなります**。
 実際のところ、CSS in JS が流行りつつあるので、もしかすると CSS ファイルをシンプルに import するだけで済むならば raw-loader で置き換えてしまっても問題ないかもしれません。
 
