@@ -2,13 +2,12 @@
   margin: 0 auto;
   padding: 5px;
   width: 90%;
-  background-color: #fff;
   column-count: 3;
   column-gap: 0;
 }
 
 .card {
-  padding: 5px;
+  margin: 16px;
   -webkit-column-break-inside: avoid;
   page-break-inside: avoid;
   break-inside: avoid;
@@ -18,6 +17,7 @@
   .cards {
     display: flex;
     flex-direction: column;
+    width: 100%;
   }
 
   .card {
@@ -31,6 +31,7 @@
 
 .title {
   font-size: 24px;
+  font-weight: 600;
   margin: 24px 0px;
   text-align: center;
 }

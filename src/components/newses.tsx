@@ -15,7 +15,7 @@ export const Newses: React.FC<IProps> = ({ data, className }) => {
       {data.nodes.map(news => {
         return (
           <div className={styles.list}>
-            <div>{news.frontmatter?.created}: </div>
+            <div className={styles.date}>{news.frontmatter?.created}</div>
             <div>{news.frontmatter?.title}</div>
           </div>
         )
