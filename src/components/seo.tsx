@@ -73,8 +73,8 @@ function SEO({ description, meta, title, image }: IProps & SeoQuery) {
           content: metaDescription,
         },
         {
-          name: `twitter:image`,
-          content: `https://blog.ojisan.io${image}`,
+          property: `og:image`,
+          content: image ? `https://blog.ojisan.io${image}` : OGP,
         },
         {
           name: "google-site-verification",
