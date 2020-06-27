@@ -46,7 +46,9 @@ function SEO({ description, meta, title, image }: IProps & SeoQuery) {
         },
         {
           property: `og:image`,
-          content: image ? `https://blog.ojisan.io${image}` : OGP,
+          content: image
+            ? `https://blog.ojisan.io${image}`
+            : `https://blog.ojisan.io${OGP}`,
         },
         {
           property: `og:description`,
@@ -74,7 +76,9 @@ function SEO({ description, meta, title, image }: IProps & SeoQuery) {
         },
         {
           property: `og:image`,
-          content: image ? `https://blog.ojisan.io${image}` : OGP,
+          content: image
+            ? `https://blog.ojisan.io${image}`
+            : `https://blog.ojisan.io${OGP}`,
         },
         {
           name: "google-site-verification",
