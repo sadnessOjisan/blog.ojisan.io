@@ -34,6 +34,7 @@ const Social: React.FC<IProps> = ({ className, path, title, dateYYYYMMDD }) => (
         <img src={facebook} className={styles.icon} alt="facebook-logo"></img>
       </a>
       <img
+        tabIndex={0}
         src={clap}
         className={styles.icon}
         onClick={() => {

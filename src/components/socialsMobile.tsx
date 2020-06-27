@@ -41,6 +41,7 @@ const SocialMobile: React.FC<IProps> = ({
       {/* このaタグがないとsafariでのデザインが崩れる */}
       <a>
         <img
+          tabIndex={0}
           src={clap}
           className={styles.icon}
           onClick={() => {
