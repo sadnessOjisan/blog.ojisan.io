@@ -1,16 +1,23 @@
 .cards {
-  /* Masonry container */
-  display: grid;
-  grid-gap: 20px;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  grid-auto-rows: 300px;
-  padding: 16px;
+  margin: 0 auto;
+  padding: 5px;
+  width: 90%;
+  column-count: 3;
+  column-gap: 0;
+}
+
+.card {
+  margin: 16px;
+  -webkit-column-break-inside: avoid;
+  page-break-inside: avoid;
+  break-inside: avoid;
 }
 
 @media screen and (max-width: 1024px) {
   .cards {
     display: flex;
     flex-direction: column;
+    width: 100%;
   }
 
   .card {
@@ -24,6 +31,7 @@
 
 .title {
   font-size: 24px;
+  font-weight: 600;
   margin: 24px 0px;
   text-align: center;
 }
