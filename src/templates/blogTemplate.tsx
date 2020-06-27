@@ -34,15 +34,16 @@ export default function Template({ data }: IProps) {
             }
           />
           <div className={isOpen && styles.modalOpenBody}>
-            <h1 className={styles.headline}>
-              {markdownRemark.frontmatter.title}
-            </h1>
-            <h2 className={styles.date}>
-              {markdownRemark.frontmatter.created}(created)
-              {markdownRemark.frontmatter.updated &&
-                `/${markdownRemark.frontmatter.updated}(updated)`}
-            </h2>
-
+            <div className={styles.articleHeader}>
+              <h1 className={styles.headline}>
+                {markdownRemark.frontmatter.title}
+              </h1>
+              <h2 className={styles.date}>
+                {markdownRemark.frontmatter.created}(created)
+                {markdownRemark.frontmatter.updated &&
+                  `/${markdownRemark.frontmatter.updated}(updated)`}
+              </h2>
+            </div>
             {markdownRemark.frontmatter.visual?.childImageSharp?.fluid && (
               <Image
                 style={{

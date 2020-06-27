@@ -2,11 +2,17 @@
   z-index: 1;
 }
 
+.articleHeader {
+  max-width: 960px;
+  margin: auto;
+  margin-bottom: 36px;
+}
+
 .headline {
   color: #2c2e31;
   line-height: 48px;
   font-size: 32px;
-  margin: 16px 0px;
+  margin: 8px 0px;
   padding: 0 8px;
 }
 
