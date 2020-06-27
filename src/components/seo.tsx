@@ -2,6 +2,7 @@ import * as React from "react"
 import { Helmet } from "react-helmet"
 import { useStaticQuery, graphql } from "gatsby"
 import { SeoQuery } from "../../types/graphql-types"
+import OGP from "../images/keyvisual.png"
 
 interface IProps {
   description?: string
@@ -45,7 +46,7 @@ function SEO({ description, meta, title, image }: IProps & SeoQuery) {
         },
         {
           property: `og:image`,
-          content: `https://blog.ojisan.io${image}`,
+          content: image ? `https://blog.ojisan.io${image}` : OGP,
         },
         {
           property: `og:description`,
