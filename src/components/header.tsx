@@ -12,7 +12,7 @@ interface IProps {
 const Header: React.FC<IProps> = ({ siteTitle }) => (
   <header className={styles.header}>
     <h1 className={styles.title}>
-      <Link to="/">BLOG</Link>
+      <Link to="/">blog.ojisan.io</Link>
     </h1>
     <div>
       <a href="https://blog.ojisan.io/rss.xml" aria-label="rssへのリンク">
