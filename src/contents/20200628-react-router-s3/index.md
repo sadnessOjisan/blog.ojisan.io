@@ -10,7 +10,7 @@ visual: "./visual.png"
 （完）
 
 ただ、たとえば /about でリロードして、404 Not Found になっていたものが、エラードキュメントに index.html を指定したら /about が見れるって違和感ありませんか？
-少なくとも私は「index.html に redirect するのだから、そこで見えるものって / なのでは！なんで/about が見えるんですか？」という疑問を持っていました。
+少なくとも私は「index.html に redirect するのだから、そこで見えるものって / なのでは！なんで/about が見えるんですか!？」という疑問を持っていました。
 あと、「S3 SPA」で検索すると、[CloudFront](https://aws.amazon.com/jp/cloudfront/) 前提だったり、index.html を書くことで解決される理由は書かれてなさそうなので、そういうのを解説したいと思います。
 
 ## どうして SPA のホスティングで悩むのか
@@ -26,18 +26,17 @@ visual: "./visual.png"
 
 しかしこのとき、 example.com/hoge で画面をリロードすると、example.com にある HTML と JS を読み込んでおらず、/hoge に対するリクエストが web サーバーに飛んでいってしまいます。
 その結果サーバーは example.com/hoge にある hoge を返そうとします。
-しかし、SPA においては アプリケーションは example.com/index.html にしかなく、hoge はサーバー上に存在しないのでいのでリソースが見つからず HTML は返りません。
+しかし、SPA においては アプリケーションは example.com/index.html にしかなく、hoge はサーバー上に存在しないのでリソースが見つからず HTML は返りません。
 
 そのため HTTP Request の結果は 404 Not Found となります。
 **つまり SPA をホスティングすると、ユーザーがなんらかのパス上でリロードした際、リクエストが Web サーバーに行きリソースが見つからず表示することができません。**
 
-それが S3 上でも発生しそのことについて調べると、エラーページのリダイレクト対応として index.html(ルートページ)を指定すれば解決できるようです。（もっともその設定は CloudFront 上でされていることが多いですが。）
-その理由について解説します。
+それが S3 上でも発生しするので調べると、エラーページのリダイレクト対応として index.html(ルートページ)を指定すれば解決できることが分かりました。（もっともその設定は CloudFront 上でされていることが多いですが。）
 
 ## どうしてルートリダイレクトで SPA の遷移ができるのか
 
-その理由は HTML5 の [History API](https://developer.mozilla.org/ja/docs/Web/API/History_API) にあります。
-これは JavaScript の世界から アドレスバーやページの navigation state を制御できる API です。
+その理由は HTML5 の [History API](https://developer.mozilla.org/ja/docs/Web/API/History_API) とクライアント側での DOM 操作にあります。
+History API は JavaScript の世界から アドレスバーやページの navigation state を制御できる API です。
 
 代表的な SPA routing の実装 では、link は
 
@@ -69,6 +68,8 @@ function handleClickToHogeLink(e) {
 [navi](https://frontarm.com/navi/en/) などの SPA routing ライブラリの経験がある方はなんとなく見覚えがあるのではないでしょうか。
 
 ここで、routing を司る関数(たとえばコンポーネントが mount されるときに、URL の path から遷移対象のコンポーネントを出し分けるなど)をルートページに置いておけば、404 NotFound のときにそのルートに redirect させることで routing 関数を実行し、本来アクセスしようとしたパスに対応するページを表示させられます。
+
+これが先ほどのエラーページとして ルートドキュメントを指定することで、404 Not Found を回避できる理由です。
 
 ## S3 の場合
 
