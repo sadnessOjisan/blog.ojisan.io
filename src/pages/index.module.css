@@ -1,10 +1,17 @@
 .cards {
-  /* Masonry container */
-  display: grid;
-  grid-gap: 20px;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  grid-auto-rows: 300px;
-  padding: 16px;
+  margin: 0 auto;
+  padding: 5px;
+  width: 90%;
+  background-color: #fff;
+  column-count: 3;
+  column-gap: 0;
+}
+
+.card {
+  padding: 5px;
+  -webkit-column-break-inside: avoid;
+  page-break-inside: avoid;
+  break-inside: avoid;
 }
 
 @media screen and (max-width: 1024px) {
