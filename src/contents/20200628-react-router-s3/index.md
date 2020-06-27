@@ -1,6 +1,6 @@
 ---
 path: /s3-spa-deploy
-created: "2020-06-27"
+created: "2020-06-28"
 title: S3にSPAはデプロイできるのか -HostingとRouting-
 visual: "./visual.png"
 ---
@@ -15,7 +15,7 @@ visual: "./visual.png"
 
 ## どうして SPA のホスティングで悩むのか
 
-[SPA(Single Page Application)](https://ja.wikipedia.org/wiki/%E3%82%B7%E3%83%B3%E3%82%B0%E3%83%AB%E3%83%9A%E3%83%BC%E3%82%B8%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3) のホスティングで問題になるのは、ページのリロード処理です。
+[SPA(Single Page Application)](https://ja.wikipedia.org/wiki/%E3%82%B7%E3%83%B3%E3%82%B0%E3%83%AB%E3%83%9A%E3%83%BC%E3%82%B8%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3) のホスティングで問題になりがちなのは、ページのリロード処理です。
 
 一般的にはルーティングはブラウザが管理していますが、SPA では JavaScript がその責務を一部担います。
 私たちが普段 Web ページをみるときは routing に対応した HTML をサーバーに取りに行き、それをブラウザで参照します。
@@ -68,7 +68,7 @@ function handleClickToHogeLink(e) {
 として表現できます。
 [navi](https://frontarm.com/navi/en/) などの SPA routing ライブラリの経験がある方はなんとなく見覚えがあるのではないでしょうか。
 
-ここで、routing を司る機能(たとえばコンポーネントが mount されるときに、URL の path から遷移対象のコンポーネントを出し分けるなど)をルートページに置いておけば、404 NotFound のときにそのルートに redirect させることで該当のページを表示することができます。
+ここで、routing を司る関数(たとえばコンポーネントが mount されるときに、URL の path から遷移対象のコンポーネントを出し分けるなど)をルートページに置いておけば、404 NotFound のときにそのルートに redirect させることで routing 関数を実行し、本来アクセスしようとしたパスに対応するページを表示させられます。
 
 ## S3 の場合
 
@@ -89,13 +89,13 @@ SPA をホスティングするだけなら、ルーティングへのサポー�
 
 ただしそのサイトを HTTPS 対応したい場合は必要になりそうです。
 確証は持てませんが、 [S3 を HTTPS 化する記事](https://cre8cre8.com/aws/https-s3-and-cloudfront.htm) などをみるとそのようです。
-また、配信パフォーマンスを考えると前段に CDN があった方が良いとも思います。
+また S3 の可用性に問題はなくとも、配信パフォーマンスを考えると前段に CDN があった方が良いとも思います。
 [S3 を使った配信をする場合の構成パターン集](https://dev.classmethod.jp/articles/static-contents-delivery-patterns/)を見ていると、やっぱり CloudFront は欲しくなりました。
 
 また [Stack Overflow](https://stackoverflow.com/questions/16267339/s3-static-website-hosting-route-all-paths-to-index-html) 上には S3/Redirect based approach を意図的に使わない理由を述べている人がおり、hash(#)ベースの SPA Routing 設定をしている場合の考慮も必要で、CloudFront が使えるなら使った方がよいみたいです。（この辺りは詳しくないので説明できません。申し訳ございません。）
 
 なので、本当は[S3 を使った配信をする場合の構成パターン集](https://dev.classmethod.jp/articles/static-contents-delivery-patterns/)にある横綱パターンを使いたいが、大人の事情でできない場合の奥の手くらいとして、S3 単体でも SPA 作れるようと覚えておけばいいのではと思います。
-（いまは コストや手間の観点からも[Amplify](https://aws.amazon.com/jp/amplify/) という良い選択肢があるので、個人的にはそれを推したいです。）
+（いまは コストや手間の観点からも[Amplify](https://aws.amazon.com/jp/amplify/) という良い選択肢があるので、個人的にはそれを推したい気持ちはあります。）
 
 ## 参考文献
 
