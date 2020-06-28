@@ -11,12 +11,12 @@ Lambda@Edge が必要で、さらに Lambda をルーティングごとに実行
 
 Static HTML Export での運用であれば、少し工夫をすれば CloudFront を使わずに S3 だけでもデプロイできるのでその解説をします。
 
-## NextJS は静的サイトホスティング機能がある
+## NextJS は Static HTML Export 機能がある
 
 NextJS は SSR を容易にしてくれる FW という印象がありますが、Static HTML Export 機能も備わっており、SSR の対象を事前に Rendering して静的ページを吐き出すことができます。
 このページをホスティングすれば NodeJS 以外の環境でも NextJS を動かすことができます。
 
-## 静的サイトホスティング機能と S3 の相性が悪い
+## Static HTML Export 機能と S3 の相性が悪い
 
 ただし、Static HTML Export ができるものの、NextJS の機能を使ってページ遷移をしていると、遷移の挙動は SPA 的なものになります。
 つまり、 /about に遷移した時、HTML は静的ページですが URL のヘッダは /about.html になりません。
