@@ -18,9 +18,7 @@ const IndexPage: React.FC<IProps> = ({ data }) => {
   return (
     <Layout>
       <SEO title={data.site?.siteMetadata?.title || "HOME"} />
-      <h1 className={styles.title}>
-        {data.site?.siteMetadata?.title || "HOME"}
-      </h1>
+      <h1 className={styles.title}>日々のつまづき</h1>
       <Newses data={data.newses} className={styles.newses}></Newses>
       <div className={styles.cards}>
         {data.blogs.nodes.map(node => (

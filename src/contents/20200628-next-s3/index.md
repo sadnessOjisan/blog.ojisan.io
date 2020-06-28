@@ -1,0 +1,56 @@
+---
+path: /s3-spa-deploy
+created: "2020-06-28"
+title: S3 に NextJS 製 App をデプロイできるか
+visual: "./visual.png"
+---
+
+できる場合とできない場合があります。
+SSR(つまり NodeJS での実行)するなら、当然 S3 単体ではできません。
+Lambda@Edge が必要で、さらに Lambda をルーティングごとに実行させる口として CloudFront も必要です。
+
+SSG mode での運用であれば、少し工夫をすれば CloudFront を使わずに S3 だけでもデプロイできるのでその解説をします。
+
+## NextJS は静的サイトホスティング機能がある
+
+NextJS は SSR を容易にしてくれる FW という印象がありますが、Static Exporting 機能も備わっており、SSR の対象を事前に Rendering して静的ページを吐き出すことができます。
+このページをホスティングすれば NodeJS 以外の環境でも NextJS を動かすことができます。
+
+## 静的サイトホスティング機能と S3 の相性が悪い
+
+ただし、静的ホスティングではあるものの、NextJS の機能を使ってページ遷移をしていると、遷移の挙動は SPA 的なものになります。
+つまり、 /about に遷移した時、HTML は静的ページですが URL のヘッダは /about.html になりません。
+その結果そのページでリダイレクトすると 404 Not Found となります。
+この問題に出会った際、 SPA の場合はクライアントサイドに埋め込まれた routing ライブラリを呼べばいいので、エラーページとしてルードドキュメントにリダイレクトさせれば良かったです。
+それが今朝公開した [S3 に NextJS 製 App をデプロイできるか](https://blog.ojisan.io/s3-spa-deploy)に書いたことです。
+
+## 地道な Redirect で解決する
+
+「じゃあ 静的サイトだけどルーティングが SPA(お尻に.html がつかない)のような挙動のページは S3 にホスティングできないのか」と疑問に思うわけですが、可能です。
+S3 単体にも CloudFront と同じようなリダイレクト機能があるため、遷移することができます。
+
+![S3上でリダイレクト設定をする](s3error.png)
+
+コンソール上にリダイレクト設定をするところがあります。
+ただし[記法は独特](https://docs.aws.amazon.com/AmazonS3/latest/dev/how-to-page-redirect.html)で、
+
+```xml
+<RoutingRules>
+  <RoutingRule>
+    <Condition>
+      <KeyPrefixEquals>about/</KeyPrefixEquals>
+    </Condition>
+    <Redirect>
+      <ReplaceKeyPrefixWith>about.html</ReplaceKeyPrefixWith>
+    </Redirect>
+  </RoutingRule>
+</RoutingRules>
+```
+
+といった XML 形式で書く必要はあります。
+これは about/ と遷移がきたら, about.html にリダイレクトするように書いています。
+こうすることで、about.html を表示させることができます。
+
+この手のやり方だと routing ごとにリダイレクトルールを書かないといけないため、実際には CloudFront + Lambda@Edge でリクエストごとに html をつけたページに遷移するという関数を実行して解決するとは思いますが、S3 単体でもできないことはないよという備忘録でした。
+
+サンプルコードは[こちら](https://github.com/ojisan-toybox/s3-next-js)です。
