@@ -1,5 +1,5 @@
 ---
-path: /s3-spa-deploy
+path: /s3-next-deploy
 created: "2020-06-28"
 title: S3 に NextJS 製 App をデプロイできるか
 visual: "./visual.png"
