@@ -9,16 +9,16 @@ visual: "./visual.png"
 SSR(つまり NodeJS での実行)するなら、当然 S3 単体ではできません。
 Lambda@Edge が必要で、さらに Lambda をルーティングごとに実行させる口として CloudFront も必要です。
 
-SSG mode での運用であれば、少し工夫をすれば CloudFront を使わずに S3 だけでもデプロイできるのでその解説をします。
+Static HTML Export での運用であれば、少し工夫をすれば CloudFront を使わずに S3 だけでもデプロイできるのでその解説をします。
 
 ## NextJS は静的サイトホスティング機能がある
 
-NextJS は SSR を容易にしてくれる FW という印象がありますが、Static Exporting 機能も備わっており、SSR の対象を事前に Rendering して静的ページを吐き出すことができます。
+NextJS は SSR を容易にしてくれる FW という印象がありますが、Static HTML Export 機能も備わっており、SSR の対象を事前に Rendering して静的ページを吐き出すことができます。
 このページをホスティングすれば NodeJS 以外の環境でも NextJS を動かすことができます。
 
 ## 静的サイトホスティング機能と S3 の相性が悪い
 
-ただし、静的ホスティングではあるものの、NextJS の機能を使ってページ遷移をしていると、遷移の挙動は SPA 的なものになります。
+ただし、Static HTML Export ができるものの、NextJS の機能を使ってページ遷移をしていると、遷移の挙動は SPA 的なものになります。
 つまり、 /about に遷移した時、HTML は静的ページですが URL のヘッダは /about.html になりません。
 遷移先の URL は/about です。
 その結果そのページでリダイレクトすると 404 Not Found となります。
