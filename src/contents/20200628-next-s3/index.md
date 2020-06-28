@@ -24,6 +24,7 @@ NextJS は SSR を容易にしてくれる FW という印象がありますが�
 その結果そのページでリダイレクトすると 404 Not Found となります。
 この問題に出会った際、 SPA の場合はクライアントサイドに埋め込まれた routing ライブラリを呼べばいいので、エラーページとしてルードドキュメントにリダイレクトさせれば良かったです。
 それが今朝公開した [S3 に NextJS 製 App をデプロイできるか](https://blog.ojisan.io/s3-spa-deploy)に書いたことです。
+ただし Static HTML Export 時にエラーページをセットしても本当に見たいリソースはサーバー上の/about.html にあるので、うまく動きません。
 
 ## 地道な Redirect で解決する
 
@@ -52,6 +53,15 @@ S3 単体にも CloudFront と同じようなリダイレクト機能がある�
 これは about/ と遷移がきたら, about.html にリダイレクトするように書いています。
 こうすることで、about.html を表示させることができます。
 
-この手のやり方だと routing ごとにリダイレクトルールを書かないといけないため、実際には CloudFront + Lambda@Edge でリクエストごとに html をつけたページに遷移するという関数を実行して解決するとは思いますが、S3 単体でもできないことはないよという備忘録でした。
+ただ注意点としては S3 の KeyPrefixEquals の制約で、Redirect ルールはオブジェクトを指定するか / をつける必要がありそうです。
+
+```js
+This is a Root Page. aboutページは<Link href="about/">こちら〜</Link>
+```
+
+そのため遷移先は about ではなく about/ になるように NextJS を書く必要があり、ルールも/付きにする必要がありそうです。
+（ほんまか？ ← リンク先を about してルールにも about を書いて遷移したら、about.html.html....html みたいなところに遷移した ）
+
+この手のやり方だと routing ごとにリダイレクトルールを書かないといけないため手間であり、実際には CloudFront + Lambda@Edge でリクエストごとに html をつけたページに遷移するという関数を実行して解決するとは思いますが、S3 単体でもできないことはないよという備忘録でした。
 
 サンプルコードは[こちら](https://github.com/ojisan-toybox/s3-next-js)です。
