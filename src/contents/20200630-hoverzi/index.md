@@ -74,3 +74,5 @@ CSS にはそのうち親の要素に遡ってスタイルを当てられるよ�
 ↓ こういうのを CSS だけで作りたい ↓
 
 <iframe src="https://www.youtube.com/embed/DpFkeoUU5VE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen id="youtube"></iframe>
+
+以上、hover の状態を使ってスタイルを書き換える必要があるとき、隣接・子要素なら CSS だけでできるので、動的な CSS は使わなくても良いよ（というよりやるな！）という自戒記事でした〜
