@@ -180,3 +180,8 @@
 .content a {
   color: #368ccb;
 }
+
+.content iframe {
+  display: block;
+  margin: 32px auto;
+}
