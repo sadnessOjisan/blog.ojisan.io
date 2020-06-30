@@ -185,3 +185,15 @@
   display: block;
   margin: 32px auto;
 }
+
+.content iframe {
+  width: 560px;
+  height: 315px;
+}
+
+@media screen and (max-width: 1024px) {
+  .content iframe {
+    width: initial;
+    height: initial;
+  }
+}
