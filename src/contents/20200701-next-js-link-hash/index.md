@@ -144,13 +144,14 @@ export default () => {
 
 ![成功](success.png)
 
-これが動いたということは、動かない原因は、a タグではなく`router.push()` などの JS を使って遷移したからかもしれません。
-.html のつかない遷移、SPA での遷移だからかもしれません。
-検証してみましょう。
+これが動いたということは、動かない原因は、a タグではなく`router.push()` などで JS を使って遷移したからかもしれないと考えました。
+そこで検証してみました。
+(NextJS を使っている以上は Link でラップした a タグの遷移も JS の実行なのですが、ちょっとだけ目を瞑って欲しいです...)
 
-## router.push() など JS で遷移した場合(Ajax 使っていない)
+## router.push() で遷移した場合(Ajax 使っていない)
 
 `router` は NextJS の useRouter Hooks から作れます。
+その `router`を使って `router.push(/cards#${id})` を実行して遷移します。
 
 ```js:title=遷移元
 import React, { useState } from "react"
@@ -165,6 +166,7 @@ export default () => {
         return (
           <div
             onClick={() => {
+              // aタグの代わりにrouter.push
               router.push(`/cards#${id}`)
             }}
           >
@@ -202,7 +204,7 @@ export default () => {
 
 ![成功](success.png)
 
-この例でも動きました。
+この例でも成功しました。
 `router.push()` は 第二引数、第三引数にいろいろオプションを取れるので、それを使って解決するのかなとも考えていたのですが、どうやら違ったようです。
 
 ## 遷移後のページが Ajax でデータを取得していた場合
@@ -243,6 +245,7 @@ import React, { useState, useEffect } from "react"
 export default () => {
   const [cards, setCards] = useState([])
 
+  // もしかしてこれが犯人？？？
   useEffect(() => {
     fetch("/api")
       .then(res => res.json())
@@ -264,6 +267,7 @@ export default () => {
       ))}
     </div>
   ) : (
+    // もしかしてこれが犯人？？？
     "loading"
   )
 }
@@ -283,20 +287,23 @@ export default (req, res) => {
 
 ![失敗](fail.png)
 
-このコードが動かないのはよくよく考えたらそんな気もするのですが、遷移時はコンテンツがないのでその場所に遷移することは当然できません。
+このコードが失敗するのはよくよく考えたらそんな気もするのですが、**遷移時はコンテンツがないのでその場所に遷移することはできません**。
 **SPA だからだとか、NextJS だからだとか、JS を使った遷移をしたからだとかとかではありません。**
 **ただ、Ajax でデータを取得すると遷移直後はデータがないからそこにページ内遷移ができない**ということです。
-そのため Ajax を使ってデータを動的に追加するようなサイトであれば、ページ内スクロールはできないのでしょうか。
+
+そのため Ajax を使ってデータを動的に追加するようなサイトであれば、ページ内スクロールができないのかと思いました。
 仮にそうだとすれば、SSR しない限りは React を採用するとページ内スクロールができないことになるわけですが、果たしてそうでしょうか。
+さすがにそんなわけはないと思うのでいろいろ試行錯誤してみました。
 
 ## ref を割り振り hash と一致する component 上で ref 経由の scrollIntoView を実行する
 
-先ほどの問題を解決するためには、**API からのデータ取得を待ちデータ取得後に hash で指定された id へジャンプする**必要があります。
+先ほどの問題を解決するためには、**API からのデータを取得しそれに対応するコンポーネントを描画した後に hash で指定された id へジャンプする**必要があります。
 
 そのために、**スクロールする処理は各コンポーネントに任せ、そのコンポーネントが自分がスクロール対象かどうかを判定しスクロールする**という戦略を取ります。
 
 ### window.locasion.hash
 
+自分がスクロール対象かどうかを判定するために URL からスクロール対象の id を取り出します。
 http://hogehoge.com#99999 のような URL から 99999 を取り出すためには window.locasion.hash が使えます。
 ただこれが抽出するものは #99999 です。
 そのため、`window.locasion.hash.replace("#","")` などして取り出してください。
@@ -310,7 +317,22 @@ useEffect(() => {
 }, [])
 ```
 
+そして各コンポーネントに
+
+```js
+<div>
+  {cards.map(id => (
+    <Child id={id} isScroll={id === hashId}></Child>
+  ))}
+</div>
+```
+
+といった `isScroll` という props を渡し、そのコンポーネント自体がスクロール対象かどうかを教えてあげる仕組みを作ります。
+
 ### scrollIntoView
+
+そのコンポーネント自体がスクロール対象かどうかわかれば、その対象が自分がマウントされたときにそこまでスクロールする仕組みを作ります。
+そのために `scrollIntoView` を利用します。
 
 MDN の説明を借りると、[scrollIntoView](https://developer.mozilla.org/ja/docs/Web/API/Element/scrollIntoView)は、**scrollIntoView() が呼び出された要素がユーザーに見えるところまで、要素の親コンテナーをスクロールします。**
 
