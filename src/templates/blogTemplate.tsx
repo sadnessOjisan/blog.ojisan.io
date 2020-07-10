@@ -28,7 +28,7 @@ export default function Template({ data }: IProps) {
         <>
           <SEO
             title={markdownRemark.frontmatter.title}
-            description={markdownRemark.rawMarkdownBody?.slice(0, 100)}
+            description={markdownRemark.excerpt.slice(0, 100)}
             image={
               markdownRemark.frontmatter.visual?.childImageSharp?.fluid?.src
             }
@@ -105,6 +105,7 @@ export default function Template({ data }: IProps) {
 export const pageQuery = graphql`
   query BlogTemplate($path: String!) {
     markdownRemark(frontmatter: { path: { eq: $path } }) {
+      excerpt(format: PLAIN, truncate: true)
       html
       rawMarkdownBody
       frontmatter {

@@ -3300,7 +3300,7 @@ export type BlogTemplateQueryVariables = {
 
 
 export type BlogTemplateQuery = { markdownRemark?: Maybe<(
-    Pick<MarkdownRemark, 'html' | 'rawMarkdownBody' | 'tableOfContents'>
+    Pick<MarkdownRemark, 'excerpt' | 'html' | 'rawMarkdownBody' | 'tableOfContents'>
     & { frontmatter?: Maybe<(
       Pick<MarkdownRemarkFrontmatter, 'created' | 'updated' | 'path' | 'title'>
       & { visual?: Maybe<{ childImageSharp?: Maybe<{ fluid?: Maybe<GatsbyImageSharpFluidFragment> }> }> }
