@@ -6,7 +6,6 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 import { AllBlogsQuery } from "../../types/graphql-types"
 import { Newses } from "../components/newses"
-import Image from "gatsby-image"
 import styles from "./index.module.css"
 import { Card } from "../components/card"
 
@@ -53,7 +52,7 @@ export const pageQuery = graphql`
       }
     }
 
-    newses: allMarkdownRemark(filter: {fileAbsolutePath: {regex: "/(/src/news)/.*\\.md$/"}}) {
+    newses: allMarkdownRemark(filter: {fileAbsolutePath: {regex: "/(/src/news)/.*\\.md$/"}}, limit: 5, sort: {fields: frontmatter___created, order: DESC}) {
       nodes {
         frontmatter {
           title
