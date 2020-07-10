@@ -24,7 +24,8 @@ export default function Template({ data }: IProps) {
       markdownRemark.frontmatter &&
       markdownRemark.frontmatter.title &&
       markdownRemark.frontmatter.path &&
-      markdownRemark.frontmatter.created ? (
+      markdownRemark.frontmatter.created &&
+      markdownRemark.excerpt ? (
         <>
           <SEO
             title={markdownRemark.frontmatter.title}
