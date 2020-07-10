@@ -34,7 +34,6 @@ function SEO({ description, meta, title, image }: IProps & SeoQuery) {
         lang: "ja",
       }}
       title={title}
-      titleTemplate={`%s | ${site.siteMetadata.title}`}
       meta={[
         {
           name: `description`,
