@@ -95,24 +95,28 @@
 }
 
 .content > h1 {
-  font-size: 36px;
+  font-size: 32px;
   line-height: 32px;
   margin-top: 40px;
+  font-weight: bold;
 }
 
 .content > h2 {
-  font-size: 32px;
+  font-size: 28px;
   margin-top: 50px;
+  font-weight: bold;
 }
 
 .content > h3 {
-  font-size: 28px;
+  font-size: 22px;
   margin-top: 20px;
+  font-weight: bold;
 }
 
 .content > h4 {
-  font-size: 24px;
+  font-size: 20px;
   margin-top: 16px;
+  font-weight: bold;
 }
 
 @media screen and (max-width: 1024px) {
