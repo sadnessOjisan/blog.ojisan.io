@@ -1,5 +1,5 @@
 import * as React from "react"
-import { graphql } from "gatsby"
+import { graphql, Link } from "gatsby"
 import Image from "gatsby-image"
 import styles from "./blogTemplate.module.css"
 import { BlogTemplateQuery } from "../../types/graphql-types"
@@ -9,6 +9,7 @@ import Toc from "../components/toc"
 import TocMobile from "../components/tocMoblie"
 import Social from "../components/socials"
 import SocialMobile from "../components/socialsMobile"
+import { Tag } from "../components/tag"
 
 interface IProps {
   data: BlogTemplateQuery
@@ -25,6 +26,7 @@ export default function Template({ data }: IProps) {
       markdownRemark.frontmatter.title &&
       markdownRemark.frontmatter.path &&
       markdownRemark.frontmatter.created &&
+      markdownRemark.frontmatter.tags &&
       markdownRemark.excerpt ? (
         <>
           <SEO
@@ -44,6 +46,16 @@ export default function Template({ data }: IProps) {
                 {markdownRemark.frontmatter.updated &&
                   `/${markdownRemark.frontmatter.updated}(updated)`}
               </h2>
+              <div className={styles.tags}>
+                {markdownRemark.frontmatter.tags.map(
+                  tag =>
+                    tag && (
+                      <Link href={`tags/${tag}`}>
+                        <Tag className={styles.tag} name={tag}></Tag>
+                      </Link>
+                    )
+                )}
+              </div>
             </div>
             {markdownRemark.frontmatter.visual?.childImageSharp?.fluid && (
               <Image
@@ -114,6 +126,7 @@ export const pageQuery = graphql`
         updated(formatString: "YYYY-MM-DD")
         path
         title
+        tags
         visual {
           childImageSharp {
             fluid(maxWidth: 800) {

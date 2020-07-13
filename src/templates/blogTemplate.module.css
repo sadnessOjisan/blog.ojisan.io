@@ -16,6 +16,15 @@
   padding: 0 8px;
 }
 
+.tags {
+  display: flex;
+}
+
+.tag {
+  margin-right: 12px;
+  margin-bottom: 8px;
+}
+
 @media screen and (max-width: 1024px) {
   .headline {
     margin: 8px 0px;
