@@ -1,0 +1,34 @@
+.title {
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: 32px;
+  margin-top: 32px;
+}
+
+.cards {
+  margin: 0 auto;
+  padding: 5px;
+  width: 90%;
+  column-count: 3;
+  column-gap: 0;
+}
+
+.card {
+  margin-right: 4px;
+  margin-bottom: 16px;
+  -webkit-column-break-inside: avoid;
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+
+@media screen and (max-width: 1024px) {
+  .cards {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .card {
+    margin-bottom: 16px;
+  }
+}

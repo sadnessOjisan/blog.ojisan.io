@@ -7,7 +7,7 @@ import styles from "./card.module.css"
 
 interface IProps {
   data: AllBlogsQuery["blogs"]["nodes"][0]["frontmatter"]
-  className: string
+  className?: string
   excerpt: AllBlogsQuery["blogs"]["nodes"][0]["excerpt"]
 }
 

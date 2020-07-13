@@ -731,9 +731,9 @@ export type FileFieldsEnum =
   | 'childMarkdownRemark___frontmatter___visual___publicURL'
   | 'childMarkdownRemark___frontmatter___visual___id'
   | 'childMarkdownRemark___frontmatter___visual___children'
+  | 'childMarkdownRemark___frontmatter___tags'
   | 'childMarkdownRemark___frontmatter___updated'
   | 'childMarkdownRemark___frontmatter___description'
-  | 'childMarkdownRemark___frontmatter___tags'
   | 'childMarkdownRemark___excerpt'
   | 'childMarkdownRemark___rawMarkdownBody'
   | 'childMarkdownRemark___fileAbsolutePath'
@@ -1561,9 +1561,9 @@ export type MarkdownRemarkFieldsEnum =
   | 'frontmatter___visual___childMarkdownRemark___timeToRead'
   | 'frontmatter___visual___childMarkdownRemark___tableOfContents'
   | 'frontmatter___visual___childMarkdownRemark___children'
+  | 'frontmatter___tags'
   | 'frontmatter___updated'
   | 'frontmatter___description'
-  | 'frontmatter___tags'
   | 'excerpt'
   | 'rawMarkdownBody'
   | 'fileAbsolutePath'
@@ -1688,9 +1688,9 @@ export type MarkdownRemarkFrontmatter = {
   path?: Maybe<Scalars['String']>;
   created?: Maybe<Scalars['Date']>;
   visual?: Maybe<File>;
+  tags?: Maybe<Array<Maybe<Scalars['String']>>>;
   updated?: Maybe<Scalars['Date']>;
   description?: Maybe<Scalars['String']>;
-  tags?: Maybe<Array<Maybe<Scalars['String']>>>;
 };
 
 
@@ -1714,9 +1714,9 @@ export type MarkdownRemarkFrontmatterFilterInput = {
   path?: Maybe<StringQueryOperatorInput>;
   created?: Maybe<DateQueryOperatorInput>;
   visual?: Maybe<FileFilterInput>;
+  tags?: Maybe<StringQueryOperatorInput>;
   updated?: Maybe<DateQueryOperatorInput>;
   description?: Maybe<StringQueryOperatorInput>;
-  tags?: Maybe<StringQueryOperatorInput>;
 };
 
 export type MarkdownRemarkGroupConnection = {
@@ -1926,6 +1926,7 @@ export type QuerySitePageArgs = {
   children?: Maybe<NodeFilterListInput>;
   internal?: Maybe<InternalFilterInput>;
   isCreatedByStatefulCreatePages?: Maybe<BooleanQueryOperatorInput>;
+  context?: Maybe<SitePageContextFilterInput>;
   pluginCreator?: Maybe<SitePluginFilterInput>;
   pluginCreatorId?: Maybe<StringQueryOperatorInput>;
   componentPath?: Maybe<StringQueryOperatorInput>;
@@ -1943,6 +1944,8 @@ export type QueryAllSitePageArgs = {
 export type QuerySiteArgs = {
   buildTime?: Maybe<DateQueryOperatorInput>;
   siteMetadata?: Maybe<SiteSiteMetadataFilterInput>;
+  port?: Maybe<DateQueryOperatorInput>;
+  host?: Maybe<StringQueryOperatorInput>;
   polyfill?: Maybe<BooleanQueryOperatorInput>;
   pathPrefix?: Maybe<StringQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
@@ -2053,6 +2056,8 @@ export type QueryAllSitePluginArgs = {
 export type Site = Node & {
   buildTime?: Maybe<Scalars['Date']>;
   siteMetadata?: Maybe<SiteSiteMetadata>;
+  port?: Maybe<Scalars['Date']>;
+  host?: Maybe<Scalars['String']>;
   polyfill?: Maybe<Scalars['Boolean']>;
   pathPrefix?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
@@ -2063,6 +2068,14 @@ export type Site = Node & {
 
 
 export type SiteBuildTimeArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+export type SitePortArgs = {
   formatString?: Maybe<Scalars['String']>;
   fromNow?: Maybe<Scalars['Boolean']>;
   difference?: Maybe<Scalars['String']>;
@@ -2256,6 +2269,8 @@ export type SiteFieldsEnum =
   | 'siteMetadata___description'
   | 'siteMetadata___author'
   | 'siteMetadata___siteUrl'
+  | 'port'
+  | 'host'
   | 'polyfill'
   | 'pathPrefix'
   | 'id'
@@ -2348,6 +2363,8 @@ export type SiteFieldsEnum =
 export type SiteFilterInput = {
   buildTime?: Maybe<DateQueryOperatorInput>;
   siteMetadata?: Maybe<SiteSiteMetadataFilterInput>;
+  port?: Maybe<DateQueryOperatorInput>;
+  host?: Maybe<StringQueryOperatorInput>;
   polyfill?: Maybe<BooleanQueryOperatorInput>;
   pathPrefix?: Maybe<StringQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
@@ -2376,6 +2393,7 @@ export type SitePage = Node & {
   children: Array<Node>;
   internal: Internal;
   isCreatedByStatefulCreatePages?: Maybe<Scalars['Boolean']>;
+  context?: Maybe<SitePageContext>;
   pluginCreator?: Maybe<SitePlugin>;
   pluginCreatorId?: Maybe<Scalars['String']>;
   componentPath?: Maybe<Scalars['String']>;
@@ -2400,6 +2418,14 @@ export type SitePageConnectionGroupArgs = {
   skip?: Maybe<Scalars['Int']>;
   limit?: Maybe<Scalars['Int']>;
   field: SitePageFieldsEnum;
+};
+
+export type SitePageContext = {
+  tag?: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextFilterInput = {
+  tag?: Maybe<StringQueryOperatorInput>;
 };
 
 export type SitePageEdge = {
@@ -2501,6 +2527,7 @@ export type SitePageFieldsEnum =
   | 'internal___owner'
   | 'internal___type'
   | 'isCreatedByStatefulCreatePages'
+  | 'context___tag'
   | 'pluginCreator___id'
   | 'pluginCreator___parent___id'
   | 'pluginCreator___parent___parent___id'
@@ -2628,6 +2655,7 @@ export type SitePageFilterInput = {
   children?: Maybe<NodeFilterListInput>;
   internal?: Maybe<InternalFilterInput>;
   isCreatedByStatefulCreatePages?: Maybe<BooleanQueryOperatorInput>;
+  context?: Maybe<SitePageContextFilterInput>;
   pluginCreator?: Maybe<SitePluginFilterInput>;
   pluginCreatorId?: Maybe<StringQueryOperatorInput>;
   componentPath?: Maybe<StringQueryOperatorInput>;
@@ -3278,6 +3306,11 @@ export type AllBlogsQuery = { blogs: { nodes: Array<(
       )> }
     )> }, newses: { nodes: Array<{ frontmatter?: Maybe<Pick<MarkdownRemarkFrontmatter, 'title' | 'description' | 'created' | 'tags'>> }> }, site?: Maybe<{ siteMetadata?: Maybe<Pick<SiteSiteMetadata, 'title' | 'description' | 'author'>> }> };
 
+export type TagsQueryVariables = {};
+
+
+export type TagsQuery = { allMarkdownRemark: { group: Array<Pick<MarkdownRemarkGroupConnection, 'fieldValue' | 'totalCount'>> } };
+
 export type BlogTemplateQueryVariables = {
   path: Scalars['String'];
 };
@@ -3290,6 +3323,19 @@ export type BlogTemplateQuery = { markdownRemark?: Maybe<(
       & { visual?: Maybe<{ childImageSharp?: Maybe<{ fluid?: Maybe<GatsbyImageSharpFluidFragment> }> }> }
     )> }
   )> };
+
+export type TagTemplateQueryVariables = {
+  tag: Scalars['String'];
+};
+
+
+export type TagTemplateQuery = { allMarkdownRemark: { nodes: Array<(
+      Pick<MarkdownRemark, 'excerpt' | 'rawMarkdownBody'>
+      & { frontmatter?: Maybe<(
+        Pick<MarkdownRemarkFrontmatter, 'title' | 'path' | 'created'>
+        & { visual?: Maybe<{ childImageSharp?: Maybe<{ fluid?: Maybe<GatsbyImageSharpFluidFragment> }> }> }
+      )> }
+    )> } };
 
 export type GatsbyImageSharpFixedFragment = Pick<ImageSharpFixed, 'base64' | 'width' | 'height' | 'src' | 'srcSet'>;
 
