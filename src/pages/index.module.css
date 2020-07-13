@@ -12,6 +12,7 @@
   -webkit-column-break-inside: avoid;
   page-break-inside: avoid;
   break-inside: avoid;
+  box-shadow: 8px 12px 10px -6px rgba(0, 0, 0, 0.3);
 }
 
 @media screen and (max-width: 1024px) {
