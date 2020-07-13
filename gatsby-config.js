@@ -11,6 +11,7 @@ const myQuery = `{
       excerpt(pruneLength: 10000)
       frontmatter {
         title
+        path
       }
     }
   }
@@ -25,6 +26,7 @@ const queries = [
           id: node.id,
           excerpt: node.excerpt,
           title: node.frontmatter.title,
+          path: node.frontmatter.path,
         }
       }), // idを持ったobjectの配列を返す必要ある
   },
@@ -127,12 +129,18 @@ module.exports = {
       },
     },
     `gatsby-plugin-offline`,
-    {
-      resolve: "gatsby-plugin-graphql-codegen",
-      options: {
-        fileName: `types/graphql-types.d.ts`,
-      },
-    },
+    // {
+    //   resolve: "gatsby-plugin-graphql-codegen",
+    //   options: {
+    //     documentPaths: [
+    //       "./src/**/*.{ts,tsx}",
+    //       // Unknown fragment "GatsbyImageSharpFluid"の対処
+    //       // './.cache/fragments/*.js',
+    //       "./node_modules/gatsby-*/**/*.js",
+    //     ],
+    //     fileName: `types/graphql-types.d.ts`,
+    //   },
+    // },
     {
       resolve: `gatsby-transformer-remark`,
       options: {
@@ -211,7 +219,7 @@ module.exports = {
           // optional, any index settings
         },
         enablePartialUpdates: true, // default: false
-        matchFields: ["modified"], // Array<String> default: ['modified']
+        matchFields: ["title", "excerpt", "modified", "title", "path"], // Array<String> default: ['modified']
       },
     },
   ],
