@@ -1,5 +1,7 @@
 import * as React from "react"
 import { Link } from "gatsby"
+import algoliasearch from "algoliasearch/lite"
+import { InstantSearch, SearchBox, Hits } from "react-instantsearch-dom"
 import styles from "./header.module.css"
 import twitter from "../images/twitter.svg"
 import github from "../images/github.svg"
@@ -8,6 +10,11 @@ import rss from "../images/rss.svg"
 interface IProps {
   siteTitle: string
 }
+
+const searchClient = algoliasearch(
+  "latency",
+  "6be0576ff61c053d5f9a3225e2a90f76"
+)
 
 const Header: React.FC<IProps> = ({ siteTitle }) => (
   <header className={styles.header}>
@@ -30,6 +37,10 @@ const Header: React.FC<IProps> = ({ siteTitle }) => (
       >
         <img src={github} className={styles.icon} alt="github-logo"></img>
       </a>
+      <InstantSearch indexName="bestbuy" searchClient={searchClient}>
+        <SearchBox />
+        <Hits />
+      </InstantSearch>
     </div>
   </header>
 )

@@ -1,3 +1,35 @@
+require("dotenv").config({
+  path: `.env.${process.env.NODE_ENV}`,
+})
+
+// fileAbsolutePath: {regex: "/(/src/contents)/.*\\.md$/"} のようなバックスラッシュはalogliaのpluginが対応していない
+const myQuery = `{
+  blogs: allMarkdownRemark{
+    nodes {
+      id
+      # HTML直接入れるとサイズオーバーになるので無理やり上限サイズ決めてそこまで読み取るようにしている
+      excerpt(pruneLength: 10000)
+      frontmatter {
+        title
+      }
+    }
+  }
+}`
+
+const queries = [
+  {
+    query: myQuery,
+    transformer: ({ data }) =>
+      data.blogs.nodes.map(node => {
+        return {
+          id: node.id,
+          excerpt: node.excerpt,
+          title: node.frontmatter.title,
+        }
+      }), // idを持ったobjectの配列を返す必要ある
+  },
+]
+
 module.exports = {
   siteMetadata: {
     title: `blog.ojisan.io`,
@@ -162,6 +194,24 @@ module.exports = {
             policy: [{ userAgent: "*", allow: "/" }],
           },
         },
+      },
+    },
+    {
+      // IMPORTANT: This plugin must be placed last in your list of plugins to ensure that it can query all the GraphQL data
+      resolve: `gatsby-plugin-algolia`,
+      options: {
+        appId: process.env.ALGOLIA_APP_ID,
+        // Use Admin API key without GATSBY_ prefix, so that the key isn't exposed in the application
+        // Tip: use Search API key with GATSBY_ prefix to access the service from within components
+        apiKey: process.env.ALGOLIA_API_KEY,
+        indexName: process.env.ALGOLIA_INDEX_NAME, // for all queries
+        queries,
+        chunkSize: 1000, // default: 1000
+        settings: {
+          // optional, any index settings
+        },
+        enablePartialUpdates: true, // default: false
+        matchFields: ["modified"], // Array<String> default: ['modified']
       },
     },
   ],
