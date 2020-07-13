@@ -8,6 +8,7 @@
 
 .card {
   margin: 16px;
+  margin-top: 0;
   -webkit-column-break-inside: avoid;
   page-break-inside: avoid;
   break-inside: avoid;
