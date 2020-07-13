@@ -8,6 +8,7 @@ import { AllBlogsQuery } from "../../types/graphql-types"
 import { Newses } from "../components/newses"
 import styles from "./index.module.css"
 import { Card } from "../components/card"
+import { Tag } from "../components/tag"
 
 interface IProps {
   data: AllBlogsQuery
@@ -48,6 +49,7 @@ export const pageQuery = graphql`
             }
           }
           created(formatString: "YYYY-MM-DD")
+          tags
         }
       }
     }
@@ -58,7 +60,6 @@ export const pageQuery = graphql`
           title
           description
           created
-          tags
         }
       }
     }

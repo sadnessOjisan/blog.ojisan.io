@@ -50,8 +50,10 @@ export default function Template({ data }: IProps) {
                 {markdownRemark.frontmatter.tags.map(
                   tag =>
                     tag && (
-                      <Link href={`tags/${tag}`}>
-                        <Tag className={styles.tag} name={tag}></Tag>
+                      <Link to={`tags/${tag}`}>
+                        <a>
+                          <Tag className={styles.tag} name={tag}></Tag>
+                        </a>
                       </Link>
                     )
                 )}

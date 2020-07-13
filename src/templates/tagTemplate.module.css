@@ -14,8 +14,7 @@
 }
 
 .card {
-  margin-right: 4px;
-  margin-bottom: 16px;
+  margin: 16px;
   -webkit-column-break-inside: avoid;
   page-break-inside: avoid;
   break-inside: avoid;

@@ -11,7 +11,7 @@ const IndexPage: React.FC<IProps> = ({ data }) => {
   return (
     <Layout>
       {data.allMarkdownRemark.group.map(tag => (
-        <Link href={tag.fieldValue ? `tags/${tag.fieldValue}` : "/"}>
+        <Link to={tag.fieldValue ? `tags/${tag.fieldValue}` : "/"}>
           <a>
             {tag.fieldValue}({tag.totalCount})
           </a>

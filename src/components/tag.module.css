@@ -5,3 +5,7 @@
   background-color: white;
   color: #2c2e31;
 }
+
+.tag:hover {
+  background-color: #f5f5f5;
+}

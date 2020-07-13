@@ -47,6 +47,7 @@ export const pageQuery = graphql`
               }
             }
           }
+          tags
           created(formatString: "YYYY-MM-DD")
         }
         rawMarkdownBody
