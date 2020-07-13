@@ -12,8 +12,8 @@ interface IProps {
 }
 
 const searchClient = algoliasearch(
-  "latency",
-  "6be0576ff61c053d5f9a3225e2a90f76"
+  "IE1UJ8Y60A",
+  "22d86efe2fa32d6c0e5b1d4c0e91c8e5"
 )
 
 const Header: React.FC<IProps> = ({ siteTitle }) => (
