@@ -33,7 +33,6 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
   const tags = contentsResult.data.tags.group
 
   tags.forEach(data => {
-    console.log("data", data)
     createPage({
       path: `/tags/${data.tag}`,
       component: tagTemplate,

@@ -9,12 +9,14 @@
   margin: 0 auto;
   padding: 5px;
   width: 90%;
-  column-count: 3;
+  column-count: 4;
   column-gap: 0;
 }
 
 .card {
   margin: 16px;
+  /* top0にしないと件数少ない時に表示崩れある */
+  margin-top: 0px;
   -webkit-column-break-inside: avoid;
   page-break-inside: avoid;
   break-inside: avoid;
