@@ -3,6 +3,7 @@ path: /s3-spa-deploy
 created: "2020-06-28"
 title: S3にSPAはデプロイできるのか -HostingとRouting-
 visual: "./visual.png"
+tags: [S3, SPA]
 ---
 
 できます。
