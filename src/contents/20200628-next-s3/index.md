@@ -3,6 +3,7 @@ path: /s3-next-deploy
 created: "2020-06-28"
 title: S3 に NextJS 製 App をデプロイできるか
 visual: "./visual.png"
+tags: [S3, NextJS]
 ---
 
 できる場合とできない場合があります。

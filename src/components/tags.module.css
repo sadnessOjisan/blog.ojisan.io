@@ -1,0 +1,8 @@
+.tags {
+  display: flex;
+  padding: 0px 16px;
+}
+
+.tag {
+  margin: 0px 4px 12px 8px;
+}

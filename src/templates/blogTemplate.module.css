@@ -6,6 +6,7 @@
   max-width: 960px;
   margin: auto;
   margin-bottom: 36px;
+  padding: 8px;
 }
 
 .headline {
@@ -14,6 +15,15 @@
   font-size: 32px;
   margin: 8px 0px;
   padding: 0 8px;
+}
+
+.tags {
+  display: flex;
+}
+
+.tag {
+  margin-right: 12px;
+  margin-bottom: 8px;
 }
 
 @media screen and (max-width: 1024px) {

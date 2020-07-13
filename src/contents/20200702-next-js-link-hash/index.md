@@ -3,6 +3,7 @@ path: /react-next-anchor-link-scroll
 created: "2020-07-02"
 title: Ajaxでコンテンツ取得するとページ内スクロールされなかった話（全面的に俺が悪かった編）
 visual: "./visual.png"
+tags: [HTML, NextJS]
 ---
 
 HTML の a タグではページ内リンクが使えます。

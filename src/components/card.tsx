@@ -4,10 +4,11 @@ import { Link } from "gatsby"
 import Image from "gatsby-image"
 import { AllBlogsQuery } from "../../types/graphql-types"
 import styles from "./card.module.css"
+import { Tags } from "./tags"
 
 interface IProps {
   data: AllBlogsQuery["blogs"]["nodes"][0]["frontmatter"]
-  className: string
+  className?: string
   excerpt: AllBlogsQuery["blogs"]["nodes"][0]["excerpt"]
 }
 
@@ -34,6 +35,9 @@ export const Card: React.FC<IProps> = ({ data, className, excerpt }) => {
             {data?.title}
           </h3>
           <p className={styles.excerpt}>{excerpt}</p>
+        </div>
+        <div className={styles.footer}>
+          <Tags tags={data?.tags || []}></Tags>
         </div>
       </Link>
     </div>
