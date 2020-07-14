@@ -2,9 +2,9 @@ require("dotenv").config({
   path: `.env.${process.env.NODE_ENV}`,
 })
 
-// fileAbsolutePath: {regex: "/(/src/contents)/.*\\.md$/"} のようなバックスラッシュはalogliaのpluginが対応していない
+// fileAbsolutePath: {regex: "/(/src/contents)/.*\\.md$/"} のようなバックスラッシュはalogliaのpluginが対応していない。そのためglob記法を使う
 const myQuery = `{
-  blogs: allMarkdownRemark{
+  blogs: allMarkdownRemark(filter: {fileAbsolutePath: {glob: "**/src/contents/**/*.md"}}, sort: {order: DESC, fields: frontmatter___created}) {
     nodes {
       id
       # HTML直接入れるとサイズオーバーになるので無理やり上限サイズ決めてそこまで読み取るようにしている
