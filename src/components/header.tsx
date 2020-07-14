@@ -15,6 +15,7 @@ import twitter from "../images/twitter.svg"
 import github from "../images/github.svg"
 import rss from "../images/rss.svg"
 import { SearchResultList } from "./search/SearchResult"
+import "../vendor/css/algolia.css"
 
 interface IProps {
   siteTitle: string
@@ -38,18 +39,14 @@ const Header: React.FC<IProps> = ({ siteTitle }) => (
         analytics
         analyticsTags={["on-site-search"]}
       />
-      <SearchBox showLoadingIndicator submit={undefined} reset={undefined} />
-      <SearchResultList />
+      <div>
+        <SearchBox showLoadingIndicator submit={undefined} reset={undefined} />
+        <SearchResultList />
+      </div>
     </InstantSearch>
     <div>
       <a href="https://blog.ojisan.io/rss.xml" aria-label="rssへのリンク">
         <img src={rss} className={styles.icon} alt="rss-logo"></img>
-      </a>
-      <a
-        href="https://twitter.com/sadnessOjisan"
-        aria-label="twitterへのリンク"
-      >
-        <img src={twitter} className={styles.icon} alt="twitter-logo"></img>
       </a>
       <a
         href="https://github.com/sadnessOjisan/blog.ojisan.io"

@@ -11,6 +11,7 @@ import {
   AlgoliaError,
 } from "react-instantsearch-core"
 import { Hit } from "./Hit"
+import styles from "./SearchResut.module.css"
 
 // alogoriaのStateResultsProvidedをそのまま使う
 interface IProps {
@@ -26,7 +27,7 @@ const SearchResult: React.FC<IProps> = props => {
   }
 
   return (
-    <div style={{ background: "white" }}>
+    <div className={styles.wrapper}>
       <Panel header={`"${searchState.query}"の検索結果`} footer={<PoweredBy />}>
         {error ? <div>{error.message}</div> : null}
         {searchResults && searchResults.nbHits > 0 ? (
