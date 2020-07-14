@@ -42,8 +42,19 @@ export const pageQuery = graphql`
           path
           visual {
             childImageSharp {
-              fluid(maxWidth: 800) {
-                ...GatsbyImageSharpFluid
+              fluid(maxWidth: 300) {
+                tracedSVG
+                srcWebp
+                srcSetWebp
+                srcSet
+                src
+                sizes
+                presentationWidth
+                presentationHeight
+                originalName
+                originalImg
+                base64
+                aspectRatio
               }
             }
           }

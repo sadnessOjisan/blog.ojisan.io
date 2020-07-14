@@ -58,3 +58,26 @@ deploy 自体は master に merge されると自動でデプロイされる
 ここから拝借
 
 - [flaticon](https://www.flaticon.com/free-icon/clap-hands_109638)
+
+## todo
+
+fragment の調査
+
+```
+failed We've encountered an error: Objects are not valid as a React child (found: GraphQLDocumentError: GraphQLDocumentError: Unknown fragment "GatsbyImageSharpFluid".). If you meant to render a collection of children, use an array
+instead.
+    in div (created by Box)
+    in Box
+    in Unknown (created by CLI)
+    in div (created by Static)
+    in Static (created by CLI)
+    in div (created by Box)
+    in Box (created by CLI)
+    in div (created by Box)
+    in Box (created by CLI)
+    in CLI (created by ConnectedCLI)
+    in ConnectedCLI
+    in StoreStateProvider
+```
+
+の調査

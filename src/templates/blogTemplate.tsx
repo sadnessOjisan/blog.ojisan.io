@@ -50,7 +50,7 @@ export default function Template({ data }: IProps) {
                 {markdownRemark.frontmatter.tags.map(
                   tag =>
                     tag && (
-                      <Link to={`tags/${tag}`}>
+                      <Link to={`/tags/${tag}`}>
                         <a>
                           <Tag className={styles.tag} name={tag}></Tag>
                         </a>
@@ -131,8 +131,19 @@ export const pageQuery = graphql`
         tags
         visual {
           childImageSharp {
-            fluid(maxWidth: 800) {
-              ...GatsbyImageSharpFluid
+            fluid(maxWidth: 300) {
+              tracedSVG
+              srcWebp
+              srcSetWebp
+              srcSet
+              src
+              sizes
+              presentationWidth
+              presentationHeight
+              originalName
+              originalImg
+              base64
+              aspectRatio
             }
           }
         }
