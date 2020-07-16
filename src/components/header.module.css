@@ -26,3 +26,9 @@
 .icon:first-child {
   margin-right: 16px;
 }
+
+@media screen and (max-width: 1024px) {
+  .pcOnly {
+    display: none;
+  }
+}
