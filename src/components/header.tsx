@@ -42,7 +42,7 @@ const Header: React.FC<IProps> = ({ siteTitle }) => (
       </InstantSearch>
     </div>
     <div>
-      <a href="https://blog.ojisan.io/rss.xml" aria-label="rssへのリンク">
+      <a href="/rss.xml" aria-label="rssへのリンク">
         <img src={rss} className={styles.icon} alt="rss-logo"></img>
       </a>
       <a
