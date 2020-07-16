@@ -1,17 +1,8 @@
 import * as React from "react"
 import { Link } from "gatsby"
 import algoliasearch from "algoliasearch/lite"
-import {
-  InstantSearch,
-  SearchBox,
-  Configure,
-  Hits,
-  Panel,
-  PoweredBy,
-  connectStateResults,
-} from "react-instantsearch-dom"
+import { InstantSearch, SearchBox, Configure } from "react-instantsearch-dom"
 import styles from "./header.module.css"
-import twitter from "../images/twitter.svg"
 import github from "../images/github.svg"
 import rss from "../images/rss.svg"
 import { SearchResultList } from "./search/SearchResult"
@@ -31,19 +22,25 @@ const Header: React.FC<IProps> = ({ siteTitle }) => (
     <h1 className={styles.title}>
       <Link to="/">blog.ojisan.io</Link>
     </h1>
-    <InstantSearch indexName="blog" searchClient={searchClient}>
-      <Configure
-        // https://www.algolia.com/doc/api-reference/search-api-parameters/
-        hitsPerPage={20}
-        removeStopWords
-        analytics
-        analyticsTags={["on-site-search"]}
-      />
-      <div>
-        <SearchBox showLoadingIndicator submit={undefined} reset={undefined} />
-        <SearchResultList />
-      </div>
-    </InstantSearch>
+    <div className={styles.pcOnly}>
+      <InstantSearch indexName="blog" searchClient={searchClient}>
+        <Configure
+          // https://www.algolia.com/doc/api-reference/search-api-parameters/
+          hitsPerPage={20}
+          removeStopWords
+          analytics
+          analyticsTags={["on-site-search"]}
+        />
+        <div>
+          <SearchBox
+            showLoadingIndicator
+            submit={undefined}
+            reset={undefined}
+          />
+          <SearchResultList />
+        </div>
+      </InstantSearch>
+    </div>
     <div>
       <a href="https://blog.ojisan.io/rss.xml" aria-label="rssへのリンク">
         <img src={rss} className={styles.icon} alt="rss-logo"></img>
