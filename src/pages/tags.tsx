@@ -10,13 +10,28 @@ interface IProps {
 const IndexPage: React.FC<IProps> = ({ data }) => {
   return (
     <Layout>
-      {data.allMarkdownRemark.group.map(tag => (
-        <Link to={tag.fieldValue ? `tags/${tag.fieldValue}` : "/"}>
-          <a>
-            {tag.fieldValue}({tag.totalCount})
-          </a>
-        </Link>
-      ))}
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <h2
+          style={{ fontSize: "32px", marginTop: "32px", marginBottom: "32px" }}
+        >
+          タグ一覧
+        </h2>
+        {data.allMarkdownRemark.group.map(tag => (
+          <Link to={tag.fieldValue ? `/tags/${tag.fieldValue}` : "/"}>
+            <div style={{ marginTop: "12px" }}>
+              <a>
+                {tag.fieldValue}({tag.totalCount})
+              </a>
+            </div>
+          </Link>
+        ))}
+      </div>
     </Layout>
   )
 }
