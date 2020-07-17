@@ -26,7 +26,7 @@ markdown ファイル内では [frontmatter](https://www.gatsbyjs.org/docs/addin
 
 ```js
 ---
-path: /blog-one-month
+path: /gatsby-create-tag
 created: "2020-07-17"
 title: Gatsby製のブログにタグ機能を追加するための解説
 visual: "./visual.png"
