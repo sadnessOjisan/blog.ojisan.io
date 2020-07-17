@@ -20,7 +20,8 @@ tags: [Gatsby]
 
 ### frontmatter を使ったメタ情報埋め込み
 
-markdown ファイル内では [frontmatter](https://middlemanapp.com/jp/basics/frontmatter/) という形式でメタ情報を記述します。
+markdown ファイル内では [frontmatter](https://www.gatsbyjs.org/docs/adding-markdown-pages/#frontmatter-for-metadata-in-markdown-files) というコードブロック形式でメタ情報を記述します。(frontmatter は Gatsby やその GraphQL 内に登場するものですが、Gatsby 固有のものではありません。[Jykill](https://jekyllrb.com/docs/front-matter/)などでもサポートされている記法です。)
+
 この記事だと、
 
 ```js
@@ -33,7 +34,7 @@ tags: [Gatsby]
 ---
 ```
 
-というメタ情報が markdown に書かれています。
+というメタ情報が markdown ファイルの一番上に書かれています。
 
 記事にタグ情報を埋め込むためには、上の例にあるように tags というフィールドに記載します。
 frontmatter は YAML がサポートされているため配列を使えます。
@@ -83,10 +84,8 @@ query BlogTemplate($path: String!) {
 
 > Tell plugins to add pages. This extension point is called only after the initial sourcing and transformation of nodes plus creation of the GraphQL schema are complete so you can query your data in order to create pages.
 
-<!-- TODO: FACT CHECK -->
-
-とあり、取得対象のデータを持ってきて(source 系プラグインの責務)、それに GraphQL を投げられるようにした(transformer 系プラグインの責務)後に呼ばれる処理です。
-そのためこの関数内では取得対象に対して GraphQL でのデータ取得が可能になっており、この関数内でデータの取得とそのデータに基づいた動的なページ生成を行えます。
+とあり、取得対象のデータを持ってきて(source 系プラグインの責務)、そのデータを Node やそのフィールドに挿入した(transformer 系プラグインの責務)後に呼ばれる処理です。
+そのためこの関数内では加工後の取得対象のデータに対して GraphQL でのデータ取得が可能（正確には GraphQL でのデータ取得が可能になるのはプラグインの恩恵ではなく[setFieldsOnGraphQLNodeType API](https://www.gatsbyjs.org/docs/node-apis/#setFieldsOnGraphQLNodeType)の力ですがこの API を transformer 系プラグインから登録していくので、プラグインが GraphQL へのクエリを投げれるように整備してくれているようにエンドユーザーからは見えます。）になっており、この関数内でデータの取得とそのデータに基づいた動的なページ生成を行えます。
 
 例えばこの Blog では、
 
