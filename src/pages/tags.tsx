@@ -38,7 +38,7 @@ const IndexPage: React.FC<IProps> = ({ data }) => {
 
 export const pageQuery = graphql`
   query Tags {
-    allMarkdownRemark {
+    allMarkdownRemark(sort: { order: DESC, fields: frontmatter___created }) {
       group(field: frontmatter___tags) {
         fieldValue
         totalCount

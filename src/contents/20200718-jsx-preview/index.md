@@ -62,7 +62,7 @@ HTML から画像を作る仕組みはあるので、JSX から HTML に変換�
 を
 
 ```html
-<div style='color:"red";'>
+<div style="color: red;">
   Hello, World!
 </div>
 ```
@@ -102,6 +102,9 @@ const res = babel.transform(reactElStr, {
   plugins: ["transform-react-jsx"],
 })
 ```
+
+この`babel.transform`が何をしているかは**めちゃくちゃ頑張って**書いたので、気になる方は参照してください。
+=> [Babel の変換処理と向き合う](/babel-parse-traverse-generate) (めちゃくちゃ気合入れて書いたのに全然注目されなくて悲しんでます 😭😭😭😭😭😭)
 
 ### React.Element から HTML を生成する
 
