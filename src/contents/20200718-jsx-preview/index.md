@@ -1,7 +1,7 @@
 ---
 path: /jsx-preview
 created: "2020-07-18"
-title: JSXのプレビュー環境を作る
+title: ブラウザ上でJSXをコンパイルしてプレビュー環境を作る
 visual: "./visual.png"
 tags: [JSX, Babel]
 ---
