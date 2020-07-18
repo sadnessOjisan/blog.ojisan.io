@@ -136,4 +136,4 @@ https://reactel-to-html-server.vercel.app/api/ に POST で {html:React.Element}
 
 ReactElement 文字列 => ReactElement の変換は babel がブラウザ上で使えないから stand alone モードを使ったわけですが、これは worker 使えば stand alone 入れなくてもよかったかもと思い始めています。
 改修はめんどうくさいのでやらないですが、次何かこういうの作るときは worker に compiler を埋め込む方式みたいなのを考えて設計しようと思います。
-(worker なんもわからん！)
+(worker なんもわーからん！w)
