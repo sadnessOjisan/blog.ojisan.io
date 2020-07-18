@@ -42,7 +42,7 @@ HTML のプレビューは、monaco-editor に入力した HTML を React の da
   - https://reactjs.org/docs/glossary.html#elements
 - JSX
   - JSX is a syntax extension to JavaScript.
-  - https://reactjs.org/docs/glossary.html#elements
+  - https://reactjs.org/docs/glossary.html#jsx
 
 [Introducing JSX](https://reactjs.org/docs/introducing-jsx.html)の説明を借りると、JSX は React.Element を生成できる syntax です。
 JSX ファイル内に React.Element を return しているわけだから当然なのですが、そういう関係性があります。
