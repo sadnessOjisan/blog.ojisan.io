@@ -42,7 +42,7 @@ export const pageQuery = graphql`
           path
           visual {
             childImageSharp {
-              fluid(maxWidth: 300) {
+              fluid(maxWidth: 800) {
                 tracedSVG
                 srcWebp
                 srcSetWebp
