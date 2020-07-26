@@ -61,7 +61,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
 ### div を一つ多く被せたい場合（Safari, IE 対応）
 
-代表的なので言うと、Safari の Bounce 対応（完成スクロールを許した時にスクロールがびよーんて伸びるやつです）と IE 対応(たとえば flex-box に min-height を効かないときの対応)、[backdrop-filter](https://developer.mozilla.org/ja/docs/Web/CSS/backdrop-filter) が使えない環境下ですりガラスのようなフィルター効果を実装する場面に代表される **無意味な div ラッパーで囲わないといけない場面**です。
+代表的なので言うと、Safari の Bounce 対応（慣性スクロールを許した時にスクロールがびよーんて伸びるやつです）と IE 対応(たとえば flex-box に min-height を効かないときの対応)、[backdrop-filter](https://developer.mozilla.org/ja/docs/Web/CSS/backdrop-filter) が使えない環境下ですりガラスのようなフィルター効果を実装する場面に代表される **無意味な div ラッパーで囲わないといけない場面**です。
 
 もしブラウザ上のイベントによって、それらの対応が必要となる UI が呼び出されるなら、三項演算子を使いたくなってしまいます。
 
