@@ -58,7 +58,7 @@ export default {
       .firestore()
       .collection("post")
       .get()
-      .then(d => d)
+      .then(d => d.data())
       .catch(e => {
         console.error(e)
       })
