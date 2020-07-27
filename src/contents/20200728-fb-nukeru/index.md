@@ -85,7 +85,7 @@ useEffect(() => {
 #### react-firebase-hooks は諦める
 
 Firebase と React の組み合わせ経験がある方は [react-firebase-hooks](https://github.com/CSFrequency/react-firebase-hooks) をご存知でしょう。
-これは auth/firestore/cloud storage/ firestore/realtime database に対するアクセスを簡単にしてくれる hooks で、主にデータ取得とそのキャッシュ(状態管理)、さらにリアルタイムでの更新(データを書き込むとそれを即座に反映させる)ができます。
+これは auth/firestore/realtime database/cloud storage に対するアクセスを簡単にしてくれる hooks で、主にデータ取得とそのキャッシュ(状態管理)、さらにリアルタイムでの更新(データを書き込むとそれを即座に反映させる)ができます。
 
 とても便利な hooks なので react-firebase-hooks/firestore を採用したくなるのですが、firebase との依存を断ち切るためにこの hooks の利用は諦めます。
 
