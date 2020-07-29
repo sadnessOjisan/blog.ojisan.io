@@ -9,7 +9,7 @@ tags: [CSS, Angular]
 [No Class CSS Museum](https://sadnessojisan.github.io/no-class-css-museum/index.html)という No-Class CSS フレームワーク比較サイトを作りました。
 
 簡単な demo 用のコードに何かスタイル当てたいけど、そんなに時間かけたくないしそもそもデザインセンスないしどうしようかなってときに No-Class CSS フレームワークが便利です。
-たとえば昨日公開した[Firebase の存在をフロントエンドから隠蔽するために](https://blog.ojisan.io/fb-nukeru)のデモサイトもそういった No-Class CSS フレームワークである[new.css](https://newcss.net/)が使いました。
+たとえば昨日公開した[Firebase の存在をフロントエンドから隠蔽するために](https://blog.ojisan.io/fb-nukeru)のデモサイトもそういった No-Class CSS フレームワークである[new.css](https://newcss.net/)を使いました。
 
 ![new.css製のデモサイト](sample.png)
 
@@ -43,7 +43,7 @@ tags: [CSS, Angular]
 - new.css
 - bullframe.css
 
-これらは[No-Class CSS Frameworks](https://css-tricks.com/no-class-css-frameworks/)で紹介されていたもの をベースにしており、実際に比較サイトに掲載したのはここで紹介されたもの + α + それぞれのカラーテーマという形です。そのため他にも良い CSS FW を見落としているかもしれませんが、もしご存知でしたら [Issues](https://github.com/sadnessOjisan/no-class-css-museum/issues)に報告していただけると嬉しいです。
+これらは[No-Class CSS Frameworks](https://css-tricks.com/no-class-css-frameworks/)で紹介されていたもの をベースにしており、実際に比較サイトに掲載したのはここで紹介されたもの + α + それぞれのカラーテーマという形です。そのため他にも良い CSS FW を見落としているかもしれませんので、もしご存知でしたら [Issues](https://github.com/sadnessOjisan/no-class-css-museum/issues)に報告していただけると嬉しいです。
 
 このサイトを作ってみて No-Class CSS フレームワークの扱い方みたいなのがちょっとわかったので以下まとめていこうと思います。
 ちなみにそのサイト自体には [Bahunya](https://kimeiga.github.io/bahunya/)を当てています。
@@ -155,6 +155,8 @@ CSS FW が想定していない要素の並べ方をすると崩れたりしま�
 いわゆる色やサイズのみスタイルを当てるタイプもあります。
 そういったものはそのスタイルを当ててから自分で整列系のスタイルを当てていきましょう。
 (こういうのは CSS FW というよりはノーマライズ CSS といった方が感覚的には正しいのかもしれない。)
+
+CSS FW の性質上、グローバルな CSS を書き換えていくものなので、運用や手直しを頻繁にしていくものだったり、デザインデータ通りにスタイリングをしていくタイプの開発とは相性が悪そうなので、そういったケースでは採用しない方が無難でしょう。
 
 ### よかった CSS FW は？
 
