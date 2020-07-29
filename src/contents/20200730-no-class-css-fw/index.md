@@ -6,18 +6,20 @@ visual: "./visual.png"
 tags: [CSS, Angular]
 ---
 
-簡単な demo 用のコードに何かスタイル当てたいけど、そんなに時間かけたくないしそもそもデザインセンスないしどうしようかなって考えてたときに No-Class CSS フレームワークの存在を思い出しました。
-昨日公開した[Firebase の存在をフロントエンドから隠蔽するために](https://blog.ojisan.io/fb-nukeru)のデモサイトもそういった No-Class CSS フレームワークである[new.css](https://newcss.net/)が使われています。
+[No Class CSS Museum](https://sadnessojisan.github.io/no-class-css-museum/index.html)という No-Class CSS フレームワーク比較サイトを作りました。
+
+簡単な demo 用のコードに何かスタイル当てたいけど、そんなに時間かけたくないしそもそもデザインセンスないしどうしようかなってときに No-Class CSS フレームワークが便利です。
+たとえば昨日公開した[Firebase の存在をフロントエンドから隠蔽するために](https://blog.ojisan.io/fb-nukeru)のデモサイトもそういった No-Class CSS フレームワークである[new.css](https://newcss.net/)が使いました。
 
 ![new.css製のデモサイト](sample.png)
 
-これは CSS ファイルを読み込んだだけ(タグにクラスを割り振ったりしていない)なのですが、それだけでいい感じにスタイルが当たってちょっと感動しました。
+これは **CSS ファイルを読み込んだだけ**(タグにクラスを割り振ったりしていない)なのですが、それだけでいい感じにスタイルが当たってちょっと感動しました。
 
 以前の記事である[ブログの 1 ヶ月を振り返る](https://blog.ojisan.io/blog-one-month#%E5%B0%B1%E6%B4%BB%E7%94%A8%E3%81%AE%E3%83%9D%E3%83%BC%E3%83%88%E3%83%95%E3%82%A9%E3%83%AA%E3%82%AA)に書いた通り、このブログは書いた内容のサンプルコードやデモをどんどん公開していく方針で運営しています。
-ただなにもスタイルを当てずに公開するのは殺風景だし、スタイルを頑張るのはそれを目的にしているわけではないのであまりやりたくないしという悩みがありました。
+ただ、なにもスタイルを当てずに公開するのは殺風景だし、スタイルを頑張るのはそれを目的にしているわけではないのであまりやりたくないしという悩みがありました。
 そこでこの No-Class CSS フレームワークがちょうど自分のニーズにマッチし、採用していくことにしました。
 
-ただいろんな CSS FW があるので、そのときの気分に合わせて一覧して比較して選びたいなと思い、それができるサイトを作ってみました。
+とはいえいろんな CSS FW があるのでそのときの気分に合わせて一覧して比較して選びたいなと思い、それができるサイトを作ってみました。
 それが [No Class CSS Museum](https://sadnessojisan.github.io/no-class-css-museum/index.html)です。
 
 ![no-class-css-fwのLP](no-class-css-fw.png)
@@ -40,6 +42,8 @@ tags: [CSS, Angular]
 - Writ
 - new.css
 - bullframe.css
+
+これらは[No-Class CSS Frameworks](https://css-tricks.com/no-class-css-frameworks/)で紹介されていたもの をベースにしており、実際に比較サイトに掲載したのはここで紹介されたもの + α + それぞれのカラーテーマという形です。そのため他にも良い CSS FW を見落としているかもしれませんが、もしご存知でしたら [Issues](https://github.com/sadnessOjisan/no-class-css-museum/issues)に報告していただけると嬉しいです。
 
 このサイトを作ってみて No-Class CSS フレームワークの扱い方みたいなのがちょっとわかったので以下まとめていこうと思います。
 ちなみにそのサイト自体には [Bahunya](https://kimeiga.github.io/bahunya/)を当てています。
@@ -114,7 +118,7 @@ CSS フレームワーク は例えば Bootstrap や Bulma などが有名だと
 
 ## CSS FW ざっと見てみた感想
 
-### 良い点
+### 嬉しい点
 
 - 圧倒的に楽
 
@@ -124,7 +128,7 @@ CSS フレームワーク は例えば Bootstrap や Bulma などが有名だと
   - スタイルシートに変数が埋め込まれているので、それをいじればカスタマイズもできる。
   - その変数のセットを公式が配布していたりもする。いわゆるテーマ。
 
-### 悪い点
+### 悲しい点
 
 - 単体で必ず使えるとは限らない
 
