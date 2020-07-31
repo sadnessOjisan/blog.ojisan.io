@@ -142,6 +142,9 @@ babel-standalone と `ReactDOMServer.renderToString(el)` を使っています�
 
 storage だけ使っています。
 
+直接ソースコードに APIKEY を埋め込んでいますが、無料プランなので使いすぎる止まります。
+ご自身で APIKEY を用意してお試しください。
+
 #### 画像保存
 
 ```ts
