@@ -1,6 +1,6 @@
 import * as React from "react"
 import { graphql } from "gatsby"
-import Layout from "../components/layout"
+import Layout from "../components/common/layout"
 import { Card } from "../components/indices/card"
 import styles from "./tagTemplate.module.css"
 import { TagTemplateQuery } from "../../types/graphql-types"
