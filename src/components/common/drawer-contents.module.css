@@ -1,0 +1,18 @@
+.wrapper {
+  width: 200px;
+  padding: 12px;
+}
+
+.block {
+  border-bottom: solid 1px #ccc;
+  padding: 12px 0px;
+  margin-bottom: 12px;
+}
+
+h2 {
+  text-align: center;
+}
+
+li {
+  margin: 24px 0px;
+}

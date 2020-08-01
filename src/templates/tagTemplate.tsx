@@ -34,6 +34,7 @@ export const pageQuery = graphql`
     allMarkdownRemark(
       limit: 2000
       filter: { frontmatter: { tags: { in: [$tag] } } }
+      sort: { order: DESC, fields: frontmatter___created }
     ) {
       nodes {
         excerpt
