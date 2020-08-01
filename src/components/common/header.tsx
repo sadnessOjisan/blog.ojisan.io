@@ -1,10 +1,13 @@
 import * as React from "react"
 import { Link } from "gatsby"
-import Button from "@material-ui/core/Button"
 import styles from "./header.module.css"
 import github from "../../images/github.svg"
 import rss from "../../images/rss.svg"
 import { DrawerContext } from "./layout"
+import { IconButton } from "@material-ui/core"
+import MenuIcon from "@material-ui/icons/Menu"
+import GitHubIcon from "@material-ui/icons/GitHub"
+import RssFeedIcon from "@material-ui/icons/RssFeed"
 
 interface IProps {
   siteTitle: string
@@ -19,24 +22,28 @@ const Header: React.FC<IProps> = ({ siteTitle }) => {
       </h1>
       <div>
         <a href="/rss.xml" aria-label="rssへのリンク">
-          <img src={rss} className={styles.icon} alt="rss-logo"></img>
+          <IconButton aria-label="rssアイコン" color="default">
+            <RssFeedIcon />
+          </IconButton>
         </a>
         <a
           href="https://github.com/sadnessOjisan/blog.ojisan.io"
           aria-label="githubへのリンク"
         >
-          <img src={github} className={styles.icon} alt="github-logo"></img>
+          <IconButton aria-label="githubアイコン" color="default">
+            <GitHubIcon />
+          </IconButton>
         </a>
+        <IconButton
+          aria-label="delete"
+          color="default"
+          onClick={() => {
+            drawerContext.setDrawerState(true)
+          }}
+        >
+          <MenuIcon />
+        </IconButton>
       </div>
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={() => {
-          drawerContext.setDrawerState(true)
-        }}
-      >
-        OPEN
-      </Button>
     </header>
   )
 }

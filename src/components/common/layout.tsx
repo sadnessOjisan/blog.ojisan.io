@@ -38,7 +38,7 @@ const Layout: React.FC = ({ children }) => {
         <main className={styles.body}>{children}</main>
         <Footer></Footer>
         <Drawer
-          anchor="left"
+          anchor="right"
           open={isOpenDrawer}
           onClose={() => {
             setDrawerState(false)
