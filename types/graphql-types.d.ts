@@ -1949,6 +1949,8 @@ export type QueryAllSitePageArgs = {
 export type QuerySiteArgs = {
   buildTime?: Maybe<DateQueryOperatorInput>;
   siteMetadata?: Maybe<SiteSiteMetadataFilterInput>;
+  port?: Maybe<IntQueryOperatorInput>;
+  host?: Maybe<StringQueryOperatorInput>;
   polyfill?: Maybe<BooleanQueryOperatorInput>;
   pathPrefix?: Maybe<StringQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
@@ -2059,6 +2061,8 @@ export type QueryAllSitePluginArgs = {
 export type Site = Node & {
   buildTime?: Maybe<Scalars['Date']>;
   siteMetadata?: Maybe<SiteSiteMetadata>;
+  port?: Maybe<Scalars['Int']>;
+  host?: Maybe<Scalars['String']>;
   polyfill?: Maybe<Scalars['Boolean']>;
   pathPrefix?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
@@ -2262,6 +2266,8 @@ export type SiteFieldsEnum =
   | 'siteMetadata___description'
   | 'siteMetadata___author'
   | 'siteMetadata___siteUrl'
+  | 'port'
+  | 'host'
   | 'polyfill'
   | 'pathPrefix'
   | 'id'
@@ -2354,6 +2360,8 @@ export type SiteFieldsEnum =
 export type SiteFilterInput = {
   buildTime?: Maybe<DateQueryOperatorInput>;
   siteMetadata?: Maybe<SiteSiteMetadataFilterInput>;
+  port?: Maybe<IntQueryOperatorInput>;
+  host?: Maybe<StringQueryOperatorInput>;
   polyfill?: Maybe<BooleanQueryOperatorInput>;
   pathPrefix?: Maybe<StringQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
@@ -2598,6 +2606,7 @@ export type SitePageFieldsEnum =
   | 'pluginCreator___pluginOptions___head'
   | 'pluginCreator___pluginOptions___host'
   | 'pluginCreator___pluginOptions___sitemap'
+  | 'pluginCreator___pluginOptions___cachePublic'
   | 'pluginCreator___pluginOptions___pathCheck'
   | 'pluginCreator___nodeAPIs'
   | 'pluginCreator___browserAPIs'
@@ -2834,6 +2843,7 @@ export type SitePluginFieldsEnum =
   | 'pluginOptions___sitemap'
   | 'pluginOptions___env___development___policy'
   | 'pluginOptions___env___production___policy'
+  | 'pluginOptions___cachePublic'
   | 'pluginOptions___pathCheck'
   | 'nodeAPIs'
   | 'browserAPIs'
@@ -2979,6 +2989,7 @@ export type SitePluginPluginOptions = {
   host?: Maybe<Scalars['String']>;
   sitemap?: Maybe<Scalars['String']>;
   env?: Maybe<SitePluginPluginOptionsEnv>;
+  cachePublic?: Maybe<Scalars['Boolean']>;
   pathCheck?: Maybe<Scalars['Boolean']>;
 };
 
@@ -3082,6 +3093,7 @@ export type SitePluginPluginOptionsFilterInput = {
   host?: Maybe<StringQueryOperatorInput>;
   sitemap?: Maybe<StringQueryOperatorInput>;
   env?: Maybe<SitePluginPluginOptionsEnvFilterInput>;
+  cachePublic?: Maybe<BooleanQueryOperatorInput>;
   pathCheck?: Maybe<BooleanQueryOperatorInput>;
 };
 
@@ -3209,7 +3221,7 @@ export type AllBlogsQuery = { blogs: { nodes: Array<(
       Pick<MarkdownRemark, 'excerpt'>
       & { frontmatter?: Maybe<(
         Pick<MarkdownRemarkFrontmatter, 'title' | 'path' | 'created' | 'tags'>
-        & { visual?: Maybe<{ childImageSharp?: Maybe<{ fluid?: Maybe<Pick<ImageSharpFluid, 'tracedSVG' | 'srcWebp' | 'srcSetWebp' | 'srcSet' | 'src' | 'sizes' | 'presentationWidth' | 'presentationHeight' | 'originalName' | 'originalImg' | 'base64' | 'aspectRatio'>> }> }> }
+        & { visual?: Maybe<{ childImageSharp?: Maybe<{ fluid?: Maybe<GatsbyImageSharpFluidFragment> }> }> }
       )> }
     )> }, newses: { nodes: Array<{ frontmatter?: Maybe<Pick<MarkdownRemarkFrontmatter, 'title' | 'description' | 'created'>> }> }, site?: Maybe<{ siteMetadata?: Maybe<Pick<SiteSiteMetadata, 'title' | 'description' | 'author'>> }> };
 
@@ -3227,7 +3239,7 @@ export type BlogTemplateQuery = { markdownRemark?: Maybe<(
     Pick<MarkdownRemark, 'excerpt' | 'html' | 'rawMarkdownBody' | 'tableOfContents'>
     & { frontmatter?: Maybe<(
       Pick<MarkdownRemarkFrontmatter, 'created' | 'updated' | 'path' | 'title' | 'tags'>
-      & { visual?: Maybe<{ childImageSharp?: Maybe<{ fluid?: Maybe<Pick<ImageSharpFluid, 'tracedSVG' | 'srcWebp' | 'srcSetWebp' | 'srcSet' | 'src' | 'sizes' | 'presentationWidth' | 'presentationHeight' | 'originalName' | 'originalImg' | 'base64' | 'aspectRatio'>> }> }> }
+      & { visual?: Maybe<{ childImageSharp?: Maybe<{ fluid?: Maybe<GatsbyImageSharpFluidFragment> }> }> }
     )> }
   )> };
 
