@@ -1,11 +1,3 @@
-.body {
-  min-height: 85vh;
-  /* 9vh は headerの高さ分 */
-  padding-top: 7vh;
-  background-color: #eeeef1;
-  padding-bottom: 7vh;
-}
-
 .footer {
   margin-bottom: 0;
   margin-top: auto;

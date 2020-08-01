@@ -1,10 +1,12 @@
 import * as React from "react"
 import cn from "classnames"
-import { AllBlogsQuery } from "../../types/graphql-types"
+import { AllBlogsQuery } from "../../../types/graphql-types"
 import styles from "./newses.module.css"
 
 interface IProps {
+  /** ニュース一覧 */
   data: AllBlogsQuery["newses"]
+  /**  */
   className: string
 }
 

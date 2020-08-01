@@ -2,13 +2,12 @@ import * as React from "react"
 import { graphql } from "gatsby"
 import "../vendor/css/reset.css"
 import "../vendor/css/base.css"
-import Layout from "../components/layout"
-import SEO from "../components/seo"
+import Layout from "../components/common/layout"
+import SEO from "../components/common/seo"
 import { AllBlogsQuery } from "../../types/graphql-types"
-import { Newses } from "../components/newses"
+import { Newses } from "../components/indices/newses"
 import styles from "./index.module.css"
-import { Card } from "../components/card"
-import { Tag } from "../components/tag"
+import { Card } from "../components/indices/card"
 
 interface IProps {
   data: AllBlogsQuery

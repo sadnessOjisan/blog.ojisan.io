@@ -2,13 +2,16 @@ import * as React from "react"
 import cn from "classnames"
 import { Link } from "gatsby"
 import Image from "gatsby-image"
-import { AllBlogsQuery } from "../../types/graphql-types"
+import { AllBlogsQuery } from "../../../types/graphql-types"
 import styles from "./card.module.css"
 import { Tags } from "./tags"
 
 interface IProps {
+  /** ブログコンテンツのfrontmatter */
   data: AllBlogsQuery["blogs"]["nodes"][0]["frontmatter"]
+  /** 呼び出し元から書き換えるためのclassName */
   className?: string
+  /** カードに表示するブログの出だし */
   excerpt: AllBlogsQuery["blogs"]["nodes"][0]["excerpt"]
 }
 

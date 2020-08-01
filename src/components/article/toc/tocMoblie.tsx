@@ -3,9 +3,9 @@
 import * as React from "react"
 import cn from "classnames"
 import styles from "./tocMobile.module.css"
-import SocialMobile from "./socialsMobile"
-import Close from "../images/close.svg"
-import Open from "../images/open.svg"
+import SocialMobile from "../social/socialsMobile"
+import Close from "../../../images/close.svg"
+import Open from "../../../images/open.svg"
 
 interface IProps {
   path: string

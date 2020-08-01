@@ -1,10 +1,10 @@
 import * as React from "react"
 import cn from "classnames"
-import styles from "./social.module.css"
-import clap from "../images/clap.svg"
-import facebook from "../images/facebook.svg"
-import twitter from "../images/twitter.svg"
-import github from "../images/github.svg"
+import styles from "./socialMobile.module.css"
+import clap from "../../../images/clap.svg"
+import facebook from "../../../images/facebook.svg"
+import twitter from "../../../images/twitter.svg"
+import github from "../../../images/github.svg"
 
 interface IProps {
   path: string
@@ -13,7 +13,12 @@ interface IProps {
   className?: string
 }
 
-const Social: React.FC<IProps> = ({ className, path, title, dateYYYYMMDD }) => (
+const SocialMobile: React.FC<IProps> = ({
+  className,
+  path,
+  title,
+  dateYYYYMMDD,
+}) => (
   <div className={cn(className, styles.wrapper)}>
     <div className={styles.col}>
       {/* sticky container としてこのdivが必要 */}
@@ -33,15 +38,18 @@ const Social: React.FC<IProps> = ({ className, path, title, dateYYYYMMDD }) => (
       >
         <img src={facebook} className={styles.icon} alt="facebook-logo"></img>
       </a>
-      <img
-        tabIndex={0}
-        src={clap}
-        className={styles.icon}
-        onClick={() => {
-          alert("Thank you!")
-        }}
-        alt="clap-logo"
-      ></img>
+      {/* このaタグがないとsafariでのデザインが崩れる */}
+      <a>
+        <img
+          tabIndex={0}
+          src={clap}
+          className={styles.icon}
+          onClick={() => {
+            alert("Thank you!")
+          }}
+          alt="clap-logo"
+        ></img>
+      </a>
       <a
         href={`https://github.com/sadnessOjisan/blog.ojisan.io/blob/master/src/contents/${dateYYYYMMDD}-${path.replace(
           "/",
@@ -57,4 +65,4 @@ const Social: React.FC<IProps> = ({ className, path, title, dateYYYYMMDD }) => (
   </div>
 )
 
-export default Social
+export default SocialMobile
