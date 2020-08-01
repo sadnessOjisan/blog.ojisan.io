@@ -2,6 +2,7 @@ import * as React from "react"
 import styles from "./drawerContents.module.css"
 import { Link, useStaticQuery, graphql } from "gatsby"
 import { TagsIndicesQuery } from "../../../types/graphql-types"
+import { Button } from "@material-ui/core"
 
 const DrawerContents: React.FC = () => {
   const {
@@ -29,12 +30,16 @@ const DrawerContents: React.FC = () => {
       <ul className={styles.block}>
         <li>
           <Link to="/">
-            <a>Top</a>
+            <Button>
+              <a>Top</a>
+            </Button>
           </Link>
         </li>
         <li>
           <Link to="/tags">
-            <a>Tag一覧</a>
+            <Button>
+              <a>Tag一覧</a>
+            </Button>
           </Link>
         </li>
       </ul>
@@ -43,9 +48,11 @@ const DrawerContents: React.FC = () => {
         {allMarkdownRemark.group.map(tag => (
           <li>
             <Link to={`/tags/${tag.fieldValue}`}>
-              <a>
-                {tag.fieldValue}({tag.totalCount})
-              </a>
+              <Button>
+                <a>
+                  {tag.fieldValue}({tag.totalCount})
+                </a>
+              </Button>
             </Link>
           </li>
         ))}
@@ -53,17 +60,18 @@ const DrawerContents: React.FC = () => {
       <h2>Link</h2>
       <ul className={styles.block}>
         <li>
-          <a href="/rss.xml" aria-label="rssへのリンク">
-            RSS
-          </a>
+          <Link to="/rss.xml">
+            <Button>
+              <a>RSS</a>
+            </Button>
+          </Link>
         </li>
         <li>
-          <a
-            href="https://github.com/sadnessOjisan/blog.ojisan.io"
-            aria-label="githubへのリンク"
-          >
-            Github
-          </a>
+          <Link to="https://github.com/sadnessOjisan/blog.ojisan.io">
+            <Button>
+              <a>Github</a>
+            </Button>
+          </Link>
         </li>
       </ul>
     </div>
