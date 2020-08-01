@@ -3,7 +3,6 @@ import { Link } from "gatsby"
 import styles from "./header.module.css"
 import github from "../images/github.svg"
 import rss from "../images/rss.svg"
-import "../vendor/css/algolia.css"
 
 interface IProps {
   siteTitle: string
