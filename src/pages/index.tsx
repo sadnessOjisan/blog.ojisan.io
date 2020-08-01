@@ -7,8 +7,7 @@ import SEO from "../components/seo"
 import { AllBlogsQuery } from "../../types/graphql-types"
 import { Newses } from "../components/newses"
 import styles from "./index.module.css"
-import { Card } from "../components/card"
-import { Tag } from "../components/tag"
+import { Card } from "../components/indices/card"
 
 interface IProps {
   data: AllBlogsQuery
