@@ -1,8 +1,8 @@
 import * as React from "react"
 import { Helmet } from "react-helmet"
 import { useStaticQuery, graphql } from "gatsby"
-import { SeoQuery } from "../../types/graphql-types"
-import OGP from "../images/keyvisual.png"
+import { SeoQuery } from "../../../types/graphql-types"
+import OGP from "../../images/keyvisual.png"
 
 interface IProps {
   description?: string

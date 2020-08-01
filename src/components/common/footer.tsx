@@ -1,12 +1,7 @@
 import * as React from "react"
-import { Link } from "gatsby"
 import styles from "./footer.module.css"
 
-interface IProps {
-  siteTitle: string
-}
-
-const Footer: React.FC<IProps> = ({ siteTitle }) => (
+const Footer: React.FC = () => (
   <footer className={styles.footer}>
     <p>
       © {new Date().getFullYear()}, Built with

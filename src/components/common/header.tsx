@@ -1,8 +1,8 @@
 import * as React from "react"
 import { Link } from "gatsby"
 import styles from "./header.module.css"
-import github from "../images/github.svg"
-import rss from "../images/rss.svg"
+import github from "../../images/github.svg"
+import rss from "../../images/rss.svg"
 
 interface IProps {
   siteTitle: string
