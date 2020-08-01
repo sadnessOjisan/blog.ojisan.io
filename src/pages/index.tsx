@@ -5,7 +5,7 @@ import "../vendor/css/base.css"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import { AllBlogsQuery } from "../../types/graphql-types"
-import { Newses } from "../components/newses"
+import { Newses } from "../components/indices/newses"
 import styles from "./index.module.css"
 import { Card } from "../components/indices/card"
 
