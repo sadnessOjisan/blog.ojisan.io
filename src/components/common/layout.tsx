@@ -11,7 +11,7 @@ import Drawer from "@material-ui/core/Drawer"
 import Header from "./header"
 import Footer from "./footer"
 import styles from "./layout.module.css"
-import DrawerContents from "./DrawerContents"
+import DrawerContents from "./drawer-contents"
 
 export const DrawerContext = React.createContext<{
   setDrawerState: React.Dispatch<React.SetStateAction<boolean>>
