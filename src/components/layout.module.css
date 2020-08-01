@@ -5,25 +5,3 @@
   background-color: #eeeef1;
   padding-bottom: 7vh;
 }
-
-.footer {
-  margin-bottom: 0;
-  margin-top: auto;
-  background-color: #368ccb;
-  padding: 8px;
-  text-align: center;
-  color: white;
-  min-height: 15vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.footer > p {
-  margin-top: 12px;
-}
-
-.footer > p > a {
-  text-decoration: underline;
-  color: aquamarine;
-}
