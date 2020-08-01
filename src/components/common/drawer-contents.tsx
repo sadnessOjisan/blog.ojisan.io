@@ -1,5 +1,5 @@
 import * as React from "react"
-import styles from "./drawerContents.module.css"
+import styles from "./drawer-contents.module.css"
 import { Link, useStaticQuery, graphql } from "gatsby"
 import { TagsIndicesQuery } from "../../../types/graphql-types"
 import { Button } from "@material-ui/core"
