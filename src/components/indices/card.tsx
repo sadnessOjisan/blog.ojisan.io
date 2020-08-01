@@ -4,7 +4,7 @@ import { Link } from "gatsby"
 import Image from "gatsby-image"
 import { AllBlogsQuery } from "../../../types/graphql-types"
 import styles from "./card.module.css"
-import { Tags } from "../tags"
+import { Tags } from "./tags"
 
 interface IProps {
   /** ブログコンテンツのfrontmatter */

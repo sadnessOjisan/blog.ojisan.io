@@ -3,7 +3,7 @@ import cn from "classnames"
 import { Link } from "gatsby"
 import styles from "./tags.module.css"
 import { Tag } from "./tag"
-import { Maybe } from "../../types/graphql-types"
+import { Maybe } from "../../../types/graphql-types"
 
 interface IProps {
   tags: Maybe<string>[]

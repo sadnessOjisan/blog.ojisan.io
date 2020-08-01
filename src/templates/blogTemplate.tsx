@@ -9,7 +9,7 @@ import Toc from "../components/article/toc/toc"
 import TocMobile from "../components/article/toc/tocMoblie"
 import Social from "../components/article/social/socials"
 import SocialMobile from "../components/article/social/socialsMobile"
-import { Tag } from "../components/tag"
+import { Tag } from "../components/indices/tag"
 
 interface IProps {
   data: BlogTemplateQuery
