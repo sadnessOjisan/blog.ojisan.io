@@ -3204,6 +3204,11 @@ export type StringQueryOperatorInput = {
   glob?: Maybe<Scalars['String']>;
 };
 
+export type TagsIndicesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type TagsIndicesQuery = { allMarkdownRemark: { group: Array<Pick<MarkdownRemarkGroupConnection, 'fieldValue' | 'totalCount'>> } };
+
 export type SiteTitleQueryVariables = Exact<{ [key: string]: never; }>;
 
 
