@@ -4,7 +4,7 @@
 
 website: https://blog.ojisan.io
 
-## dev
+## For Dev
 
 ### for develop
 
@@ -22,9 +22,8 @@ gql
 $ open http://localhost:8000/___graphql
 ```
 
-gatsby-image が完璧ではないので手動で圧縮しよう
-
-https://tinypng.com/
+gatsby-image が完璧ではないので手動で圧縮した方が良い.
+[tinypng](https://tinypng.com/)で突っ込んだ画像の方がサイズ小さくなった。
 
 ### deploy
 
@@ -36,48 +35,16 @@ $ yarn build
 $ yarn start
 ```
 
-deploy 自体は master に merge されると自動でデプロイされる
+deploy 自体は master に merge されると自動でデプロイされる on [Netfliy](https://www.netlify.com/)
 
-## todo
+## How To Contribute
 
-- [x] analytics
-- [x] prism
-- [x] image
-- [x] toc
-- [x] first article
-- [x] social share
-- [ ] 全文検索(記事増えたら)
-- [ ] TOP ページ作る(記事増えたら)
-- [x] transition animation
-- [ ] push 通知
-- [ ] top にニュース作る
-- [ ] 目次をスムーススクロールにする
+### PR
 
-## icon
+明らかな誤字脱字などリンク間違いなどあれば、シャっと PR を投げてくれると嬉しいです。
+github-flow で運用しています。直接 master に PR ください。
 
-ここから拝借
+### Issues
 
-- [flaticon](https://www.flaticon.com/free-icon/clap-hands_109638)
-
-## todo
-
-fragment の調査
-
-```
-failed We've encountered an error: Objects are not valid as a React child (found: GraphQLDocumentError: GraphQLDocumentError: Unknown fragment "GatsbyImageSharpFluid".). If you meant to render a collection of children, use an array
-instead.
-    in div (created by Box)
-    in Box
-    in Unknown (created by CLI)
-    in div (created by Static)
-    in Static (created by CLI)
-    in div (created by Box)
-    in Box (created by CLI)
-    in div (created by Box)
-    in Box (created by CLI)
-    in CLI (created by ConnectedCLI)
-    in ConnectedCLI
-    in StoreStateProvider
-```
-
-の調査
+バグ報告や改善要望を受け付けています。
+いまのところはフォーマットに指定はないので、気軽にシャッと書いてくれると喜びます。
