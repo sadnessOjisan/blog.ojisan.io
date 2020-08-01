@@ -7,8 +7,8 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 import Toc from "../components/toc"
 import TocMobile from "../components/tocMoblie"
-import Social from "../components/socials"
-import SocialMobile from "../components/socialsMobile"
+import Social from "../components/article/social/socials"
+import SocialMobile from "../components/article/social/socialsMobile"
 import { Tag } from "../components/tag"
 
 interface IProps {

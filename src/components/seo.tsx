@@ -27,6 +27,9 @@ function SEO({ description, meta, title, image }: IProps & SeoQuery) {
   )
 
   const metaDescription = description || site.siteMetadata.description
+  const metaImage = image
+    ? `https://blog.ojisan.io${image}`
+    : `https://blog.ojisan.io${OGP}`
 
   return (
     <Helmet
@@ -45,9 +48,7 @@ function SEO({ description, meta, title, image }: IProps & SeoQuery) {
         },
         {
           property: `og:image`,
-          content: image
-            ? `https://blog.ojisan.io${image}`
-            : `https://blog.ojisan.io${OGP}`,
+          content: metaImage,
         },
         {
           property: `og:description`,
@@ -75,11 +76,10 @@ function SEO({ description, meta, title, image }: IProps & SeoQuery) {
         },
         {
           property: `og:image`,
-          content: image
-            ? `https://blog.ojisan.io${image}`
-            : `https://blog.ojisan.io${OGP}`,
+          content: metaImage,
         },
         {
+          // FIXME: これなんで必要なんだっけ？GAのプラグインだけあればよかったかも
           name: "google-site-verification",
           content: "fkXw7Bl_HSSeB9JeI3GWJ9fnhax0X_MHngOd7ji7FmM",
         },

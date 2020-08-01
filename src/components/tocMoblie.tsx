@@ -3,7 +3,7 @@
 import * as React from "react"
 import cn from "classnames"
 import styles from "./tocMobile.module.css"
-import SocialMobile from "./socialsMobile"
+import SocialMobile from "./article/social/socialsMobile"
 import Close from "../images/close.svg"
 import Open from "../images/open.svg"
 
