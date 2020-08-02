@@ -9,10 +9,10 @@
   margin-bottom: 12px;
 }
 
-h2 {
+.title {
   text-align: center;
 }
 
-li {
+.item {
   margin: 24px 0px;
 }
