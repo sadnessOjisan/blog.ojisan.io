@@ -1,0 +1,30 @@
+.title {
+  text-align: center;
+  font-size: 32px;
+  margin-top: 32px;
+}
+
+.items {
+  padding: 32px;
+}
+
+.item {
+  margin-bottom: 32px;
+  border: solid 1px white;
+  background-color: white;
+  padding: 12px 8px;
+  border-radius: 8px;
+}
+
+.info {
+  margin-bottom: 4px;
+}
+
+.badge {
+  margin-right: 8px;
+}
+
+.itemTitle {
+  font-size: 20px;
+  margin-bottom: 12px;
+}
