@@ -1,14 +1,14 @@
 ---
 path: /gatsby-meet-netlify
 created: "2020-08-03"
-title: Gatsby製サイトをNetlifyにデプロイする前にキャッシュの設定を見直すと、ビルドと表示が早くなる。
+title: Gatsby製サイトをNetlifyにデプロイする前に見ておきたい設定2つ（ビルドと表示）
 visual: "./visual.png"
 tags: [Gatsby, Netlify, HTTP]
 ---
 
 [Netlify](https://www.netlify.com/) にはビルド時のキャッシュと HTTP のキャッシュをユーザー側で設定できる口があります。
 ただ、ビルド時のキャッシュはドキュメントに書かれていない裏技的なものだったり、HTTP Cache の設定についてもあまり話題に上がらない（特に [Gatsby](https://www.gatsbyjs.org/) のファイルをキャッシュする方法自体があまり知られていない）もので、馴染みがないものだと思います。
-しかしキャッシュの設定をやることで、ビルドや表示が早くなり良いこと尽くしなのでこれを気に見ていきましょう。
+しかしキャッシュの設定をすることで、ビルドや表示が早くなり良いこと尽くしなのでこれを気に見ていきましょう。
 
 ## ビルド高速化
 
@@ -48,7 +48,7 @@ Netlify では `/opt/build/cache/` に置かれたファイルはビルドを跨
 
 入れて設定ファイルを書くだけでキャッシュされるようになりました。
 
-```
+```b
 $ yarn add -D gatsby-plugin-netlify-cache
 ```
 
@@ -81,8 +81,8 @@ FYI: https://www.gatsbyjs.com/docs/incremental-builds/#is-markdown-a-code-change
 
 かといってなんらかの CMS は入れたくなく(portable は markdown であることに意義を感じているため)、しばらくは諦めます。
 
-ただ、一応は Netlify でも incremental build をやる方法はあるみたいです。
-(というより先ほどの設定でビルドするときに環境変数に`GATSBY_EXPERIMENTAL_PAGE_BUILD_ON_DATA_CHANGES=true` を渡すだけで良い。)
+ただ、一応は Netlify でも Markdown 入稿をやめれば incremental build をやる方法自体はあるみたいです。
+(というより先ほどの設定でビルドするときに環境変数に`GATSBY_EXPERIMENTAL_PAGE_BUILD_ON_DATA_CHANGES=true` を渡すだけで良さそうです。)
 
 FYI: https://www.netlify.com/blog/2020/04/23/enable-gatsby-incremental-builds-on-netlify/
 
@@ -99,7 +99,7 @@ FYI: https://www.netlify.com/blog/2020/04/23/enable-gatsby-incremental-builds-on
 
 これは
 
-```
+```b
 cache-control: public, max-age=0, s-maxage=300
 ```
 
@@ -113,7 +113,7 @@ Netlify ではこのキャッシュヘッダなどをユーザーが自由に設
 (※: 「などを」とボカしたのは設定ファイルの種類によってはリダイレクトルールなども設定できるからです。)
 \_headers というファイルにそれを書いていきます。
 
-```
+```b
 /*.html
   Cache-Control: public, max-age=0, must-revalidate
 ```
@@ -186,7 +186,7 @@ Gatsby 公式にある[Caching Static Sites](https://www.gatsbyjs.org/docs/cachi
 これは 常に新鮮なものを使えという意味です。
 HTML, Page data, sw.js もエントリポイントなので、ここが古い(キャッシュ)だと、新しいデータを取って来れなくなるからです。
 
-### cache-control: public, max-age=31536000, immutable
+#### cache-control: public, max-age=31536000, immutable
 
 これは 1 年間キャッシュしても良いよという意味です。
 でもそう考えると「一回読み込んだら一年間更新されないの怖すぎでは」となるかもしれませんが、それは大丈夫です。
@@ -235,4 +235,5 @@ plugins: [
 ## まとめ
 
 - Netlify ではビルドのキャッシュを持ち回れてビルド速度をあげれる
-- Netlify では Response Header を触れて Gatsby 特化の Cache-Control ヘッダを用意することで表示速度を向上させられる
+- Netlify では Response Header を触れて Gatsby 特化の Cache-Control ヘッダを用意することで表示速度をあげれる
+- HTTP の Cache 設定は危険なので自信がないなら触れない方が良いかも
