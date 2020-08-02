@@ -2,11 +2,11 @@ import * as React from "react"
 import { graphql } from "gatsby"
 import Layout from "../components/common/layout"
 import SEO from "../components/common/seo"
-import { AllBlogsQuery } from "../../types/graphql-types"
+import { AllNewsQuery } from "../../types/graphql-types"
 import styles from "./news.module.css"
 
 interface IProps {
-  data: AllBlogsQuery
+  data: AllNewsQuery
 }
 
 const IndexPage: React.FC<IProps> = ({ data }) => {
@@ -18,9 +18,12 @@ const IndexPage: React.FC<IProps> = ({ data }) => {
         {data.newses.nodes.map(news => {
           return (
             <div className={styles.item}>
-              <span className={styles.badge}>
-                [{news.frontmatter.newsCategory}]{news.frontmatter.created}
-              </span>
+              <p className={styles.info}>
+                <span className={styles.badge}>
+                  {news.frontmatter.newsCategory}
+                </span>
+                {news.frontmatter.created}
+              </p>
               <h3 className={styles.itemTitle}>{news.frontmatter.title}</h3>
               <p className={styles.description}>
                 {news.frontmatter.description}
