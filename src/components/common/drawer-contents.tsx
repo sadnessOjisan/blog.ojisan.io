@@ -26,16 +26,16 @@ const DrawerContents: React.FC = () => {
 
   return (
     <div className={styles.wrapper}>
-      <h2>Navigation</h2>
+      <h2 className={styles.title}>Navigation</h2>
       <ul className={styles.block}>
-        <li>
+        <li className={styles.item}>
           <Link to="/">
             <Button>
               <a>Top</a>
             </Button>
           </Link>
         </li>
-        <li>
+        <li className={styles.item}>
           <Link to="/tags">
             <Button>
               <a>Tag一覧</a>
@@ -43,10 +43,10 @@ const DrawerContents: React.FC = () => {
           </Link>
         </li>
       </ul>
-      <h2>tags</h2>
+      <h2 className={styles.title}>tags</h2>
       <ul className={styles.block}>
         {allMarkdownRemark.group.map(tag => (
-          <li>
+          <li className={styles.item}>
             <Link to={`/tags/${tag.fieldValue}`}>
               <Button>
                 <a>
@@ -57,16 +57,16 @@ const DrawerContents: React.FC = () => {
           </li>
         ))}
       </ul>
-      <h2>Link</h2>
+      <h2 className={styles.title}>Link</h2>
       <ul className={styles.block}>
-        <li>
+        <li className={styles.item}>
           <Link to="/rss.xml">
             <Button>
               <a>RSS</a>
             </Button>
           </Link>
         </li>
-        <li>
+        <li className={styles.item}>
           <Link to="https://github.com/sadnessOjisan/blog.ojisan.io">
             <Button>
               <a>Github</a>
