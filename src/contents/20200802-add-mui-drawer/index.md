@@ -1,7 +1,7 @@
 ---
 path: /add-mui-drawer
 created: "2020-08-02"
-title: ブログにmaterial-uiを入れた
+title: ブログにmaterial-uiのDrawerを入れた
 visual: "./visual.png"
 tags: [React]
 ---
@@ -11,10 +11,11 @@ tags: [React]
 
 ## なぜいま material-ui
 
-material-ui, この言葉に「えっ、それ採用する？」と思われる方も多いと思います。
-燃えたくないので material-ui のデメリットについてはここでは言及しませんが、何も問題ないと思っています。
+[material-ui](https://material-ui.com/), この言葉に「えっ、それ採用する？」と思われる方もいると思います。
+燃えたくないので material-ui のデメリットについてはここでは言及しませんが、正しく使う限りにおいては自分では何も問題ないと思っています。
+
 採用の決め手はグローバルな CSS を読み込まなくていいので剥がしたい時に剥がせる点です。
-また import の仕方を工夫すればバンドルサイズも増やさないのも嬉しい点です。
+正しく import すればバンドルサイズを増やさないのも嬉しい点です。
 
 公式に[Minimizing Bundle Size](https://material-ui.com/guides/minimizing-bundle-size/)というページがあるのですが、
 
@@ -23,6 +24,13 @@ material-ui, この言葉に「えっ、それ採用する？」と思われる�
 
 に注意すれば開発モード時のビルド時間も気にしなくていいと思っています。
 (prduction build しないと treeshaking されないことへの回避)
+
+パフォーマンスの劣化は気にしていたポイントですが、実際には劣化が起きていなさそうなので採用しました。
+
+FYI: [計測したときの PR](https://github.com/sadnessOjisan/blog.ojisan.io/pull/50)
+
+もしパフォーマンスが悪くなったりした時は部分的にそのコンポーネントを剥がすといった対処をしていこうと思います。
+全て material-ui に乗らなくても採用できるのは、material-ui の良いところですね。
 
 ## Drawer を使う
 
@@ -172,4 +180,10 @@ const Header: React.FC<IProps> = ({ siteTitle }) => {
 }
 
 export default Header
+```
+
+このヘッダで使うアイコンは material-icons を使っています。
+
+```sh
+$ yarn add yarn add @material-ui/icons
 ```
