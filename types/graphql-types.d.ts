@@ -1949,8 +1949,6 @@ export type QueryAllSitePageArgs = {
 export type QuerySiteArgs = {
   buildTime?: Maybe<DateQueryOperatorInput>;
   siteMetadata?: Maybe<SiteSiteMetadataFilterInput>;
-  port?: Maybe<IntQueryOperatorInput>;
-  host?: Maybe<StringQueryOperatorInput>;
   polyfill?: Maybe<BooleanQueryOperatorInput>;
   pathPrefix?: Maybe<StringQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
@@ -2061,8 +2059,6 @@ export type QueryAllSitePluginArgs = {
 export type Site = Node & {
   buildTime?: Maybe<Scalars['Date']>;
   siteMetadata?: Maybe<SiteSiteMetadata>;
-  port?: Maybe<Scalars['Int']>;
-  host?: Maybe<Scalars['String']>;
   polyfill?: Maybe<Scalars['Boolean']>;
   pathPrefix?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
@@ -2266,8 +2262,6 @@ export type SiteFieldsEnum =
   | 'siteMetadata___description'
   | 'siteMetadata___author'
   | 'siteMetadata___siteUrl'
-  | 'port'
-  | 'host'
   | 'polyfill'
   | 'pathPrefix'
   | 'id'
@@ -2360,8 +2354,6 @@ export type SiteFieldsEnum =
 export type SiteFilterInput = {
   buildTime?: Maybe<DateQueryOperatorInput>;
   siteMetadata?: Maybe<SiteSiteMetadataFilterInput>;
-  port?: Maybe<IntQueryOperatorInput>;
-  host?: Maybe<StringQueryOperatorInput>;
   polyfill?: Maybe<BooleanQueryOperatorInput>;
   pathPrefix?: Maybe<StringQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
@@ -2607,6 +2599,13 @@ export type SitePageFieldsEnum =
   | 'pluginCreator___pluginOptions___host'
   | 'pluginCreator___pluginOptions___sitemap'
   | 'pluginCreator___pluginOptions___cachePublic'
+  | 'pluginCreator___pluginOptions___headers____xxhtml'
+  | 'pluginCreator___pluginOptions___headers____page_data__'
+  | 'pluginCreator___pluginOptions___headers____page_data_app_data_json'
+  | 'pluginCreator___pluginOptions___headers____static__'
+  | 'pluginCreator___pluginOptions___headers____sw_js'
+  | 'pluginCreator___pluginOptions___headers____xxxxxjs'
+  | 'pluginCreator___pluginOptions___headers____xxxxxcss'
   | 'pluginCreator___pluginOptions___pathCheck'
   | 'pluginCreator___nodeAPIs'
   | 'pluginCreator___browserAPIs'
@@ -2844,6 +2843,13 @@ export type SitePluginFieldsEnum =
   | 'pluginOptions___env___development___policy'
   | 'pluginOptions___env___production___policy'
   | 'pluginOptions___cachePublic'
+  | 'pluginOptions___headers____xxhtml'
+  | 'pluginOptions___headers____page_data__'
+  | 'pluginOptions___headers____page_data_app_data_json'
+  | 'pluginOptions___headers____static__'
+  | 'pluginOptions___headers____sw_js'
+  | 'pluginOptions___headers____xxxxxjs'
+  | 'pluginOptions___headers____xxxxxcss'
   | 'pluginOptions___pathCheck'
   | 'nodeAPIs'
   | 'browserAPIs'
@@ -2990,6 +2996,7 @@ export type SitePluginPluginOptions = {
   sitemap?: Maybe<Scalars['String']>;
   env?: Maybe<SitePluginPluginOptionsEnv>;
   cachePublic?: Maybe<Scalars['Boolean']>;
+  headers?: Maybe<SitePluginPluginOptionsHeaders>;
   pathCheck?: Maybe<Scalars['Boolean']>;
 };
 
@@ -3094,7 +3101,28 @@ export type SitePluginPluginOptionsFilterInput = {
   sitemap?: Maybe<StringQueryOperatorInput>;
   env?: Maybe<SitePluginPluginOptionsEnvFilterInput>;
   cachePublic?: Maybe<BooleanQueryOperatorInput>;
+  headers?: Maybe<SitePluginPluginOptionsHeadersFilterInput>;
   pathCheck?: Maybe<BooleanQueryOperatorInput>;
+};
+
+export type SitePluginPluginOptionsHeaders = {
+  _xxhtml?: Maybe<Array<Maybe<Scalars['String']>>>;
+  _page_data__?: Maybe<Array<Maybe<Scalars['String']>>>;
+  _page_data_app_data_json?: Maybe<Array<Maybe<Scalars['String']>>>;
+  _static__?: Maybe<Array<Maybe<Scalars['String']>>>;
+  _sw_js?: Maybe<Array<Maybe<Scalars['String']>>>;
+  _xxxxxjs?: Maybe<Array<Maybe<Scalars['String']>>>;
+  _xxxxxcss?: Maybe<Array<Maybe<Scalars['String']>>>;
+};
+
+export type SitePluginPluginOptionsHeadersFilterInput = {
+  _xxhtml?: Maybe<StringQueryOperatorInput>;
+  _page_data__?: Maybe<StringQueryOperatorInput>;
+  _page_data_app_data_json?: Maybe<StringQueryOperatorInput>;
+  _static__?: Maybe<StringQueryOperatorInput>;
+  _sw_js?: Maybe<StringQueryOperatorInput>;
+  _xxxxxjs?: Maybe<StringQueryOperatorInput>;
+  _xxxxxcss?: Maybe<StringQueryOperatorInput>;
 };
 
 export type SitePluginPluginOptionsPlugins = {
