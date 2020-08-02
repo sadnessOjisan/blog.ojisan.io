@@ -42,6 +42,13 @@ const DrawerContents: React.FC = () => {
             </Button>
           </Link>
         </li>
+        <li className={styles.item}>
+          <Link to="/news">
+            <Button>
+              <a>News一覧</a>
+            </Button>
+          </Link>
+        </li>
       </ul>
       <h2 className={styles.title}>tags</h2>
       <ul className={styles.block}>

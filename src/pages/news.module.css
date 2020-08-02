@@ -1,0 +1,16 @@
+.title {
+  text-align: center;
+  font-size: 32px;
+  margin-top: 32px;
+}
+
+.items {
+  padding: 32px;
+}
+
+.item {
+  margin-bottom: 12px;
+}
+
+.itemTitle {
+}
