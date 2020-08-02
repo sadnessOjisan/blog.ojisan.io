@@ -17,18 +17,20 @@ const IndexPage: React.FC<IProps> = ({ data }) => {
       <div className={styles.items}>
         {data.newses.nodes.map(news => {
           return (
-            <div className={styles.item}>
-              <p className={styles.info}>
-                <span className={styles.badge}>
-                  {news.frontmatter.newsCategory}
-                </span>
-                {news.frontmatter.created}
-              </p>
-              <h3 className={styles.itemTitle}>{news.frontmatter.title}</h3>
-              <p className={styles.description}>
-                {news.frontmatter.description}
-              </p>
-            </div>
+            news.frontmatter && (
+              <div className={styles.item}>
+                <p className={styles.info}>
+                  <span className={styles.badge}>
+                    {news.frontmatter.newsCategory}
+                  </span>
+                  {news.frontmatter.created}
+                </p>
+                <h3 className={styles.itemTitle}>{news.frontmatter.title}</h3>
+                <p className={styles.description}>
+                  {news.frontmatter.description}
+                </p>
+              </div>
+            )
           )
         })}
       </div>
