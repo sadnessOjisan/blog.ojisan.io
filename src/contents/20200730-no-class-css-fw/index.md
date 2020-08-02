@@ -3,7 +3,7 @@ path: /no-class-css-fw
 created: "2020-07-30"
 title: No-Class CSS フレームワークをいろいろ比較するサイトを作った
 visual: "./visual.png"
-tags: [CSS, Angular]
+tags: [CSS, Angular, PR]
 ---
 
 [No Class CSS Museum](https://sadnessojisan.github.io/no-class-css-museum/index.html)という No-Class CSS フレームワーク比較サイトを作りました。
@@ -227,6 +227,7 @@ html, css, ts, test が一つの単位になっていて、必然的に責務が
 開発体験としては React で state を props で渡す、その state を書き換えるイベントハンドラを渡すといったことを記法は違えどできて、開発で詰まる点はでてきませんでした。
 
 動的なデータ取得は今回していませんが、コンポーネントのライフサイクルメソッドでデータの初期化などはこのコードでもやっており、fetch 後のデータに対しておなじことをしたら大丈夫そうだなと予想もつきました。
+
 ### ビルドオプションに感動した
 
 --prod というオプションをつけてビルドすると、angular.json に書かれた最適化オプションを使ってビルドしてくれます。
