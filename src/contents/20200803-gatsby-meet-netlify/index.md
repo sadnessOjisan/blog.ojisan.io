@@ -32,46 +32,6 @@ FYI: https://twitter.com/sadnessOjisan/status/1289534542705917953?s=20
 これを次のビルドで変更されていないところはそのキャッシュを使わないようにすることで、ビルド時間の節約ができます。
 Netlify では GitHub での PR に応じて自動でビルド環境が作られるので、これらのキャッシュは使われなかったのですが、それを使ってビルドできるプラグインがあるのでそれを使います。
 
-それが[gatsby-plugin-netlify-cache](https://www.gatsbyjs.org/packages/gatsby-plugin-netlify-cache/?=netlify#gatsby-plugin-netlify-cache)です。
-Netlify では `/opt/build/cache/` に置かれたファイルはビルドを跨いで使い回すことができるらしく、そこにキャッシュしたいファイルを置くのがこのプラグインです。
-このプラグインはデフォルトで `.cache` と `public` を置いてくれます。
-
-ただ、先ほどちょっと誤魔化した表現にしており、なんとこのプラグインの説明には
-
-> It automatically restores your cache and caches new files within the Netlify cache folder. This folder is undocumented but works fine. To reset the cache, hit the Clear build cache checkbox in the Netlify app.
-
-とあり、 **undocumented** な機能です。
-ただ、contentful が[Faster static site builds Part 1- Process only what you need](https://www.contentful.com/blog/2018/05/17/faster-static-site-builds-part-one-process-only-what-you-need/#caching-for-the-win)といった記事を出して言及していたりするので信用できると思います。
-多分大丈夫です。
-
-### plugin を使ってみる
-
-入れて設定ファイルを書くだけでキャッシュされるようになりました。
-
-```b
-$ yarn add -D gatsby-plugin-netlify-cache
-```
-
-```js:title=gatsby-config.js
-plugins: [
-  {
-    resolve: "gatsby-plugin-netlify-cache",
-    options: {
-      cachePublic: true,
-    },
-  },
-]
-```
-
-### 実際ビルドはどれだけ早くなったか？
-
-正直よくわかっていないです。
-というのも同じ条件でビルドができておらず正しく計測はできていません。
-（この機能を入れたときのビルド時間はキャッシュされているものではないのでわからず、その次のビルドは何らかの機能がたされたビルドになるため。）
-それでも 10min -> 8min ほどには縮まりました。
-
-もっと早くなると思ってました＞＜
-
 ### もっと早くするためには？
 
 やはり incremental build しかないようです。
