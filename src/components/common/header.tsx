@@ -1,8 +1,6 @@
 import * as React from "react"
 import { Link } from "gatsby"
 import styles from "./header.module.css"
-import github from "../../images/github.svg"
-import rss from "../../images/rss.svg"
 import { DrawerContext } from "./layout"
 import { IconButton } from "@material-ui/core"
 import MenuIcon from "@material-ui/icons/Menu"
