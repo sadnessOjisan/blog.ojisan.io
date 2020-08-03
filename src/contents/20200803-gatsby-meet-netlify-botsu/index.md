@@ -1,6 +1,6 @@
 ---
 path: /gatsby-meet-netlify-botsu
-created: "2020-08-03"
+created: "2020-08-03 18:00"
 title: Gatsby製サイトをNetlifyにデプロイする前に見ておきたい設定2つ（ビルドと表示）
 visual: "./visual.png"
 tags: [Gatsby, Netlify]
@@ -8,7 +8,7 @@ tags: [Gatsby, Netlify]
 
 今朝更新した [Gatsby 製サイトを Netlify にデプロイする前に見ておきたい設定 2 つ（ビルドと表示）](/gatsby-meet-netlify)の[ボツ原稿](https://github.com/sadnessOjisan/blog.ojisan.io/pull/61/commits/3a621e73f835bc10be92a13f4f24d70791d4dda5)です。
 この記事では Netlify でのビルドキャッシュを使う方法を紹介しました。
-そこでは [netlify-plugin-gatsby-cache](https://github.com/jlengstorf/netlify-plugin-gatsby-cache) という Netlify のプラグインを紹介してビルド時間が 10 min => 1min になったことを紹介しましたが、実はこの原稿を書いている時は [gatsby-plugin-netlify-cache](https://www.gatsbyjs.org/packages/gatsby-plugin-netlify-cache/)を使って 10min => 9min にしか減らなくて「記事書けないどうしよう」となっていました。
+そこでは [netlify-plugin-gatsby-cache](https://github.com/jlengstorf/netlify-plugin-gatsby-cache) という Netlify のプラグインを紹介してビルド時間が 10 分 => 1 分 になったことを紹介しましたが、実はこの原稿を書いている時は [gatsby-plugin-netlify-cache](https://www.gatsbyjs.org/packages/gatsby-plugin-netlify-cache/)を使って 10 分 => 9 分 にしか減らなくて「記事書けないどうしよう」となっていました。
 
 ## gatsby-plugin-netlify-cache とは
 
@@ -87,3 +87,7 @@ FYI: [Jobs API v2 breaks caching plugins](https://github.com/gatsbyjs/gatsby/iss
 とあるとおり Netlify がプラグインを出したからそちらを使いなよとのことでそちらを使うことで解消しました。
 
 Gatsby 側に立ってる Issue はまだ解消されていないようかつ、同じバグ報告が複数上がっているので、しばらく Netlify プラグインを使うようにしました。
+
+## まとめ
+
+[gatsby-plugin-netlify-cache](https://www.gatsbyjs.org/packages/gatsby-plugin-netlify-cache/)はいま動かないので[netlify-plugin-gatsby-cache](https://github.com/jlengstorf/netlify-plugin-gatsby-cache)を使いましょう。(もし動かせる方法があるなら DM か Issues などで教えていただけると幸いです。)
