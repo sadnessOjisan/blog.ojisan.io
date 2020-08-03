@@ -733,6 +733,7 @@ export type FileFieldsEnum =
   | 'childMarkdownRemark___frontmatter___visual___id'
   | 'childMarkdownRemark___frontmatter___visual___children'
   | 'childMarkdownRemark___frontmatter___tags'
+  | 'childMarkdownRemark___frontmatter___userId'
   | 'childMarkdownRemark___frontmatter___updated'
   | 'childMarkdownRemark___frontmatter___description'
   | 'childMarkdownRemark___frontmatter___newsCategory'
@@ -1564,6 +1565,7 @@ export type MarkdownRemarkFieldsEnum =
   | 'frontmatter___visual___childMarkdownRemark___tableOfContents'
   | 'frontmatter___visual___childMarkdownRemark___children'
   | 'frontmatter___tags'
+  | 'frontmatter___userId'
   | 'frontmatter___updated'
   | 'frontmatter___description'
   | 'frontmatter___newsCategory'
@@ -1692,6 +1694,7 @@ export type MarkdownRemarkFrontmatter = {
   created?: Maybe<Scalars['Date']>;
   visual?: Maybe<File>;
   tags?: Maybe<Array<Maybe<Scalars['String']>>>;
+  userId?: Maybe<Scalars['String']>;
   updated?: Maybe<Scalars['Date']>;
   description?: Maybe<Scalars['String']>;
   newsCategory?: Maybe<Array<Maybe<Scalars['String']>>>;
@@ -1719,6 +1722,7 @@ export type MarkdownRemarkFrontmatterFilterInput = {
   created?: Maybe<DateQueryOperatorInput>;
   visual?: Maybe<FileFilterInput>;
   tags?: Maybe<StringQueryOperatorInput>;
+  userId?: Maybe<StringQueryOperatorInput>;
   updated?: Maybe<DateQueryOperatorInput>;
   description?: Maybe<StringQueryOperatorInput>;
   newsCategory?: Maybe<StringQueryOperatorInput>;
@@ -2419,10 +2423,18 @@ export type SitePageConnectionGroupArgs = {
 
 export type SitePageContext = {
   tag?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  image?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
 };
 
 export type SitePageContextFilterInput = {
   tag?: Maybe<StringQueryOperatorInput>;
+  id?: Maybe<StringQueryOperatorInput>;
+  name?: Maybe<StringQueryOperatorInput>;
+  image?: Maybe<StringQueryOperatorInput>;
+  description?: Maybe<StringQueryOperatorInput>;
 };
 
 export type SitePageEdge = {
@@ -2439,6 +2451,10 @@ export type SitePageFieldsEnum =
   | 'matchPath'
   | 'isCreatedByStatefulCreatePages'
   | 'context___tag'
+  | 'context___id'
+  | 'context___name'
+  | 'context___image'
+  | 'context___description'
   | 'pluginCreator___id'
   | 'pluginCreator___parent___id'
   | 'pluginCreator___parent___parent___id'
@@ -3240,6 +3256,14 @@ export type TagsIndicesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type TagsIndicesQuery = { allMarkdownRemark: { group: Array<Pick<MarkdownRemarkGroupConnection, 'fieldValue' | 'totalCount'>> } };
+
+export type ImagesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ImagesQuery = { allFile: { edges: Array<{ node: (
+        Pick<File, 'relativePath' | 'name'>
+        & { childImageSharp?: Maybe<{ fluid?: Maybe<GatsbyImageSharpFluidFragment> }> }
+      ) }> } };
 
 export type SiteTitleQueryVariables = Exact<{ [key: string]: never; }>;
 
