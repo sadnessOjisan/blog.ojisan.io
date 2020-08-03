@@ -9,20 +9,22 @@ import Toc from "../components/article/toc/toc"
 import TocMobile from "../components/article/toc/tocMoblie"
 import Social from "../components/article/social/socials"
 import SocialMobile from "../components/article/social/socialsMobile"
+import UserImage from "../components/common/image"
 import { Tag } from "../components/indices/tag"
 
 interface IProps {
   data: BlogTemplateQuery
   pageContext: {
-    id: string
-    name: string
-    image: string
-    description: string
+    writeUser: {
+      id: string
+      name: string
+      image: string
+      description: string
+    }
   }
 }
 
 export default function Template({ data, pageContext }: IProps) {
-  console.log("pageContext", pageContext)
   const [isOpen, setTocOpenerState] = React.useState(false)
   const { markdownRemark } = data
   return (
@@ -64,6 +66,28 @@ export default function Template({ data, pageContext }: IProps) {
                       </Link>
                     )
                 )}
+              </div>
+              <div className={styles.userRow}>
+                <UserImage
+                  className={styles.userImage}
+                  filename={pageContext.writeUser.image}
+                  alt={pageContext.writeUser.image}
+                ></UserImage>
+                <div className={styles.userInfoRow}>
+                  <Link to={`/users/${pageContext.writeUser.id}`}>
+                    <div className={styles.userLink}>
+                      {pageContext.writeUser.name}
+                    </div>
+                  </Link>
+                  <a
+                    href={`https://twitter.com/${pageContext.writeUser.name}`}
+                    className={styles.followButton}
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    Follow
+                  </a>
+                </div>
               </div>
             </div>
             {markdownRemark.frontmatter.visual?.childImageSharp?.fluid && (
