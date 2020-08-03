@@ -4,6 +4,7 @@ created: "2020-07-26"
 title: 三項演算子でstateを吹っ飛ばした
 visual: "./visual.png"
 tags: [JavaScript]
+userId: sadnessOjisan
 ---
 
 今からお話しすることは本当にしょうもないことである...

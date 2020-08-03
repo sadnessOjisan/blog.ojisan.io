@@ -4,6 +4,7 @@ created: "2020-06-18"
 title: JavaScriptライブラリを読むときのコツ
 visual: "./visual.png"
 tags: [JavaScript, NodeJS]
+userId: sadnessOjisan
 ---
 
 少し前からライブラリを読むトレーニングを始めたのですが、最近ようやく読み方がわかってきたので、やり始めた頃に知っておきたかったことをまとめます。

@@ -4,6 +4,7 @@ created: "2020-07-18"
 title: ブラウザ上でJSXをコンパイルしてプレビュー環境を作る
 visual: "./visual.png"
 tags: [JSX, Babel]
+userId: sadnessOjisan
 ---
 
 少し前に [ogpng](https://ogpng.vercel.app) というサービスを作りました。

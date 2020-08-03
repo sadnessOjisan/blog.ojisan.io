@@ -57,10 +57,14 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
 
   // 記事ページ生成
   contentsResult.data.posts.edges.forEach(({ node }) => {
+    // HINT: もしwriteUserが存在しなければ例外が発生してビルドが落ちるはず => 記事とユーザーが紐づいていない。
+    const writeUser = ymlDoc.filter(
+      item => item.id === node.frontmatter.userId
+    )[0]
     createPage({
       path: node.frontmatter.path,
       component: blogPostTemplate,
-      context: {},
+      context: { writeUser },
     })
   })
 

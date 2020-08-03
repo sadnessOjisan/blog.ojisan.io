@@ -4,6 +4,7 @@ created: "2020-06-12"
 title: Babelの変換処理と向き合う
 visual: "./visual.png"
 tags: [Babel]
+userId: sadnessOjisan
 ---
 
 そういえば Babel をちゃんと勉強したことなかったなと思ってちゃんと勉強してみたって言う話です。

@@ -4,6 +4,7 @@ created: "2020-07-17"
 title: Gatsby製のブログにタグ機能を追加するための方法を見直してみよう
 visual: "./visual.png"
 tags: [Gatsby]
+userId: sadnessOjisan
 ---
 
 このブログにタグ機能を作りました。
