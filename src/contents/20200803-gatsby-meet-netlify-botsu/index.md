@@ -1,7 +1,7 @@
 ---
 path: /gatsby-meet-netlify-botsu
 created: "2020-08-03 18:00"
-title: Gatsby製サイトをNetlifyにデプロイする前に見ておきたい設定2つ（ビルドと表示）
+title: gatsby-plugin-netlify-cacheのキャッシュが効かない
 visual: "./visual.png"
 tags: [Gatsby, Netlify]
 ---
@@ -9,6 +9,8 @@ tags: [Gatsby, Netlify]
 今朝更新した [Gatsby 製サイトを Netlify にデプロイする前に見ておきたい設定 2 つ（ビルドと表示）](/gatsby-meet-netlify)の[ボツ原稿](https://github.com/sadnessOjisan/blog.ojisan.io/pull/61/commits/3a621e73f835bc10be92a13f4f24d70791d4dda5)です。
 この記事では Netlify でのビルドキャッシュを使う方法を紹介しました。
 そこでは [netlify-plugin-gatsby-cache](https://github.com/jlengstorf/netlify-plugin-gatsby-cache) という Netlify のプラグインを紹介してビルド時間が 10 分 => 1 分 になったことを紹介しましたが、実はこの原稿を書いている時は [gatsby-plugin-netlify-cache](https://www.gatsbyjs.org/packages/gatsby-plugin-netlify-cache/)を使って 10 分 => 9 分 にしか減らなくて「記事書けないどうしよう」となっていました。
+
+ややこしいですが、[netlify-plugin-gatsby-cache](https://github.com/jlengstorf/netlify-plugin-gatsby-cache) と [gatsby-plugin-netlify-cache](https://www.gatsbyjs.org/packages/gatsby-plugin-netlify-cache/)は別物で、[netlify-plugin-gatsby-cache](https://github.com/jlengstorf/netlify-plugin-gatsby-cache)は netlify plugin, [gatsby-plugin-netlify-cache](https://www.gatsbyjs.org/packages/gatsby-plugin-netlify-cache/)は gatsby plugin です。
 
 ## gatsby-plugin-netlify-cache とは
 
