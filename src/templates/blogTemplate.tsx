@@ -11,16 +11,12 @@ import Social from "../components/article/social/socials"
 import SocialMobile from "../components/article/social/socialsMobile"
 import UserImage from "../components/common/image"
 import { Tag } from "../components/indices/tag"
+import { UserType } from "../type"
 
 interface IProps {
   data: BlogTemplateQuery
   pageContext: {
-    writeUser: {
-      id: string
-      name: string
-      image: string
-      description: string
-    }
+    writeUser: UserType
   }
 }
 

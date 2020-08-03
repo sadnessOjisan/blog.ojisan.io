@@ -28,6 +28,14 @@
 .name {
   font-size: 24px;
   font-weight: bold;
+  margin-right: 12px;
+}
+
+.snsRow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 12px;
 }
 
 @media screen and (max-width: 1024px) {
