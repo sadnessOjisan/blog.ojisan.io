@@ -174,7 +174,7 @@ module.exports = {
           "/sw.js": ["Cache-Control: no-cache"],
           "/**/*.js": ["Cache-Control: public, max-age=31536000, immutable"],
           "/**/*.css": ["Cache-Control: public, max-age=31536000, immutable"],
-        }, // _headerに書く内容を書く
+        },
       },
     },
   ],
