@@ -1951,6 +1951,8 @@ export type QuerySiteArgs = {
   siteMetadata?: Maybe<SiteSiteMetadataFilterInput>;
   port?: Maybe<IntQueryOperatorInput>;
   host?: Maybe<StringQueryOperatorInput>;
+  polyfill?: Maybe<BooleanQueryOperatorInput>;
+  pathPrefix?: Maybe<StringQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
   parent?: Maybe<NodeFilterInput>;
   children?: Maybe<NodeFilterListInput>;
@@ -2061,6 +2063,8 @@ export type Site = Node & {
   siteMetadata?: Maybe<SiteSiteMetadata>;
   port?: Maybe<Scalars['Int']>;
   host?: Maybe<Scalars['String']>;
+  polyfill?: Maybe<Scalars['Boolean']>;
+  pathPrefix?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
   parent?: Maybe<Node>;
   children: Array<Node>;
@@ -2264,6 +2268,8 @@ export type SiteFieldsEnum =
   | 'siteMetadata___siteUrl'
   | 'port'
   | 'host'
+  | 'polyfill'
+  | 'pathPrefix'
   | 'id'
   | 'parent___id'
   | 'parent___parent___id'
@@ -2356,6 +2362,8 @@ export type SiteFilterInput = {
   siteMetadata?: Maybe<SiteSiteMetadataFilterInput>;
   port?: Maybe<IntQueryOperatorInput>;
   host?: Maybe<StringQueryOperatorInput>;
+  polyfill?: Maybe<BooleanQueryOperatorInput>;
+  pathPrefix?: Maybe<StringQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
   parent?: Maybe<NodeFilterInput>;
   children?: Maybe<NodeFilterListInput>;
@@ -2512,7 +2520,6 @@ export type SitePageFieldsEnum =
   | 'pluginCreator___pluginOptions___head'
   | 'pluginCreator___pluginOptions___host'
   | 'pluginCreator___pluginOptions___sitemap'
-  | 'pluginCreator___pluginOptions___cachePublic'
   | 'pluginCreator___pluginOptions___headers____xxhtml'
   | 'pluginCreator___pluginOptions___headers____page_data__'
   | 'pluginCreator___pluginOptions___headers____page_data_app_data_json'
@@ -2842,7 +2849,6 @@ export type SitePluginFieldsEnum =
   | 'pluginOptions___sitemap'
   | 'pluginOptions___env___development___policy'
   | 'pluginOptions___env___production___policy'
-  | 'pluginOptions___cachePublic'
   | 'pluginOptions___headers____xxhtml'
   | 'pluginOptions___headers____page_data__'
   | 'pluginOptions___headers____page_data_app_data_json'
@@ -2995,7 +3001,6 @@ export type SitePluginPluginOptions = {
   host?: Maybe<Scalars['String']>;
   sitemap?: Maybe<Scalars['String']>;
   env?: Maybe<SitePluginPluginOptionsEnv>;
-  cachePublic?: Maybe<Scalars['Boolean']>;
   headers?: Maybe<SitePluginPluginOptionsHeaders>;
   pathCheck?: Maybe<Scalars['Boolean']>;
 };
@@ -3100,7 +3105,6 @@ export type SitePluginPluginOptionsFilterInput = {
   host?: Maybe<StringQueryOperatorInput>;
   sitemap?: Maybe<StringQueryOperatorInput>;
   env?: Maybe<SitePluginPluginOptionsEnvFilterInput>;
-  cachePublic?: Maybe<BooleanQueryOperatorInput>;
   headers?: Maybe<SitePluginPluginOptionsHeadersFilterInput>;
   pathCheck?: Maybe<BooleanQueryOperatorInput>;
 };

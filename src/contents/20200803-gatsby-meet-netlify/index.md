@@ -1,6 +1,6 @@
 ---
 path: /gatsby-meet-netlify
-created: "2020-08-03"
+created: "2020-08-03 12:00"
 title: Gatsby製サイトをNetlifyにデプロイする前に見ておきたい設定2つ（ビルドと表示）
 visual: "./visual.png"
 tags: [Gatsby, Netlify, HTTP]
