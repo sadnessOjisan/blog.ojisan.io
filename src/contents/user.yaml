@@ -1,0 +1,8 @@
+- id: "sadnessOjisan"
+  name: "sadnessOjisan"
+  image: "sadnessOjisan"
+  description: "職がない人"
+- id: "happinessOjisan"
+  name: "happinessOjisan"
+  image: "happinessOjisan"
+  description: "職がある人"

@@ -1,11 +1,17 @@
 const path = require(`path`)
 const _ = require("lodash")
+const fs = require("fs")
+const yaml = require("js-yaml")
 
 exports.createPages = async ({ actions, graphql, reporter }) => {
   const { createPage } = actions
   const blogPostTemplate = path.resolve(`src/templates/blogTemplate.tsx`)
+  const userTemplate = path.resolve(`src/templates/userTemplate.tsx`)
   const tagTemplate = path.resolve(`./src/templates/tagTemplate.tsx`)
-  // もっと正確にfilter書いた方が良い
+  // FYI: https://www.gatsbyjs.org/docs/sourcing-content-from-json-or-yaml/
+  const ymlDoc = yaml.safeLoad(
+    fs.readFileSync("./src/contents/user.yaml", "utf-8")
+  )
 
   const contentsResult = await graphql(`
     {
@@ -18,6 +24,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
           node {
             frontmatter {
               path
+              userId
             }
           }
         }
@@ -47,11 +54,22 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     reporter.panicOnBuild(`Error while running GraphQL query.`)
     return
   }
+
+  // 記事ページ生成
   contentsResult.data.posts.edges.forEach(({ node }) => {
     createPage({
       path: node.frontmatter.path,
       component: blogPostTemplate,
       context: {},
+    })
+  })
+
+  // userページ作成
+  ymlDoc.forEach(element => {
+    createPage({
+      path: `/users/${element.id}`,
+      component: userTemplate,
+      context: element,
     })
   })
 }

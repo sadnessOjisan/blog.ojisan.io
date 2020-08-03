@@ -49,6 +49,13 @@ const DrawerContents: React.FC = () => {
           </Link>
         </li>
         <li className={styles.item}>
+          <Link to="/users/sadnessOjisan">
+            <Button className={`${classes.root} ${classes.label}`}>
+              <a>About Me</a>
+            </Button>
+          </Link>
+        </li>
+        <li className={styles.item}>
           <Link to="/tags">
             <Button className={`${classes.root} ${classes.label}`}>
               <a>Tag一覧</a>
@@ -62,7 +69,7 @@ const DrawerContents: React.FC = () => {
             </Button>
           </Link>
         </li>
-      </ul>{" "}
+      </ul>
       <h2 className={styles.title}>Link</h2>
       <ul className={styles.block}>
         <li className={styles.item}>
