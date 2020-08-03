@@ -1,3 +1,8 @@
+.wrapper {
+  max-width: 960px;
+  margin: auto;
+}
+
 .row {
   display: flex;
   flex-direction: row;
@@ -5,13 +10,43 @@
   justify-content: center;
   margin: auto;
   margin-top: 32px;
+  justify-content: safe center;
+}
+
+.info {
+  margin-left: 24px;
 }
 
 .userIcon {
-  width: 200px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50px;
+  /* 画像が潰れないように. https://coliss.com/articles/build-websites/operation/css/making-width-and-flexible-items.html */
+  flex-shrink: 0;
 }
 
 .name {
   font-size: 24px;
   font-weight: bold;
+}
+
+@media screen and (max-width: 1024px) {
+  .wrapper {
+    padding: 16px;
+  }
+
+  .row {
+    flex-direction: column;
+  }
+
+  .name {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin: 12px 0px;
+  }
+
+  .info {
+    margin-left: 0px;
+  }
 }

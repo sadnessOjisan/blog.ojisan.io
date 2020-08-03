@@ -18,16 +18,18 @@ const userTemplate: React.FC<IProps> = props => {
 
   return (
     <Layout>
-      <div className={styles.row}>
-        <div>
-          <p className={styles.name}>{pageContext.name}</p>
-          <p className={styles.description}>{pageContext.description}</p>
+      <div className={styles.wrapper}>
+        <div className={styles.row}>
+          <Image
+            filename={pageContext.image}
+            alt={`${pageContext.image}のプロフィール写真`}
+            className={styles.userIcon}
+          />
+          <div className={styles.info}>
+            <p className={styles.name}>{pageContext.name}</p>
+            <p className={styles.description}>{pageContext.description}</p>
+          </div>
         </div>
-        <Image
-          filename={styles.image}
-          alt={`${styles.image}のプロフィール写真`}
-          className={styles.userIcon}
-        />
       </div>
     </Layout>
   )
