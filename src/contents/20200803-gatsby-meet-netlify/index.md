@@ -7,8 +7,7 @@ tags: [Gatsby, Netlify, HTTP]
 ---
 
 [Netlify](https://www.netlify.com/) にはビルド時のキャッシュと HTTP のキャッシュをユーザー側で設定できる口があります。
-ただ、ビルド時のキャッシュはドキュメントに書かれていない裏技的なものだったり、HTTP Cache の設定についてもあまり話題に上がらない（特に [Gatsby](https://www.gatsbyjs.org/) のファイルをキャッシュする方法自体があまり知られていない）もので、馴染みがないものだと思います。
-しかしキャッシュの設定をすることで、ビルドや表示が早くなり良いこと尽くしなのでこれを気に見ていきましょう。
+このキャッシュの設定をすることで、ビルドや表示が早くなり良いこと尽くしなのでこれを気に見ていきましょう。
 
 ## ビルド高速化
 
@@ -20,11 +19,10 @@ Netlify ではビルドを回すとソースコードを見て 0 からビルド
 で、さすがに辛くなってきたので Gatsby の卒業 or Netlify の卒業を考えていました。
 Gatsby 自体に [incremental build](https://www.gatsbyjs.org/blog/2020-04-22-announcing-incremental-builds/) があること、そしてそれが[Gatsby Cloud](https://www.gatsbyjs.com/)で使えることは知っていました。
 かといって GatsbyCloud はお金がかかると思い込んでいてやる気は起きませんでした。
-(※ 今、[Pricing](https://www.gatsbyjs.com/pricing)見たら無料で使えそうでした。最初からこれ使えばこの記事書かなくてよかったみたいです。けどこの思い出があったから記事を書けるんだとおもうことにして書き進めていきます。)
 
 とまあ途方に暮れていたら、[@nabettu](https://twitter.com/nabettu)さんと[@L_e_k_o](https://twitter.com/L_e_k_o)さんから Netlify でもキャッシュを持ち回れる方法を教えてもらい、やってみることにしました。
 
-FYI: https://twitter.com/sadnessOjisan/status/1289534542705917953?s=20
+(※ 今、[Pricing](https://www.gatsbyjs.com/pricing)見たら無料で使えそうでした。最初からこれ使えばこの記事書かなくてよかったみたいです。けどこの思い出があったから記事を書けるんだとおもうことにして書き進めていきます。)
 
 ### キャッシュを使ってビルド高速化
 
@@ -32,19 +30,31 @@ FYI: https://twitter.com/sadnessOjisan/status/1289534542705917953?s=20
 これを次のビルドで変更されていないところはそのキャッシュを使わないようにすることで、ビルド時間の節約ができます。
 Netlify では GitHub での PR に応じて自動でビルド環境が作られるので、これらのキャッシュは使われなかったのですが、それを使ってビルドできるプラグインがあるのでそれを使います。
 
-### もっと早くするためには？
+[netlify-plugin-gatsby-cache](https://github.com/jlengstorf/netlify-plugin-gatsby-cache)がまさしくその Plugin です。
+Gatsby の plugin ではなく Netlify の plugin なので注意しましょう。
+README.md にあるリンクから Netlify に飛んで有効化、もしくはこの.toml を書くだけで設定が完了します。
 
-やはり incremental build しかないようです。
-ただし現状では Markdown 入稿していると incremental build はできないようです。
+```toml:title=netlify.toml
+[build]
+  publish = "public"
 
-FYI: https://www.gatsbyjs.com/docs/incremental-builds/#is-markdown-a-code-change-or-a-data-change
+[[plugins]]
+  package = "netlify-plugin-gatsby-cache"
+```
 
-かといってなんらかの CMS は入れたくなく(portable は markdown であることに意義を感じているため)、しばらくは諦めます。
+これを入れてビルドを回してビルドログを見てみると、
 
-ただ、一応は Netlify でも Markdown 入稿をやめれば incremental build をやる方法自体はあるみたいです。
-(というより先ほどの設定でビルドするときに環境変数に`GATSBY_EXPERIMENTAL_PAGE_BUILD_ON_DATA_CHANGES=true` を渡すだけで良さそうです。)
+![キャッシュから呼び戻してる](build-cache.png)
 
-FYI: https://www.netlify.com/blog/2020/04/23/enable-gatsby-incremental-builds-on-netlify/
+という風にキャッシュを使ってビルドをしていることが分かります。
+
+この結果ビルド時間が 10 分から 1 分に短縮されました。
+表彰ものですね 😇😇😇
+
+ビルドログはここから見れるはずです。
+（当ブログは public プロジェクトです）
+
+FYI: https://app.netlify.com/sites/amazing-goodall-59e3b0/deploys/5f2728a4ff928d7c0bcb9136
 
 ## 表示高速化
 
@@ -152,7 +162,10 @@ HTML, Page data, sw.js もエントリポイントなので、ここが古い(�
 でもそう考えると「一回読み込んだら一年間更新されないの怖すぎでは」となるかもしれませんが、それは大丈夫です。
 Gatsby はビルド時にビルドした時間を含むファイル名を生成します。
 そのファイル名でキャッシュされるため次にビルドした時はファイル名が変わるので正しく読み込まれます(キャッシュが使われない。）
-先ほど述べたキャッシュはファイル名がキーになっているのが大事というのはそういう意味です。
+ただビルドファイルをキャッシュから読み込むとファイル名は変わっていないので、それはブラウザ側でキャッシュがヒットしやすくなります。
+ビルド時のキャッシュも実は表示の高速化に効いてきたりもします。
+先ほど述べたキャッシュはファイル名がキーになっているのが大事というのはそういうことです。
+
 **Gatsby では JS(service worker 以外)と静的ファイルは、変更されない限りキャッシュしてもいい** と覚えておきましょう。
 なので、そのキャッシュ設定がされるように Netlify に向けて \_header に書いていきます。
 
@@ -181,7 +194,7 @@ plugins: [
 
 ### キャッシュがあれば早くなったか？
 
-これも同一条件での計測が難しかったのでやっていません。（環境 2 つ作るのもめんどくさかった）
+同一条件での計測が難しかったのでやっていません。（環境 2 つ作るのもめんどくさかった）
 あと、正直なところ **元から早い** ので導入してみてからあまり速度向上は感じませんでした。
 ただキャッシュが設定されているのはきちんと確認できました。
 
@@ -191,6 +204,9 @@ plugins: [
 むしろキャッシュにまつわる事故はたくさんあるので、それを考えて余程 HTTP キャッシュに自信がない限りは設定しない方が良いのではと思っていたりもします。
 プロダクト開発中(まだリリースしていない), キャッシュの扱い完全に理解している 人以外は触らない方が良さそうというのが自分の所感です。
 （これは賛否両論あるとおもうので周りの偉い大人の人に聞いてみてください。）
+
+ぶっちゃけ個人ブログは失敗し放題なのでキャッシュの設定をガンガン入れています。
+個人ブログはいいぞ 💪💪💪
 
 ## まとめ
 
