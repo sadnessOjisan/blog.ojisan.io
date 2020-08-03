@@ -4,6 +4,7 @@ created: "2020-06-24"
 title: ESLint と Prettier の共存設定とその根拠について
 visual: "./visual.png"
 tags: [ESLint, Prettier]
+userId: sadnessOjisan
 ---
 
 以前, [ESLint の plugin と extend について解説した記事](https://blog.ojisan.io/eslint-plugin-and-extend)を書いた際に、[Prettier](https://github.com/prettier) と [ESLint](https://eslint.org/) の共存設定について触れました。

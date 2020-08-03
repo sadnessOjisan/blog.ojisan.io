@@ -4,6 +4,7 @@ created: "2020-06-28"
 title: S3 に NextJS 製 App をデプロイできるか
 visual: "./visual.png"
 tags: [S3, NextJS]
+userId: sadnessOjisan
 ---
 
 できる場合とできない場合があります。

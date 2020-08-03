@@ -4,6 +4,7 @@ created: "2020-07-31"
 title: ソースコードからOGPを生成しシェアするOgp as a Serviceを作った(そして飽きたのでコードを公開する)
 visual: "./visual.png"
 tags: [NextJS, Firebase, Vercel, PR]
+userId: sadnessOjisan
 ---
 
 エンジニア向け OGP 画像作成サービスを作りました。

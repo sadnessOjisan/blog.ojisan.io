@@ -4,6 +4,7 @@ created: "2020-08-03 12:00"
 title: Gatsby製サイトをNetlifyにデプロイする前に見ておきたい設定2つ（ビルドと表示）
 visual: "./visual.png"
 tags: [Gatsby, Netlify, HTTP]
+userId: sadnessOjisan
 ---
 
 [Netlify](https://www.netlify.com/) にはビルド時のキャッシュと HTTP のキャッシュをユーザー側で設定できる口があります。

@@ -734,9 +734,9 @@ export type FileFieldsEnum =
   | 'childMarkdownRemark___frontmatter___visual___children'
   | 'childMarkdownRemark___frontmatter___tags'
   | 'childMarkdownRemark___frontmatter___userId'
-  | 'childMarkdownRemark___frontmatter___updated'
   | 'childMarkdownRemark___frontmatter___description'
   | 'childMarkdownRemark___frontmatter___newsCategory'
+  | 'childMarkdownRemark___frontmatter___updated'
   | 'childMarkdownRemark___excerpt'
   | 'childMarkdownRemark___rawMarkdownBody'
   | 'childMarkdownRemark___fileAbsolutePath'
@@ -1566,9 +1566,9 @@ export type MarkdownRemarkFieldsEnum =
   | 'frontmatter___visual___childMarkdownRemark___children'
   | 'frontmatter___tags'
   | 'frontmatter___userId'
-  | 'frontmatter___updated'
   | 'frontmatter___description'
   | 'frontmatter___newsCategory'
+  | 'frontmatter___updated'
   | 'excerpt'
   | 'rawMarkdownBody'
   | 'fileAbsolutePath'
@@ -1695,9 +1695,9 @@ export type MarkdownRemarkFrontmatter = {
   visual?: Maybe<File>;
   tags?: Maybe<Array<Maybe<Scalars['String']>>>;
   userId?: Maybe<Scalars['String']>;
-  updated?: Maybe<Scalars['Date']>;
   description?: Maybe<Scalars['String']>;
   newsCategory?: Maybe<Array<Maybe<Scalars['String']>>>;
+  updated?: Maybe<Scalars['Date']>;
 };
 
 
@@ -1723,9 +1723,9 @@ export type MarkdownRemarkFrontmatterFilterInput = {
   visual?: Maybe<FileFilterInput>;
   tags?: Maybe<StringQueryOperatorInput>;
   userId?: Maybe<StringQueryOperatorInput>;
-  updated?: Maybe<DateQueryOperatorInput>;
   description?: Maybe<StringQueryOperatorInput>;
   newsCategory?: Maybe<StringQueryOperatorInput>;
+  updated?: Maybe<DateQueryOperatorInput>;
 };
 
 export type MarkdownRemarkGroupConnection = {
@@ -2423,6 +2423,7 @@ export type SitePageConnectionGroupArgs = {
 
 export type SitePageContext = {
   tag?: Maybe<Scalars['String']>;
+  writeUser?: Maybe<SitePageContextWriteUser>;
   id?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
   image?: Maybe<Scalars['String']>;
@@ -2431,6 +2432,21 @@ export type SitePageContext = {
 
 export type SitePageContextFilterInput = {
   tag?: Maybe<StringQueryOperatorInput>;
+  writeUser?: Maybe<SitePageContextWriteUserFilterInput>;
+  id?: Maybe<StringQueryOperatorInput>;
+  name?: Maybe<StringQueryOperatorInput>;
+  image?: Maybe<StringQueryOperatorInput>;
+  description?: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePageContextWriteUser = {
+  id?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  image?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextWriteUserFilterInput = {
   id?: Maybe<StringQueryOperatorInput>;
   name?: Maybe<StringQueryOperatorInput>;
   image?: Maybe<StringQueryOperatorInput>;
@@ -2451,6 +2467,10 @@ export type SitePageFieldsEnum =
   | 'matchPath'
   | 'isCreatedByStatefulCreatePages'
   | 'context___tag'
+  | 'context___writeUser___id'
+  | 'context___writeUser___name'
+  | 'context___writeUser___image'
+  | 'context___writeUser___description'
   | 'context___id'
   | 'context___name'
   | 'context___image'

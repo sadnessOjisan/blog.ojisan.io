@@ -4,6 +4,7 @@ created: "2020-08-02"
 title: ブログにmaterial-uiのDrawerを入れた
 visual: "./visual.png"
 tags: [React]
+userId: sadnessOjisan
 ---
 
 ヘッダーにナビゲーションを付けたくて、SP 対応を考えた結果 Drawer をつけることにしました。

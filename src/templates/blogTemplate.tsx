@@ -13,9 +13,16 @@ import { Tag } from "../components/indices/tag"
 
 interface IProps {
   data: BlogTemplateQuery
+  pageContext: {
+    id: string
+    name: string
+    image: string
+    description: string
+  }
 }
 
-export default function Template({ data }: IProps) {
+export default function Template({ data, pageContext }: IProps) {
+  console.log("pageContext", pageContext)
   const [isOpen, setTocOpenerState] = React.useState(false)
   const { markdownRemark } = data
   return (
