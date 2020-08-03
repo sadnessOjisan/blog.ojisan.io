@@ -33,8 +33,15 @@
   margin-top: 16px;
 }
 
+.userInfoRow {
+  display: flex;
+  flex-direction: column;
+  margin-left: 12px;
+}
+
 .userLink {
   text-decoration: underline;
+  font-size: 16px;
 }
 
 .followButton {
@@ -45,18 +52,12 @@
   margin-top: 4px;
   padding: 4px;
   border-radius: 4px;
+  font-size: 12px;
 }
 
 .followButton:hover {
   display: block;
-  background-color: rgb(214, 198, 198);
-}
-
-.userInfoRow {
-  display: flex;
-  flex-direction: column;
-  margin-left: 12px;
-  font-size: 14px;
+  background-color: rgb(255, 234, 234);
 }
 
 .userImage {
