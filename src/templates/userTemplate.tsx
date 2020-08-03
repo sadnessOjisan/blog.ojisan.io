@@ -24,8 +24,8 @@ const userTemplate: React.FC<IProps> = props => {
           <p className={styles.description}>{pageContext.description}</p>
         </div>
         <Image
-          filename="sadnessOjisan"
-          alt="sadnessOjisan"
+          filename={styles.image}
+          alt={`${styles.image}のプロフィール写真`}
           className={styles.userIcon}
         />
       </div>
