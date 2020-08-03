@@ -1,6 +1,7 @@
 import React from "react"
 import Layout from "../components/common/layout"
 import Image from "../components/common/image"
+import styles from "./userTemplate.module.css"
 
 interface IProps {
   // user.yamlの構造が入る
@@ -17,9 +18,17 @@ const userTemplate: React.FC<IProps> = props => {
 
   return (
     <Layout>
-      <Image filename="sadnessOjisan" alt="sadnessOjisan" />
-      <p>{pageContext.name}</p>
-      <p>{pageContext.description}</p>
+      <div className={styles.row}>
+        <div>
+          <p className={styles.name}>{pageContext.name}</p>
+          <p className={styles.description}>{pageContext.description}</p>
+        </div>
+        <Image
+          filename="sadnessOjisan"
+          alt="sadnessOjisan"
+          className={styles.userIcon}
+        />
+      </div>
     </Layout>
   )
 }

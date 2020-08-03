@@ -1,9 +1,10 @@
 import React from "react"
-import { StaticQuery, graphql, useStaticQuery } from "gatsby"
+import { graphql, useStaticQuery } from "gatsby"
 import Img from "gatsby-image"
 import { ImagesQuery } from "../../../types/graphql-types"
 
 interface IProps {
+  className?: string
   filename: string
   alt: string
 }
@@ -37,8 +38,12 @@ const Image: React.FC<IProps> = props => {
   }
 
   return (
-    /*<Img alt={props.alt} sizes={imageSizes} /> ←サイズFIXしたい時 */
-    <Img fluid={image.node.childImageSharp.fluid} alt={props.alt} />
+    <Img
+      // @ts-ignore
+      fluid={image.node.childImageSharp.fluid}
+      alt={props.alt}
+      className={props.className}
+    />
   )
 }
 
