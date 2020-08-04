@@ -98,7 +98,8 @@
     font-size: 24px;
     font-weight: bold;
     text-align: center;
-    margin: 12px 0px;
+    margin: 8px 0px;
+    margin-bottom: 0;
   }
 
   .info {

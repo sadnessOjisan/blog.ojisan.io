@@ -18,7 +18,7 @@ interface IProps {
 }
 
 const useStyles = makeStyles({
-  root: { width: 20, height: 20, padding: 20 },
+  root: {},
 })
 
 const userTemplate: React.FC<IProps> = props => {
@@ -38,24 +38,24 @@ const userTemplate: React.FC<IProps> = props => {
             <div className={styles.snsRow}>
               <span className={styles.name}>{pageContext.name}</span>
               <div>
-                <IconButton className={classes.root}>
-                  <a
-                    target="_blank"
-                    rel="noopener"
-                    href={`https://twitter.com/${pageContext.twitterId}`}
-                  >
+                <a
+                  target="_blank"
+                  rel="noopener"
+                  href={`https://twitter.com/${pageContext.twitterId}`}
+                >
+                  <IconButton className={classes.root}>
                     <Twittercon />
-                  </a>
-                </IconButton>
-                <IconButton className={classes.root}>
-                  <a
-                    target="_blank"
-                    rel="noopener"
-                    href={`https://github.com/${pageContext.gitHubId}`}
-                  >
+                  </IconButton>
+                </a>
+                <a
+                  target="_blank"
+                  rel="noopener"
+                  href={`https://github.com/${pageContext.gitHubId}`}
+                >
+                  <IconButton className={classes.root}>
                     <GitHubIcon />
-                  </a>
-                </IconButton>
+                  </IconButton>
+                </a>
               </div>
             </div>
             <p className={styles.description}>{pageContext.description}</p>
