@@ -1,7 +1,7 @@
 .body {
   min-height: 85vh;
   /* 9vh は headerの高さ分 */
-  padding-top: 7vh;
+  padding-top: 70px;
   background-color: #eeeef1;
   padding-bottom: 7vh;
 }

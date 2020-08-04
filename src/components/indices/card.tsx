@@ -40,7 +40,7 @@ export const Card: React.FC<IProps> = ({ data, className, excerpt }) => {
           <p className={styles.excerpt}>{excerpt}</p>
         </div>
         <div className={styles.footer}>
-          <Tags tags={data?.tags || []}></Tags>
+          <Tags tags={data?.tags || []} className={styles.tags}></Tags>
         </div>
       </Link>
     </div>

@@ -8,16 +8,13 @@ import SEO from "../components/common/seo"
 import Toc from "../components/article/toc/toc"
 import TocMobile from "../components/article/toc/tocMoblie"
 import Social from "../components/article/social/socials"
-import SocialMobile from "../components/article/social/socialsMobile"
 import UserImage from "../components/common/image"
 import { Tag } from "../components/indices/tag"
 import { UserType } from "../type"
 
 interface IProps {
   data: BlogTemplateQuery
-  pageContext: {
-    writeUser: UserType
-  }
+  pageContext: UserType
 }
 
 export default function Template({ data, pageContext }: IProps) {
@@ -42,68 +39,6 @@ export default function Template({ data, pageContext }: IProps) {
             }
           />
           <div className={isOpen && styles.modalOpenBody}>
-            <div className={styles.articleHeader}>
-              <h1 className={styles.headline}>
-                {markdownRemark.frontmatter.title}
-              </h1>
-              <h2 className={styles.date}>
-                {markdownRemark.frontmatter.created}(created)
-                {markdownRemark.frontmatter.updated &&
-                  `/${markdownRemark.frontmatter.updated}(updated)`}
-              </h2>
-              <div className={styles.tags}>
-                {markdownRemark.frontmatter.tags.map(
-                  tag =>
-                    tag && (
-                      <Link to={`/tags/${tag}`}>
-                        <a>
-                          <Tag className={styles.tag} name={tag}></Tag>
-                        </a>
-                      </Link>
-                    )
-                )}
-              </div>
-              <div className={styles.userRow}>
-                <UserImage
-                  className={styles.userImage}
-                  filename={pageContext.writeUser.image}
-                  alt={pageContext.writeUser.image}
-                ></UserImage>
-                <div className={styles.userInfoRow}>
-                  <Link to={`/users/${pageContext.writeUser.id}`}>
-                    <div className={styles.userLink}>
-                      {pageContext.writeUser.name}
-                    </div>
-                  </Link>
-                  <a
-                    href={`https://twitter.com/${pageContext.writeUser.name}`}
-                    className={styles.followButton}
-                    target="_blank"
-                    rel="noopener"
-                  >
-                    Follow
-                  </a>
-                </div>
-              </div>
-            </div>
-            {markdownRemark.frontmatter.visual?.childImageSharp?.fluid && (
-              <Image
-                style={{
-                  maxWidth: "960px",
-                  margin: "auto",
-                }}
-                // @ts-ignore FIXME: 型エラー
-                fluid={markdownRemark.frontmatter.visual.childImageSharp.fluid}
-              />
-            )}
-            <SocialMobile
-              path={markdownRemark.frontmatter.path}
-              title={markdownRemark.frontmatter.title}
-              dateYYYYMMDD={markdownRemark.frontmatter.created.replace(
-                /-/g,
-                ""
-              )}
-            ></SocialMobile>
             <div className={styles.main}>
               <Social
                 className={styles.socials}
@@ -114,10 +49,71 @@ export default function Template({ data, pageContext }: IProps) {
                   ""
                 )}
               ></Social>
-              <div
-                className={styles.content}
-                dangerouslySetInnerHTML={{ __html: markdownRemark.html }}
-              />
+              <div className={styles.contentWrapper}>
+                <div className={styles.articleHeader}>
+                  <h1 className={styles.headline}>
+                    {markdownRemark.frontmatter.title}
+                  </h1>
+                  <h2 className={styles.date}>
+                    {markdownRemark.frontmatter.created}(created)
+                    {markdownRemark.frontmatter.updated &&
+                      `/${markdownRemark.frontmatter.updated}(updated)`}
+                  </h2>
+                  <div className={styles.tags}>
+                    {markdownRemark.frontmatter.tags.map(
+                      tag =>
+                        tag && (
+                          <Link to={`/tags/${tag}`}>
+                            <a>
+                              <Tag className={styles.tag} name={tag}></Tag>
+                            </a>
+                          </Link>
+                        )
+                    )}
+                  </div>
+                  <div className={styles.userRow}>
+                    <Link to={`/users/${pageContext.id}`}>
+                      <UserImage
+                        className={styles.userImage}
+                        filename={pageContext.image}
+                        alt={pageContext.image}
+                      ></UserImage>{" "}
+                    </Link>
+                    <div className={styles.userInfoRow}>
+                      <Link to={`/users/${pageContext.id}`}>
+                        <div className={styles.userLink}>
+                          {pageContext.name}
+                        </div>
+                      </Link>
+                      <a
+                        href={`https://twitter.com/${pageContext.name}`}
+                        className={styles.followButton}
+                        target="_blank"
+                        rel="noopener"
+                      >
+                        Follow
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                {markdownRemark.frontmatter.visual?.childImageSharp?.fluid && (
+                  <Image
+                    style={{
+                      maxWidth: "960px",
+                      margin: "auto",
+                    }}
+                    // @ts-ignore FIXME: 型エラー
+                    fluid={
+                      markdownRemark.frontmatter.visual.childImageSharp.fluid
+                    }
+                  />
+                )}
+                <div
+                  className={styles.content}
+                  dangerouslySetInnerHTML={{ __html: markdownRemark.html }}
+                />
+              </div>
+
               <Toc
                 tableOfContents={markdownRemark.tableOfContents}
                 className={styles.tocwrapper}
