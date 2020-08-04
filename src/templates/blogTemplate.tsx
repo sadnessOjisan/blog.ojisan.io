@@ -15,9 +15,7 @@ import { UserType } from "../type"
 
 interface IProps {
   data: BlogTemplateQuery
-  pageContext: {
-    writeUser: UserType
-  }
+  pageContext: UserType
 }
 
 export default function Template({ data, pageContext }: IProps) {
@@ -66,17 +64,15 @@ export default function Template({ data, pageContext }: IProps) {
               <div className={styles.userRow}>
                 <UserImage
                   className={styles.userImage}
-                  filename={pageContext.writeUser.image}
-                  alt={pageContext.writeUser.image}
+                  filename={pageContext.image}
+                  alt={pageContext.image}
                 ></UserImage>
                 <div className={styles.userInfoRow}>
-                  <Link to={`/users/${pageContext.writeUser.id}`}>
-                    <div className={styles.userLink}>
-                      {pageContext.writeUser.name}
-                    </div>
+                  <Link to={`/users/${pageContext.id}`}>
+                    <div className={styles.userLink}>{pageContext.name}</div>
                   </Link>
                   <a
-                    href={`https://twitter.com/${pageContext.writeUser.name}`}
+                    href={`https://twitter.com/${pageContext.name}`}
                     className={styles.followButton}
                     target="_blank"
                     rel="noopener"

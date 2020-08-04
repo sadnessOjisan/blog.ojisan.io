@@ -38,6 +38,31 @@
   margin-bottom: 12px;
 }
 
+.postRow {
+  display: flex;
+  border: solid 1px #ccc;
+  background-color: white;
+  margin: 16px 0px;
+  border-radius: 8px;
+}
+
+.postRow:hover {
+  background-color: rgb(245, 245, 245);
+}
+
+.postTitle {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.infoBox {
+  padding: 12px;
+}
+
+.tags {
+  margin-top: 12px;
+}
+
 @media screen and (max-width: 1024px) {
   .wrapper {
     padding: 16px;

@@ -64,7 +64,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     createPage({
       path: node.frontmatter.path,
       component: blogPostTemplate,
-      context: { writeUser },
+      context: { userId: writeUser.id, ...writeUser },
     })
   })
 
@@ -73,7 +73,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     createPage({
       path: `/users/${element.id}`,
       component: userTemplate,
-      context: element,
+      context: { userId: element.id, ...element },
     })
   })
 }
