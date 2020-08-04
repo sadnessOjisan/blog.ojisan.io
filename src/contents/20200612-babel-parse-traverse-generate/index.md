@@ -5,7 +5,7 @@ title: Babelの変換処理と向き合う
 visual: "./visual.png"
 tags: [Babel]
 userId: sadnessOjisan
-isFavorite: true
+isFavorite: false
 ---
 
 そういえば Babel をちゃんと勉強したことなかったなと思ってちゃんと勉強してみたって言う話です。
