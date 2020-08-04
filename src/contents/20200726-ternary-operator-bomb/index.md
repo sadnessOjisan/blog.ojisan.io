@@ -5,6 +5,7 @@ title: 三項演算子でstateを吹っ飛ばした
 visual: "./visual.png"
 tags: [JavaScript]
 userId: sadnessOjisan
+isFavorite: false
 ---
 
 今からお話しすることは本当にしょうもないことである...

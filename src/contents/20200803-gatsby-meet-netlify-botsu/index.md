@@ -5,6 +5,7 @@ title: gatsby-plugin-netlify-cacheのキャッシュが効かない
 visual: "./visual.png"
 tags: [Gatsby, Netlify]
 userId: sadnessOjisan
+isFavorite: false
 ---
 
 今朝更新した [Gatsby 製サイトを Netlify にデプロイする前に見ておきたい設定 2 つ（ビルドと表示）](/gatsby-meet-netlify)の[ボツ原稿](https://github.com/sadnessOjisan/blog.ojisan.io/pull/61/commits/3a621e73f835bc10be92a13f4f24d70791d4dda5)です。

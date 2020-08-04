@@ -5,6 +5,7 @@ title: Gatsby製のブログにタグ機能を追加するための方法を見�
 visual: "./visual.png"
 tags: [Gatsby]
 userId: sadnessOjisan
+isFavorite: false
 ---
 
 このブログにタグ機能を作りました。

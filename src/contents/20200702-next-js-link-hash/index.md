@@ -5,6 +5,7 @@ title: Ajaxでコンテンツ取得するとページ内スクロールされな
 visual: "./visual.png"
 tags: [HTML, NextJS]
 userId: sadnessOjisan
+isFavorite: false
 ---
 
 HTML の a タグではページ内リンクが使えます。

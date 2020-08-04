@@ -11,6 +11,8 @@ import Social from "../components/article/social/socials"
 import UserImage from "../components/common/image"
 import { Tag } from "../components/indices/tag"
 import { UserType } from "../type"
+import { Card } from "../components/indices/card"
+import Swiper from "../components/common/swiper"
 
 interface IProps {
   data: BlogTemplateQuery
@@ -19,48 +21,41 @@ interface IProps {
 
 export default function Template({ data, pageContext }: IProps) {
   const [isOpen, setTocOpenerState] = React.useState(false)
-  const { markdownRemark } = data
+  const { post, latestPosts, favoriteArticles } = data
   return (
     <Layout>
-      {markdownRemark &&
-      markdownRemark.html &&
-      markdownRemark.frontmatter &&
-      markdownRemark.frontmatter.title &&
-      markdownRemark.frontmatter.path &&
-      markdownRemark.frontmatter.created &&
-      markdownRemark.frontmatter.tags &&
-      markdownRemark.excerpt ? (
+      {post &&
+      post.html &&
+      post.frontmatter &&
+      post.frontmatter.title &&
+      post.frontmatter.path &&
+      post.frontmatter.created &&
+      post.frontmatter.tags &&
+      post.excerpt ? (
         <>
           <SEO
-            title={markdownRemark.frontmatter.title}
-            description={markdownRemark.excerpt.slice(0, 100)}
-            image={
-              markdownRemark.frontmatter.visual?.childImageSharp?.fluid?.src
-            }
+            title={post.frontmatter.title}
+            description={post.excerpt.slice(0, 100)}
+            image={post.frontmatter.visual?.childImageSharp?.fluid?.src}
           />
           <div className={isOpen && styles.modalOpenBody}>
             <div className={styles.main}>
               <Social
                 className={styles.socials}
-                path={markdownRemark.frontmatter.path}
-                title={markdownRemark.frontmatter.title}
-                dateYYYYMMDD={markdownRemark.frontmatter.created.replace(
-                  /-/g,
-                  ""
-                )}
+                path={post.frontmatter.path}
+                title={post.frontmatter.title}
+                dateYYYYMMDD={post.frontmatter.created.replace(/-/g, "")}
               ></Social>
               <div className={styles.contentWrapper}>
                 <div className={styles.articleHeader}>
-                  <h1 className={styles.headline}>
-                    {markdownRemark.frontmatter.title}
-                  </h1>
+                  <h1 className={styles.headline}>{post.frontmatter.title}</h1>
                   <h2 className={styles.date}>
-                    {markdownRemark.frontmatter.created}(created)
-                    {markdownRemark.frontmatter.updated &&
-                      `/${markdownRemark.frontmatter.updated}(updated)`}
+                    {post.frontmatter.created}(created)
+                    {post.frontmatter.updated &&
+                      `/${post.frontmatter.updated}(updated)`}
                   </h2>
                   <div className={styles.tags}>
-                    {markdownRemark.frontmatter.tags.map(
+                    {post.frontmatter.tags.map(
                       tag =>
                         tag && (
                           <Link to={`/tags/${tag}`}>
@@ -96,26 +91,24 @@ export default function Template({ data, pageContext }: IProps) {
                     </div>
                   </div>
                 </div>
-                {markdownRemark.frontmatter.visual?.childImageSharp?.fluid && (
+                {post.frontmatter.visual?.childImageSharp?.fluid && (
                   <Image
                     style={{
                       maxWidth: "960px",
                       margin: "auto",
                     }}
                     // @ts-ignore FIXME: 型エラー
-                    fluid={
-                      markdownRemark.frontmatter.visual.childImageSharp.fluid
-                    }
+                    fluid={post.frontmatter.visual.childImageSharp.fluid}
                   />
                 )}
                 <div
                   className={styles.content}
-                  dangerouslySetInnerHTML={{ __html: markdownRemark.html }}
+                  dangerouslySetInnerHTML={{ __html: post.html }}
                 />
               </div>
 
               <Toc
-                tableOfContents={markdownRemark.tableOfContents}
+                tableOfContents={post.tableOfContents}
                 className={styles.tocwrapper}
               ></Toc>
               <TocMobile
@@ -123,14 +116,38 @@ export default function Template({ data, pageContext }: IProps) {
                 setTocOpenerState={(isOpen: boolean) =>
                   setTocOpenerState(isOpen)
                 }
-                tableOfContents={markdownRemark.tableOfContents}
-                path={markdownRemark.frontmatter.path}
-                title={markdownRemark.frontmatter.title}
-                dateYYYYMMDD={markdownRemark.frontmatter.created.replace(
-                  /-/g,
-                  ""
-                )}
+                tableOfContents={post.tableOfContents}
+                path={post.frontmatter.path}
+                title={post.frontmatter.title}
+                dateYYYYMMDD={post.frontmatter.created.replace(/-/g, "")}
               ></TocMobile>
+            </div>
+            <div className={styles.posts}>
+              <div
+                style={{
+                  maxWidth: "95vw",
+                  marginLeft: "auto",
+                }}
+              >
+                <h3 className={styles.sectionTitle}>最新の記事</h3>
+                <Swiper>
+                  {latestPosts.nodes.map(node => (
+                    <Card
+                      data={node.frontmatter}
+                      className={styles.card}
+                    ></Card>
+                  ))}
+                </Swiper>
+                <h3 className={styles.sectionTitle}>人気の記事</h3>
+                <Swiper>
+                  {favoriteArticles.nodes.map(node => (
+                    <Card
+                      data={node.frontmatter}
+                      className={styles.card}
+                    ></Card>
+                  ))}
+                </Swiper>
+              </div>
             </div>
           </div>
         </>
@@ -142,7 +159,7 @@ export default function Template({ data, pageContext }: IProps) {
 }
 export const pageQuery = graphql`
   query BlogTemplate($path: String!) {
-    markdownRemark(frontmatter: { path: { eq: $path } }) {
+    post: markdownRemark(frontmatter: { path: { eq: $path } }) {
       excerpt(format: PLAIN, truncate: true)
       html
       rawMarkdownBody
@@ -161,6 +178,43 @@ export const pageQuery = graphql`
         }
       }
       tableOfContents(absolute: false)
+    }
+
+    favoriteArticles: allMarkdownRemark(filter: {fileAbsolutePath: {regex: "/(/src/contents)/.*\\.md$/"},frontmatter: {isFavorite: {eq: true}}},limit: 6, sort: {order: DESC, fields: frontmatter___created}) {
+      nodes {
+        excerpt
+        frontmatter {
+          title
+          path
+          visual {
+            childImageSharp {
+              fluid(maxWidth: 800) {
+                ...GatsbyImageSharpFluid
+              }
+            }
+          }
+          created(formatString: "YYYY-MM-DD")
+          tags
+        }
+      }
+    }
+    latestPosts: allMarkdownRemark(filter: {fileAbsolutePath: {regex: "/(/src/contents)/.*\\.md$/"}},limit: 6, sort: {order: DESC, fields: frontmatter___created}) {
+      nodes {
+        excerpt
+        frontmatter {
+          title
+          path
+          visual {
+            childImageSharp {
+              fluid(maxWidth: 800) {
+                ...GatsbyImageSharpFluid
+              }
+            }
+          }
+          created(formatString: "YYYY-MM-DD")
+          tags
+        }
+      }
     }
   }
 `

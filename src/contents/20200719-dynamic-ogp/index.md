@@ -5,6 +5,7 @@ title: 絶対にお金を払いたくない精神での動的OGP生成は辛い
 visual: "./visual.png"
 tags: [OGP, Vercel, Firebase]
 userId: sadnessOjisan
+isFavorite: false
 ---
 
 OGP 生成をタダでやろうとするとそのデプロイに意外と苦労したという話です。

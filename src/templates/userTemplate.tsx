@@ -22,7 +22,6 @@ const useStyles = makeStyles({
 })
 
 const userTemplate: React.FC<IProps> = props => {
-  console.log(props)
   const classes = useStyles()
   const { pageContext } = props
   return (

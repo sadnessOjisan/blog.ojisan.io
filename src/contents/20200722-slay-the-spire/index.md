@@ -5,6 +5,7 @@ title: Slay the Spireというカジュアルゲームたのしいよ！
 visual: "./visual.png"
 tags: [雑記, ゲーム]
 userId: sadnessOjisan
+isFavorite: false
 ---
 
 明日から 4 連休だけど 東京都民は Go To トラベルができないらしいので、ちょっとした暇つぶしな情報を共有しようと思います。
