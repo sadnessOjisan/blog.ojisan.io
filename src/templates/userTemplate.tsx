@@ -65,29 +65,38 @@ const userTemplate: React.FC<IProps> = props => {
         <div className={styles.posts}>
           <h2 className={styles.postTitle}>{pageContext.name}の投稿</h2>
           <hr></hr>
-          {props.data.postsByUserId.nodes.map(node => (
-            <Link to={node.frontmatter?.path}>
-              <a>
-                <div className={styles.postRow}>
-                  <Image
-                    className={styles.image}
-                    // @ts-ignore FIXME: 型エラー
-                    fluid={node.frontmatter?.visual.childImageSharp.fluid}
-                  />
-                  <div className={styles.infoBox}>
-                    <h3 className={styles.postTitle}>
-                      {node.frontmatter?.title}
-                    </h3>
-                    <Tags
-                      tags={node.frontmatter?.tags}
-                      className={styles.tags}
-                    ></Tags>
-                    <div className={styles.min}>{node.timeToRead / 2}min</div>
-                  </div>
-                </div>
-              </a>
-            </Link>
-          ))}
+          {props.data.postsByUserId.nodes.map(
+            node =>
+              node.timeToRead &&
+              node.frontmatter &&
+              node.frontmatter.title &&
+              node.frontmatter.path &&
+              node.frontmatter.tags && (
+                <Link to={node.frontmatter.path}>
+                  <a>
+                    <div className={styles.postRow}>
+                      <Image
+                        className={styles.image}
+                        // @ts-ignore FIXME: 型エラー
+                        fluid={node.frontmatter.visual.childImageSharp.fluid}
+                      />
+                      <div className={styles.infoBox}>
+                        <h3 className={styles.postTitle}>
+                          {node.frontmatter.title}
+                        </h3>
+                        <Tags
+                          tags={node.frontmatter?.tags}
+                          className={styles.tags}
+                        ></Tags>
+                        <div className={styles.min}>
+                          {node.timeToRead / 2}min
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                </Link>
+              )
+          )}
         </div>
       </div>
     </Layout>
@@ -98,7 +107,6 @@ export const pageQuery = graphql`
   query AllPostsByUserId($userId: String!) {
     postsByUserId: allMarkdownRemark(filter: {fileAbsolutePath: {regex: "/(/src/contents)/.*\\.md$/"},frontmatter: {userId: {eq: $userId}}}, sort: {order: DESC, fields: frontmatter___created}) {
       nodes {
-        excerpt
         timeToRead
         frontmatter {
           title

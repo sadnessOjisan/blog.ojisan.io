@@ -8,7 +8,6 @@ import SEO from "../components/common/seo"
 import Toc from "../components/article/toc/toc"
 import TocMobile from "../components/article/toc/tocMoblie"
 import Social from "../components/article/social/socials"
-import SocialMobile from "../components/article/social/socialsMobile"
 import UserImage from "../components/common/image"
 import { Tag } from "../components/indices/tag"
 import { UserType } from "../type"
@@ -40,14 +39,6 @@ export default function Template({ data, pageContext }: IProps) {
             }
           />
           <div className={isOpen && styles.modalOpenBody}>
-            <SocialMobile
-              path={markdownRemark.frontmatter.path}
-              title={markdownRemark.frontmatter.title}
-              dateYYYYMMDD={markdownRemark.frontmatter.created.replace(
-                /-/g,
-                ""
-              )}
-            ></SocialMobile>
             <div className={styles.main}>
               <Social
                 className={styles.socials}
