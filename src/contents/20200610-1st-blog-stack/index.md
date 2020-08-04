@@ -6,6 +6,7 @@ title: Gatsby + TypeScript で技術ブログを書くための知見
 visual: "./visual.png"
 tags: [Gatsby]
 userId: sadnessOjisan
+isFavorite: false
 ---
 
 Blog を作りました！！！！！

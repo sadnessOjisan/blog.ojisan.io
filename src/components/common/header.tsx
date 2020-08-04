@@ -20,7 +20,10 @@ const Header: React.FC<IProps> = ({ siteTitle }) => {
       </h1>
       <div>
         <a href="/rss.xml" aria-label="rssへのリンク">
-          <IconButton aria-label="rssアイコン" color="default">
+          <IconButton
+            aria-label="rssアイコン"
+            style={{ color: "white", padding: 8 }}
+          >
             <RssFeedIcon />
           </IconButton>
         </a>
@@ -28,16 +31,20 @@ const Header: React.FC<IProps> = ({ siteTitle }) => {
           href="https://github.com/sadnessOjisan/blog.ojisan.io"
           aria-label="githubへのリンク"
         >
-          <IconButton aria-label="githubアイコン" color="default">
+          <IconButton
+            aria-label="githubアイコン"
+            style={{ color: "white", padding: 8 }}
+          >
             <GitHubIcon />
           </IconButton>
         </a>
         <IconButton
-          aria-label="delete"
+          aria-label="menu"
           color="default"
           onClick={() => {
             drawerContext.setDrawerState(true)
           }}
+          style={{ color: "white", padding: 8 }}
         >
           <MenuIcon />
         </IconButton>

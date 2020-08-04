@@ -1,6 +1,7 @@
 .header {
-  background-color: white;
-  height: 7vh;
+  background: linear-gradient(45deg, #2196f3 30%, #21cbf3 90%);
+  color: white;
+  height: 70px;
   display: flex;
   align-items: center;
   padding: 0 12px;
@@ -16,15 +17,6 @@
 .title {
   font-size: 20px;
   font-weight: 900;
-}
-
-.icon {
-  width: 20px;
-  height: 20px;
-}
-
-.icon:first-child {
-  margin-right: 16px;
 }
 
 @media screen and (max-width: 1024px) {

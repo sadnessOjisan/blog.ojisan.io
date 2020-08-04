@@ -1,6 +1,11 @@
 .wrapper {
   background: white;
   border-radius: 8px;
+  border: solid 1px transparent;
+}
+
+.wrapper:hover {
+  border-color: #2196f3;
 }
 
 .body {
@@ -15,9 +20,6 @@
   font-size: 24px;
   font-weight: 600;
   margin-top: 12px;
-}
-
-.articleTitle.hover {
 }
 
 .excerpt {
@@ -39,4 +41,8 @@
 .image.hover {
   transform: scale(1.2, 1.2);
   transition: 0.5s all;
+}
+
+.tags {
+  margin-left: 12px;
 }

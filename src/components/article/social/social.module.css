@@ -2,6 +2,7 @@
   /* 9vh は headerの高さ分 */
   top: calc(9vh + 32px);
   position: sticky;
+  margin-top: 30vh;
 }
 
 .col {

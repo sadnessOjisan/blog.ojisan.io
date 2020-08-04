@@ -5,6 +5,7 @@ title: S3 に NextJS 製 App をデプロイできるか
 visual: "./visual.png"
 tags: [S3, NextJS]
 userId: sadnessOjisan
+isFavorite: false
 ---
 
 できる場合とできない場合があります。

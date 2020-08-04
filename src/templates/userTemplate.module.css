@@ -38,6 +38,48 @@
   margin-bottom: 12px;
 }
 
+.posts {
+  margin-top: 32px;
+}
+
+.postRow {
+  display: flex;
+  border: solid 1px #ccc;
+  background-color: white;
+  margin: 16px 0px;
+  border-radius: 8px;
+}
+
+.image {
+  width: 240px;
+  height: 150px;
+  flex-shrink: 0;
+}
+
+.postRow:hover {
+  background-color: rgb(245, 245, 245);
+}
+
+.postTitle {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.infoBox {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.tags {
+  margin-top: 12px;
+}
+
+.min {
+  margin-top: auto;
+  color: darkblue;
+}
+
 @media screen and (max-width: 1024px) {
   .wrapper {
     padding: 16px;
@@ -47,14 +89,24 @@
     flex-direction: column;
   }
 
+  .snsRow {
+    flex-direction: column;
+    margin-bottom: 12px;
+  }
+
   .name {
     font-size: 24px;
     font-weight: bold;
     text-align: center;
-    margin: 12px 0px;
+    margin: 8px 0px;
+    margin-bottom: 0;
   }
 
   .info {
     margin-left: 0px;
+  }
+
+  .image {
+    display: none;
   }
 }
