@@ -248,15 +248,15 @@
 }
 
 /* article以外 */
-
 .posts {
   margin-top: 60px;
   padding: 24px;
+  padding-right: 0;
   background-color: white;
 }
 
 .sectionTitle {
-  font-size: 20px;
+  font-size: 32px;
   margin-bottom: 20px;
   font-weight: bold;
 }
@@ -264,7 +264,7 @@
 .card {
   flex-shrink: 0;
   width: 30%;
-  border: solid 3px #2196f3;
+  border: solid 3px #ccc;
 }
 
 .card:not(:first-child) {

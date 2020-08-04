@@ -123,12 +123,22 @@ export default function Template({ data, pageContext }: IProps) {
               ></TocMobile>
             </div>
             <div className={styles.posts}>
-              <h3 className={styles.sectionTitle}>最新の記事</h3>
-              <Swiper>
-                {latestPosts.nodes.map(node => (
-                  <Card data={node.frontmatter} className={styles.card}></Card>
-                ))}
-              </Swiper>
+              <div
+                style={{
+                  maxWidth: "95vw",
+                  marginLeft: "auto",
+                }}
+              >
+                <h3 className={styles.sectionTitle}>最新の記事</h3>
+                <Swiper>
+                  {latestPosts.nodes.map(node => (
+                    <Card
+                      data={node.frontmatter}
+                      className={styles.card}
+                    ></Card>
+                  ))}
+                </Swiper>
+              </div>
             </div>
           </div>
         </>
