@@ -11,6 +11,8 @@ import Social from "../components/article/social/socials"
 import UserImage from "../components/common/image"
 import { Tag } from "../components/indices/tag"
 import { UserType } from "../type"
+import { Card } from "../components/indices/card"
+import Swiper from "../components/common/swiper"
 
 interface IProps {
   data: BlogTemplateQuery
@@ -19,7 +21,7 @@ interface IProps {
 
 export default function Template({ data, pageContext }: IProps) {
   const [isOpen, setTocOpenerState] = React.useState(false)
-  const { post } = data
+  const { post, latestPosts } = data
   return (
     <Layout>
       {post &&
@@ -120,6 +122,14 @@ export default function Template({ data, pageContext }: IProps) {
                 dateYYYYMMDD={post.frontmatter.created.replace(/-/g, "")}
               ></TocMobile>
             </div>
+            <div className={styles.posts}>
+              <h3 className={styles.sectionTitle}>最新の記事</h3>
+              <Swiper>
+                {latestPosts.nodes.map(node => (
+                  <Card data={node.frontmatter} className={styles.card}></Card>
+                ))}
+              </Swiper>
+            </div>
           </div>
         </>
       ) : (
@@ -149,6 +159,25 @@ export const pageQuery = graphql`
         }
       }
       tableOfContents(absolute: false)
+    }
+
+    latestPosts: allMarkdownRemark(filter: {fileAbsolutePath: {regex: "/(/src/contents)/.*\\.md$/"}},limit: 6, sort: {order: DESC, fields: frontmatter___created}) {
+      nodes {
+        excerpt
+        frontmatter {
+          title
+          path
+          visual {
+            childImageSharp {
+              fluid(maxWidth: 800) {
+                ...GatsbyImageSharpFluid
+              }
+            }
+          }
+          created(formatString: "YYYY-MM-DD")
+          tags
+        }
+      }
     }
   }
 `

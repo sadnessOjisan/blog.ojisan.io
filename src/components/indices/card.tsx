@@ -12,7 +12,7 @@ interface IProps {
   /** 呼び出し元から書き換えるためのclassName */
   className?: string
   /** カードに表示するブログの出だし */
-  excerpt: AllBlogsQuery["blogs"]["nodes"][0]["excerpt"]
+  excerpt?: AllBlogsQuery["blogs"]["nodes"][0]["excerpt"]
 }
 
 export const Card: React.FC<IProps> = ({ data, className, excerpt }) => {
@@ -27,7 +27,6 @@ export const Card: React.FC<IProps> = ({ data, className, excerpt }) => {
         <div className={styles.imageWrapper}>
           <Image
             className={cn(styles.image, isHover && styles.hover)}
-            style={{}}
             // @ts-ignore FIXME: 型エラー
             fluid={data.visual.childImageSharp.fluid}
           />
@@ -37,7 +36,7 @@ export const Card: React.FC<IProps> = ({ data, className, excerpt }) => {
           <h3 className={cn(styles.articleTitle, isHover && styles.hover)}>
             {data?.title}
           </h3>
-          <p className={styles.excerpt}>{excerpt}</p>
+          {excerpt && <p className={styles.excerpt}>{excerpt}</p>}
         </div>
         <div className={styles.footer}>
           <Tags tags={data?.tags || []} className={styles.tags}></Tags>

@@ -3316,7 +3316,13 @@ export type BlogTemplateQuery = { post?: Maybe<(
       Pick<MarkdownRemarkFrontmatter, 'created' | 'updated' | 'path' | 'title' | 'tags'>
       & { visual?: Maybe<{ childImageSharp?: Maybe<{ fluid?: Maybe<GatsbyImageSharpFluidFragment> }> }> }
     )> }
-  )> };
+  )>, latestPosts: { nodes: Array<(
+      Pick<MarkdownRemark, 'excerpt'>
+      & { frontmatter?: Maybe<(
+        Pick<MarkdownRemarkFrontmatter, 'title' | 'path' | 'created' | 'tags'>
+        & { visual?: Maybe<{ childImageSharp?: Maybe<{ fluid?: Maybe<GatsbyImageSharpFluidFragment> }> }> }
+      )> }
+    )> } };
 
 export type TagTemplateQueryVariables = Exact<{
   tag: Scalars['String'];
