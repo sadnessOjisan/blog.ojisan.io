@@ -63,28 +63,26 @@ const userTemplate: React.FC<IProps> = props => {
           </div>
         </div>
         <div className={styles.posts}>
+          <h2 className={styles.postTitle}>{pageContext.name}の投稿</h2>
+          <hr></hr>
           {props.data.postsByUserId.nodes.map(node => (
             <Link to={node.frontmatter?.path}>
               <a>
                 <div className={styles.postRow}>
                   <Image
-                    style={{
-                      width: "240px",
-                      height: "150px",
-                      flexShrink: 0,
-                    }}
+                    className={styles.image}
                     // @ts-ignore FIXME: 型エラー
                     fluid={node.frontmatter?.visual.childImageSharp.fluid}
                   />
                   <div className={styles.infoBox}>
-                    <h2 className={styles.postTitle}>
+                    <h3 className={styles.postTitle}>
                       {node.frontmatter?.title}
-                    </h2>
+                    </h3>
                     <Tags
                       tags={node.frontmatter?.tags}
                       className={styles.tags}
                     ></Tags>
-                    <div>{node.timeToRead / 2}min</div>
+                    <div className={styles.min}>{node.timeToRead / 2}min</div>
                   </div>
                 </div>
               </a>
