@@ -57,7 +57,7 @@
 
 .followButton:hover {
   display: block;
-  background-color: rgb(255, 234, 234);
+  background-color: white;
 }
 
 .userImage {
