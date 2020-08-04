@@ -5,6 +5,7 @@ title: Hover時に他の要素にスタイルを当てたい
 visual: "./visual.png"
 tags: [CSS]
 userId: sadnessOjisan
+isFavorite: false
 ---
 
 (iframe の実験用の記事)

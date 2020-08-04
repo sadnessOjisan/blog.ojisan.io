@@ -5,6 +5,7 @@ title: S3にSPAはデプロイできるのか -HostingとRouting-
 visual: "./visual.png"
 tags: [S3, SPA]
 userId: sadnessOjisan
+isFavorite: false
 ---
 
 できます。

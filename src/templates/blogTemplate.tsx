@@ -21,7 +21,7 @@ interface IProps {
 
 export default function Template({ data, pageContext }: IProps) {
   const [isOpen, setTocOpenerState] = React.useState(false)
-  const { post, latestPosts } = data
+  const { post, latestPosts, favoriteArticles } = data
   return (
     <Layout>
       {post &&
@@ -138,6 +138,15 @@ export default function Template({ data, pageContext }: IProps) {
                     ></Card>
                   ))}
                 </Swiper>
+                <h3 className={styles.sectionTitle}>人気の記事</h3>
+                <Swiper>
+                  {favoriteArticles.nodes.map(node => (
+                    <Card
+                      data={node.frontmatter}
+                      className={styles.card}
+                    ></Card>
+                  ))}
+                </Swiper>
               </div>
             </div>
           </div>
@@ -171,6 +180,24 @@ export const pageQuery = graphql`
       tableOfContents(absolute: false)
     }
 
+    favoriteArticles: allMarkdownRemark(filter: {fileAbsolutePath: {regex: "/(/src/contents)/.*\\.md$/"},frontmatter: {isFavorite: {eq: true}}},limit: 6, sort: {order: DESC, fields: frontmatter___created}) {
+      nodes {
+        excerpt
+        frontmatter {
+          title
+          path
+          visual {
+            childImageSharp {
+              fluid(maxWidth: 800) {
+                ...GatsbyImageSharpFluid
+              }
+            }
+          }
+          created(formatString: "YYYY-MM-DD")
+          tags
+        }
+      }
+    }
     latestPosts: allMarkdownRemark(filter: {fileAbsolutePath: {regex: "/(/src/contents)/.*\\.md$/"}},limit: 6, sort: {order: DESC, fields: frontmatter___created}) {
       nodes {
         excerpt

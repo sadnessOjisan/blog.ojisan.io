@@ -5,6 +5,7 @@ title: ブログの1ヶ月を振り返る
 visual: "./visual.png"
 tags: [雑記]
 userId: sadnessOjisan
+isFavorite: false
 ---
 
 ちょうどこのブログを初めて 1 ヶ月たったので、

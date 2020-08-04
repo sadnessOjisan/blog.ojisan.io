@@ -5,6 +5,7 @@ title: css-loader と style-loaderを間違えない ~css-loaderを使わずにc
 visual: "./visual.png"
 tags: [Webpack, css-loader, style-loader]
 userId: sadnessOjisan
+isFavorite: false
 ---
 
 css-loader と style-loader どっちがどっちかってたまになるので、そうならないための備忘です。

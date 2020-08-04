@@ -6,6 +6,7 @@ title: ESLint の Plugin と Extend の違い
 visual: "./visual.png"
 tags: [ESLint]
 userId: sadnessOjisan
+isFavorite: false
 ---
 
 ESLint の Plugin と Extend の違いを説明できますか？

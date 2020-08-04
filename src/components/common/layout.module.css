@@ -1,4 +1,5 @@
 .body {
+  width: 100%;
   min-height: 85vh;
   /* 9vh は headerの高さ分 */
   padding-top: 70px;
