@@ -4,9 +4,9 @@
 
 .articleHeader {
   max-width: 960px;
-  margin: auto;
-  margin-bottom: 36px;
+  margin-bottom: 12px;
   padding: 8px;
+  min-height: 20vh;
 }
 
 .headline {
@@ -67,14 +67,6 @@
   border: solid 1px #ccc;
 }
 
-@media screen and (max-width: 1024px) {
-  .headline {
-    margin: 8px 0px;
-    font-size: 28px;
-    line-height: 36px;
-  }
-}
-
 .date {
   color: rgba(0, 0, 0, 0.54);
   font-size: 16px;
@@ -88,32 +80,33 @@
 }
 
 .main > .socials {
-  width: 15%;
+  width: 5%;
   padding-top: 32px;
-  margin-left: auto;
   padding-right: 36px;
 }
 
-.main > .socials * {
-  margin-left: auto;
-}
-
-.main > .content {
-  width: 70%;
+.contentWrapper > .content {
   max-width: 960px;
 }
 
 @media screen and (max-width: 1024px) {
-  .main > .content {
+  .contentWrapper {
+    width: 100%;
+  }
+
+  .main > .socials {
+    display: none;
+  }
+  .content {
     width: 90%;
+    margin: 0 auto;
   }
 }
 
 .main > .tocwrapper {
-  width: 15%;
+  width: 25%;
   padding-left: 16px;
   padding-top: 32px;
-  margin-right: auto;
 }
 
 /* 記事 */
@@ -249,5 +242,13 @@
   .content iframe {
     width: initial;
     height: initial;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .headline {
+    margin: 8px 0px;
+    font-size: 28px;
+    line-height: 36px;
   }
 }
