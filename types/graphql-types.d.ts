@@ -2427,9 +2427,9 @@ export type SitePageContext = {
   id?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
   image?: Maybe<Scalars['String']>;
-  gitHubId?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
   twitterId?: Maybe<Scalars['String']>;
+  gitHubId?: Maybe<Scalars['String']>;
 };
 
 export type SitePageContextFilterInput = {
@@ -2438,27 +2438,27 @@ export type SitePageContextFilterInput = {
   id?: Maybe<StringQueryOperatorInput>;
   name?: Maybe<StringQueryOperatorInput>;
   image?: Maybe<StringQueryOperatorInput>;
-  gitHubId?: Maybe<StringQueryOperatorInput>;
   description?: Maybe<StringQueryOperatorInput>;
   twitterId?: Maybe<StringQueryOperatorInput>;
+  gitHubId?: Maybe<StringQueryOperatorInput>;
 };
 
 export type SitePageContextWriteUser = {
   id?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
   image?: Maybe<Scalars['String']>;
-  gitHubId?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
   twitterId?: Maybe<Scalars['String']>;
+  gitHubId?: Maybe<Scalars['String']>;
 };
 
 export type SitePageContextWriteUserFilterInput = {
   id?: Maybe<StringQueryOperatorInput>;
   name?: Maybe<StringQueryOperatorInput>;
   image?: Maybe<StringQueryOperatorInput>;
-  gitHubId?: Maybe<StringQueryOperatorInput>;
   description?: Maybe<StringQueryOperatorInput>;
   twitterId?: Maybe<StringQueryOperatorInput>;
+  gitHubId?: Maybe<StringQueryOperatorInput>;
 };
 
 export type SitePageEdge = {
@@ -2478,15 +2478,15 @@ export type SitePageFieldsEnum =
   | 'context___writeUser___id'
   | 'context___writeUser___name'
   | 'context___writeUser___image'
-  | 'context___writeUser___gitHubId'
   | 'context___writeUser___description'
   | 'context___writeUser___twitterId'
+  | 'context___writeUser___gitHubId'
   | 'context___id'
   | 'context___name'
   | 'context___image'
-  | 'context___gitHubId'
   | 'context___description'
   | 'context___twitterId'
+  | 'context___gitHubId'
   | 'pluginCreator___id'
   | 'pluginCreator___parent___id'
   | 'pluginCreator___parent___parent___id'
