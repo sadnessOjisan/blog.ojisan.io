@@ -45,8 +45,8 @@
 }
 
 .followButton {
-  border: solid 1px brown;
-  color: brown;
+  border: solid 1px #2196f3;
+  color: #2196f3;
   /* TIPS: 引き延ばし防止, https://www.webcreatorbox.com/tech/flexbox-tips */
   align-self: flex-start;
   margin-top: 4px;

@@ -4,7 +4,7 @@
   bottom: 16px;
   width: 60px;
   height: 60px;
-  background-color: #368ccb;
+  background: linear-gradient(45deg, #2196f3 30%, #21cbf3 90%);
   border-radius: 30px;
   text-align: center;
   box-shadow: 2px 2px 5px 0px #0000006b;
