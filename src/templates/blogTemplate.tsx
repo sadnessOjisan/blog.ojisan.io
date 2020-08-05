@@ -1,4 +1,5 @@
 import * as React from "react"
+import { Helmet } from "react-helmet"
 import { graphql, Link } from "gatsby"
 import Image from "gatsby-image"
 import styles from "./blogTemplate.module.css"
@@ -31,6 +32,7 @@ export default function Template({ data, pageContext }: IProps) {
       post.frontmatter.path &&
       post.frontmatter.created &&
       post.frontmatter.tags &&
+      post.frontmatter.isProtect &&
       post.excerpt ? (
         <>
           <SEO
@@ -38,6 +40,16 @@ export default function Template({ data, pageContext }: IProps) {
             description={post.excerpt.slice(0, 100)}
             image={post.frontmatter.visual?.childImageSharp?.fluid?.src}
           />
+          {post.frontmatter.isProtect && (
+            <Helmet
+              meta={[
+                {
+                  name: "Hatena::Bookmark",
+                  content: "nocomment",
+                },
+              ]}
+            />
+          )}
           <div className={isOpen && styles.modalOpenBody}>
             <div className={styles.main}>
               <Social
@@ -176,6 +188,7 @@ export const pageQuery = graphql`
             }
           }
         }
+        isProtect
       }
       tableOfContents(absolute: false)
     }

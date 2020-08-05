@@ -6,6 +6,7 @@ visual: "./visual.png"
 tags: [Webpack, css-loader, style-loader]
 userId: sadnessOjisan
 isFavorite: true
+isProtect: false
 ---
 
 css-loader と style-loader どっちがどっちかってたまになるので、そうならないための備忘です。

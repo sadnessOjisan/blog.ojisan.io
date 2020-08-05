@@ -6,6 +6,7 @@ visual: "./visual.png"
 tags: [JavaScript, NodeJS]
 userId: sadnessOjisan
 isFavorite: true
+isProtect: false
 ---
 
 少し前からライブラリを読むトレーニングを始めたのですが、最近ようやく読み方がわかってきたので、やり始めた頃に知っておきたかったことをまとめます。

@@ -6,6 +6,7 @@ visual: "./visual.png"
 tags: [Babel]
 userId: sadnessOjisan
 isFavorite: false
+isProtect: false
 ---
 
 そういえば Babel をちゃんと勉強したことなかったなと思ってちゃんと勉強してみたって言う話です。

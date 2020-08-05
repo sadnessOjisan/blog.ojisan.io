@@ -6,6 +6,7 @@ visual: "./visual.png"
 tags: [Gatsby]
 userId: sadnessOjisan
 isFavorite: false
+isProtect: false
 ---
 
 このブログにタグ機能を作りました。

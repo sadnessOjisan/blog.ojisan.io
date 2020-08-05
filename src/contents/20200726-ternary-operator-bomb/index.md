@@ -6,6 +6,7 @@ visual: "./visual.png"
 tags: [JavaScript]
 userId: sadnessOjisan
 isFavorite: false
+isProtect: false
 ---
 
 今からお話しすることは本当にしょうもないことである...
