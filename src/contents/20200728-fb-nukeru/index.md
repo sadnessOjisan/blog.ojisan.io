@@ -6,6 +6,7 @@ visual: "./visual.png"
 tags: [Firebase]
 userId: sadnessOjisan
 isFavorite: true
+isProtect: false
 ---
 
 「[Firebase](https://firebase.google.com/?hl=ja) は安いし楽だしマジ最高」という一心で技術選定してしまったプロダクトが成功して見えてきた課題、割高なコスト・権限管理・カスタマイズ性、そして （特性やスキルセット的に）RDB 製品が適していたのに無理やり Firestore を採用したことによるデータ不整合。

@@ -1,11 +1,11 @@
 ---
 path: /vercel-env
-created: "2020-08-05"
+created: "2020-08-05 09:00"
 title: vercelでの環境変数の扱いが便利になった
 visual: "./visual.png"
 tags: [React, NextJS, Vercel]
 userId: sadnessOjisan
-isProtect: true
+isProtect: false
 ---
 
 Vercel での環境変数周りでのあれこれ、ずっと苦しみ続けていたので自分なりのプラクティスをメモします。

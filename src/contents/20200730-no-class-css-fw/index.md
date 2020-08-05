@@ -6,6 +6,7 @@ visual: "./visual.png"
 tags: [CSS, Angular, PR]
 userId: sadnessOjisan
 isFavorite: false
+isProtect: false
 ---
 
 [No Class CSS Museum](https://sadnessojisan.github.io/no-class-css-museum/index.html)という No-Class CSS フレームワーク比較サイトを作りました。

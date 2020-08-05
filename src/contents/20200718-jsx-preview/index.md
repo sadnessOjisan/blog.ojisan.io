@@ -6,6 +6,7 @@ visual: "./visual.png"
 tags: [JSX, Babel]
 userId: sadnessOjisan
 isFavorite: false
+isProtect: false
 ---
 
 少し前に [ogpng](https://ogpng.vercel.app) というサービスを作りました。

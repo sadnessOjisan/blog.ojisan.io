@@ -6,6 +6,7 @@ visual: "./visual.png"
 tags: [雑記]
 userId: sadnessOjisan
 isFavorite: false
+isProtect: false
 ---
 
 ちょうどこのブログを初めて 1 ヶ月たったので、

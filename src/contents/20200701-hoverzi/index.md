@@ -6,6 +6,7 @@ visual: "./visual.png"
 tags: [CSS]
 userId: sadnessOjisan
 isFavorite: false
+isProtect: false
 ---
 
 (iframe の実験用の記事)

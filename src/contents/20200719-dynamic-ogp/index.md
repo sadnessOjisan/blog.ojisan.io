@@ -6,6 +6,7 @@ visual: "./visual.png"
 tags: [OGP, Vercel, Firebase]
 userId: sadnessOjisan
 isFavorite: false
+isProtect: false
 ---
 
 OGP 生成をタダでやろうとするとそのデプロイに意外と苦労したという話です。

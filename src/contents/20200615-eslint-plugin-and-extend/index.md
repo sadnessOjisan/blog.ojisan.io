@@ -7,6 +7,7 @@ visual: "./visual.png"
 tags: [ESLint]
 userId: sadnessOjisan
 isFavorite: false
+isProtect: false
 ---
 
 ESLint の Plugin と Extend の違いを説明できますか？
