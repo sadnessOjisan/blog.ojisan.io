@@ -133,3 +133,8 @@ post.frontmatter.isProtect && (
 あまりにも過激なことを言うとそのブックマークページ自体をブックマークされて言及があったりもするので、注意しましょう。
 
 書き手も読み手もお互いに敬意を持って意見を発信しよう！
+
+## あとがき
+
+8/5 から[プロメア](https://www.amazon.co.jp/gp/video/detail/B088TWX2QS/ref=atv_dp_share_cu_r)が Amazon Prime で配信されました。
+面白い映画です 🔥🔥🔥
