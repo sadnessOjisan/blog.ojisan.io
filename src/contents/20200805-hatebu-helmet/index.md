@@ -150,6 +150,8 @@ post.frontmatter.isProtect && (
 
 ![ブクマのブクマ](./bukumabukuma.png)
 
+(こういうときブコメを非表示にしていると誤りを指摘してくれなくて不便ですね。)
+
 ## あとがき
 
 8/5 から[プロメア](https://www.amazon.co.jp/gp/video/detail/B088TWX2QS/ref=atv_dp_share_cu_r)が Amazon Prime で配信されました。
