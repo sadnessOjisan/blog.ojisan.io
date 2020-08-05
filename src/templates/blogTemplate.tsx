@@ -141,7 +141,7 @@ export default function Template({ data, pageContext }: IProps) {
                 }}
               >
                 <h3 className={styles.sectionTitle}>最新の記事</h3>
-                <Swiper>
+                <Swiper className={styles.swiper}>
                   {latestPosts.nodes.map(node => (
                     <Card
                       data={node.frontmatter}
@@ -150,7 +150,7 @@ export default function Template({ data, pageContext }: IProps) {
                   ))}
                 </Swiper>
                 <h3 className={styles.sectionTitle}>人気の記事</h3>
-                <Swiper>
+                <Swiper className={styles.swiper}>
                   {favoriteArticles.nodes.map(node => (
                     <Card
                       data={node.frontmatter}

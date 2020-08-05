@@ -11,12 +11,7 @@
 }
 
 .col > * {
-  margin-bottom: 16px;
-}
-
-.icon {
-  width: 24px;
-  cursor: pointer;
+  margin-bottom: 0px;
 }
 
 @media screen and (max-width: 1024px) {
