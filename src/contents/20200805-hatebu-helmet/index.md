@@ -129,6 +129,13 @@ post.frontmatter.isProtect && (
 
 としてフラグが true のものだけ Helmet を被せると完了です。
 
+実装としては、
+
+- https://github.com/sadnessOjisan/blog.ojisan.io/blob/master/src/templates/blogTemplate.tsx
+- https://raw.githubusercontent.com/sadnessOjisan/blog.ojisan.io/master/src/contents/20200805-hatebu-helmet/index.md
+
+を参照するとイメージがつきやすいかと思います。
+
 ## これで燃えないから好き放題言ってオーケー？
 
 とこれで炎上対策できたので、安全圏から好き放題言えそうなのですが、そうではありません。
