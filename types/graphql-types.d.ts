@@ -738,6 +738,7 @@ export type FileFieldsEnum =
   | 'childMarkdownRemark___frontmatter___updated'
   | 'childMarkdownRemark___frontmatter___description'
   | 'childMarkdownRemark___frontmatter___newsCategory'
+  | 'childMarkdownRemark___frontmatter___isProtect'
   | 'childMarkdownRemark___excerpt'
   | 'childMarkdownRemark___rawMarkdownBody'
   | 'childMarkdownRemark___fileAbsolutePath'
@@ -1571,6 +1572,7 @@ export type MarkdownRemarkFieldsEnum =
   | 'frontmatter___updated'
   | 'frontmatter___description'
   | 'frontmatter___newsCategory'
+  | 'frontmatter___isProtect'
   | 'excerpt'
   | 'rawMarkdownBody'
   | 'fileAbsolutePath'
@@ -1701,6 +1703,7 @@ export type MarkdownRemarkFrontmatter = {
   updated?: Maybe<Scalars['Date']>;
   description?: Maybe<Scalars['String']>;
   newsCategory?: Maybe<Array<Maybe<Scalars['String']>>>;
+  isProtect?: Maybe<Scalars['Boolean']>;
 };
 
 
@@ -1730,6 +1733,7 @@ export type MarkdownRemarkFrontmatterFilterInput = {
   updated?: Maybe<DateQueryOperatorInput>;
   description?: Maybe<StringQueryOperatorInput>;
   newsCategory?: Maybe<StringQueryOperatorInput>;
+  isProtect?: Maybe<BooleanQueryOperatorInput>;
 };
 
 export type MarkdownRemarkGroupConnection = {
@@ -3317,7 +3321,7 @@ export type BlogTemplateQueryVariables = Exact<{
 export type BlogTemplateQuery = { post?: Maybe<(
     Pick<MarkdownRemark, 'excerpt' | 'html' | 'rawMarkdownBody' | 'tableOfContents'>
     & { frontmatter?: Maybe<(
-      Pick<MarkdownRemarkFrontmatter, 'created' | 'updated' | 'path' | 'title' | 'tags'>
+      Pick<MarkdownRemarkFrontmatter, 'created' | 'updated' | 'path' | 'title' | 'tags' | 'isProtect'>
       & { visual?: Maybe<{ childImageSharp?: Maybe<{ fluid?: Maybe<GatsbyImageSharpFluidFragment> }> }> }
     )> }
   )>, favoriteArticles: { nodes: Array<(
