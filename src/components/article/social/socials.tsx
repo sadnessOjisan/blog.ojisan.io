@@ -1,10 +1,10 @@
 import * as React from "react"
 import cn from "classnames"
 import styles from "./social.module.css"
-import clap from "../../../images/clap.svg"
-import facebook from "../../../images/facebook.svg"
-import twitter from "../../../images/twitter.svg"
-import github from "../../../images/github.svg"
+import GitHubIcon from "@material-ui/icons/GitHub"
+import FacebookIcon from "@material-ui/icons/Facebook"
+import TwitterIcon from "@material-ui/icons/Twitter"
+import { IconButton } from "@material-ui/core"
 
 interface IProps {
   path: string
@@ -23,25 +23,21 @@ const Social: React.FC<IProps> = ({ className, path, title, dateYYYYMMDD }) => (
         rel="noopener"
         aria-label="twitterへのリンク"
       >
-        <img src={twitter} className={styles.icon} alt="twitter-logo"></img>
+        <IconButton aria-label="twitterアイコン">
+          <TwitterIcon />
+        </IconButton>
       </a>
+
       <a
         href="http://www.facebook.com/share.php?u=https://blog.ojisan.io"
         target="_blank"
         rel="noopener"
         aria-label="facebookへのリンク"
       >
-        <img src={facebook} className={styles.icon} alt="facebook-logo"></img>
+        <IconButton aria-label="facebookアイコン">
+          <FacebookIcon />
+        </IconButton>
       </a>
-      <img
-        tabIndex={0}
-        src={clap}
-        className={styles.icon}
-        onClick={() => {
-          alert("Thank you!")
-        }}
-        alt="clap-logo"
-      ></img>
       <a
         href={`https://github.com/sadnessOjisan/blog.ojisan.io/blob/master/src/contents/${dateYYYYMMDD}-${path.replace(
           "/",
@@ -51,7 +47,9 @@ const Social: React.FC<IProps> = ({ className, path, title, dateYYYYMMDD }) => (
         rel="noopener"
         aria-label="githubへのリンク"
       >
-        <img src={github} className={styles.icon} alt="github-logo"></img>
+        <IconButton aria-label="githubアイコン">
+          <GitHubIcon />
+        </IconButton>
       </a>
     </div>
   </div>
