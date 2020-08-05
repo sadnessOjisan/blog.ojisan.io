@@ -271,8 +271,14 @@
   margin-left: 12px;
 }
 
+.swiper {
+  scroll-margin-right: 12px;
+  margin-right: 12px;
+}
+
 @media screen and (max-width: 1024px) {
   .card {
     width: 90%;
+    border: solid 3px #ccc;
   }
 }
