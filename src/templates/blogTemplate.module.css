@@ -3,7 +3,7 @@
 }
 
 .articleHeader {
-  max-width: 960px;
+  max-width: 768px;
   margin-bottom: 12px;
   padding: 8px;
   min-height: 20vh;
@@ -86,7 +86,7 @@
 }
 
 .contentWrapper > .content {
-  max-width: 960px;
+  max-width: 768px;
 }
 
 @media screen and (max-width: 1024px) {
