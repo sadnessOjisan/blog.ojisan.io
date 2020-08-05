@@ -32,7 +32,6 @@ export default function Template({ data, pageContext }: IProps) {
       post.frontmatter.path &&
       post.frontmatter.created &&
       post.frontmatter.tags &&
-      post.frontmatter.isProtect &&
       post.excerpt ? (
         <>
           <SEO
