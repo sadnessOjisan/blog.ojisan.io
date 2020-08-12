@@ -1,5 +1,5 @@
 ---
-path: /user-in-ssg-blog
+path: /rn-expo-none-header
 created: "2020-08-12 09:00"
 title: Expoから生成したアプリのヘッダーを消す
 visual: "./visual.png"
