@@ -1,19 +1,22 @@
 ---
 path: /react-rn-style-overwrite
 created: "2020-08-13 19:00"
-title: React/React Nativeでinline styleを上書く方法を調べた
+title: React (Native)でinline styleを上書く方法を調べた
 visual: "./visual.png"
-tags: ["React Native", expo, React]
+tags: ["React Native", React]
 userId: sadnessOjisan
 isProtect: false
 ---
 
 React でコンポーネントのスタイルを上書くことは、ページをコンポーネントに分割していく上で必要になるテクニックです。
-コンポーネント自体のスタイリングとレイアウト用のスタイリングを分離し、レイアウトのスタイリングは親側から注入するというようにすることで、コンポーネントそれ自体の再利用生を高めるといった使い方をします。
-CSS in JS や CSS Module を使う場合、それを実現するためには親の className を子供に渡して、その className を子供側で展開していました。
-しかし React Natve をやり始めるなか、inline でスタイリングをすることが増えてきて、この上書きをするにはどうすればいいんだろうと思って調べて行ったことのまとめです。
+コンポーネント自体のスタイリングとレイアウト用のスタイリングを分離し、レイアウトのスタイリングは親側から注入するというようにすることで、子コンポーネントそれ自体の再利用性を高められるからです。
+
+これまでは CSS in JS や CSS Module を使う場合、それを実現するためには親の className を子供に渡して、その className を子供側で展開していました。
+しかし React Natve をやり始めるなか inline でスタイリングをすることが増えてきて、inline styling しているときにこの上書きをするにはどうすればいいんだろうと思って調べたことのまとめです。
 
 ## React Native では親から Style を受け取って子供の Style 配列に追加する
+
+例を書くと、このようなコードになります。
 
 ```ts:title=parent.tsx
 import { Child } from "./child"
@@ -44,7 +47,7 @@ export function Child(props: Props) {
 こうすることで親から渡された style 情報を子供にも反映できます。
 
 ただ、ここで僕は疑問に思ったわけです。
-style に配列を指定できるの！？
+style って配列を受け取れました！？
 
 ## React Native の style の IF
 
@@ -84,7 +87,7 @@ export interface ViewStyle extends FlexStyle, ShadowStyleIOS, TransformsStyle {
 
 といったものです。
 
-この ViewStyle は StyleProp として使われたり、RecursiveArray の要素として使われていることから、オブジェクト・配列のどちらでも渡せることが確認できます。
+この ViewStyle は StyleProp として使われたり、RecursiveArray の要素として使われていることから、**オブジェクト・配列のどちらでも渡せる**ことが確認できます。
 
 ## React ってこの書き方できたっけ？
 
@@ -126,10 +129,10 @@ export interface Properties<TLength = string | 0>
 
 > このドキュメンテーションにあるいくつかの例では style を便宜上使用していますが、style 属性を要素のスタイリングの主要な手段として使うことは一般的に推奨されません。多くの場合、className を使って外部の CSS スタイルシートに定義された CSS クラスを参照するべきです。
 
-と書かれています。
+と書かれているとおり、inline での上書きは推奨されていません。
 
-そのため CSS in JS や CSS Modules を使って親の className を渡すことで解決します。
-CSS Modules の場合は複数の classNames を合体させるために [classnames](https://www.npmjs.com/package/classnames)のようなライブラリを使います。
+そのため CSS in JS や CSS Modules を使って親の className を渡すことで解決することが主流です。
+さらに CSS Modules の場合は複数の classNames を合体させるために [classnames](https://www.npmjs.com/package/classnames)のようなライブラリを使って解決を図ります。
 このブログでも、
 
 ```tsx
@@ -148,7 +151,7 @@ export default Social
 
 として使っています。詳しくは[socials.tsx](https://github.com/sadnessOjisan/blog.ojisan.io/blob/v2.4.0/src/components/article/social/socials.tsx)をご覧ください。
 
-そのため inline は使わない方が良さそうなのですがやり方だけ紹介すると、単純にオブジェクトを merge すればいいです。
+そのため inline style を使わず className を上書く方針でスタイルを上書くのが主流ですが、やり方だけ紹介すると単純にオブジェクトを merge すればいいです。
 親から object 形式で style を props として受け取り、それを子コンポーネントで merge します。
 
 ```tsx
