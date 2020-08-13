@@ -2626,6 +2626,7 @@ export type SitePageFieldsEnum =
   | 'pluginCreator___pluginOptions___theme_color_in_head'
   | 'pluginCreator___pluginOptions___cacheDigest'
   | 'pluginCreator___pluginOptions___fileName'
+  | 'pluginCreator___pluginOptions___theme'
   | 'pluginCreator___pluginOptions___offsetY'
   | 'pluginCreator___pluginOptions___className'
   | 'pluginCreator___pluginOptions___maxWidth'
@@ -2833,6 +2834,7 @@ export type SitePluginFieldsEnum =
   | 'pluginOptions___plugins___id'
   | 'pluginOptions___plugins___name'
   | 'pluginOptions___plugins___version'
+  | 'pluginOptions___plugins___pluginOptions___theme'
   | 'pluginOptions___plugins___pluginOptions___offsetY'
   | 'pluginOptions___plugins___pluginOptions___className'
   | 'pluginOptions___plugins___pluginOptions___maxWidth'
@@ -2858,6 +2860,7 @@ export type SitePluginFieldsEnum =
   | 'pluginOptions___theme_color_in_head'
   | 'pluginOptions___cacheDigest'
   | 'pluginOptions___fileName'
+  | 'pluginOptions___theme'
   | 'pluginOptions___offsetY'
   | 'pluginOptions___className'
   | 'pluginOptions___maxWidth'
@@ -3007,6 +3010,7 @@ export type SitePluginPluginOptions = {
   theme_color_in_head?: Maybe<Scalars['Boolean']>;
   cacheDigest?: Maybe<Scalars['String']>;
   fileName?: Maybe<Scalars['String']>;
+  theme?: Maybe<Scalars['String']>;
   offsetY?: Maybe<Scalars['String']>;
   className?: Maybe<Scalars['String']>;
   maxWidth?: Maybe<Scalars['Int']>;
@@ -3107,6 +3111,7 @@ export type SitePluginPluginOptionsFilterInput = {
   theme_color_in_head?: Maybe<BooleanQueryOperatorInput>;
   cacheDigest?: Maybe<StringQueryOperatorInput>;
   fileName?: Maybe<StringQueryOperatorInput>;
+  theme?: Maybe<StringQueryOperatorInput>;
   offsetY?: Maybe<StringQueryOperatorInput>;
   className?: Maybe<StringQueryOperatorInput>;
   maxWidth?: Maybe<IntQueryOperatorInput>;
@@ -3166,12 +3171,14 @@ export type SitePluginPluginOptionsPluginsFilterListInput = {
 };
 
 export type SitePluginPluginOptionsPluginsPluginOptions = {
+  theme?: Maybe<Scalars['String']>;
   offsetY?: Maybe<Scalars['String']>;
   className?: Maybe<Scalars['String']>;
   maxWidth?: Maybe<Scalars['Int']>;
 };
 
 export type SitePluginPluginOptionsPluginsPluginOptionsFilterInput = {
+  theme?: Maybe<StringQueryOperatorInput>;
   offsetY?: Maybe<StringQueryOperatorInput>;
   className?: Maybe<StringQueryOperatorInput>;
   maxWidth?: Maybe<IntQueryOperatorInput>;
