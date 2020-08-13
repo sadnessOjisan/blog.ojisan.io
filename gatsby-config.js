@@ -107,21 +107,6 @@ module.exports = {
             options: {},
           },
           {
-            resolve: `gatsby-remark-prismjs`,
-            options: {
-              classPrefix: "language-",
-              inlineCodeMarker: null,
-              aliases: {},
-              showLineNumbers: false,
-              noInlineHighlight: false,
-              prompt: {
-                user: "root",
-                host: "localhost",
-                global: false,
-              },
-            },
-          },
-          {
             resolve: `gatsby-remark-autolink-headers`,
             options: {
               // そこにジャンプした時の上からの余白
