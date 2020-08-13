@@ -40,7 +40,7 @@ Netlify では `/opt/build/cache/` に置かれたファイルはビルドを跨
 
 入れて設定ファイルを書くだけでキャッシュされるようになります。
 
-```b
+```sh
 $ yarn add -D gatsby-plugin-netlify-cache
 ```
 
@@ -67,7 +67,7 @@ FYI: https://app.netlify.com/sites/amazing-goodall-59e3b0/deploys/5f2700f1852d67
 
 このログの写真にあるように、
 
-```b
+```sh
 3:10:17 AM: plugin-netlify-cache: Restoring 124 cached files for public directory with 0 already existing files.
 3:10:18 AM: plugin-netlify-cache: Restoring 48 cached files for .cache directory with 1 already existing files.
 ```

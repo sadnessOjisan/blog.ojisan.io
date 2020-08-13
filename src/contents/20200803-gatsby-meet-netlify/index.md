@@ -72,7 +72,7 @@ FYI: https://app.netlify.com/sites/amazing-goodall-59e3b0/deploys/5f2728a4ff928d
 
 これは
 
-```b
+```sh
 cache-control: public, max-age=0, s-maxage=300
 ```
 
@@ -86,7 +86,7 @@ Netlify ではこのキャッシュヘッダなどをユーザーが自由に設
 (※: 「などを」とボカしたのは設定ファイルの種類によってはリダイレクトルールなども設定できるからです。)
 \_headers というファイルにそれを書いていきます。
 
-```b
+```sh
 /*.html
   Cache-Control: public, max-age=0, must-revalidate
 ```
