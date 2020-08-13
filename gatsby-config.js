@@ -109,14 +109,14 @@ module.exports = {
           {
             resolve: `gatsby-remark-shiki`,
             options: {
-              theme: "zeit", // Default: 'nord'
+              theme: "nord", // Default: 'nord'
             },
           },
           {
             resolve: `gatsby-remark-autolink-headers`,
             options: {
               // そこにジャンプした時の上からの余白
-              offsetY: `100`,
+              offsetY: `80`,
               className: `anchor-link`,
             },
           },
