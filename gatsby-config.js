@@ -107,25 +107,16 @@ module.exports = {
             options: {},
           },
           {
-            resolve: `gatsby-remark-prismjs`,
+            resolve: `gatsby-remark-shiki`,
             options: {
-              classPrefix: "language-",
-              inlineCodeMarker: null,
-              aliases: {},
-              showLineNumbers: false,
-              noInlineHighlight: false,
-              prompt: {
-                user: "root",
-                host: "localhost",
-                global: false,
-              },
+              theme: "nord", // Default: 'nord'
             },
           },
           {
             resolve: `gatsby-remark-autolink-headers`,
             options: {
               // そこにジャンプした時の上からの余白
-              offsetY: `100`,
+              offsetY: `80`,
               className: `anchor-link`,
             },
           },

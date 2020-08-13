@@ -1,7 +1,5 @@
 import * as React from "react"
 import { graphql } from "gatsby"
-import "../vendor/css/reset.css"
-import "../vendor/css/base.css"
 import Layout from "../components/common/layout"
 import SEO from "../components/common/seo"
 import { AllBlogsQuery } from "../../types/graphql-types"
