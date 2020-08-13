@@ -107,6 +107,12 @@ module.exports = {
             options: {},
           },
           {
+            resolve: `gatsby-remark-shiki`,
+            options: {
+              theme: "zeit", // Default: 'nord'
+            },
+          },
+          {
             resolve: `gatsby-remark-autolink-headers`,
             options: {
               // そこにジャンプした時の上からの余白
