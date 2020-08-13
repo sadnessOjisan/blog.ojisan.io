@@ -19,4 +19,5 @@ pre {
   border-radius: 8px;
   padding: 12px;
   margin-bottom: 12px;
+  overflow-x: scroll;
 }
