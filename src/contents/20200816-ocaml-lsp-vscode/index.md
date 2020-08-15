@@ -214,5 +214,5 @@ vscode-ocaml-platformは[command](https://github.com/ocamllabs/vscode-ocaml-plat
 
 ## あとがき
 
-OCamlをVSCodeでやるとすれば、[OCaml and Reason IDE](https://marketplace.visualstudio.com/items?itemName=freebroccolo.reasonml)の方が主流になってそうなのでこちらを使ってもいいとは思います。
+OCamlをVSCodeでやるとすれば、[OCaml and Reason IDE](https://marketplace.visualstudio.com/items?itemName=freebroccolo.reasonml)の方が圧倒的にスターが多いのでこちらを使ってもいいとは思います。（ただし[vscode-ocaml-platform](https://github.com/ocamllabs/vscode-ocaml-platform)の方が後発で開発も活発なのでいま始めるならこちらに挑戦してみた方が良いとは思います。）
 私はocaml-lspが動かない時はこちらを使っていたのですが、 merlin という補完に使える開発支援ツール(このツールはocaml-lspにも使われている)や ocamlformat/ocp-indent といったフォーマッターを別途入れて、そのパスを通さないと動かない場合があると言った試行錯誤はこちらでも必要なので、注意してください。
