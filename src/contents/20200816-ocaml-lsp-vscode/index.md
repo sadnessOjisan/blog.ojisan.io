@@ -3,13 +3,13 @@ path: /ocaml-lsp-vscode
 created: "2020-08-16 09:00"
 title: OCaml の補完とフォーマットをVSCode上で実現するための試行錯誤
 visual: "./visual.png"
-tags: [雑記]
+tags: [OCaml, VSCode]
 userId: sadnessOjisan
 isProtect: false
 ---
 
-私は OCaml の開発者ではありませんが[プログラミングの基礎](https://www.amazon.co.jp/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E3%81%AE%E5%9F%BA%E7%A4%8E-Computer-Science-Library-%E6%B5%85%E4%BA%95/dp/4781911609)や大学の講義資料で勉強中でそのサンプルコードとして OCaml を読んでいます。
-この記事では、コードリーディングを目的とした補完やフォーマットのための環境構築についてメモします。
+私は OCaml の開発者ではありませんが[プログラミングの基礎](https://www.amazon.co.jp/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E3%81%AE%E5%9F%BA%E7%A4%8E-Computer-Science-Library-%E6%B5%85%E4%BA%95/dp/4781911609)や大学の講義資料でプログラミングを勉強しており、そのサンプルコードとして OCaml に出会う機会があります。
+この記事では、そういったコードリーディングを目的とした補完やフォーマットのための環境構築についてメモします。
 （ビルド周りについては触れません）
 
 筆者の環境は MacOS です。
