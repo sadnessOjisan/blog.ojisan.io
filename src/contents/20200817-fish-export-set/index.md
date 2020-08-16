@@ -35,6 +35,8 @@ export PATH="$HOME/.cargo/bin:$PATH"
 
 でして、export が使えないはずの fish で export が使えていました。
 
+ちなみに [cargo](https://github.com/rust-lang/rustup/issues/478) の Issue では 「export 使えないから set でやるんだ」っていうコメントがついています。
+
 ## cargo 以外もいけるのかなと思って実験した
 
 もしかして cargo 入れる時に裏で魔法のなにかをやってくれたりするのかなと思ったので、普通に手元で export が通るか実験しました。
@@ -116,7 +118,6 @@ function export --description 'Set env variable. Alias for `set -gx` for bash co
                     set -l colonized_path (string replace -- "$$v[1]" (string join ":" -- $$v[1]) $v[2])
                     set -gx $v[1] (string split ":" -- $colonized_path)
                 else
-                    # status is 1 from the contains check, and `set` does not change the status on success: reset it.
                     true
                     set -gx $v[1] $v[2]
                 end
