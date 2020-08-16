@@ -1,7 +1,7 @@
 ---
 path: /fish-export-set
 created: "2020-08-17 09:00"
-title: fish で export が使えた理由を調べた
+title: fish にて export で PATH を通せるのは何故か調べた
 visual: "./visual.png"
 tags: [OCaml, VSCode]
 userId: sadnessOjisan
@@ -12,8 +12,8 @@ fish(friendly interactive shell)で環境変数をセットする際、[公式](
 
 > To give a variable to an external command, it needs to be "exported". Unlike other shells, fish does not have an export command. Instead, a variable is exported via an option to set, either --export or just -x.
 
-と書かれており、exportコマンドが使えないことが明記されています。
-実際fishで環境変数をセットする方法をネットで調べると「export使えないからset使おう」という趣旨の記事がたくさんヒットします。
+と書かれており、export コマンドが使えないことが明記されています。
+実際 fish で環境変数をセットする方法をネットで調べると「export 使えないから set 使おう」という趣旨の記事がたくさんヒットします。
 
 なのに export が使えてしまったので、その理由を調査しました。
 
@@ -25,7 +25,7 @@ fish(friendly interactive shell)で環境変数をセットする際、[公式](
 source ~/.cargo/env
 ```
 
-って書いて「いやいや いまfishだからさすがにこれ通らんやろ」って思ってたら、cargo コマンドが通って「はて？」となりました。
+って書いて「いやいや いま fish だからさすがにこれ通らんやろ」って思ってたら、cargo コマンドが通って「はて？」となりました。
 
 このファイルを覗いてみると
 
@@ -149,7 +149,7 @@ function の読み込みについて調べてみました。
 
 ```sh
 $ echo $fish_function_path
-> /Users/ojisan/.config/fish/functions 
+> /Users/ojisan/.config/fish/functions
 /usr/local/Cellar/fish/3.1.2/etc/fish/functions
 /usr/local/Cellar/fish/3.1.2/share/fish/vendor_functions.d
 /usr/local/share/fish/vendor_functions.d
@@ -181,5 +181,5 @@ export が使えることが言及されていてもいいのに言及されて�
 
 公式が配布している設定なので公式に言及があると思っていました。
 むしろ公式には export は使えないから set を使おうとあります。
-もしかして僕の設定がONになっているのは例外的なものなのでしょうか。
-世界的に使われているはずのシェルなのに、調べてもexportが使えることへの言及を見つけられず、むしろexport使えないという内容の解説しか見つからなくて、気づかないところで何か設定を触ってしまっているのか心配になっています。
+もしかして僕の設定が ON になっているのは例外的なものなのでしょうか。
+世界的に使われているはずのシェルなのに、調べても export が使えることへの言及を見つけられず、むしろ export 使えないという内容の解説しか見つからなくて、気づかないところで何か設定を触ってしまっているのか心配になっています。
