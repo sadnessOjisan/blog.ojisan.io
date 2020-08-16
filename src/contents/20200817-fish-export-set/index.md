@@ -1,5 +1,5 @@
 ---
-path: /ocaml-lsp-vscode
+path: /fish-export-set
 created: "2020-08-17 09:00"
 title: fish で export が使えた理由を調べた
 visual: "./visual.png"
@@ -8,15 +8,24 @@ userId: sadnessOjisan
 isProtect: false
 ---
 
+fish(friendly interactive shell)で環境変数をセットする際、[公式](https://fishshell.com/docs/current/tutorial.html#exports-shell-variables)に
+
+> To give a variable to an external command, it needs to be "exported". Unlike other shells, fish does not have an export command. Instead, a variable is exported via an option to set, either --export or just -x.
+
+と書かれており、exportコマンドが使えないことが明記されています。
+実際fishで環境変数をセットする方法をネットで調べると「export使えないからset使おう」という趣旨の記事がたくさんヒットします。
+
+なのに export が使えてしまったので、その理由を調査しました。
+
 ## なんか PATH が通ってるんだけど・・・
 
 新 PC を fish で設定していて、cargo の設定で何気に
 
-```
+```sh
 source ~/.cargo/env
 ```
 
-って書いたら cargo コマンドが通って「はて？」となりました。
+って書いて「いやいや いまfishだからさすがにこれ通らんやろ」って思ってたら、cargo コマンドが通って「はて？」となりました。
 
 このファイルを覗いてみると
 
@@ -64,7 +73,7 @@ end
 
 があればそれが犯人です。
 
-ということなので調べてみましたがヒットしませんでした。
+ということなので調べてみましたが**ヒットしませんでした。**
 
 ## export 関数は定義されているのか関数一覧を調べる
 
@@ -78,7 +87,7 @@ which export
 
 関数一覧をみたかったので、`fish_config`をみてみることにしました。
 
-fish は嬉しいことに設定をブラウザで行えます。
+**fish は嬉しいことに設定をブラウザで行えます。**
 そのブラウザの設定画面に function 一覧があるので、そこで探してみることにしました。
 
 ```sh
@@ -139,7 +148,11 @@ function の読み込みについて調べてみました。
 
 ```sh
 $ echo $fish_function_path
-> /Users/ojisan/.config/fish/functions /usr/local/Cellar/fish/3.1.2/etc/fish/functions /usr/local/Cellar/fish/3.1.2/share/fish/vendor_functions.d /usr/local/share/fish/vendor_functions.d /usr/local/Cellar/fish/3.1.2/share/fish/functions
+> /Users/ojisan/.config/fish/functions 
+/usr/local/Cellar/fish/3.1.2/etc/fish/functions
+/usr/local/Cellar/fish/3.1.2/share/fish/vendor_functions.d
+/usr/local/share/fish/vendor_functions.d
+/usr/local/Cellar/fish/3.1.2/share/fish/functions
 ```
 
 ありました、/usr/local/Cellar/fish/3.1.2/share/fish/functions です。
@@ -167,3 +180,5 @@ export が使えることが言及されていてもいいのに言及されて�
 
 公式が配布している設定なので公式に言及があると思っていました。
 むしろ公式には export は使えないから set を使おうとあります。
+もしかして僕の設定がONになっているのは例外的なものなのでしょうか。
+世界的に使われているはずのシェルなのに、調べてもexportが使えることへの言及を見つけられず、むしろexport使えないという内容の解説しか見つからなくて、気づかないところで何か設定を触ってしまっているのか心配になっています。
