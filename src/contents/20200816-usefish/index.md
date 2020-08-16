@@ -1,6 +1,6 @@
 ---
 path: /to-fish
-created: "2020-08-17"
+created: "2020-08-17 15:00"
 title: fishの環境を作った
 visual: "./visual.png"
 tags: [fish, dotfile]
