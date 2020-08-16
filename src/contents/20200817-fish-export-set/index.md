@@ -35,7 +35,7 @@ export PATH="$HOME/.cargo/bin:$PATH"
 
 でして、export が使えないはずの fish で export が使えていました。
 
-ちなみに [cargo](https://github.com/rust-lang/rustup/issues/478) の Issue では 「export 使えないから set でやるんだ」っていうコメントがついています。
+ちなみに [cargo の Issue](https://github.com/rust-lang/rustup/issues/478) では 「export 使えないから set でやるんだ」っていうコメントがついています。
 
 ## cargo 以外もいけるのかなと思って実験した
 
