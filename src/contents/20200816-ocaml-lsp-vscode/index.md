@@ -1,6 +1,6 @@
 ---
 path: /ocaml-lsp-vscode
-created: "2020-08-16 09:00"
+created: "2020-08-16 15:00"
 title: OCaml の補完とフォーマットをVSCode上で実現するための試行錯誤
 visual: "./visual.png"
 tags: [OCaml, VSCode]
@@ -8,8 +8,8 @@ userId: sadnessOjisan
 isProtect: false
 ---
 
-私は [プログラミングの基礎](https://www.amazon.co.jp/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E3%81%AE%E5%9F%BA%E7%A4%8E-Computer-Science-Library-%E6%B5%85%E4%BA%95/dp/4781911609)や大学の講義資料でプログラミングを勉強しており、OCaml の開発者ではないのですがサンプルコードとして OCaml に出会う機会があります。
-この記事では、そういったコードリーディングを目的とした補完やフォーマットのための環境構築についてメモします。
+私は [プログラミングの基礎](https://www.amazon.co.jp/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E3%81%AE%E5%9F%BA%E7%A4%8E-Computer-Science-Library-%E6%B5%85%E4%BA%95/dp/4781911609)や大学の講義資料でプログラミングを勉強しており、OCaml の開発者ではないもののサンプルコードとして OCaml を読んでいます。
+この記事では、そういったコードリーディングを目的とした補完やフォーマットのための環境構築をしようとしてハマってしまっていたのでそれについてメモします。
 （ビルド周りについては触れません）
 
 筆者の環境は MacOS です。
@@ -56,7 +56,7 @@ The most commonly used opam commands are:
 See 'opam help <command>' for more information on a specific command.
 ```
 
-では`opam`コマンドで OCaml の環境を作っていきます。
+次に`opam`コマンドで OCaml の環境を作っていきます。
 
 ```sh
 opam init
@@ -65,7 +65,7 @@ opam init
 eval $(opam env)
 ```
 
-これで環境が OCaml の環境が使えるようになりました。
+これで OCaml の環境が使えるようになりました。
 試しに`ocaml`と打つと REPL が起動するはずです。
 
 ```sh
@@ -106,8 +106,8 @@ VSCode 上での補完やフォーマットには[vscode-ocaml-platform](https:/
 
 ## 多分うまくいかないと思うのでデバッグするときに役立ちそうな情報を紹介
 
-僕はこの環境を手に入れるのに相当苦労しました。
-多分これ通りにやってもうまくいかないと思うのでデバッグに役立つ知識ををつらつらと書いておきます。
+上に書いた内容は公式Doc似合った情報を切り取っただけなのですが、実際にはうまく動かない箇所があったりしてこの環境を手に入れるのに相当苦労しました。
+opam の入れ方だったり、VSCode の設定次第ではうまくいかないのでどういうデバッグをしたか紹介します。
 
 ### 試行錯誤のために VSCode のリロードを繰り返す
 
@@ -173,7 +173,7 @@ source /Users/ojisan/.opam/opam-init/init.fish > /dev/null 2> /dev/null; or true
 ```
 
 とある通り環境変数を読み込む処理が fish の設定に書かれています。
-（ちなみに僕の fish 環境では `~/.config/fish/config.fish` は設定ファイルではないので、このファイルができたところで環境変数は読まれないし、そもそもこのファイルができていなくて opam 自体も何か不具合がありそう。それはそれはそれで関係話なのですが fish 使っているとこのようなところでもハマるかもなので覚えておこう）
+（ちなみに僕の fish 環境では `~/.config/fish/config.fish` は設定ファイルではないので、このファイルができたところで環境変数は読まれないし、そもそもこのファイルができていなかったので謎は残っている。）
 
 これは bash や zsh で実行したらそれはまた別の設定ファイルになっています。
 つまり、opam を実行したときのシェルの種類に依存します。
@@ -219,5 +219,4 @@ vscode-ocaml-platform は[command](https://github.com/ocamllabs/vscode-ocaml-pla
 
 ## あとがき
 
-OCaml を VSCode でやるとすれば、[OCaml and Reason IDE](https://marketplace.visualstudio.com/items?itemName=freebroccolo.reasonml)の方が圧倒的にスターが多いのでこちらを使ってもいいとは思います。（ただし[vscode-ocaml-platform](https://github.com/ocamllabs/vscode-ocaml-platform)の方が後発で開発も活発なのでいま始めるならこちらに挑戦してみた方が良いとは思います。）
-私は ocaml-lsp が動かない時はこちらを使っていたのですが、 merlin という補完に使える開発支援ツール(このツールは ocaml-lsp にも使われている)や ocamlformat/ocp-indent といったフォーマッターを別途入れて、そのパスを通さないと動かない場合があると言った試行錯誤はこちらでも必要なので、注意してください。
+OCaml を VSCode でやるとすれば、[OCaml and Reason IDE](https://marketplace.visualstudio.com/items?itemName=freebroccolo.reasonml)の方が圧倒的にスターが多いのでこちらを使ってもいいとは思います。ただこっちもこっちで試行錯誤しないと動かない点はあったり、[vscode-ocaml-platform](https://github.com/ocamllabs/vscode-ocaml-platform)の方が後発で開発も活発なのでいま始めるならこちらに挑戦してみた方が良いとは思います。
