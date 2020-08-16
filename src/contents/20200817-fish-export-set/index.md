@@ -3,7 +3,7 @@ path: /fish-export-set
 created: "2020-08-17 09:00"
 title: fish にて export で PATH を通せるのは何故か調べた
 visual: "./visual.png"
-tags: [OCaml, VSCode]
+tags: [fish]
 userId: sadnessOjisan
 isProtect: false
 ---
