@@ -10,7 +10,7 @@ isProtect: false
 
 ## なんか PATH が通ってるんだけど・・・
 
-新PC を fish で設定していて、cargo の設定で何気に
+新 PC を fish で設定していて、cargo の設定で何気に
 
 ```
 source ~/.cargo/env
@@ -45,7 +45,7 @@ export がちゃんと実行されていました。
 
 ## どうして export が使えるのか
 
-というわけで exportコマンドが使える理由を探ってみました。
+というわけで export コマンドが使える理由を探ってみました。
 コマンドが使えるということは fish functions が怪しいので、functions をみてみました。
 
 ```sh
@@ -53,7 +53,7 @@ export がちゃんと実行されていました。
 $ code ~/.config/fish
 ```
 
-fish配下を `export` で全文検索で漁ってみました。
+fish 配下を `export` で全文検索で漁ってみました。
 ここで
 
 ```sh
@@ -68,7 +68,7 @@ end
 
 ## export 関数は定義されているのか関数一覧を調べる
 
-exportがコマンドでなく関数なのであれば
+export がコマンドでなく関数なのであれば
 
 ```sh
 which export
@@ -79,8 +79,7 @@ which export
 関数一覧をみたかったので、`fish_config`をみてみることにしました。
 
 fish は嬉しいことに設定をブラウザで行えます。
-そのブラウザの設定画面にfunction一覧があるので、そこで探してみることにしました。
-
+そのブラウザの設定画面に function 一覧があるので、そこで探してみることにしました。
 
 ```sh
 $ fish_config
@@ -88,7 +87,7 @@ $ fish_config
 
 ![fish_configのfunctionページ](./config.png)
 
-そしてこの画面でexportを探すとありました！
+そしてこの画面で export を探すとありました！
 このような関数として定義されていました。
 
 ```sh
@@ -120,23 +119,23 @@ end
 コードに書いてある通り、set を使って bash compatibility を持った実装にされています。
 
 しかしどうしてこのコマンドが使えるのでしょうか、この関数を使えるようにした覚えはありません。
-なのでfunctionsの仕組みを調べてみました。
+なので functions の仕組みを調べてみました。
 
 ## なぜ export 関数が使えるのか
 
 functions の定義をみてみると /usr/local/Cellar/fish/3.1.2/share/fish/functions/export.fish という位置に入っているようです。
-(Cellar がついているのは brew 経由で fishを入れているからです)
+(Cellar がついているのは brew 経由で fish を入れているからです)
 
-share/ にあるexport は自動で使えるようになっているのでしょうか？
-functionの読み込みについて調べてみました。
+share/ にある export は自動で使えるようになっているのでしょうか？
+function の読み込みについて調べてみました。
 
-公式Docの [autoloading-functions](https://fishshell.com/docs/current/#autoloading-functions)を読んでみると、
+公式 Doc の [autoloading-functions](https://fishshell.com/docs/current/#autoloading-functions)を読んでみると、
 
-> When fish needs to load a function, it searches through any directories in the list variable $fish_function_path for a file with a name consisting of the name of the function plus the suffix '.fish' and loads the first it finds.
+> When fish needs to load a function, it searches through any directories in the list variable \$fish_function_path for a file with a name consisting of the name of the function plus the suffix '.fish' and loads the first it finds.
 
-とあり、$fish_function_path配下の fish ファイルの関数は自動で読み込まれるとのことです。
+とあり、\$fish_function_path 配下の fish ファイルの関数は自動で読み込まれるとのことです。
 
-なのでこの$fish_function_pathが何なのかみてみましょう。
+なのでこの\$fish_function_path が何なのかみてみましょう。
 
 ```sh
 $ echo $fish_function_path
@@ -149,22 +148,22 @@ $ echo $fish_function_path
 
 ## まとめ
 
-* なぜか fish で export コマンドが使える
-* 実際には export コマンドでは無く function
-* fish は $fish_function_path 配下のfunctionを自動で読み込む、export functionはこの配下にあるfunctionなのでコマンドとして使えた。
+- なぜか fish で export コマンドが使える
+- 実際には export コマンドでは無く function
+- fish は \$fish_function_path 配下の function を自動で読み込む、export function はこの配下にある function なのでコマンドとして使えた。
 
 ## 残っている謎
 
-もしご存知でしたら Issues や Twitterなどで教えて欲しいです。
+もしご存知でしたら Issues や Twitter などで教えて欲しいです。
 
 ### Cargo の Issue はなんだったのか
 
-Git History をみてみるとこの機能は2014年からあるようです。
+Git History をみてみるとこの機能は 2014 年からあるようです。
 export が使えることが言及されていてもいいのに言及されていないのが気になりました。
-もしかしてこの設定がOffになっている環境もあるのでしょうか。
-例えば brew 以外の方法で入れたら異なる結果になったり Mac以外を使った場合などはそうなのでしょうか。
+もしかしてこの設定が Off になっている環境もあるのでしょうか。
+例えば brew 以外の方法で入れたら異なる結果になったり Mac 以外を使った場合などはそうなのでしょうか。
 
-### どうして公式Docで言及していないのか
+### どうして公式 Doc で言及していないのか
 
 公式が配布している設定なので公式に言及があると思っていました。
-むしろ公式にはexport は使えないからsetを使おうとあります。
+むしろ公式には export は使えないから set を使おうとあります。
