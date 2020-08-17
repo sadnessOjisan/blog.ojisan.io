@@ -37,7 +37,7 @@ export const pageQuery = graphql`
       sort: { order: DESC, fields: frontmatter___created }
     ) {
       nodes {
-        excerpt
+        excerpt(format: PLAIN, truncate: true)
         frontmatter {
           title
           path
