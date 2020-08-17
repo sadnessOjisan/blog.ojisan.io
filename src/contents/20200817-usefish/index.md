@@ -1,7 +1,7 @@
 ---
 path: /to-fish
 created: "2020-08-17 15:00"
-title: fishの環境を作った
+title: fishを使ってみて分かったメリットや設定のコツ
 visual: "./visual.png"
 tags: [fish, dotfile]
 userId: sadnessOjisan
