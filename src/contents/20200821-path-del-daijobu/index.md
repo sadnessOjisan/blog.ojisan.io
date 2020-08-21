@@ -23,14 +23,14 @@ unset PATH
 set -e PATH
 ```
 
-消えたことを確認します。
+消えたことを確認しましょう。
 
 ```sh
 $ echo $PATH
-
+> 
 ```
 
-すると、これまで使えていたコマンドが使えなくなります。
+そしてコマンドを叩いてみると、これまで使えていたコマンドが使えなくなっていることも確認できます。
 
 ```sh
 % ls
@@ -48,7 +48,7 @@ zsh: command not found: bash
 export PATH="/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin"
 ```
 
-として PATH を通せば動くようになります。
+などとして PATH を通せば動くようになります。
 
 ## shell を切り替えると元に戻る
 
@@ -67,8 +67,7 @@ To update your account to use zsh, please run `chsh -s /bin/zsh`.
 For more details, please visit https://support.apple.com/kb/HT208050.
 
 bash-3.2$ ls
-LICENSE                 gatsby-browser.js       gatsby-node.js          netlify.toml            package.json            src                     types
-README.md               gatsby-config.js        gatsby-ssr.js           node_modules            public                  tsconfig.json           yarn.lock
+LICENSE  gatsby-browser.js gatsby-node.js  netlify.toml...
 ```
 
 この理由を僕はよく分かっていませんでした。
@@ -117,11 +116,14 @@ fi
 このファイルを見てみると
 
 ```sh
-less /usr/libexec/path_helper
-^@^@^@^@^@^@^@^@^@^@^@^@^@^A^@^@^@^@^P^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^P^@^@^@
-^@^@^@^E^@^@^@^E^@^@^@^F^@^@^@^@^@^@^@__text^@^@^@^@^@^@^@^@^@^@__TEXT^@^@^@
-^@^@^@^@^@^@^@^@^@^A^@^@^@<B2>^D^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^D
-^@<80>^@^@^@^@^@^@^@^@^@^@^@^@__stubs^@^@^@^@^@^@^@^@^@__TEXT^@^@^@^@^@^@^@^@^@^@^Z^M^@^@^A^@^@^@~^@^@^@^@^@^@^@^Z^M^@^@^A^@^@^@^@^@^@^@^@^@^@^@^H^D^@<80>^@^@^@^@^F^@^@^@^@^@^@^@__stub_helper^@^@^@__TEXT^@^@^@^@^@^@^@^@^@^@<98>^M^@^@^A^@^@^@<E2>^@^@^@^@^@^@^@<
+$ less /usr/libexec/path_helper
+@^@^@^@^@^@^@^@^@^@^@^@^@^A^@^@^
+@^@^P^@^@^@^@^@^@^@^@^@^@^@^@^@^
+@^@^P^@^@^@^@^@^@^E^@^@^@^E^@^@^
+@^F^@^@^@^@^@^@^@__text^@^@^@^@^
+@^@^@^@^@^@__TEXT^@^@^@^@^@^@^@^
+@^@^@^@^A^@^@^@<B2>^D^@^@^@^@^@^
+@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^@^
 ```
 
 と、バイナリだったのでとりあえず実行してみると、
