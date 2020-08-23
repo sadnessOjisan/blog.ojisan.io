@@ -295,6 +295,166 @@ export const TodoDispatchContext = createContext<{
 }>({ dispatch: () => {} })
 ```
 
+### 実装例
+
+reducer の定義
+
+```ts:title=src/reducer/TodoReducer.ts
+// action type
+
+import { TodoType } from "../type";
+
+const SELECT_TODO = "SELECT_TODO";
+const SAVE_TODO = "SAVE_TODO";
+
+const actionTypes = {
+  SELECT_TODO,
+  SAVE_TODO,
+} as const;
+
+// action
+
+const selectTodo = (todo: TodoType) => ({
+  type: actionTypes.SELECT_TODO,
+  payload: todo,
+});
+const saveTodo = (todo: TodoType) => ({
+  type: actionTypes.SAVE_TODO,
+  payload: todo,
+});
+
+export const actions = {
+  selectTodo,
+  saveTodo,
+};
+
+export type ActionType =
+  | ReturnType<typeof selectTodo>
+  | ReturnType<typeof saveTodo>;
+
+// store
+export type StoreType = {
+  selectedTodo: TodoType | null;
+  todos: TodoType[];
+};
+
+export const initialState: StoreType = {
+  selectedTodo: null,
+  todos: [],
+};
+
+export default (state: StoreType, action: ActionType): StoreType => {
+  switch (action.type) {
+    case "SELECT_TODO":
+      return { ...state, selectedTodo: action.payload };
+    case "SAVE_TODO":
+      return { ...state, todos: [...state.todos, action.payload] };
+    default:
+      throw new Error("unexpected action type");
+  }
+};
+
+```
+
+context
+
+```ts:title=src/context/TodoContext.ts
+import { createContext } from "preact";
+import { StoreType, ActionType, initialState } from "../reducer/TodoReducer";
+
+export const TodoStateContext = createContext<{
+  state: StoreType;
+}>({ state: initialState });
+
+export const TodoDispatchContext = createContext<{
+  dispatch: (action: ActionType) => void;
+}>({ dispatch: () => {} });
+```
+
+reducerをcontextで配信
+
+```tsx:title=src/index.tsx
+import { h, render, } from "preact";
+import { useReducer } from "preact/hooks";
+import { Router, Route } from "preact-router";
+import reducer, {
+  initialState,
+} from "./reducer/TodoReducer";
+import { TodoStateContext, TodoDispatchContext } from "./context/TodoCotext";
+import { Todos } from "./pages/Todos";
+import { Detail } from "./pages/Detail";
+
+const Main = () => {
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  return (
+    <TodoStateContext.Provider value={{ state, }}>
+      <TodoDispatchContext.Provider value={{ dispatch }}>
+        <Router>
+          <Route path="/" component={Todos}></Route>
+          <Route path="/todos/:id" component={Detail}></Route>
+        </Router>
+      </TodoDispatchContext.Provider>
+    </TodoStateContext.Provider>
+  );
+};
+
+render(<Main></Main>, document.body);
+```
+
+UIから利用
+
+```tsx:title=src/pages/Todo.tsx
+import { h } from "preact";
+import { useContext } from "preact/hooks";
+import { Link } from "preact-router";
+import { TodoStateContext, TodoDispatchContext } from "../context/TodoCotext";
+import { actions } from "../reducer/TodoReducer";
+import { genRandomId } from "../helper";
+import { Item } from "../component/Item";
+
+export const Todos = () => {
+  const todoStateContext = useContext(TodoStateContext);
+  const todoDispatchContext = useContext(TodoDispatchContext);
+  const { state } = todoStateContext;
+  const { dispatch } = todoDispatchContext;
+  return (
+    <div>
+      <hi>TODO LIST</hi>
+      <div>
+        {state.todos.map((todo) => (
+          <Link
+            href={`/todos/${todo.id}`}
+            onClick={() => {
+              dispatch(actions.selectTodo(todo));
+            }}
+          >
+            <Item data={todo} key={todo.id}></Item>
+          </Link>
+        ))}
+      </div>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          try {
+            // @ts-ignore
+            const todo = e.target.todo.value as string;
+            const id = genRandomId();
+            dispatch(actions.saveTodo({ id, todo }));
+          } catch (e) {
+            console.error(e);
+            alert("入力の保存に失敗しました。");
+          }
+        }}
+      >
+        <Input name="todo"></Input>
+        <button>submit</button>
+      </form>
+    </div>
+  );
+};
+```
+
 ## スタイリング
 
 [goober](https://github.com/cristianbote/goober) が良いと思います。
