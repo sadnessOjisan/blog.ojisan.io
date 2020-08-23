@@ -9,7 +9,7 @@ isFavorite: false
 isProtect: false
 ---
 
-所用で先週preactを初めて触っていたのですが、環境構築をしているときに「この情報ドキュメントにないよね？」「情報が間違ってそう？」っていうのを節々で感じた部分があって難航したので、これから環境構築する人がググった時の助けになるようメモを残しておきます。
+所用で先週[preact](https://preactjs.com/)を初めて触っていたのですが、環境構築をしているときに「この情報ドキュメントにないよね？」「情報が間違ってそう？」っていうのを節々で感じた部分があって難航したので、これから環境構築する人がググった時の助けになるようメモを残しておきます。
 とはいえ自分がpreact初心者で自分が間違っている可能性も大いにあるので、そういうのがありましたら指摘していただけると助かります。
 
 React をある程度書いたことある人が preact に挑戦することを想定して書いています。
@@ -145,7 +145,7 @@ h関数はReactでいうcreateElement相当の関数です。
 
 preact の世界では h関数をimportしておけばビルドが通るようになります。
 ただしそれをチェックしてくれているTypeScriptコンパイラはそれを知らないので、このh関数の存在を知らせる必要があります。
-とはいえjsxFactory が何かをコンパイラに教えればいいだけなので、jsxのFactory関数がhであることをオプションで指定します。
+とはいえcreateElement 相当のもの が何かをコンパイラに教えればいいだけなので、jsxのFactory関数がhであることをオプションで指定します。
 
 それが jsxFactoryです。
 
@@ -168,20 +168,20 @@ preact の世界では h関数をimportしておけばビルドが通るよう�
 {
   "compilerOptions": {
     "jsxFactory": "h",
-    "target": "es5", /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017', 'ES2018', 'ES2019', 'ES2020', or 'ESNEXT'. */
-    "module": "commonjs", /* Specify module code generation: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015', 'es2020', or 'ESNext'. */
-    "jsx": "react", /* Specify JSX code generation: 'preserve', 'react-native', or 'react'. */
-    "strict": true, /* Enable all strict type-checking options. */
-    "esModuleInterop": true, /* Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports. Implies 'allowSyntheticDefaultImports'. */
-    "skipLibCheck": true, /* Skip type checking of declaration files. */
-    "forceConsistentCasingInFileNames": true /* Disallow inconsistently-cased references to the same file. */
+    "target": "es5", 
+    "module": "commonjs",
+    "jsx": "react", 
+    "strict": true,
+    "esModuleInterop": true, 
+    "skipLibCheck": true, 
+    "forceConsistentCasingInFileNames": true
   }
 }
 ```
 
 もちろん、target や module などのオプションは好きに変えても良いです。
 
-（せっかく preact という省エネ環境でやるので module は ESNext にして TreeShaking できるようにした方が良いと思った方もいらっしゃるとは思いますが、Hello World するだけなのでいまは `npx tsc --init` の設定をそのまま使いまわしています。）
+（せっかく preact という省エネ環境でやるので module は ESNext にした方が良いと思った方もいらっしゃるとは思いますが、Hello World するだけなのでいまは `npx tsc --init` の設定をそのまま使いまわしています。）
 
 これでビルドできるようになったので、アプリケーションを開発していきます。
 
@@ -212,11 +212,11 @@ render(<Main />, document.body);
 ただし、この書き方だと path は型定義が合いません。
 
 ```sh
-ype '{ path: string; }' is not assignable to type 'IntrinsicAttributes'.
+type '{ path: string; }' is not assignable to type 'IntrinsicAttributes'.
   Property 'path' does not exist on type 'IntrinsicAttributes'.ts(2322)
 ```
 
-ドキュメントにはないAPIなのですが、
+そこで、ドキュメントにはないAPIなのですが
 
 ```jsx
 <Router>
@@ -233,19 +233,23 @@ ype '{ path: string; }' is not assignable to type 'IntrinsicAttributes'.
 
 とあるので、そもそも preact-router を使わずに react-router を使えば解決できる問題だったのかもしれません。ただ個人的には preact-router でも問題なさそうなのでこれを使います。
 
-(nested routes が必要になるのは大規模なアプリケーションだしそんな大規模なものだったら(どうせ肥大化するので)reactでよくないかと思うし、そもそもnested routeもnestしたルーティングを平でトップレベルに持てば作れる。そりゃあサイドバーの内側やタブの中だけルーティングしたいケースは対応できないけどそれもquery parameterとかで乗り切れるはずと思っています！)
+(nested routes が必要になるのは大規模なアプリケーションだしそんな大規模なものだったら(どうせ肥大化するので)reactでよくないかと思うし、そもそもnested routeもnestしたルーティングを平でトップレベルに持てば作れるのでreact-routerを採用する理由ってあまりないような気がします。もちろんサイドバーの内側やタブの中だけルーティングしたいといったケースは対応できませんが、それもquery parameterとかで乗り切れるはずです。)
 
 ## 状態管理
 
 Preactではhooksが使えます！
 つまり useReducer と useContext があります。
 なのでglobal state の管理も容易です。
-一応 [preact-redux](https://github.com/developit/preact-redux) というのはありますが、バンドルサイズ増やしたくないのでこれを使いました。
+一応 [preact-redux](https://github.com/developit/preact-redux) というのはありますが、バンドルサイズ増やしたくないので採用を見送りました。
 middlewareのような物が欲しくなるとこちらを検討してもいいかもしれません。
 
 ### preact での hooksの使い方
 
 preact/compat もしくは preact/hooks に含まれています。
+
+```jsx
+import { useReducer } from "preact/compat";
+```
 
 ### preact/compat ってなに？
 
@@ -282,8 +286,8 @@ FYI: https://github.com/facebook/react/issues/15156
 Contextを使った状態管理の例としては[React Context を用いた簡易 Store](https://mizchi.dev/202005271609-react-app-context)の実装が実感が湧くと思います。
 
 Reactの場合@types/reactが提供しているDispatchという型でcreateContextのジェネリクスに渡して型をしばれます。
-しかし preact の場合、Dispatchという型が提供されていません。
-ここはReactとの差分となります。
+**しかし preact の場合、Dispatchという型が提供されていません。**
+**ここはReactとの差分となります。**
 が、型推論させてみるとこれはuseContextで渡すaction関数そのもの型が入ることがわかるのでcreateContext時にはその型を指定すれば問題ないです。
 
 ```ts
@@ -298,9 +302,9 @@ export const TodoDispatchContext = createContext<{
 
 ### goober は軽量でバンドルを無闇に増やさない
 
-スタイリングに関しては、バンドルを増やしたくないしランタイムでの実行も減らしたいので CSS in JS は避けるべきなのかとも思ったのですが、設定・補完・行数の節約といった面での開発体験を考えて採用することにしました。
+スタイリングに関しては、バンドルサイズを増やしたくないしランタイムでの実行コストも減らしたいので CSS in JS は避けるべきなのかとも思ったのですが、設定・補完・行数の節約といった面での開発体験を考えて採用することにしました。
 
-かといってここで入れるライブラリは慎重になりました。
+とはいえここで入れるライブラリは慎重になりました。
 例えば styled-componentsやemotion などは バンドルサイズが 10 kb あり preact 本体と同じくらいのサイズがあります。
 ここでバンドルサイズを増やすと「なんのためにpreactを入れたのじゃ」となるのでどうしたらいいか頭を悩ましていました。
 
@@ -361,7 +365,7 @@ const Items = styled("div")`
 
 #### global css も簡単に読み込める
 
-globという機能で実現できます。(blobalの略っぽい)
+globという機能で実現できます。(globalの略っぽい)
 reset.css の実現に使えます。
 
 ```jsx
@@ -397,9 +401,13 @@ glob`
 
 最後にこの設定をする上で公式Docだけ見てると多分ハマるであろうことだけまとめます。
 
-* TSを採用するならjsxFactory の設定を忘れずに
-* preact-routerでページをだし分けるにはRouterだけでなく Route がある
+* TSを採用するならjsxFactory の設定を忘れずに, それ以外はReactの設定と全く同じものが使える
+* preact-routerでページを出し分けるにはRouterだけでなく Route も使う
 * preact 本体に hooks は入っていない。preact配下のpathから見つけ出そう。
 * Dispatch の型定義はそもそもpreactにないが、型定義自体がないのでDispatchがなくても型検査を通せる
 * スタイリングは gooberが良さそう。メディアクエリはstyled-componentsと同じ書き方ができる。
+
+## ソースコード
+
+https://github.com/ojisan-toybox/preact-todo
 
