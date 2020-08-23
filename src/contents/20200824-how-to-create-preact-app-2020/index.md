@@ -1,7 +1,7 @@
 ---
-path: /-how-to-create-preact-app-2020
-created: "2020-08-21 15:00"
-title: preactの環境構築 of 2020
+path: /how-to-create-preact-app-2020
+created: "2020-08-24 09:00"
+title: Preactの環境構築 of 2020
 visual: "./visual.png"
 tags: [preact, TypeScript]
 userId: sadnessOjisan
@@ -9,16 +9,16 @@ isFavorite: false
 isProtect: false
 ---
 
-所用で先週preactを初めて触っていたのですが、環境構築をしているときに「この情報ドキュメントになくね？」「間違ってるくね？」っていうのを節々で感じたので、これから環境構築する人がググった時にこのドキュメントを見つけられるようにメモを残します。
-とはいえ自分が初心者ということで自分が間違っている可能性も大いにあるのでそういうのがありましたら指摘していただけると助かります。
+所用で先週preactを初めて触っていたのですが、環境構築をしているときに「この情報ドキュメントにないよね？」「情報が間違ってそう？」っていうのを節々で感じた部分があって難航したので、これから環境構築する人がググった時の助けになるようメモを残しておきます。
+とはいえ自分がpreact初心者で自分が間違っている可能性も大いにあるので、そういうのがありましたら指摘していただけると助かります。
 
 React をある程度書いたことある人が preact に挑戦することを想定して書いています。
-主に「React でやるときのあれは preact でどうするんや」という情報です。
+主に「React でやるときのあれは preact でどうするんだっけ」という情報です。
 
 ## 目指すゴール
 
 環境構築のゴールが何かというと一つには Hello World があるとは思いますが、それよりかはもっと踏み込んでアプリケーションとして欲しくなる機能をとりあえず全部実装していこうと思います。
-それが何かというのは独断と偏見でしかないのですが、
+それが何かというのは独断と偏見で言うと、
 
 * Build できて Hello World が表示される
 * ルーティングがある
@@ -26,17 +26,19 @@ React をある程度書いたことある人が preact に挑戦することを
 * スタイリングできる
 
 を一旦のゴールにおこうと思います。
+ということで詳細ページ付きTODOリストを作ってみようと思います。
 
 またいま preact を始めるならということで、
 
-* preact X
+* Preact X
 * TypeScript
 
-を想定しています。
+の利用を想定しています。
 
 ## まずはHello World
 
-TypeScript を使って Hello World する例、公式にあって欲しい・・・
+TypeScript を使って Hello World するところまでまず作ります。
+この例が公式にあって欲しい・・・
 
 ### いつものおまじない
 
@@ -46,9 +48,9 @@ React + TS で Hello World するとき、
 
 `npm i -D typescript webpack webpack-cli ts-loader html-webpack-plugin webpack-dev-server` みたいなことをすると思うのですが preact でも全く同じ構成を使えます。
 
-webpack.config.js もこんな感じで書きます。
+webpack.config.js もいつも通りの感じで書きます。
 
-```js
+```js:title=twebpack.config.js
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
 
@@ -88,9 +90,9 @@ module.exports = {
 $ npx tsc --init
 ```
 
-このときに、適当な preact のサンプルコードを走らせてみましょう。
+そしてこのまま、適当な preact のサンプルコードを走らせてみましょう。
 
-```js
+```tsx:title=src/index.tsx
 import { h, render } from 'preact';
 
 const Main = () => {
@@ -105,16 +107,53 @@ render(<Main></Main>, document.body);
 
 ### preact の h関数をビルドする
 
-preact には h関数というReactでいうcreateElement相当の関数があります。
+先ほどのビルドエラーは
 
-typescript には --jsx react というオプションでjsxをビルドできますが、いまはreactじゃないのでビルドできません。
-そういうときに jsxのFactory関数 を明示する必要があり、それが jsxFactory というオプションです。
+```sh
+TS17004: Cannot use JSX unless the '--jsx' flag is provided.
+``` 
+
+とでるはずなので、jsxオプションにreactをつけて実行します。
+すると、
+
+```sh
+TS2686: 'React' refers to a UMD global, but the current file is a module. Consider adding an import instead.
+```
+
+というエラーがでます。
+
+これはつまり、
+
+```sh
+import React from 'react'
+```
+
+を書いておく必要があります。
+Reactコンポーネントで使いもしないのに書く必要があるおまじないのあれです。
+
+これは [公式DocのReact がスコープ内にあること](https://ja.reactjs.org/docs/jsx-in-depth.html#react-must-be-in-scope) にある通り、
+
+> JSX は React.createElement の呼び出しへとコンパイルされるため、React ライブラリは常に JSX コードのスコープ内にある必要があります。
+
+という制限があるためです。
+
+でもいまはpreact環境です。
+これを解決する方法を考えないといけません。
+
+そこで preact の h関数を使います。
+h関数はReactでいうcreateElement相当の関数です。
+
+preact の世界では h関数をimportしておけばビルドが通るようになります。
+ただしそれをチェックしてくれているTypeScriptコンパイラはそれを知らないので、このh関数の存在を知らせる必要があります。
+とはいえjsxFactory が何かをコンパイラに教えればいいだけなので、jsxのFactory関数がhであることをオプションで指定します。
+
+それが jsxFactoryです。
 
 > Specify the JSX factory function to use when targeting react JSX emit, e.g. 'React.createElement' or 'h'. Requires TypeScript version 2.1 or later.
 
 ここに h を指定します。
 
-```json
+```json:title=tsconfig.json
 {
   "compilerOptions": {
     "jsxFactory": "h",
@@ -144,9 +183,11 @@ typescript には --jsx react というオプションでjsxをビルドでき�
 
 （せっかく preact という省エネ環境でやるので module は ESNext にして TreeShaking できるようにした方が良いと思った方もいらっしゃるとは思いますが、Hello World するだけなのでいまは `npx tsc --init` の設定をそのまま使いまわしています。）
 
+これでビルドできるようになったので、アプリケーションを開発していきます。
+
 ## ルーティング
 
-preact-router が使えます。
+ルーターには [preact-router](https://github.com/preactjs/preact-router) が使えます。
 
 公式にある通り、
 
@@ -168,9 +209,14 @@ render(<Main />, document.body);
 ```
 
 として使え、よく見る Router という感じがします。
-ただし、この書き方だと path は型定義があいません。
+ただし、この書き方だと path は型定義が合いません。
 
-ドキュメントにはないのですが、
+```sh
+ype '{ path: string; }' is not assignable to type 'IntrinsicAttributes'.
+  Property 'path' does not exist on type 'IntrinsicAttributes'.ts(2322)
+```
+
+ドキュメントにはないAPIなのですが、
 
 ```jsx
 <Router>
@@ -191,10 +237,11 @@ render(<Main />, document.body);
 
 ## 状態管理
 
-hooksが使えます！
+Preactではhooksが使えます！
 つまり useReducer と useContext があります。
 なのでglobal state の管理も容易です。
-バンドルサイズ増やしたくないのでこれを使いましょう！
+一応 [preact-redux](https://github.com/developit/preact-redux) というのはありますが、バンドルサイズ増やしたくないのでこれを使いました。
+middlewareのような物が欲しくなるとこちらを検討してもいいかもしれません。
 
 ### preact での hooksの使い方
 
@@ -212,10 +259,6 @@ React にある機能を preact で使うための変換機能です。
 とあり、preact/compat があればReactに依存する3rd partyライブラリを入れることも可能になってきます。
 さきほどのreact-routerの例がそれです。
 
-ただし、[Switching to Preact (from React)](https://preactjs.com/guide/v10/switching-to-preact/)を見る限りバンドルサイズを2kbあるらしく、普通はTreeShakingやCode Eliminationが効くはずとはいえhooksを使うだけなら不用意にインストールしない方が良いのではと思います。
-使っているバンドラーライブラリや設定やライブラリの依存によってはコードの最小化ができない場合があります。
-（この説明あってるか自信ないので詳しい人教えてほしいです。）
-
 ### パフォーマンスがネックになるのでは？
 
 Context は [公式の注意事項](https://ja.reactjs.org/docs/context.html#caveats)によると、
@@ -229,19 +272,29 @@ Context は [公式の注意事項](https://ja.reactjs.org/docs/context.html#cav
 この手の問題は Context を分割することで防いだり、もし実装してしまっていても memo などを使って再レンダリングのための計算そのものを防ぐことで解消できます。
 Contextにまつわるトラブルは[useContext + useState 利用時のパフォーマンスはProviderの使い方で決まる！かも。。。？](https://qiita.com/jonakp/items/58c9c383473d02479ea7)などにまとまっているのでご覧ください。
 
+あと memo を解決策についてはこちらのIssueをご覧ください。まとまっててとても助かりました。
+
+FYI: https://github.com/facebook/react/issues/15156
+
 
 ### Dispatchの型定義がない
 
 Contextを使った状態管理の例としては[React Context を用いた簡易 Store](https://mizchi.dev/202005271609-react-app-context)の実装が実感が湧くと思います。
-（さらっと解説もなしにContext分割してる・・・先の節に書いた性能劣化の解決策の一つです。）
 
 Reactの場合@types/reactが提供しているDispatchという型でcreateContextのジェネリクスに渡して型をしばれます。
 しかし preact の場合、Dispatchという型が提供されていません。
-が、型推論させてみるとこれはuseContextで渡すaction関数そのもの型が入ることがわかるのでcreateContext時にはその型を指定します。
+ここはReactとの差分となります。
+が、型推論させてみるとこれはuseContextで渡すaction関数そのもの型が入ることがわかるのでcreateContext時にはその型を指定すれば問題ないです。
+
+```ts
+export const TodoDispatchContext = createContext<{
+  dispatch: (action: ActionType) => void;
+}>({ dispatch: () => {} });
+```
 
 ## スタイリング
 
-[goober](https://github.com/cristianbote/goober) が良いと思います！
+[goober](https://github.com/cristianbote/goober) が良いと思います。
 
 ### goober は軽量でバンドルを無闇に増やさない
 
@@ -252,7 +305,7 @@ Reactの場合@types/reactが提供しているDispatchという型でcreateCont
 ここでバンドルサイズを増やすと「なんのためにpreactを入れたのじゃ」となるのでどうしたらいいか頭を悩ましていました。
 
 preactに詳しそうな先人の[ビルドサイズ要求環境でモダンフロントエンドをやる (主に preact の話)](https://mizchi.dev/202006261728-minimal-js)を見てるとどうやら goober というのがあるらしいです。
-これは まさしく ちょうど僕が悩んでいたようなバンドルサイズへの懸念から生まれたライブラリで、「CSS in JSライブラリっていってもどうせstyled しか使わないこともあるからそれだけを持ってきたぜ」といったライブラリです。
+これは まさしく ちょうど僕が悩んでいたようなバンドルサイズへの懸念から生まれたライブラリのようで、「CSS in JSライブラリっていってもどうせstyled しか使わないこともあるからそれだけを持ってきたぜ」といった解決策が実装されています。
 
 ### 必要なユースケースは全部満たせそう
 
@@ -261,18 +314,26 @@ preactに詳しそうな先人の[ビルドサイズ要求環境でモダンフ�
 #### 上書きができる
 
 コンポーネントの上書きはできます。
-
 emotionやstyled-componentsでやる時の方法と同じです。
 
 コンポーネントをラップし、
 
-```jsx
-styled(Item)`
+```tsx
+import { styled } from "goober";
+import { Item as _Item } from "../component/Item";
 
-`
+const Item = styled(_Item)`
+  border: solid 1px #ccc;
+  border-radius: 8px;
+  margin: 4px 12px;
+  @media screen and (max-width: 450px) {
+    flex-direction: column;
+    margin: 12px 0px;
+  }
+`;
 ```
 
-className を渡すと
+ラップ対象にclassName を渡すと
 
 ```jsx
 <div className={props.className} />
@@ -280,7 +341,7 @@ className を渡すと
 
 スタイリングの上書きができます。
 
-レイアウトのようなものは親からスタイルを指定することでコンポーネントのポータビリティが上がるのでやりたいテクニックですね。
+レイアウトのようなものは親からスタイルを指定することでコンポーネントのポータビリティが上がるのでやりたいテクニックなので使っていきましょう。
 
 #### メディアクエリが使える
 
@@ -288,17 +349,51 @@ className を渡すと
 
 styled-components と同じ書き方でできます。
 
+```tsx
+const Items = styled("div")`
+  display: flex;
+  flex-direction: row;
+  @media screen and (max-width: 450px) {
+    flex-direction: column;
+  }
+`;
+```
+
 #### global css も簡単に読み込める
 
-injectStyleという機能で実現できます。
-reset.css の実現などにご利用ください。
+globという機能で実現できます。(blobalの略っぽい)
+reset.css の実現に使えます。
+
+```jsx
+import { glob } from "goober";
+
+glob`
+  *,
+  *:after,
+  *:before {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+  }
+
+  html {
+    font-size: 62.5%;
+  }
+
+  body {
+    box-sizing: border-box;
+  }
+`;
+```
+
+これを呼ぶだけでGlobalCSSが適用されます。
 
 ## おわりに
 
-といった感じで最低限の昨日は実現できることがわかりました。
+といった感じでpreactを使って見た感想としては、環境構築がReactとの差分があったりドキュメントを見つけられなかったりで苦戦するところがあったのですが、最低限の機能は実現できることがわかりました。
 ぶっちゃけ自分がアプリ開発する分にはこれらの機能さえあればどんなものでも作れると思っているので preact で十分に実務で戦えそうだなと思いました。
-とはいえ preact が要求される過酷な環境での開発をする機会はないので、技術選定ではReact を選ぶとは思います。
-いつかpreact を使わないと解決できないような仕事がもらえるようにこれからも頑張っていきます！
+とはいえ preact が要求される過酷な環境での開発をする機会は今のところはないので、技術選定ではReact を選ぶとは思います。
+ただいつかpreact を使わないと解決できないような限界を追求する系の仕事をしたいので、そういった仕事が任されるようにこれからも勉強を頑張ります！
 
 最後にこの設定をする上で公式Docだけ見てると多分ハマるであろうことだけまとめます。
 
