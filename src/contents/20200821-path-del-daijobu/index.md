@@ -9,11 +9,11 @@ isFavorite: false
 isProtect: false
 ---
 
-PATHのことちゃんと理解していなかったのでちょっと勉強したって話です。
+PATH のことちゃんと理解していなかったのでちょっと勉強したって話です。
 
-## PATHを消すとどうなるか
+## PATH を消すとどうなるか
 
-PATHを消します。
+PATH を消します。
 
 ```sh
 # bash/zsh
@@ -27,7 +27,7 @@ set -e PATH
 
 ```sh
 $ echo $PATH
-> 
+>
 ```
 
 そしてコマンドを叩いてみると、これまで使えていたコマンドが使えなくなっていることも確認できます。
@@ -40,7 +40,7 @@ zsh: command not found: ls
 zsh: command not found: bash
 ```
 
-それもそのはず、これらのコマンドは /bin に含まれており、そのコマンドへのPATHを消してしまったからです。
+それもそのはず、これらのコマンドは /bin に含まれており、そのコマンドへの PATH を消してしまったからです。
 
 なので、
 
@@ -72,31 +72,31 @@ LICENSE  gatsby-browser.js gatsby-node.js  netlify.toml...
 
 この理由を僕はよく分かっていませんでした。
 なぜなら PATH などの設定は .bashrc や .zshrc やら .eshenv から読まれるはずで、そこで環境変数をセットしていたはずだからです。
-そしてそれらのファイルにbinへのPATHは通してなかったからです。
-「勝手にPATHが作られるならこれまで 設定ファイルに書いていた設定はなんだったんだ」という気持ちになりました。
+そしてそれらのファイルに bin への PATH は通してなかったからです。
+「勝手に PATH が作られるならこれまで 設定ファイルに書いていた設定はなんだったんだ」という気持ちになりました。
 
-ただこれも冷静に考えるとそもそもbashコマンドとかが使えているので、ユーザーが設定しているPATH以外にもデフォルトで使うPATHを設定している場所があるはずです。
-そこでこの初期PATHはどこで作られるか調べました。
+ただこれも冷静に考えるとそもそも bash コマンドとかが使えているので、ユーザーが設定している PATH 以外にもデフォルトで使う PATH を設定している場所があるはずです。
+そこでこの初期 PATH はどこで作られるか調べました。
 
-### etcの設定
+### etc の設定
 
 「PATH 消す 復活」やら「PATH 読み込み 仕組み 初期」とかでググっていたら、 /etc 配下にある設定が使われていることがわかりました。
 
-[Pocketstudio.jp Linux Wiki](http://pocketstudio.jp/linux/?%A5%D1%A5%B9(PATH)%A4%CE%B3%CE%C7%A7%A4%C8%C0%DF%C4%EA%CA%FD%CB%A1%A4%CF%A1%A9)をみていると
+[Pocketstudio.jp Linux Wiki](<http://pocketstudio.jp/linux/?%A5%D1%A5%B9(PATH)%A4%CE%B3%CE%C7%A7%A4%C8%C0%DF%C4%EA%CA%FD%CB%A1%A4%CF%A1%A9>)をみていると
 
 > 各ユーザの .bash_profile の中には、ログイン後に /etc/profile ファイルを読み込むような記述があるからです。
 
-とあり、etc配下に設定があるようです。
+とあり、etc 配下に設定があるようです。
 
-etc, なんかUNIXが云々みたいな話で出てくるやつだったなと思いながら[電算用語の基礎知識](https://www.wdic.org/w/TECH//etc)などで調べていると、
+etc, なんか UNIX が云々みたいな話で出てくるやつだったなと思いながら[電算用語の基礎知識](https://www.wdic.org/w/TECH//etc)などで調べていると、
 
-> UNIXやPOSIX準拠OS(Linux等)で、もっぱら、そのコンピューター用のシステム設定ファイルなどを格納するために使われるディレクトリ。
+> UNIX や POSIX 準拠 OS(Linux 等)で、もっぱら、そのコンピューター用のシステム設定ファイルなどを格納するために使われるディレクトリ。
 
 とあり、どうやらここにシェルの標準が入ってそうなことがわかりました。
 ここを漁ると `/etc/profile`と`/etc/bashrc` といういかにも怪しいファイルがありました。
 
 これらはログインシェル・インタラクティブシェルの初期読み込みファイルです。
-shellを立ち上げるとまずは/etc/profileが読まれるとのことで、このコードを見てみましょう。
+shell を立ち上げるとまずは/etc/profile が読まれるとのことで、このコードを見てみましょう。
 こういった設定の読み込み順序については [A Memorandum](https://blog1.mammb.com/entry/2019/12/01/090000) がわかりやすかったです。
 
 ```sh:title=profile
@@ -135,19 +135,19 @@ PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"; export PATH;
 
 として出ました。
 
-profileではこの文字列を `eval` としてが実行するので、PATHに `/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin` が入るという仕掛けでした。
+profile ではこの文字列を `eval` としてが実行するので、PATH に `/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin` が入るという仕掛けでした。
 
-## というわけでPATHを消しても大丈夫
+## というわけで PATH を消しても大丈夫
 
-PATHを消してもshellを開き直すと復活するので大丈夫であることがわかりました。
+PATH を消しても shell を開き直すと復活するので大丈夫であることがわかりました。
 
-ただし当たり前のことですが注意は必要で、~/.bashrc などのファイルは /etc/.profileが読み込まれた後に読まれるので、その中でPATHを上書くとデフォルトのPATHが読まれなくなります。
+ただし当たり前のことですが注意は必要で、~/.bashrc などのファイルは /etc/.profile が読み込まれた後に読まれるので、その中で PATH を上書くとデフォルトの PATH が読まれなくなります。
 `export PATH="<追加したいパス名>:$PATH"` など:をつけてお尻に追加していきましょう。
-またPATHを修正する時に /etc を直接触る行為も危険な行為です。
+また PATH を修正する時に /etc を直接触る行為も危険な行為です。
 ここが壊れると復旧が難しくなります。
 
 ## まとめ
 
-* PATH は デフォルトで通っているものがある。("/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin")
-* /etc/profile に大元のPATH変数の定義があり、シェルのログイン時にこれが読み込まれる。
-* shellを起動するたびに環境変数が読み込まれるので、環境変数PATHを消しても、別タブでshellを開くなどすれば簡単に復活させられる。
+- PATH は デフォルトで通っているものがある。("/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin")
+- /etc/profile に大元の PATH 変数の定義があり、シェルのログイン時にこれが読み込まれる。
+- shell を起動するたびに環境変数が読み込まれるので、環境変数 PATH を消しても、別タブで shell を開くなどすれば簡単に復活させられる。
