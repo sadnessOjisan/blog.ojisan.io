@@ -14,11 +14,12 @@ isProtect: false
 
 ![ピンタレストのトップページ](./pintarest.png)
 
-こういうデザインなんというのでしょうか。
+実は筆者はこういうデザインなんといえばいいのか分かってないです。
 いつも「[ピンタレスト](https://www.pinterest.jp/)っぽいやつ」「Masonry レイアウト」とか言ったり言われています。
+ググってもそういう表現している人はいます、Masonry like などと言ったりもしています。
 ちなみに [Masonry](https://masonry.desandro.com/) はこれを実現する jQuery プラグインです。
 
-このピンタレストUIはこのブログのトップページでも使われています。
+このUIはこのブログのトップページでも使われています。
 それを実装したときの話や辛かった話をしたいと思います。
 
 ![blogのトップページ](./blogtop.png)
@@ -55,7 +56,9 @@ FYI: https://digipress.info/tech/pure-css-flexbox-masonry-sample/
 
 FYI: https://w3bits.com/css-masonry/
 
-ただしこのブログはGridに対応されていないブラウザからも見られており、その環境での動作確認ができないこともあり実装は見送りました。
+ただしこのブログはGridに対応されていないブラウザからも見られており、その環境での動作確認ができないこともあり、さらにはポリフィルも大変そうだったので実装は見送りました。
+
+FYI: https://ics.media/entry/17403/
 
 ## 一番簡単なMasonry対応
 
@@ -67,14 +70,53 @@ CSS3には `column-count` というプロパティがあり、これを使うこ
 この[break-inside](https://developer.mozilla.org/ja/docs/Web/CSS/break-inside)は生成されたボックスの途中でどう領域を区切るかを指定できます。
 ここでは折り返しが起こらない `avoid`を指定します。
 
-また 昔このブログでもあったのですがこのままでは最下段の余白が潰れると言ったことが起きます。
-それはマルチカラム内部の要素をdisplay: inline-block;にしたら解消します。
+またこのブログでもあったのですがこのままでは最下段の余白が潰れると言ったことが起きます。
+それはマルチカラム内部の要素を `display: inline-block;` にしたら解消します。
 
 FYI: https://www.bricoleur.co.jp/blog/archives/4336
 
-このブログでもどうようの問題が起きていたのは @y-temp4 さんに修正してもらいました。
-元のデザインがどうなっていてどう修正されたかはこのPRにまとまっているのでご覧ください。
-@y-temp4さんありがとうございました。
+このブログでも同様の問題が起きていたのは [@y_temp4](https://twitter.com/y_temp4) さんに修正してもらいました。
+元のデザインがどうなっていてどう修正されたかはこの [PR](https://github.com/sadnessOjisan/blog.ojisan.io/pull/83) にまとまっているのでご覧ください。
+[@y_temp4](https://twitter.com/y_temp4)さんありがとうございました。
+
+最終的にはブログのトップページではこのようなCSSになりました。
 
 
+```css
+.cards {
+  margin: 0 auto;
+  padding: 5px;
+  width: 90%;
+  column-count: 4;
+  column-gap: 0;
+}
 
+.card {
+  margin: 16px;
+  margin-top: 0;
+  -webkit-column-break-inside: avoid;
+  page-break-inside: avoid;
+  break-inside: avoid;
+  box-shadow: 8px 12px 10px -6px rgba(0, 0, 0, 0.3);
+  display: inline-block;
+}
+```
+
+## マルチカラムで実現した場合の欠点
+
+残念ながら上から下に要素が並んでいきます。
+そのため時系列に左から右に並べるなんていったことはできません。
+このブログでもそうなっています。
+
+これは grid を使えば解決できます。
+
+FYI: https://codepen.io/andybarefoot/pen/XVgmxZ?editors=0100
+
+ただ この例のHTMLを見比べると高さが足りず実は見切レていることがわかると思います。それは動的に位置計算をJSで行って調整する必要もあります。
+
+FYI: https://medium.com/@andybarefoot/a-masonry-style-layout-using-css-grid-8c663d355ebb
+
+## まとめ
+
+そのために本当に完璧な Masonry を作るなら Grid + JS の組み合わせになると思います。
+もし画像をただ並べたいといったような用途であればマルチカラムを使うのが一番楽だと思います。
