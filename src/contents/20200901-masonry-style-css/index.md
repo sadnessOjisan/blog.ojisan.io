@@ -23,7 +23,7 @@ isProtect: false
 ![blogのトップページ](./blogtop.png)
 
 この実装って正攻法でやると結構大変なのですが、簡易的な方法を知ったので紹介します。
-`column-count` を使ったマルチカラム段組みで簡単にMasonryレイアウトができます！
+`column-count` を使ったマルチカラム段組みで簡単に Masonry レイアウトができます！
 
 ## 何気に難しいピンタレスト UI
 
