@@ -1,7 +1,7 @@
 ---
 path: /-masonry-style-css
 created: "2020-09-01 09:00"
-title: ピンタレストっぽいMasonryレイアウトをCSSだけで実現する
+title: ピンタレストっぽいMasonryレイアウトをCSSだけで簡易的に実現する
 visual: "./visual.png"
 tags: [CSS]
 userId: sadnessOjisan
@@ -20,9 +20,12 @@ isProtect: false
 ちなみに [Masonry](https://masonry.desandro.com/) はこれを実現する jQuery プラグインです。
 
 この UI はこのブログのトップページでも使われています。
-それを実装したときの話や辛かった話をしたいと思います。
 
 ![blogのトップページ](./blogtop.png)
+
+これを実装したときに簡易的な方法を知ったので紹介します。
+
+`column-count` を使ったマルチカラム段組みで簡単にMasonryレイアウトができます！
 
 ## 何気に難しいピンタレスト UI
 
@@ -34,7 +37,7 @@ isProtect: false
 
 ### Masonry のようなライブラリを使う
 
-古典的な方法としては Masonry という jQuery プラグインがあげられます。
+古典的な方法としては [Masonry](https://masonry.desandro.com/) という jQuery プラグインがあげられます。
 この UI が流行ったときはこのプラグインがよく利用されていたらしいです。（自分はその世代ではないので伝聞ですが）
 jQuery プラグインということは jQuery 環境を強いられるかというとそうでもなく、Vue や React の世界から jQuery を使うことも可能なので、jQuery 環境でなくても無理やり使える方法です。
 ちなみに僕の初めての仕事はそれでした。
