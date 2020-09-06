@@ -135,7 +135,7 @@ PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"; export PATH;
 
 として出ました。
 
-profile ではこの文字列を `eval` としてが実行するので、PATH に `/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin` が入るという仕掛けでした。
+profile ではこの文字列を `eval` として実行するので、PATH に `/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin` が入るという仕掛けでした。
 
 ## というわけで PATH を消しても大丈夫
 
