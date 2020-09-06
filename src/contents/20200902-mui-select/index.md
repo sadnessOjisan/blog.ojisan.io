@@ -3,7 +3,7 @@ path: /mui-select
 created: "2020-09-07 09:00"
 title: material-ui の Select の挙動まとめ
 visual: "./visual.png"
-tags: [React]
+tags: [React, "material-ui"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false
