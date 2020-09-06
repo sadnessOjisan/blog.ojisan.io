@@ -104,7 +104,7 @@ FormControl の配下にあれば、その状態に応じて挙動が変わり�
 </FormControl>
 ```
 
-ちなみに label には htmlFor を書くのが通例ですが、Select 側に対応する labelId を書いておけば htmlFor は書かなくても、ラベルクリックで要素選択ができます。
+ちなみに label には htmlFor を書くのが通例ですが、**Select 側に対応する labelId を書いておけば htmlFor は書かなくても、ラベルクリックで要素選択ができます。**
 
 ### FormHelperText
 
@@ -140,10 +140,10 @@ FormControl の配下にあれば、その状態に応じて挙動が変わり�
 
 ### MenuItem
 
-![MenuItem](https://material-ui.com/components/menus/)はメニューとして開く一時的な画面の項目を抽象化したコンポーネントです。
+[MenuItem](https://material-ui.com/components/menus/)はメニューとして開く一時的な画面の項目を抽象化したコンポーネントです。
 そのため Select 特有のものではありません。
 
-ただの div かと思いきや様々な便利な API が生えており代表的なものだけ紹介します。
+とは言っても、ただの div かと思いきや様々な便利な API が生えており代表的なものだけ紹介します。
 
 #### selected / disabled
 
@@ -208,12 +208,13 @@ material-ui は hooks を使った style の injection をしたり、 styled-co
 
 となります。
 
-経験上、このデザインはやめてほしいというフィードバックを受けています。
-これは何か focus を当てるとラベルが上に上がるので、それを利用してラベルを付けましょう。
+経験上、この状態でPM/PO/Designerなどからレビューを受けると、「このデザインはやめてほしい」というフィードバックを受けます。
+ラベルを中に入れるより外に出しておいて欲しいとのことです。
+この問題に関しては、何らかの focus を select に当てることでラベルが上に上げれるので、それを利用してラベルを付けましょう。
 
 ![フォーカスの表示](./focus.png)
 
-これを回避するためのミソになるのは、 displayEmpty プロパティと空白要素の選択です。
+その実現方法として効果的なものが、displayEmpty プロパティと空白要素の選択です。
 
 [displayname](https://material-ui.com/api/select/) は、
 
@@ -245,6 +246,8 @@ material-ui は hooks を使った style の injection をしたり、 styled-co
 </FormControl>
 ```
 
+つまりこれを用いて初期値もしくは空値を選択させておけばラベルが上に上がってくれます。
+
 ### native mode で表示されない
 
 モバイル対応をやっているとドラムロールの対応をしたいと思うので native モードを使いたくなると思います。
@@ -252,13 +255,13 @@ material-ui は hooks を使った style の injection をしたり、 styled-co
 何かクラッシュするわけでもなくただセレクトボックスが開かなくなるだけなので、ぼくは始め何が原因かよくわからなくなったりしました。
 
 native を使うと select の中は option タグが要求されるので MenuItem コンポーネントが使えなくなります。
-そのため option タグを使うようにしてください。
-警告もでないので気づきにくかったりするので要注意です。
+MenuItemを使っているとそれらは表示されません。
+警告がでなくて気づきにくかったりするので要注意です。
 
 ### htmlFor は labelId で代替できる
 
 先ほどもチラッと書きましたので説明は省きますが、labelId で代用できます。
-label に htmlFor という API は生えていないので注意しましょう。
+material-uiではlabel に htmlFor という API は生えていないので注意しましょう。
 
 ### FormControl と各パーツの状態の競合はどちらが優先されるか
 
@@ -294,3 +297,8 @@ label に htmlFor という API は生えていないので注意しましょう
 このときどちらが優先されるかでいうと `Select` です。
 おそらく直感にも合っているとは思います。
 とはいってもわざわざ矛盾させることの利点はなさそうなのできちんと状態を揃えた運用を心がけましょう！
+
+## おわりに
+
+いかがでしたか。
+material-ui の select は独自の使い方を覚えることがあったり最初は大変ですが、とても便利なものなので覚えておくと良いでしょう！
