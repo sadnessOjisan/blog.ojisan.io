@@ -1,6 +1,6 @@
 ---
 path: /mui-select
-created: "2020-09-02 09:00"
+created: "2020-09-07 09:00"
 title: material-ui の Select の挙動まとめ
 visual: "./visual.png"
 tags: [React]
@@ -9,7 +9,7 @@ isFavorite: false
 isProtect: false
 ---
 
-React には material-ui という比較的歴史の長いコンポーネントライブラリがあります。
+React には [material-ui](https://material-ui.com/) という比較的歴史の長いコンポーネントライブラリがあります。
 最近これいいじゃんということで使うようにしていまして(今更!?)、ノウハウやハマりどころを知ったので忘れないように書き留めていきたいと思います。
 本当は material-ui のあれこれについて描こうとしたのですが、Select だけでもかなりのボリュームになることがわかったのでまず Select から書いていきます。
 
@@ -302,3 +302,9 @@ material-uiではlabel に htmlFor という API は生えていないので注�
 
 いかがでしたか。
 material-ui の select は独自の使い方を覚えることがあったり最初は大変ですが、とても便利なものなので覚えておくと良いでしょう！
+
+## サンプルコード
+
+サンプルコードはこちらです。
+
+https://github.com/ojisan-toybox/mui-select
