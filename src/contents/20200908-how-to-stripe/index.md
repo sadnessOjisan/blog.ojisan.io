@@ -9,8 +9,8 @@ isFavorite: false
 isProtect: false
 ---
 
-ちょっと前に[stripe のサブスク実装に Firebase の Extension がいい](https://nabettu.com/70975021a95f4f5b97e10a2666e37c77)っていう記事が流行りました。
-自分自身はサブスク機能の実装以前に stripe そのものの実装でつまづいていた過去があり、stripe そのものの使い方を解説しておいた方がもっと流行ってくれるなと思ったので記事を書きました。
+[nabettu](https://twitter.com/nabettu) さんの[stripe のサブスク実装に Firebase の Extension がいい](https://nabettu.com/70975021a95f4f5b97e10a2666e37c77)に便乗して stripe について書きます。
+自分自身はサブスク機能の実装以前に stripe そのものの実装でつまづいていた過去があり、stripe そのものの使い方を解説しようと思います。
 サンプルに[sadnessOjisan に給料を支払えるサービス](https://react-stripe-example.vercel.app/)を作ったので、このコードを元に解説していきます。
 
 そこで決済するとこのように売り上げが見えるようになります。
@@ -27,11 +27,11 @@ Stripe を使っても決済周りは複雑だったりするのですが、
 
 を意識すればできるようになりましたので頑張りましょう。
 
-※ 本記事では API サーバーを使うパターンも紹介するため、サーバーを用意・デプロイしやすい NextJS で作っていますが、JS が動けばどの FW を使っても再現可能です。
+※ 本記事では API サーバーを使うパターンも紹介するため、サーバーを用意・デプロイしやすい NextJS で作っていますが、JS が動けばどの フレームワーク(バニラでも可) を使っても再現可能です。
 
 ## stripe は何か
 
-[stripe](https://stripe.com/jp)はオンライン決済プラットフォームで、決済機能を簡単に自分のアプリケーションに組み込める SaaS です。
+[stripe](https://stripe.com/jp)はオンライン決済プラットフォームで、決済機能を簡単に自分のアプリケーションに組み込める SaaS/PaaS です。
 決済を行うための各種エンドポイントが用意されており、その API を利用して決済処理を組み込めます。
 
 ## クライアントで完結するのか
@@ -76,7 +76,7 @@ API を提供するとのことでクライアントだけ書けばいいのか�
 ![キー](./key.png)
 
 pk から始まる public なものと、sk から始まるシークレットなものがあります。
-シークレットの方は環境変数化するなりして見えないようにしておきましょう。
+シークレットの方はサーバーで使うもので環境変数化するなりして見えないようにしておきましょう。
 
 ### コードの全体
 
@@ -113,7 +113,7 @@ import { loadStripe } from "@stripe/stripe-js"
 const Payment = () => {
   // public key
   const stripeApiKey =
-    "pk_test_51HLU77BUWDSmzbsOYdzhlBW8pFrZ6lZKYMOjyJVc4OeUDPa3TdXVFW4VhfOzXxKKwyOetwCGF4nuFsglRGeKOLqB00yjJhJ12C"
+    "pk_test_51HLU77BUWDS...jJhJ12C"
   const stripePromise = loadStripe(stripeApiKey)
 
   return (
@@ -139,7 +139,6 @@ const CheckoutForm = () => {
     const res = await fetch("/api/pay", {
       method: "post",
       body: JSON.stringify({ amount: event.target.amount.value }),
-      // これ忘れるとNextJSのPost API Routesが動かない！
       headers: { "Content-Type": "application/json" },
     })
     const data = await res.json()
@@ -148,18 +147,9 @@ const CheckoutForm = () => {
     const card = elements.getElement(CardElement)
     console.log("card", card)
 
-    // Get a reference to a mounted CardElement. Elements knows how
-    // to find your CardElement because there can only ever be one of
-    // each type of element.
     const result = await stripe.confirmCardPayment(secret, {
       payment_method: {
         // FYI: payment_method (https://stripe.com/docs/api/payment_methods)
-        /**
-         * Use Element instances to collect sensitive information in your payment forms.
-         * For a high-level overview of what you can do with elements,
-         * see the Stripe Elements for the web guide.
-         * To create an Element instance, use elements.create.
-         */
         card: card,
         billing_details: {
           name: "user name",
@@ -195,30 +185,8 @@ const CheckoutForm = () => {
       <input name="amount" defaultValue={10000000}></input>
       <label style={{ marginTop: 10, marginBottom: 10, display: "block" }}>
         カード情報
-        {/* A flexible single-line input that collects all necessary card details. */}
-        <CardElement
-          options={{
-            style: {
-              base: {
-                padding: 10,
-                backgroundColor: "rgb(250, 255, 189)",
-                fontSize: "16px",
-                color: "#424770",
-                fontFamily: "Open Sans, sans-serif",
-                letterSpacing: "0.025em",
-                "::placeholder": {
-                  color: "#aab7c4",
-                },
-              },
-              invalid: {
-                color: "#c23d4b",
-              },
-            },
-            hidePostalCode: true,
-          }}
-        />
+        <CardElement />
       </label>
-      {/* labelの中に入れるとコピーしづらいw */}
       <p>↓テスト用クレジットカード情報↓</p>
       <ul>
         <li>番号: 4111111111111111</li>
@@ -233,9 +201,12 @@ const CheckoutForm = () => {
 export default Payment
 ```
 
-### 処理を作る
+### 支払いのフローを作る
 
-支払い情報をサーバーから作りそれを実行するための token を受け取り、その token を stripe に送って決済を実行します。
+支払いのフローは二つに分かれます。
+ 
+ * 支払いたいというintentを実行するための token をサーバーで作成する
+ * その token を stripe に送ってintent を confirm して決済を実行する
 
 #### stripe オブジェクトを作る
 
@@ -243,23 +214,41 @@ stripe を叩くメソッドを持ったオブジェクトを作ります。
 それが `const stripePromise = loadStripe(stripeApiKey);` です。
 このオブジェクトは context.provider などで決済フォームへ渡して、決済に使います。
 
-#### シークレットを吐き出す API サーバーを用意する
+```tsx
+<Elements stripe={stripePromise}>
+          <CheckoutForm></CheckoutForm>
+        </Elements>
+```
 
-決済は、
+のElementsの内部実装が`Context.Provider`です。
+そのためElementsで括る必要があります。
+こうすることで内部でhooks経由で様々なメソッドを呼べるようにもなります。
 
-- 決済内容を受け取ってそれを実行するシークレットを返す
-- シークレットを使って実際に決済を行う
+#### payment intent を実行できるclient_secretを吐き出す API サーバーを用意する
 
-の 2step に分割できます。
-
-`stripe.paymentIntents.create` を使って secret を吐き出します。
+ここからはサーバーでの処理です。
+`stripe.paymentIntents.create` を使って client_secret を吐き出します。
 このとき stripe オブジェクトは `const stripe = new Stripe(process.env.SECRET, { apiVersion: '2020-08-27' })` として作られ、サーバー側に秘密鍵が必要になるので扱いには注意しましょう。
-ここで作られる intent オブジェクトに secret が含まれるのでこれをクライアントに返しましょう。
-`json({ client_secret: paymentIntent.client_secret })`
 
-#### シークレットを使って stripe で決済する
+intentは
 
-confirmCardPayment を呼び出し、secret を渡せば決済が行われます。
+> Use the Payment Intents API to build a payments integration that can handle complexity. This API tracks a payment, from initial creation through the entire checkout process, and triggers additional authentication steps when required.
+
+といったもので、支払いのフローそのものです。
+
+requires_payment_method => requires_confirmation => requires_action => processing => result といったフローで進んでいきます。（全部行う必要はない）
+サンプルコードや公式チュートリアルを読むとき、どのフェーズかを意識すると急に読みやすくなりますので意識しておきましょう。
+
+FYI: https://stripe.com/docs/payments/intents
+
+ここで作られる intent オブジェクトに client_secret が含まれるのでこれをクライアントに返しましょう。
+`res.status(200).json({ client_secret: paymentIntent.client_secret })`
+
+**クライアント側でintentのフローを実行する時にこのトークンが必要となります。**
+
+#### client_secretを使って stripe で決済する
+
+intentのフローとして、`confirmCardPayment` を呼び出し、client_secret を渡せば決済が行われます。
 
 ```tsx
 const result = await stripe.confirmCardPayment(secret, {
@@ -271,6 +260,31 @@ const result = await stripe.confirmCardPayment(secret, {
   },
 })
 ```
+
+そのresultの結果を見れば後続処理もかけます。
+
+```tsx
+if (result.error) {
+      /**
+       * 決済の失敗
+       * * api_connection_error
+       * * api_error
+       * * authentication_error
+       * * card_error
+       * * and so on...
+       */
+      console.log(result.error.message)
+    } else {
+      if (result.paymentIntent.status === "succeeded") {
+        /**
+         * 決済に成功したときの処理をこのブロックに書く
+         */
+        alert("payment success!!")
+      }
+    }
+```
+
+例えば成功・失敗後に在庫DBを更新・キャンセルするといったこともできます。
 
 ### UI を作る
 
@@ -285,7 +299,7 @@ CardElement というパーツが公式から配布されておりこれを利�
 </form>
 ```
 
-クレジットカードの情報のようなセンシティブなものの状態管理は全部 Stripe のライブラリ側に任せます。
+これによりクレジットカードの情報のようなセンシティブなものの状態管理は全部 Stripe のライブラリ側に任せることができます。
 
 ただこのコンポーネントのスタイリングはかなり見づらいので拡張します。
 CardElement は style option オブジェクトを受け取ることができるのでそれにスタイルを格納して拡張できます。
@@ -356,11 +370,11 @@ interface StripeElementCSSProperties {
 }
 ```
 
-とのことで例えば border のスタイリングはできません。
+とのこと**で例えば border のスタイリングはできません**。
 
 #### 無理やり stripe のフォームにスタイルを当てる
 
-このライブラリは .StripeElement というクラス名のスタイルを持っていることを利用して、無理やり style sheet からスタイルを当てることもできます。
+そこで、このライブラリが .StripeElement というクラス名のスタイルを持っていることを利用して、無理やり style sheet からスタイルを当てます。
 同様の質問は stack overflow にも上がっており、同様の解決方法が提示されていました。
 
 FYI: https://stackoverflow.com/questions/43974321/how-can-i-put-border-styling-with-react-stripe-elements-input-component
@@ -371,6 +385,9 @@ FYI: https://stackoverflow.com/questions/43974321/how-can-i-put-border-styling-w
 詳しくは [available-element-components](https://stripe.com/docs/stripe-js/react#available-element-components) を参照してください。
 
 ## まとめ
+
+これでStripeを使った決済ページを作ることができるようになりました。
+最後におさらいしましょう。
 
 ### 全体感を把握しよう
 
@@ -399,3 +416,8 @@ Stripe はクライアント側から使える機能もありますが、サー�
 ## ソースコード
 
 https://github.com/sadnessOjisan/react-stripe-example
+
+## 最後に
+
+[sadnessOjisan に給料を支払えるサービス](https://react-stripe-example.vercel.app/)に給料を振り込んでください！
+自分の市場価値がどれくらいか分かっていないので、それを知りたいっていう目的もあるのでリアルな金額を書き込んで欲しいです。！
