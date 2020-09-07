@@ -19,7 +19,7 @@ export const Card: React.FC<IProps> = ({ data, className, excerpt }) => {
   const [isHover, setHover] = React.useState(false)
   return (
     <div
-      className={cn(className, styles.wrapper)}
+      className={cn(styles.wrapper, className,)}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
