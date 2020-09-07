@@ -2,7 +2,6 @@
   background: white;
   border-radius: 8px;
   border: solid 1px transparent;
-  width: calc(100% - 32px);
 }
 
 .wrapper:hover {
