@@ -265,6 +265,7 @@
   flex-shrink: 0;
   width: 30%;
   border: solid 3px #ccc;
+  display: block;
 }
 
 .card:not(:first-child) {
