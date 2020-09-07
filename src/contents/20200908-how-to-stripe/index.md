@@ -9,11 +9,11 @@ isFavorite: false
 isProtect: false
 ---
 
-[nabettu](https://twitter.com/nabettu) さんの[stripe のサブスク実装に Firebase の Extension がいい](https://nabettu.com/70975021a95f4f5b97e10a2666e37c77)に便乗して stripe について書きます。
-自分自身はサブスク機能の実装以前に stripe そのものの実装でつまづいていた過去があり、stripe そのものの使い方を解説しようと思います。
+[nabettu](https://twitter.com/nabettu) さんの[stripe のサブスク実装に Firebase の Extension がいい](https://nabettu.com/70975021a95f4f5b97e10a2666e37c77)に便乗して [stripe](https://stripe.com/) について書きます。
+stripeは決済機能を簡単に実現できる素晴らしいソリューションですが、自分自身はサブスク機能うんぬんの前に stripe そのものの実装でつまづいていた苦い過去があり、そういうのを払拭すべくstripe そのものの使い方を解説しようと思います。
 サンプルに[sadnessOjisan に給料を支払えるサービス](https://react-stripe-example.vercel.app/)を作ったので、このコードを元に解説していきます。
 
-そこで決済するとこのように売り上げが見えるようになります。
+ちなみにそこで決済するとこのように売り上げが見えるようになり楽しいです。
 
 ![ダッシュボード](./dash.png)
 
@@ -67,7 +67,7 @@ API を提供するとのことでクライアントだけ書けばいいのか�
 
 を解説したいと思います。
 
-## サーバーを使った使い方について
+## サーバーを使う方法について
 
 ### API キーの発行などの下準備
 
