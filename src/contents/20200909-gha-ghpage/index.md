@@ -11,9 +11,9 @@ isProtect: false
 
 このブログで検証した結果の成果物のデプロイには GitHub Pages を多用しているのですが、それは GitHub Actions から行っており、そのフローがあまりにも便利なので紹介します。
 GitHub Actions は GitHub Pages の守備範囲を大きく広げており、とても便利なものになりました。
-この組み合わせの何が良いかと言うと **workflow fileをレポジトリに含めておくだけでホスティング環境が手に入ってしまう**ということです。
+この組み合わせの何が良いかと言うと **workflow file をレポジトリに含めておくだけで、ビルドが必要なアプリケーションでもホスティング環境が手に入ってしまう**ということです。
 
-例えばこのファイルを /.github/workflows/main.yml として定義するだけでデプロイが完了します。
+例えば webpack を使うプロジェクトであれば、このファイルを /.github/workflows/main.yml として定義するだけでデプロイが完了します。
 
 ```yml:title=/.github/workflows/main.yml
 name: Deploy
@@ -36,13 +36,12 @@ jobs:
           npm install
       - name: Build App
         run: npx webpack
-      - name: App Deploy 
+      - name: App Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
 ```
-
 
 ## GitHub Pages とは
 
@@ -58,16 +57,16 @@ GitHub の書くレポジトリにある setting 画面から設定できます�
 ## GitHub Actions とは
 
 [GitHub Actions](https://github.co.jp/features/actions)は GitHub 上でワークフローを作成できる機能です。
-Git 管理下にあるソースコードに対して CI/CD を行うことができます。
+Actions を使えば Git 管理下にあるソースコードに対して CI/CD を行えます。
 たとえば Webpack + TS でビルドする React プロジェクトでも、ビルド成果物をレポジトリに含めずとも Action 上で src からビルドして作り出しそれをデプロイすることができます。
-そのワークフローは /.github/workflows/*.yml として定義でき、その階層にymlを入れておくだけで良いのでとても便利です。
+そのワークフローは /.github/workflows/\*.yml として定義でき、その階層に yml を入れておくだけで良いのでとても便利です。
 
-デプロイするワークフローのactionは [actions-gh-pages](https://github.com/peaceiris/actions-gh-pages) が実装されており、**このactionを使うことを設定ファイルに書くだけでデプロイのワークフローが完成**してしまいます。
+デプロイするワークフローの action は [actions-gh-pages](https://github.com/peaceiris/actions-gh-pages) が実装されており、**この action を使うことを設定ファイルに書くだけでデプロイのワークフローが完成**してしまいます。
 
-## GitHub Actions から GitHub Pages をデプロイします。
+## GitHub Actions から GitHub Pages へデプロイ
 
 これらは組み合わせることができます。
-GitHub Actions に `peaceiris/actions-gh-pages@v3` という action がありこれを使うだけで簡単にデプロイできます。
+それが先ほど紹介した actions-gh-pages であり、GitHub Actions の設定ファイル に `peaceiris/actions-gh-pages@v3` を使う設定を書くだけで良いです。
 
 ```yml
 - name: App Deploy
@@ -77,8 +76,9 @@ GitHub Actions に `peaceiris/actions-gh-pages@v3` という action がありこ
     publish_dir: ./dist
 ```
 
-GITHUB\_TOKEN は勝手に設定されているものなのでユーザー側での設定は不要です。
+GITHUB_TOKEN は勝手に設定されているものなのでユーザー側での設定は不要です。
 publish_dir ではどのディレクトリをデプロイするかを指定できます。
+ここででは前の action が webpack 経由で dist ディレクトリに成果物を吐き出していることを想定しています。
 前の action でビルドしているものがあればそれを指定することで GitHub Actions 上でビルドしたものをデプロイできます。
 
 ```yml
@@ -91,10 +91,10 @@ publish_dir ではどのディレクトリをデプロイするかを指定で�
     publish_dir: ./dist
 ```
 
-このとき actions-gh-pagesの設定次第でデプロイ対象のブランチを指定できます。
-GitHub Pagesが見てるブランチを指定するようにしましょう。
+このとき actions-gh-pages の設定次第でデプロイ対象のブランチを指定できます。
+GitHub Pages が見てるブランチを指定するようにしましょう。
 ただここは gh-pages というブランチに揃えておくのが良いと筆者は考えています。
-それは長らくの慣習であるし、このactionの標準設定もそうなっているからです。
+それは長らくの慣習であるし、この action の標準設定もそうなっているからです。
 どうしてもブランチを変えたい場合は `publish_branch` という項目で編集できます。
 
 ## 組み合わせると何が嬉しいか
@@ -112,12 +112,12 @@ GitHub Pagesが見てるブランチを指定するようにしましょう。
 ### 自分のレポジトリしか提供できない
 
 自分が作った organaization でも、それがプライベートリポジトリだと GitHub Pages を作ることができません。
-（つまりpublicであれば可能）
+（反対に言えば public であれば可能）
 課金すれば可能ですが、組織ごとの課金が必要で、個人プランの課金では賄えないので注意しましょう。
 
 反対に言えば**自分のレポジトリ配下にあるものはプライベートであっても公開できます。**
 
 ## まとめ
 
-GitHub Actions と GitHub Pages の組み合わせで書いたコードにyamlを1つ加えるだけで簡単にデプロイできるようになりました。
+GitHub Actions と GitHub Pages の組み合わせで書いたコードに yaml を 1 つ加えるだけで簡単にデプロイできるようになりました。
 とても便利なのでお試しあれ。
