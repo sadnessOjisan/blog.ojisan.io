@@ -1,7 +1,7 @@
 ---
 path: /firebase-auth-ipass-login
 created: "2020-09-10"
-title: firebaseでのパスワードログイン機能の実装をやりきる
+title: firebaseでのパスワードログイン機能の実装をやりきるためのTips
 visual: "./visual.png"
 tags: [firebase]
 userId: sadnessOjisan
@@ -505,9 +505,7 @@ render(<Main></Main>, document.body)
 ```tsx
 <div>
   {state?.mode === "resetPassword" ? (
-    <div>
-      ...
-    </div>
+    <div>...</div>
   ) : state?.mode === "signIn" ? (
     "now singining..."
   ) : state?.mode === "verifyEmail" ? (
@@ -639,6 +637,55 @@ if (firebase.auth().isSignInWithEmailLink(window.location.href)) {
 token から自分でメールアドレスを取り出してそれを使って signInWithEmailLink を呼び出す必要があります。
 これも action URL を編集することで、その action URL のページで実装しなければいけなくなった処理です。
 ちなみに action URL を編集していなければ ActionCodeSettings オブジェクトの URL に書いた URL でその処理を実装することになります。
+
+### セッションハイジャックへの対策
+
+メールリンクを使ったログインにおいて
+
+```tsx
+let email = window.localStorage.getItem("emailForSignIn")
+if (!email) {
+  // session fixationを防ぐためにメアドの入力必要
+  email = window.prompt("Please provide your email for confirmation")
+}
+```
+
+といった処理を書いています。
+これは セッションハイジャックへの対策で URL にメールアドレスを含められないため、後続の`signInWithEmailLink(email, window.location.href)` に必要なメールアドレスを求めています。
+ここで localstorage が登場しているのは、ユーザーにメールアドレスを入力させるのは面倒で不自然でもあることから、自動でメールアドレスを取得させるためです。
+そのため事前に localstorage にメールアドレスを格納している必要はあり、それはメールリンクを送信するメソッドで行っています。
+
+```tsx
+<form
+  onSubmit={e => {
+    e.preventDefault()
+    const target = e.target as any
+    const email = target.email.value as string
+    const actionCodeSettings = {
+      // Firebase Consoleで予め許可リストに登録したリダイレクトURLを指定することで継続URLとして使える（とはいえ今回はサインインページが決まっているのでこのリンクはactionページでは使わない。）
+      url: REDIRECT_URL,
+      // 今は必ず true.
+      handleCodeInApp: true,
+    }
+    firebase
+      .auth()
+      .sendSignInLinkToEmail(email, actionCodeSettings)
+      .then(function () {
+        window.localStorage.setItem("emailForSignIn", email)
+        alert("メールを送信しました")
+      })
+      .catch(function (error) {
+        // Some error occurred, you can inspect the code: error.code
+        alert(error.message)
+      })
+  }}
+  style={{ display: "flex", flexDirection: "column" }}
+>
+  <label style={{ display: "block" }}>email</label>
+  <input name="email" type="email"></input>
+  <button type="submit">submit</button>
+</form>
+```
 
 ## おわりに
 
