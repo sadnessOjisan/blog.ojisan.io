@@ -662,10 +662,11 @@ if (!email) {
     const target = e.target as any
     const email = target.email.value as string
     const actionCodeSettings = {
-      // Firebase Consoleで予め許可リストに登録したリダイレクトURLを指定することで継続URLとして使える（とはいえ今回はサインインページが決まっているのでこのリンクはactionページでは使わない。）
-      url: REDIRECT_URL,
-      // 今は必ず true.
-      handleCodeInApp: true,
+      // Firebase Consoleで予め許可リストに登録した
+      // リダイレクトURLを指定することで継続URLとして使える
+      //（とはいえ今回はサインインページが決まっているので
+      // このリンクはactionページでは使わない。）
+      url: REDIRECT_URL
     }
     firebase
       .auth()
