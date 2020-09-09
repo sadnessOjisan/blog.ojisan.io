@@ -13,11 +13,13 @@ Firebase Authentification は OAuth 2.0 フローにのっとったログイン�
 このログイン形式をちゃんと使おうとすると、これまでは Provider が担ってくれていたパスワードの編集、パスワードの再発行、メールリンクでのログイン、アドレスの本人確認など様々なことを考慮しなければいけません。
 
 この記事ではそういった考慮をした Email / Password ログインに挑戦します。
-基本的には[manage-users](https://firebase.google.com/docs/auth/web/manage-users), [password-auth](https://firebase.google.com/docs/auth/web/password-auth), [email-link-auth](https://firebase.google.com/docs/auth/web/email-link-auth)といった公式ドキュメントを読むと IPASS ログインに必要なことは書いてあるのですが、action URL を自前で用意するフローを採用するとそれらのドキュメントで賄えなくなり試行錯誤をたくさんしなければいけない場面が出てくるので、それに対する回避策をまとめてみました。
+基本的には[manage-users](https://firebase.google.com/docs/auth/web/manage-users), [password-auth](https://firebase.google.com/docs/auth/web/password-auth), [email-link-auth](https://firebase.google.com/docs/auth/web/email-link-auth)といった公式ドキュメントを読むと IPASS ログインに必要なことは書いてあるのですが、**action URL を自前で用意するフローを採用するとそれらのドキュメントで賄えなくなり試行錯誤をたくさんしなければいけない場面が出てくる**ので、それに対する回避策をまとめてみました。
 
 諸々の機能が試せるページはこちらに用意していますので、気になる機能の挙動とコードを見比べながら読むとイメージがつくかと思います。
 
 サンプルページ: https://fir-auth-ipass-yarikiru.web.app/
+
+ソースコード: https://github.com/ojisan-toybox/firebase-ipass-login
 
 ![singnin](./signin.png)
 
@@ -194,7 +196,6 @@ actionCodeSettings の取りうる値は[メールアクションで状態 / 続
 それは URL を parse すればわかることなのですが、`auth().isSignInWithEmailLink(url)` というメソッドを実行するだけでも識別できるようになっています。
 ここが true であればメールリンクログインをしていくことになるので後続処理を書いていきましょう。
 その中でメールリンクログインのために `signInWithEmailLink(email, emailLink)` の email が欲しい(emaillink は window.location.href で手に入る)ので、これを入手します。
-OAuth
 
 ```tsx
 if (firebase.auth().isSignInWithEmailLink(window.location.href)) {
@@ -282,7 +283,7 @@ OAuth 2.0 フローにのっとった認証・認可であればこの手続き�
 
 先にコードの全容を書くとこうなります。
 
-```tsx
+```tsx:title=src/pages/action.tsx
 import { h } from "preact"
 import { useState, useEffect } from "preact/hooks"
 import firebase from "firebase"
@@ -489,7 +490,7 @@ render(<Main></Main>, document.body)
 
 そのとき自作したアクション画面ではこれまでデフォルト actionURL である /\_\_/auth/action にあった処理がやってくれていた処理を自分で書く必要があります。
 それが actionCode(OTP)の検証とそれを使った各種処理の実行です。
-しかしアクション URL は一つしか作られないのでその各種処理は一つの URL で切り替えながら実行する必要があります。
+**しかしアクション URL は一つしか作られないのでその各種処理は一つの URL で切り替えながら実行する必要があります。**
 
 その処理とは、
 
@@ -645,3 +646,9 @@ token から自分でメールアドレスを取り出してそれを使って s
 IPASS ログインの実装は Firebase を使ってもちゃんとやりきるとなると意外と大変なのではないでしょうか。
 それでも SDK の使い方さえ覚えたら便利な機能が手に入るので頑張って覚えていきましょう。
 僕もまだまだ知らない API がたくさんあるのでもっともっと試して経験を積んでいこうと思います！
+
+## 成果物
+
+ソースコード: https://github.com/ojisan-toybox/firebase-ipass-login
+
+実装: https://fir-auth-ipass-yarikiru.web.app/
