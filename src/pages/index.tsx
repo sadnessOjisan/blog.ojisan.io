@@ -3,8 +3,7 @@ import { graphql } from "gatsby"
 import Layout from "../components/common/layout"
 import SEO from "../components/common/seo"
 import { AllBlogsQuery } from "../../types/graphql-types"
-import { Newses } from "../components/indices/newses"
-import styles from "./index.module.css"
+import styled from 'styled-components'
 import { Card } from "../components/indices/card"
 
 interface IProps {
@@ -15,20 +14,51 @@ const IndexPage: React.FC<IProps> = ({ data }) => {
   return (
     <Layout>
       <SEO title={data.site?.siteMetadata?.title || "HOME"} />
-      <h1 className={styles.title}>ブログのためのブログ</h1>
-      <Newses data={data.newses} className={styles.newses}></Newses>
-      <div className={styles.cards}>
+      <Title>ブログのためのブログ</Title>
+      <Cards>
         {data.blogs.nodes.map(node => (
-          <Card
+          <StyledCard
             excerpt={node.excerpt}
             data={node.frontmatter}
-            className={styles.card}
-          ></Card>
+          ></StyledCard>
         ))}
-      </div>
+      </Cards>
     </Layout>
   )
 }
+
+const Title = styled.h1`
+font-size: 24px;
+font-weight: 600;
+margin: 24px 0px;
+text-align: center;
+`
+
+const Cards = styled.div`
+margin: 0 auto;
+padding: 5px;
+width: 90%;
+column-count: 4;
+column-gap: 0;
+@media (max-width: 1024px) {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+`
+
+const StyledCard = styled(Card)`
+margin: 16px;
+margin-top: 0;
+-webkit-column-break-inside: avoid;
+page-break-inside: avoid;
+break-inside: avoid;
+box-shadow: 8px 12px 10px -6px rgba(0, 0, 0, 0.3);
+display: inline-block;
+@media (max-width: 1024px) {
+  margin-bottom: 16px;
+}
+`
 
 export const pageQuery = graphql`
   query AllBlogs {
