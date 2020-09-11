@@ -5,7 +5,7 @@ import Image from "gatsby-image"
 import { AllBlogsQuery } from "../../../types/graphql-types"
 import { Tags } from "./tags"
 
-interface IContainerProps {
+interface IPassedProps {
   /** ブログコンテンツのfrontmatter */
   data: AllBlogsQuery["blogs"]["nodes"][number]["frontmatter"]
   /** 呼び出し元から書き換えるためのclassName */
@@ -14,12 +14,14 @@ interface IContainerProps {
   excerpt?: AllBlogsQuery["blogs"]["nodes"][number]["excerpt"]
 }
 
-interface IProps {
+interface IContainerProps {
   setHover: (state: boolean) => void;
   isHover: boolean
 }
 
-const Component: React.FC<IProps & IContainerProps> = ({ className, data, excerpt, setHover, isHover }) => (
+interface IProps extends IPassedProps, IContainerProps { }
+
+const Component: React.FC<IProps> = ({ className, data, excerpt, setHover, isHover }) => (
   <div
     className={className}
     onMouseEnter={() => setHover(true)}
@@ -98,7 +100,7 @@ ${props => props.isHover && `& .image {
 }
 `
 
-const CardContainer: React.FC<IContainerProps & IProps> = props => {
+const CardContainer: React.FC<IPassedProps> = props => {
   const [isHover, setHover] = React.useState(false)
   return <StyledComponent {...{ ...props, isHover, setHover }} />
 }
