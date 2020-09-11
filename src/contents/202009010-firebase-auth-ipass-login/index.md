@@ -666,7 +666,7 @@ if (!email) {
       // リダイレクトURLを指定することで継続URLとして使える
       //（とはいえ今回はサインインページが決まっているので
       // このリンクはactionページでは使わない。）
-      url: REDIRECT_URL
+      url: REDIRECT_URL,
     }
     firebase
       .auth()
