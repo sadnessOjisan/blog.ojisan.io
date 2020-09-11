@@ -81,16 +81,6 @@ export const pageQuery = graphql`
       }
     }
 
-    newses: allMarkdownRemark(filter: {fileAbsolutePath: {regex: "/(/src/news)/.*\\.md$/"}}, limit: 5, sort: {fields: frontmatter___created, order: DESC}) {
-      nodes {
-        frontmatter {
-          title
-          description
-          created
-        }
-      }
-    }
-
     site {
       siteMetadata {
         title
