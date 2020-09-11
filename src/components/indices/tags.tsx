@@ -1,28 +1,37 @@
 import * as React from "react"
-import cn from "classnames"
 import { Link } from "gatsby"
-import styles from "./tags.module.css"
+import styled from 'styled-components'
 import { Tag } from "./tag"
 import { Maybe } from "../../../types/graphql-types"
 
-interface IProps {
+interface IPassedProps {
   tags: Maybe<string>[]
   className?: string
 }
 
-export const Tags: React.FC<IProps> = ({ tags, className }) => {
-  return (
-    <div className={cn(className, styles.tags)}>
-      {tags.map(
-        tag =>
-          tag && (
-            <Link to={`/tags/${tag}`}>
-              <a>
-                <Tag className={styles.tag} name={tag}></Tag>
-              </a>
-            </Link>
-          )
-      )}
-    </div>
-  )
-}
+const Component: React.FC<IPassedProps> = ({ tags, className }) => (
+  <div className={className}>
+    {tags.map(
+      tag =>
+        tag && (
+          <Link to={`/tags/${tag}`}>
+            <a>
+              <Tag className={'tag'} name={tag}></Tag>
+            </a>
+          </Link>
+        )
+    )}
+  </div>
+)
+
+
+const StyledCompoenent = styled(Component)`
+display: flex;
+  flex-wrap: wrap;
+
+  > * {
+    margin: 0px 8px 12px 0px;
+  }
+`
+
+export const Tags = StyledCompoenent
