@@ -43,13 +43,6 @@ const Component: React.FC<IProps> = ({ classes, allMarkdownRemark, className }) 
           </Button>
         </Link>
       </li>
-      <li className='item'>
-        <Link to="/news">
-          <Button className={`${classes.root} ${classes.label}`}>
-            <a>News一覧</a>
-          </Button>
-        </Link>
-      </li>
     </ul>
     <h2 className='title'>Link</h2>
     <ul className='block'>
