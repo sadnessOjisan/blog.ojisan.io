@@ -1,8 +1,6 @@
 /**
- * Layout component that queries for data
- * with Gatsby's useStaticQuery component
- *
- * See: https://www.gatsbyjs.org/docs/use-static-query/
+ * @file Layout component. 共通レイアウトを持つと同時に、ドロワーの開閉状態とそのハンドラも持つ
+ * 
  */
 
 import * as React from "react"
@@ -10,32 +8,34 @@ import { useStaticQuery, graphql } from "gatsby"
 import Drawer from "@material-ui/core/Drawer"
 import Header from "./header"
 import Footer from "./footer"
-import styles from "./layout.module.css"
 import DrawerContents from "./drawer-contents"
+import styled from "styled-components"
+import { SiteTitleQuery } from "../../../types/graphql-types"
+
+interface IPassedProps {
+  className?: string;
+}
+
+interface IContainerProps {
+  isOpenDrawer: boolean;
+  setDrawerState: React.Dispatch<React.SetStateAction<boolean>>
+  siteTitle: string
+}
+
+interface IProps extends IPassedProps, IContainerProps { }
 
 export const DrawerContext = React.createContext<{
   setDrawerState: React.Dispatch<React.SetStateAction<boolean>>
 }>({
-  setDrawerState: () => {},
+  setDrawerState: () => { },
 })
 
-const Layout: React.FC = ({ children }) => {
-  const [isOpenDrawer, setDrawerState] = React.useState(false)
-  const data = useStaticQuery(graphql`
-    query SiteTitle {
-      site {
-        siteMetadata {
-          title
-        }
-      }
-    }
-  `)
-
-  return (
+const Component: React.FC<IProps> = ({ children, setDrawerState, isOpenDrawer, siteTitle, className }) => (
+  <div className={className}>
     <DrawerContext.Provider value={{ setDrawerState }}>
-      <Header siteTitle={data.site.siteMetadata.title} />
+      <Header siteTitle={siteTitle} />
       <div>
-        <main className={styles.body}>{children}</main>
+        <main className='body'>{children}</main>
         <Footer></Footer>
         <Drawer
           anchor="right"
@@ -47,8 +47,36 @@ const Layout: React.FC = ({ children }) => {
           <DrawerContents></DrawerContents>
         </Drawer>
       </div>
-    </DrawerContext.Provider>
-  )
+    </DrawerContext.Provider></div>
+)
+
+
+const StyledComponent = styled(Component)`width: 100%;
+min-height: 85vh;
+/* 9vh は headerの高さ分 */
+padding-top: 70px;
+background-color: #eeeef1;`
+
+const ContainerComponent: React.FC = ({ children }) => {
+  const [isOpenDrawer, setDrawerState] = React.useState(false)
+  const data: SiteTitleQuery = useStaticQuery(graphql`
+    query SiteTitle {
+      site {
+        siteMetadata {
+          title
+        }
+      }
+    }
+  `)
+  const siteTitle = data.site?.siteMetadata?.title
+  if (!siteTitle) {
+    throw new Error('should set title as siteMetadata')
+  }
+
+  const containerProps = {
+    isOpenDrawer, setDrawerState, siteTitle
+  }
+  return <StyledComponent {...containerProps}>{children}</StyledComponent>
 }
 
-export default Layout
+export default ContainerComponent

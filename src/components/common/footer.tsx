@@ -1,8 +1,12 @@
 import * as React from "react"
-import styles from "./footer.module.css"
+import styled from "styled-components"
 
-const Footer: React.FC = () => (
-  <footer className={styles.footer}>
+interface IProps {
+  className?: string;
+}
+
+const Component: React.FC<IProps> = ({ className }) => (
+  <footer className={className}>
     <p>
       © {new Date().getFullYear()}, Built with
       <a href="https://www.gatsbyjs.org" target="_blank" rel="noopener">
@@ -35,4 +39,26 @@ const Footer: React.FC = () => (
   </footer>
 )
 
-export default Footer
+const StyledComponent = styled(Component)`
+margin-bottom: 0;
+  margin-top: auto;
+  background: linear-gradient(45deg, #2196f3 30%, #21cbf3 90%);
+  padding: 8px;
+  text-align: center;
+  color: white;
+  min-height: 15vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  > p {
+    margin-top: 12px;
+  }
+
+  > p > a {
+    text-decoration: underline;
+  font-weight: bold;
+  }
+  
+  `
+
+export default StyledComponent

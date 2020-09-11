@@ -7,6 +7,7 @@ module.exports = {
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
+    `gatsby-plugin-styled-components`,
     {
       resolve: `gatsby-plugin-feed`,
       options: {
@@ -68,13 +69,6 @@ module.exports = {
       options: {
         path: `${__dirname}/src/contents`,
         name: `contents`,
-      },
-    },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        path: `${__dirname}/src/news`,
-        name: `news`,
       },
     },
     `gatsby-transformer-sharp`,
