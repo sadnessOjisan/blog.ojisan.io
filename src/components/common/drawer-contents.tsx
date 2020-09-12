@@ -19,71 +19,71 @@ interface IContainerProps {
   }
 }
 
-interface IProps extends IPassedProps, IContainerProps {}
+interface IProps extends IPassedProps, IContainerProps { }
 
 const Component: React.FC<IProps> = ({
   classes,
   allMarkdownRemark,
   className,
 }) => (
-  <div className={className}>
-    <h2 className="title">Navigation</h2>
-    <ul className="block">
-      <li className="item">
-        <Link to="/">
-          <Button className={`${classes.root} ${classes.label}`}>
-            <a>Top</a>
-          </Button>
-        </Link>
-      </li>
-      <li className="item">
-        <Link to="/users/sadnessOjisan">
-          <Button className={`${classes.root} ${classes.label}`}>
-            <a>About Me</a>
-          </Button>
-        </Link>
-      </li>
-      <li className="item">
-        <Link to="/tags">
-          <Button className={`${classes.root} ${classes.label}`}>
-            <a>Tag一覧</a>
-          </Button>
-        </Link>
-      </li>
-    </ul>
-    <h2 className="title">Link</h2>
-    <ul className="block">
-      <li className="item">
-        <Link to="/rss.xml">
-          <Button className={`${classes.root} ${classes.label}`}>
-            <a>RSS</a>
-          </Button>
-        </Link>
-      </li>
-      <li className="item">
-        <Link to="https://github.com/sadnessOjisan/blog.ojisan.io">
-          <Button className={`${classes.root} ${classes.label}`}>
-            <a>Github</a>
-          </Button>
-        </Link>
-      </li>
-    </ul>
-    <h2 className="title">tags</h2>
-    <ul className="block">
-      {allMarkdownRemark.group.map(tag => (
+    <div className={className}>
+      <h2 className="title">Navigation</h2>
+      <ul className="block">
         <li className="item">
-          <Link to={`/tags/${tag.fieldValue}`}>
+          <Link to="/">
             <Button className={`${classes.root} ${classes.label}`}>
-              <a>
-                {tag.fieldValue}({tag.totalCount})
-              </a>
+              <a>Top</a>
             </Button>
           </Link>
         </li>
-      ))}
-    </ul>
-  </div>
-)
+        <li className="item">
+          <Link to="/users/sadnessOjisan">
+            <Button className={`${classes.root} ${classes.label}`}>
+              <a>About Me</a>
+            </Button>
+          </Link>
+        </li>
+        <li className="item">
+          <Link to="/tags">
+            <Button className={`${classes.root} ${classes.label}`}>
+              <a>Tag一覧</a>
+            </Button>
+          </Link>
+        </li>
+      </ul>
+      <h2 className="title">Link</h2>
+      <ul className="block">
+        <li className="item">
+          <Link to="/rss.xml">
+            <Button className={`${classes.root} ${classes.label}`}>
+              <a>RSS</a>
+            </Button>
+          </Link>
+        </li>
+        <li className="item">
+          <Link to="https://github.com/sadnessOjisan/blog.ojisan.io">
+            <Button className={`${classes.root} ${classes.label}`}>
+              <a>Github</a>
+            </Button>
+          </Link>
+        </li>
+      </ul>
+      <h2 className="title">tags</h2>
+      <ul className="block">
+        {allMarkdownRemark.group.map(tag => (
+          <li className="item">
+            <Link to={`/tags/${tag.fieldValue}`}>
+              <Button className={`${classes.root} ${classes.label}`}>
+                <a>
+                  {tag.fieldValue}({tag.totalCount})
+              </a>
+              </Button>
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
 
 const StyledComponent = styled(Component)`
   width: 200px;

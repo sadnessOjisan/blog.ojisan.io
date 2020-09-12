@@ -14,6 +14,7 @@ import { UserType } from "../type"
 import { Card } from "../components/indices/card"
 import Swiper from "../components/common/swiper"
 import styled from "styled-components"
+import { createFluidImageFromImageSharp } from '../helper/createImageObject'
 
 interface IPassedProps {
   data: BlogTemplateQuery
@@ -37,143 +38,143 @@ const Component: React.FC<IProps> = ({
   setTocOpenerState,
 }) => {
   const { post, latestPosts, favoriteArticles } = data
+  const image = createFluidImageFromImageSharp(post?.frontmatter?.visual?.childImageSharp?.fluid)
   return (
     <Layout>
       {post &&
-      post.html &&
-      post.frontmatter &&
-      post.frontmatter.title &&
-      post.frontmatter.path &&
-      post.frontmatter.created &&
-      post.frontmatter.tags &&
-      post.excerpt ? (
-        <>
-          <SEO
-            title={post.frontmatter.title}
-            description={post.excerpt.slice(0, 100)}
-            image={post.frontmatter.visual?.childImageSharp?.fluid?.src}
-          />
-          {/* はてぶ炎上プロテクト: frontmatterのisProtectをtrueにすると動作する */}
-          {post.frontmatter.isProtect && (
-            <Helmet
-              meta={[
-                {
-                  name: "Hatena::Bookmark",
-                  content: "nocomment",
-                },
-              ]}
+        post.html &&
+        post.frontmatter &&
+        post.frontmatter.title &&
+        post.frontmatter.path &&
+        post.frontmatter.created &&
+        post.frontmatter.tags &&
+        post.excerpt ? (
+          <>
+            <SEO
+              title={post.frontmatter.title}
+              description={post.excerpt.slice(0, 100)}
+              image={post.frontmatter.visual?.childImageSharp?.fluid?.src}
             />
-          )}
-          <div className={className}>
-            <div className={"main"}>
-              <Social
-                className={"socials"}
-                path={post.frontmatter.path}
-                title={post.frontmatter.title}
-                dateYYYYMMDD={post.frontmatter.created.replace(/-/g, "")}
-              ></Social>
-              <div className={"contentWrapper"}>
-                <div className={"articleHeader"}>
-                  <h1 className={"headline"}>{post.frontmatter.title}</h1>
-                  <h2 className={"date"}>
-                    {post.frontmatter.created}(created)
+            {/* はてぶ炎上プロテクト: frontmatterのisProtectをtrueにすると動作する */}
+            {post.frontmatter.isProtect && (
+              <Helmet
+                meta={[
+                  {
+                    name: "Hatena::Bookmark",
+                    content: "nocomment",
+                  },
+                ]}
+              />
+            )}
+            <div className={className}>
+              <div className={"main"}>
+                <Social
+                  className={"socials"}
+                  path={post.frontmatter.path}
+                  title={post.frontmatter.title}
+                  dateYYYYMMDD={post.frontmatter.created.replace(/-/g, "")}
+                ></Social>
+                <div className={"contentWrapper"}>
+                  <div className={"articleHeader"}>
+                    <h1 className={"headline"}>{post.frontmatter.title}</h1>
+                    <h2 className={"date"}>
+                      {post.frontmatter.created}(created)
                     {post.frontmatter.updated &&
-                      `/${post.frontmatter.updated}(updated)`}
-                  </h2>
-                  {/* TODO: tasgsコンポーネントで置き換える */}
-                  {/* FIXME: Cardのtagとclassが衝突する事故 */}
-                  <div className={"article-tags"}>
-                    {post.frontmatter.tags.map(
-                      tag =>
-                        tag && (
-                          <Link to={`/tags/${tag}`}>
-                            <a>
-                              <Tag className={"article-tag"} name={tag}></Tag>
-                            </a>
-                          </Link>
-                        )
-                    )}
-                  </div>
-                  <div className={"userRow"}>
-                    <Link to={`/users/${pageContext.id}`}>
-                      <UserImage
-                        className={"userImage"}
-                        filename={pageContext.image}
-                        alt={pageContext.image}
-                      ></UserImage>{" "}
-                    </Link>
-                    <div className={"userInfoRow"}>
+                        `/${post.frontmatter.updated}(updated)`}
+                    </h2>
+                    {/* TODO: tasgsコンポーネントで置き換える */}
+                    {/* FIXME: Cardのtagとclassが衝突する事故 */}
+                    <div className={"article-tags"}>
+                      {post.frontmatter.tags.map(
+                        tag =>
+                          tag && (
+                            <Link to={`/tags/${tag}`}>
+                              <a>
+                                <Tag className={"article-tag"} name={tag}></Tag>
+                              </a>
+                            </Link>
+                          )
+                      )}
+                    </div>
+                    <div className={"userRow"}>
                       <Link to={`/users/${pageContext.id}`}>
-                        <div className={"userLink"}>{pageContext.name}</div>
+                        <UserImage
+                          className={"userImage"}
+                          filename={pageContext.image}
+                          alt={pageContext.image}
+                        ></UserImage>{" "}
                       </Link>
-                      <a
-                        href={`https://twitter.com/${pageContext.name}`}
-                        className={"followButton"}
-                        target="_blank"
-                        rel="noopener"
-                      >
-                        Follow
+                      <div className={"userInfoRow"}>
+                        <Link to={`/users/${pageContext.id}`}>
+                          <div className={"userLink"}>{pageContext.name}</div>
+                        </Link>
+                        <a
+                          href={`https://twitter.com/${pageContext.name}`}
+                          className={"followButton"}
+                          target="_blank"
+                          rel="noreferrer noopener"
+                        >
+                          Follow
                       </a>
+                      </div>
                     </div>
                   </div>
-                </div>
-                {post.frontmatter.visual?.childImageSharp?.fluid && (
-                  <Image
-                    style={{
-                      maxWidth: "960px",
-                      margin: "auto",
-                    }}
-                    // @ts-ignore FIXME: 型エラー
-                    fluid={post.frontmatter.visual.childImageSharp.fluid}
+                  {image && (
+                    <Image
+                      style={{
+                        maxWidth: "960px",
+                        margin: "auto",
+                      }}
+                      fluid={image}
+                    />
+                  )}
+                  <div
+                    className={"content"}
+                    dangerouslySetInnerHTML={{ __html: post.html }}
                   />
-                )}
+                </div>
+                {/* TODO: hiddenかどうかはこの階層のCSSで制御すべき */}
+                <Toc
+                  tableOfContents={post.tableOfContents}
+                  className={"tocwrapper"}
+                ></Toc>
+                <TocMobile
+                  isOpen={isOpen}
+                  setTocOpenerState={(isOpen: boolean) =>
+                    setTocOpenerState(isOpen)
+                  }
+                  tableOfContents={post.tableOfContents}
+                  path={post.frontmatter.path}
+                  title={post.frontmatter.title}
+                  dateYYYYMMDD={post.frontmatter.created.replace(/-/g, "")}
+                ></TocMobile>
+              </div>
+              <div className={"posts"}>
                 <div
-                  className={"content"}
-                  dangerouslySetInnerHTML={{ __html: post.html }}
-                />
-              </div>
-              {/* TODO: hiddenかどうかはこの階層のCSSで制御すべき */}
-              <Toc
-                tableOfContents={post.tableOfContents}
-                className={"tocwrapper"}
-              ></Toc>
-              <TocMobile
-                isOpen={isOpen}
-                setTocOpenerState={(isOpen: boolean) =>
-                  setTocOpenerState(isOpen)
-                }
-                tableOfContents={post.tableOfContents}
-                path={post.frontmatter.path}
-                title={post.frontmatter.title}
-                dateYYYYMMDD={post.frontmatter.created.replace(/-/g, "")}
-              ></TocMobile>
-            </div>
-            <div className={"posts"}>
-              <div
-                style={{
-                  maxWidth: "95vw",
-                  marginLeft: "auto",
-                }}
-              >
-                <h3 className={"sectionTitle"}>最新の記事</h3>
-                <Swiper className={"swiper"}>
-                  {latestPosts.nodes.map(node => (
-                    <Card data={node.frontmatter} className={"card"}></Card>
-                  ))}
-                </Swiper>
-                <h3 className={"sectionTitle"}>人気の記事</h3>
-                <Swiper className={"swiper"}>
-                  {favoriteArticles.nodes.map(node => (
-                    <Card data={node.frontmatter} className={"card"}></Card>
-                  ))}
-                </Swiper>
+                  style={{
+                    maxWidth: "95vw",
+                    marginLeft: "auto",
+                  }}
+                >
+                  <h3 className={"sectionTitle"}>最新の記事</h3>
+                  <Swiper className={"swiper"}>
+                    {latestPosts.nodes.map(node => (
+                      <Card data={node.frontmatter} className={"card"}></Card>
+                    ))}
+                  </Swiper>
+                  <h3 className={"sectionTitle"}>人気の記事</h3>
+                  <Swiper className={"swiper"}>
+                    {favoriteArticles.nodes.map(node => (
+                      <Card data={node.frontmatter} className={"card"}></Card>
+                    ))}
+                  </Swiper>
+                </div>
               </div>
             </div>
-          </div>
-        </>
-      ) : (
-        "ERROR"
-      )}
+          </>
+        ) : (
+          "ERROR"
+        )}
     </Layout>
   )
 }

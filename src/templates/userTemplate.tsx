@@ -10,6 +10,7 @@ import { graphql, Link } from "gatsby"
 import { AllPostsByUserIdQuery } from "../../types/graphql-types"
 import { Tags } from "../components/indices/tags"
 import styled from "styled-components"
+import { createFluidImageFromImageSharp } from "../helper/createImageObject"
 
 interface IPassedProps {
   // user.yamlの構造が入る
@@ -32,7 +33,6 @@ const Component: React.FC<IProps> = props => {
             alt={`${pageContext.image}のプロフィール写真`}
             className={"userIcon"}
           />
-
           <div className={"info"}>
             <div className={"snsRow"}>
               <span className={"name"}>{pageContext.name}</span>
@@ -75,8 +75,7 @@ const Component: React.FC<IProps> = props => {
                     <div className={"postRow"}>
                       <Image
                         className={"image"}
-                        // @ts-ignore FIXME: 型エラー
-                        fluid={node.frontmatter.visual.childImageSharp.fluid}
+                        fluid={createFluidImageFromImageSharp(node.frontmatter?.visual?.childImageSharp?.fluid)}
                       />
                       <div className={"infoBox"}>
                         <h3 className={"postTitle"}>
@@ -232,6 +231,7 @@ const StyledComponent = styled(Component)`
     }
   }
 `
+
 
 const ContainerComponent: React.FC<IPassedProps> = props => {
   return <StyledComponent {...props}></StyledComponent>
