@@ -17,9 +17,9 @@ isProtect: false
 
 dist/module/script.js という階層にファイルがあるとして、この script.js だけを配布したいとします。
 ここで GitHub Release などに載せたいので zip したいです。
-このとき単に `zip script.zip dist/module/script.js` とすると `script.zip` が出来上がりますがこれを解答すると `dist/module/script.js` が出てくるので、実行するのがめんどくさかったりします。
+このとき単に `zip script.zip dist/module/script.js` とすると `script.zip` が出来上がりますがこれを解凍すると `dist/module/script.js` が出てくるので、実行するのがめんどくさかったりします。
 
-つまりどういうことかと言うと、
+つまり、
 
 ```sh
 # zip
@@ -38,7 +38,7 @@ $ ls dist
 module
 ```
 
-となり、script.js は見えないのを、解凍した時点で script.js が見える形にしたいということです。
+となり、script.js は見えないのを、解凍した時点で script.js が見える形にしたいというのが要望です。
 
 ## -j でディレクトリ名や構造を無視して zip する
 
@@ -69,7 +69,7 @@ $ ls dist
 script.js
 ```
 
-と、対象の zip をそのままの構造で解凍することができます。
+と、対象の zip をそのままの構造で解凍することができました。
 
 ## 調べたときに「これからも！」って思ったオプション
 
