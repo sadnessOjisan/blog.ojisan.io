@@ -16,12 +16,17 @@ const IndexPage: React.FC<IProps> = ({ data }) => {
       <SEO title={data.site?.siteMetadata?.title || "HOME"} />
       <Title>ブログのためのブログ</Title>
       <Cards>
-        {data.blogs.nodes.map(node => (
-          <StyledCard
-            excerpt={node.excerpt}
-            data={node.frontmatter}
-          ></StyledCard>
-        ))}
+        {data.blogs.nodes.map(node =>
+          node.frontmatter?.path ? (
+            <StyledCard
+              key={node.frontmatter.path}
+              excerpt={node.excerpt}
+              data={node.frontmatter}
+            ></StyledCard>
+          ) : (
+            <div>invalid data</div>
+          )
+        )}
       </Cards>
     </Layout>
   )

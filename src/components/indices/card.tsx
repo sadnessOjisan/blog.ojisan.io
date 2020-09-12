@@ -4,6 +4,7 @@ import { Link } from "gatsby"
 import Image from "gatsby-image"
 import { AllBlogsQuery } from "../../../types/graphql-types"
 import { Tags } from "./tags"
+import { createFluidImageFromImageSharp } from "../../helper/createImageObject"
 
 interface IPassedProps {
   /** ブログコンテンツのfrontmatter */
@@ -26,7 +27,6 @@ const Component: React.FC<IProps> = ({
   data,
   excerpt,
   setHover,
-  isHover,
 }) => (
   <div
     className={className}
@@ -37,8 +37,9 @@ const Component: React.FC<IProps> = ({
       <div className={"imageWrapper"}>
         <Image
           className={"image"}
-          // @ts-ignore FIXME: 型エラー
-          fluid={data.visual.childImageSharp.fluid}
+          fluid={createFluidImageFromImageSharp(
+            data?.visual?.childImageSharp?.fluid
+          )}
         />
       </div>
       <div className={"body"}>

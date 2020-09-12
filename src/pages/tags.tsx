@@ -22,15 +22,22 @@ const IndexPage: React.FC<IProps> = ({ data }) => {
         >
           タグ一覧
         </h2>
-        {data.allMarkdownRemark.group.map(tag => (
-          <Link to={tag.fieldValue ? `/tags/${tag.fieldValue}` : "/"}>
-            <div style={{ marginTop: "12px" }}>
-              <a>
-                {tag.fieldValue}({tag.totalCount})
-              </a>
-            </div>
-          </Link>
-        ))}
+        {data.allMarkdownRemark.group.map(
+          tag =>
+            tag &&
+            tag.fieldValue && (
+              <Link
+                to={tag.fieldValue ? `/tags/${tag.fieldValue}` : "/"}
+                key={tag.fieldValue}
+              >
+                <div style={{ marginTop: "12px" }}>
+                  <a>
+                    {tag.fieldValue}({tag.totalCount})
+                  </a>
+                </div>
+              </Link>
+            )
+        )}
       </div>
     </Layout>
   )

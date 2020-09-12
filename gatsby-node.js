@@ -1,3 +1,6 @@
+// JS FileなのでTSのルール設定を切る
+/* eslint-disable @typescript-eslint/no-var-requires */
+
 const path = require(`path`)
 const _ = require("lodash")
 const fs = require("fs")

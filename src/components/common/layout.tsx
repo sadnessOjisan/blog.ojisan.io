@@ -27,7 +27,9 @@ interface IProps extends IPassedProps, IContainerProps {}
 export const DrawerContext = React.createContext<{
   setDrawerState: React.Dispatch<React.SetStateAction<boolean>>
 }>({
-  setDrawerState: () => {},
+  setDrawerState: () => {
+    // no op
+  },
 })
 
 const Component: React.FC<IProps> = ({

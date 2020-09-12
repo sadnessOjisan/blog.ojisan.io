@@ -25,7 +25,7 @@ const Component: React.FC<IProps> = ({
       <a
         href={`https://twitter.com/intent/tweet?text=${title}%0ahttps://blog.ojisan.io${path}`}
         target="_blank"
-        rel="noopener"
+        rel="noopener noreferrer"
         aria-label="twitterへのリンク"
       >
         <IconButton aria-label="twitterアイコン">
@@ -36,7 +36,7 @@ const Component: React.FC<IProps> = ({
       <a
         href="http://www.facebook.com/share.php?u=https://blog.ojisan.io"
         target="_blank"
-        rel="noopener"
+        rel="noopener noreferrer"
         aria-label="facebookへのリンク"
       >
         <IconButton aria-label="facebookアイコン">
@@ -49,7 +49,7 @@ const Component: React.FC<IProps> = ({
           ""
         )}`}
         target="_blank"
-        rel="noopener"
+        rel="noopener noreferrer"
         aria-label="githubへのリンク"
       >
         <IconButton aria-label="githubアイコン">

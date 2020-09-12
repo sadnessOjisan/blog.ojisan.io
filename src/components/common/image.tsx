@@ -2,6 +2,7 @@ import React from "react"
 import { graphql, useStaticQuery } from "gatsby"
 import Img from "gatsby-image"
 import { ImagesQuery } from "../../../types/graphql-types"
+import { createFluidImageFromImageSharp } from "../../helper/createImageObject"
 
 interface IProps {
   className?: string
@@ -39,8 +40,7 @@ const Image: React.FC<IProps> = props => {
 
   return (
     <Img
-      // @ts-ignore
-      fluid={image.node.childImageSharp.fluid}
+      fluid={createFluidImageFromImageSharp(image.node.childImageSharp.fluid)}
       alt={props.alt}
       className={props.className}
     />

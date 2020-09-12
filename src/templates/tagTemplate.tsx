@@ -23,13 +23,20 @@ const Component: React.FC<IProps> = ({ data, pageContext, className }) => {
       <div className={className}>
         <h2 className={"title"}>{pageContext.tag}についての記事</h2>
         <div className={"cards"}>
-          {articles.map(article => (
-            <Card
-              excerpt={article.excerpt}
-              data={article.frontmatter}
-              className={"card"}
-            ></Card>
-          ))}
+          {articles.map(article => {
+            const frontmatter = article.frontmatter
+            const path = frontmatter?.path
+            return frontmatter && path ? (
+              <Card
+                key={path}
+                excerpt={article.excerpt}
+                data={frontmatter}
+                className={"card"}
+              ></Card>
+            ) : (
+              <div>invalid data</div>
+            )
+          })}
         </div>
       </div>
     </Layout>

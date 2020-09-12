@@ -9,7 +9,11 @@ const Component: React.FC<IProps> = ({ className }) => (
   <footer className={className}>
     <p>
       © {new Date().getFullYear()}, Built with
-      <a href="https://www.gatsbyjs.org" target="_blank" rel="noopener">
+      <a
+        href="https://www.gatsbyjs.org"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         {" "}
         Gatsby
       </a>
@@ -19,7 +23,7 @@ const Component: React.FC<IProps> = ({ className }) => (
       <a
         href="https://twitter.com/sadnessOjisan"
         target="_blank"
-        rel="noopener"
+        rel="noopener noreferrer"
       >
         {" "}
         @sadnessOjisan
@@ -30,7 +34,7 @@ const Component: React.FC<IProps> = ({ className }) => (
       <a
         href="https://github.com/sadnessOjisan/blog.ojisan.io"
         target="_blank"
-        rel="noopener"
+        rel="noopener noreferrer"
       >
         here
       </a>

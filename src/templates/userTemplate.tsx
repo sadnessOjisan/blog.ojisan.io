@@ -4,7 +4,7 @@ import Layout from "../components/common/layout"
 import UserImage from "../components/common/image"
 import GitHubIcon from "@material-ui/icons/GitHub"
 import Twittercon from "@material-ui/icons/Twitter"
-import { IconButton, makeStyles } from "@material-ui/core"
+import { IconButton } from "@material-ui/core"
 import { UserType } from "../type"
 import { graphql, Link } from "gatsby"
 import { AllPostsByUserIdQuery } from "../../types/graphql-types"
@@ -39,7 +39,7 @@ const Component: React.FC<IProps> = props => {
               <div>
                 <a
                   target="_blank"
-                  rel="noopener"
+                  rel="noopener noreferrer"
                   href={`https://twitter.com/${pageContext.twitterId}`}
                 >
                   <IconButton>
@@ -48,7 +48,7 @@ const Component: React.FC<IProps> = props => {
                 </a>
                 <a
                   target="_blank"
-                  rel="noopener"
+                  rel="noopener noreferrer"
                   href={`https://github.com/${pageContext.gitHubId}`}
                 >
                   <IconButton>
@@ -75,7 +75,10 @@ const Component: React.FC<IProps> = props => {
                     <div className={"postRow"}>
                       <Image
                         className={"image"}
-                        fluid={createFluidImageFromImageSharp(node.frontmatter?.visual?.childImageSharp?.fluid)}
+                        // TODO: JSを実行するのは本当にいいのかはあとで検討する。
+                        fluid={createFluidImageFromImageSharp(
+                          node.frontmatter?.visual?.childImageSharp?.fluid
+                        )}
                       />
                       <div className={"infoBox"}>
                         <h3 className={"postTitle"}>
@@ -231,7 +234,6 @@ const StyledComponent = styled(Component)`
     }
   }
 `
-
 
 const ContainerComponent: React.FC<IPassedProps> = props => {
   return <StyledComponent {...props}></StyledComponent>
