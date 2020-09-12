@@ -2,7 +2,7 @@ import * as React from "react"
 import styled from "styled-components"
 
 interface IProps {
-  className?: string;
+  className?: string
 }
 
 const Component: React.FC<IProps> = ({ className }) => (
@@ -40,7 +40,7 @@ const Component: React.FC<IProps> = ({ className }) => (
 )
 
 const StyledComponent = styled(Component)`
-margin-bottom: 0;
+  margin-bottom: 0;
   margin-top: auto;
   background: linear-gradient(45deg, #2196f3 30%, #21cbf3 90%);
   padding: 8px;
@@ -56,9 +56,8 @@ margin-bottom: 0;
 
   > p > a {
     text-decoration: underline;
-  font-weight: bold;
+    font-weight: bold;
   }
-  
-  `
+`
 
 export default StyledComponent

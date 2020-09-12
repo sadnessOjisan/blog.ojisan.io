@@ -61,12 +61,13 @@
   "scripts": {
     "build": "gatsby build",
     "develop": "gatsby develop",
-    "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
-    "format:ci": "prettier \"**/*.{js,jsx,json,md}\"",
+    "format": "prettier --write \"**/*.{js,jsx,json,md,tsx,ts}\"",
+    "format:ci": "prettier \"**/*.{js,jsx,json,md,tsx,ts}\"",
     "start": "npm run develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
-    "typecheck": "tsc -p . --noEmit"
+    "typecheck": "tsc -p . --noEmit",
+    "lint": "eslint '**/*.{js,jsx,json.md,tsx,ts}'"
   },
   "repository": {
     "type": "git",
