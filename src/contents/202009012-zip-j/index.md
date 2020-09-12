@@ -21,7 +21,7 @@ dist/module/script.js という階層にファイルがあるとして、この 
 
 つまりどういうことかと言うと、
 
-```
+```sh
 # zip
 $ zip script.zip dist/module/script.js
 
@@ -46,7 +46,7 @@ zip には -j というオプションがあります。
 
 `--help` でみてみると、
 
-```
+```sh
 -j   junk (don't record) directory names
 ```
 
@@ -57,7 +57,7 @@ zip には -j というオプションがあります。
 
 そこで junk オプションをつけてみましょう。
 
-```
+```sh
 # zip
 $ zip -j script.zip dist/module/script.js
 
@@ -91,7 +91,7 @@ FYI: https://unix.stackexchange.com/questions/77605/change-working-directory
 
 保存対象を指定できるオプションです。
 
-```
+```sh
 $ zip --include='*.png' hoge.zip src/contents/20200610-1st-blog-stack/*
 ```
 
