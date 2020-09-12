@@ -21,60 +21,68 @@ const Component: React.FC<IProps> = ({ data, pageContext, className }) => {
   return (
     <Layout>
       <div className={className}>
-        <h2 className={'title'}>{pageContext.tag}についての記事</h2>
-        <div className={'cards'}>
-          {articles.map(article => (
-            <Card
-              excerpt={article.excerpt}
-              data={article.frontmatter}
-              className={'card'}
-            ></Card>
-          ))}
-        </div></div>
+        <h2 className={"title"}>{pageContext.tag}についての記事</h2>
+        <div className={"cards"}>
+          {articles.map(article => {
+            const frontmatter = article.frontmatter
+            const path = frontmatter?.path
+            return frontmatter && path ? (
+              <Card
+                key={path}
+                excerpt={article.excerpt}
+                data={frontmatter}
+                className={"card"}
+              ></Card>
+            ) : (
+              <div>invalid data</div>
+            )
+          })}
+        </div>
+      </div>
     </Layout>
   )
 }
 
 const StyledComponent = styled(Component)`
-& .title {
-  font-size: 24px;
-  text-align: center;
-  margin-bottom: 32px;
-  margin-top: 32px;
-}
+  & .title {
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 32px;
+    margin-top: 32px;
+  }
 
-& .cards {
-  margin: 0 auto;
-  padding: 5px;
-  width: 90%;
-  column-count: 4;
-  column-gap: 0;
-}
-
-& .card {
-  margin: 16px;
-  /* top0にしないと件数少ない時に表示崩れある */
-  margin-top: 0px;
-  -webkit-column-break-inside: avoid;
-  page-break-inside: avoid;
-  break-inside: avoid;
-  box-shadow: 8px 12px 10px -6px rgba(0, 0, 0, 0.3);
-}
-
-@media screen and (max-width: 1024px) {
   & .cards {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
+    margin: 0 auto;
+    padding: 5px;
+    width: 90%;
+    column-count: 4;
+    column-gap: 0;
   }
 
   & .card {
-    margin-bottom: 16px;
+    margin: 16px;
+    /* top0にしないと件数少ない時に表示崩れある */
+    margin-top: 0px;
+    -webkit-column-break-inside: avoid;
+    page-break-inside: avoid;
+    break-inside: avoid;
+    box-shadow: 8px 12px 10px -6px rgba(0, 0, 0, 0.3);
   }
-}
+
+  @media screen and (max-width: 1024px) {
+    & .cards {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+
+    & .card {
+      margin-bottom: 16px;
+    }
+  }
 `
 
-const ContainerComponent: React.FC<IPassedProps> = (props) => {
+const ContainerComponent: React.FC<IPassedProps> = props => {
   return <StyledComponent {...props}></StyledComponent>
 }
 

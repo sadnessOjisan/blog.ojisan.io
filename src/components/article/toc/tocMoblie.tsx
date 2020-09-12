@@ -20,71 +20,80 @@ interface IProps extends IPassedProps {
   className?: string
 }
 
-const Component: React.FC<IProps> = ({ tableOfContents, isOpen, path, title, dateYYYYMMDD, setTocOpenerState, className }) =>
+const Component: React.FC<IProps> = ({
+  tableOfContents,
+  isOpen,
+  path,
+  title,
+  dateYYYYMMDD,
+  setTocOpenerState,
+  className,
+}) =>
   tableOfContents ? (
     <div className={className}>
-      {isOpen ?
-        <div className='wrapper'>
+      {isOpen ? (
+        <div className="wrapper">
           <SocialMobile
             path={path}
             title={title}
             dateYYYYMMDD={dateYYYYMMDD}
-            className='socialIcons'
+            className="socialIcons"
           ></SocialMobile>
           <nav
-            className={'toc'}
+            className={"toc"}
             dangerouslySetInnerHTML={{ __html: tableOfContents }}
           />
           <button
             onClick={() => setTocOpenerState(false)}
-            className='opener'
+            className="opener"
             aria-label="目次を閉じる"
           >
-            <img src={Close} className='icon' alt="toc-closer"></img>
-          </button> </div> :
+            <img src={Close} className="icon" alt="toc-closer"></img>
+          </button>{" "}
+        </div>
+      ) : (
         <button
           onClick={() => setTocOpenerState(true)}
-          className='opener'
+          className="opener"
           aria-label="目次を開く"
         >
-          <img src={Open} className='icon' alt="toc-opener"></img>
+          <img src={Open} className="icon" alt="toc-opener"></img>
         </button>
-      }
+      )}
     </div>
-
   ) : (
-      <div></div>
-    )
+    <div></div>
+  )
 
 const StyledComponent = styled(Component)`
-& .wrapper{
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: whitesmoke;
-  z-index: 2;
-  overflow: scroll;
-} 
-
-  & .opener{
+  & .wrapper {
     position: fixed;
-  right: 16px;
-  bottom: 16px;
-  width: 60px;
-  height: 60px;
-  background: linear-gradient(45deg, #2196f3 30%, #21cbf3 90%);
-  border-radius: 30px;
-  text-align: center;
-  box-shadow: 2px 2px 5px 0px #0000006b;
-  border: solid 2px white;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: whitesmoke;
+    z-index: 2;
+    overflow: scroll;
+  }
+
+  & .opener {
+    position: fixed;
+    right: 16px;
+    bottom: 16px;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(45deg, #2196f3 30%, #21cbf3 90%);
+    border-radius: 30px;
+    text-align: center;
+    box-shadow: 2px 2px 5px 0px #0000006b;
+    border: solid 2px white;
   }
 
   & .socialIcons {
     display: flex;
-  justify-content: center;
-  margin-bottom: 24px;
+    justify-content: center;
+    margin-bottom: 24px;
   }
 
   & .toc > ul {
@@ -123,7 +132,7 @@ const StyledComponent = styled(Component)`
   }
 `
 
-const ContainerComponent: React.FC<IPassedProps> = (props) => {
+const ContainerComponent: React.FC<IPassedProps> = props => {
   const { setTocOpenerState } = props
   /** URLを監視し、URLが変わったらtocを閉じる */
   React.useEffect(() => {

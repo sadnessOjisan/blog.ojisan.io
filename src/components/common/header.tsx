@@ -8,57 +8,61 @@ import GitHubIcon from "@material-ui/icons/GitHub"
 import RssFeedIcon from "@material-ui/icons/RssFeed"
 
 interface IPassedProps {
-  className?: string;
-  siteTitle: string;
+  className?: string
+  siteTitle: string
 }
 
-interface IContainerProps { setDrawerState: React.Dispatch<React.SetStateAction<boolean>>; }
+interface IContainerProps {
+  setDrawerState: React.Dispatch<React.SetStateAction<boolean>>
+}
 
-interface IProps extends IPassedProps, IContainerProps { }
+interface IProps extends IPassedProps, IContainerProps {}
 
-const Component: React.FC<IProps> = ({ className, siteTitle, setDrawerState }) =>
-  (
-    <header className={className}>
-      <h1 className='title'>
-        <Link to="/">{siteTitle}</Link>
-      </h1>
-      <div>
-        <a href="/rss.xml" aria-label="rssへのリンク">
-          <IconButton
-            aria-label="rssアイコン"
-            style={{ color: "white", padding: 8 }}
-          >
-            <RssFeedIcon />
-          </IconButton>
-        </a>
-        <a
-          href="https://github.com/sadnessOjisan/blog.ojisan.io"
-          aria-label="githubへのリンク"
-        >
-          <IconButton
-            aria-label="githubアイコン"
-            style={{ color: "white", padding: 8 }}
-          >
-            <GitHubIcon />
-          </IconButton>
-        </a>
+const Component: React.FC<IProps> = ({
+  className,
+  siteTitle,
+  setDrawerState,
+}) => (
+  <header className={className}>
+    <h1 className="title">
+      <Link to="/">{siteTitle}</Link>
+    </h1>
+    <div>
+      <a href="/rss.xml" aria-label="rssへのリンク">
         <IconButton
-          aria-label="menu"
-          color="default"
-          onClick={() => {
-            setDrawerState(true)
-          }}
+          aria-label="rssアイコン"
           style={{ color: "white", padding: 8 }}
         >
-          <MenuIcon />
+          <RssFeedIcon />
         </IconButton>
-      </div>
-    </header>
-  )
-
+      </a>
+      <a
+        href="https://github.com/sadnessOjisan/blog.ojisan.io"
+        aria-label="githubへのリンク"
+      >
+        <IconButton
+          aria-label="githubアイコン"
+          style={{ color: "white", padding: 8 }}
+        >
+          <GitHubIcon />
+        </IconButton>
+      </a>
+      <IconButton
+        aria-label="menu"
+        color="default"
+        onClick={() => {
+          setDrawerState(true)
+        }}
+        style={{ color: "white", padding: 8 }}
+      >
+        <MenuIcon />
+      </IconButton>
+    </div>
+  </header>
+)
 
 const StyledComponent = styled(Component)`
-background: linear-gradient(45deg, #2196f3 30%, #21cbf3 90%);
+  background: linear-gradient(45deg, #2196f3 30%, #21cbf3 90%);
   color: white;
   height: 70px;
   display: flex;
@@ -72,22 +76,22 @@ background: linear-gradient(45deg, #2196f3 30%, #21cbf3 90%);
   width: 100%;
   z-index: 1;
 
-& .title {
-  font-size: 20px;
-  font-weight: 900;
-}
-
-@media screen and (max-width: 1024px) {
-  & .pcOnly {
-    display: none;
+  & .title {
+    font-size: 20px;
+    font-weight: 900;
   }
-}
+
+  @media screen and (max-width: 1024px) {
+    & .pcOnly {
+      display: none;
+    }
+  }
 `
 
-const ContainerComponent: React.FC<IPassedProps> = (props) => {
+const ContainerComponent: React.FC<IPassedProps> = props => {
   const drawerContext = React.useContext(DrawerContext)
   const containerProps = { setDrawerState: drawerContext.setDrawerState }
-  return <StyledComponent {...props} {...containerProps}></StyledComponent >
+  return <StyledComponent {...props} {...containerProps}></StyledComponent>
 }
 
 export default ContainerComponent

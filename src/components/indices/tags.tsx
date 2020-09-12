@@ -1,6 +1,6 @@
 import * as React from "react"
 import { Link } from "gatsby"
-import styled from 'styled-components'
+import styled from "styled-components"
 import { Tag } from "./tag"
 import { Maybe } from "../../../types/graphql-types"
 
@@ -16,7 +16,7 @@ const Component: React.FC<IPassedProps> = ({ tags, className }) => (
         tag && (
           <Link to={`/tags/${tag}`}>
             <a>
-              <Tag className={'tag'} name={tag}></Tag>
+              <Tag className={"tag"} name={tag}></Tag>
             </a>
           </Link>
         )
@@ -24,9 +24,8 @@ const Component: React.FC<IPassedProps> = ({ tags, className }) => (
   </div>
 )
 
-
 const StyledCompoenent = styled(Component)`
-display: flex;
+  display: flex;
   flex-wrap: wrap;
 
   > * {
