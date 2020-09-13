@@ -103,7 +103,7 @@ module.exports = {
           {
             resolve: `gatsby-remark-shiki`,
             options: {
-              theme: "nord", // Default: 'nord'
+              theme: "quietlight", // Default: 'nord'
             },
           },
           {
