@@ -383,3 +383,9 @@ div .hoge{color:red;}div .hoge{color:blue;}
 ```
 
 です。
+
+## ソースコード
+
+https://github.com/ojisan-toybox/exec-stylis
+
+index.js にいろいろ SCSS を食わせて実行するとイメージが着くと思います。
