@@ -65,18 +65,22 @@ const Component: React.FC<IProps> = props => {
           <hr></hr>
           {props.data.postsByUserId.nodes.map(
             node =>
+              // TODO: 判定関数にくくり出す
               node.timeToRead &&
               node.frontmatter &&
               node.frontmatter.title &&
               node.frontmatter.path &&
-              node.frontmatter.tags && (
+              node.frontmatter.tags &&
+              node.frontmatter?.visual?.childImageSharp?.fluid && (
                 <Link to={node.frontmatter.path}>
                   <a>
                     <div className={"postRow"}>
                       <Image
                         className={"image"}
                         // TODO: JSを実行するのは本当にいいのかはあとで検討する。
-                        fluid={node.frontmatter?.visual?.childImageSharp?.fluid}
+                        fluid={createFluidImageFromImageSharp(
+                          node.frontmatter?.visual?.childImageSharp?.fluid
+                        )}
                       />
                       <div className={"infoBox"}>
                         <h3 className={"postTitle"}>
