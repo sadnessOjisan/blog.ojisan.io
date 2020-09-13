@@ -76,9 +76,7 @@ const Component: React.FC<IProps> = props => {
                       <Image
                         className={"image"}
                         // TODO: JSを実行するのは本当にいいのかはあとで検討する。
-                        fluid={createFluidImageFromImageSharp(
-                          node.frontmatter?.visual?.childImageSharp?.fluid
-                        )}
+                        fluid={node.frontmatter?.visual?.childImageSharp?.fluid}
                       />
                       <div className={"infoBox"}>
                         <h3 className={"postTitle"}>

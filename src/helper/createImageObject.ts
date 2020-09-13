@@ -3,8 +3,8 @@ import { FluidObject } from "gatsby-image"
 
 export const createFluidImageFromImageSharp = (
   imageSharpFluid: GatsbyImageSharpFluidFragment | null | undefined
-): FluidObject | undefined => {
-  if (!imageSharpFluid) return undefined
+): FluidObject => {
+  if (!imageSharpFluid) throw new Error("invalidimage object")
   return {
     aspectRatio: imageSharpFluid.aspectRatio,
     src: imageSharpFluid.src,
