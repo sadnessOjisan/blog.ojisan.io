@@ -1,6 +1,6 @@
 ---
 path: /s-c-kigo
-created: "2020-09-13"
+created: "2020-09-15"
 title: styled-components の :&>before(記号) まとめ
 visual: "./visual.png"
 tags: ["styled-components", React]
@@ -9,15 +9,17 @@ isFavorite: false
 isProtect: false
 ---
 
-styled-components の 入れ子の中で使う記号(&>+~)(こういうのを**隣接セレクタと呼ぶ**)や、擬似要素 before/after, hover などの擬似クラス("), さらには && といった書き方、これがいつもどれだったか忘れてしまうのが最近の悩みです。
+[styled-components](https://styled-components.com/) の 入れ子の中で使う記号(`&>+~`)や、擬似要素 `before/after`, 擬似クラス `hover`, さらには `& &` といった書き方、これがいつも分からなくなるのが最近の悩みです。
 きっと CSS を習得するより先に React の勉強を始めた方は同じような悩みを持っているのではないでしょうか。
 僕はいつもこの記号がわからなくなるので、ちゃんと調べてメモすることにしました。
-その結果、基本的には **styled-components の中で SCSS の記法が使えるだけ**っていう風に覚えておけばいいことがわかりましたが、一部そうでないものもありました。
+その結果、基本的には **styled-components の中で SCSS の記法が使えるだけ**っていう風に覚えておけばいいことがわかりましたが、**一部そうでないものもありました**。
 それについて順を追って説明していきます。
+
+(TIPS: >+~についてググるとき直接記号を入れると検索されにくいですが、これらは**隣接セレクタ**と呼ばれておりその言葉で検索すると比較的ヒットします。)
 
 ## CSS の復習
 
-CSS や SCSS を熟達する前に React を始めた人にとっては CSS/SCSS の記号運用と styled-components での記号運用を区別がつかないと思いますので、そういったところから包括的に整理していこうと思います。
+初学者にとっては CSS/SCSS の記号運用と styled-components での記号運用を区別がつかないと思いますので、そういったところから包括的に整理していこうと思います。
 諸々の実験はここでしているのでご確認ください。
 
 FYI: https://codesandbox.io/s/css-sandbox-1qjew?file=/index.html
@@ -90,9 +92,9 @@ div > p {
 ```html
 <div>
   <p>スタイル当たる</p>
-  <div>
+  <form>
     <p>スタイル当たらない</p>
-  </div>
+  </form>
 </div>
 ```
 
@@ -102,6 +104,12 @@ div > p {
 
 \+ は直後の隣接要素を表します。
 
+```css
+p + span {
+  color: orange;
+}
+```
+
 ```html
 <p class="hoge">
   一つ内側(p　.hoge)
@@ -110,12 +118,6 @@ div > p {
 <span>一つ内側(span)(ここにスタイルが当たる)</span>
 <span>一つ内側(span)</span>
 <span>一つ内側(span)</span>
-```
-
-```css
-p + span {
-  color: orange;
-}
 ```
 
 直後の一つにしか当たらないことに注意しましょう。
@@ -125,6 +127,12 @@ p + span {
 一方で~ は 後続の隣接要素を表します。
 \+ が直後だけだったのに対し、これは後続のもの全てが対象です。
 
+```css
+p ~ span {
+  color: orange;
+}
+```
+
 ```html
 <p class="hoge">
   一つ内側(p　.hoge)
@@ -133,12 +141,6 @@ p + span {
 <span>一つ内側(span)(ここにスタイルが当たる)</span>
 <span>一つ内側(span)(ここにスタイルが当たる)</span>
 <span>一つ内側(span)(ここにスタイルが当たる)</span>
-```
-
-```css
-p ~ span {
-  color: orange;
-}
 ```
 
 ### hoge:hover
@@ -189,10 +191,10 @@ selector::pseudo-element {
 - placeholder
 
 などが入ります。
-意外と数があるので気になる方は MDN を参照ください。
+これも意外と数があるので気になる方は MDN を参照ください。
 
-ここで覚えておきたいことは **before, after 意外にもある**ということと、**: ではなく :: が必要**ということです。
-特に **: の運用は後々の混乱の原因にもつながってくる**ので意識しておいてください。
+ここで覚えておきたいことは **before, after 以外にもある**ということと、**: ではなく :: が必要**ということです。
+特に **: の数や使い方については後々の混乱の原因にもつながってくる**ので意識しておいてください。
 
 ## SCSS の復習
 
@@ -223,9 +225,9 @@ div {
 
 とネストで表現できます。
 
-### >+~をネストで表現
+### >+~をネストと一緒に使う
 
-下層へのスタイルの指定を制御していた >+~(隣接セレクタ) などもネストと組み合わせてすっきりと書けるようになります。
+下層へのスタイルの指定を制御していた >+~(隣接セレクタ) などもネストと組み合わせてすっきりと書けるようになります。（この例ではわかりにくいですが複雑に慣ればなるほど構造化されてすっきりと見えるはずです。）
 
 ```css
 div > p {
@@ -247,7 +249,7 @@ div {
 
 ### & を使った親要素参照
 
-SCSS の便利な機能として & で親のネストのセレクタ名を参照できる機能があります。
+SCSS の便利な機能として **& でネストの親のセレクタ名を参照できる**機能があります。
 
 それを使えば、
 
@@ -277,6 +279,8 @@ p {
 このとき & には親の p が入るとしてみると、`span p`になることがわかると思います。
 
 ### &:hover, &::before, &\_\_hoge
+
+段々記号がごちゃごちゃになってきましたね。
 
 この&を使えば、
 
@@ -348,17 +352,44 @@ div {
 ```
 
 としてコンパイルでき、CSS の命名規則のようになりました。
-この `__` は いかにもな記号ですが SCSS には何の関係もないので注意しましょう。
+この使われ方はそれなりにみる機会もあり、`__` は いかにもな記号ですが SCSS には何の関係もないので注意しましょう。
 命名規則です。
 命名規則としては同様に`--`を使うパターンもあったりします。
+
+### & & &
+
+この & を複数使うとどうなるでしょうか。
+
+```scss
+div {
+  & & & {
+    color: blue;
+  }
+}
+```
+
+は
+
+```css
+div div div {
+  color: blue;
+}
+```
+
+となります。
+
+これの何が嬉しいかというと**詳細度(スタイルの当たる優先度)を制御**できます。
+セレクタの上乗せで調節することはたまに使うこともあるテクニックですが、SCSS では & を複数使うことで実現できます。
+記号がたくさん出てきてギョッとしますが一度覚えておくといざというときに読み解けるはずです。
 
 ## styled-components の記法
 
 さあようやく styled-components にきました。
 なぜここまで CSS/SCSS をくどくど説明したかというと、CSS の記法は SCSS の記法で置き換えられ、**SCSS の記法は styled-component の記法で置き換えられる**からです。
-そのため SCSS の書き方を知っていれば styled-components の書き方を 95%知っているも同然です。
+そのため SCSS の書き方を知っていれば styled-components の書き方をほとんど知っているも同然です。
 
 **styled-components は CSS プロセッサに [stylis](https://stylis.js.org/) を利用しており**、SCSS の記法を使うことが可能となっています。
+ただしよく読むと scss-like とあるので完全に SCSS というわけではなく、ちょっとした改変もありそうな気がするので検証していきましょう！
 
 > The preprocessor we use, stylis, supports scss-like syntax for automatically nesting styles.
 
@@ -432,7 +463,7 @@ div :hover {
 
 となるからです。
 
-要素の後にスペースが開くと擬似クラス CSS は適用されないことに注意しましょう。
+**CSS では要素の後にスペースが開くと擬似クラス CSS は適用されないことに注意しましょう。**
 
 FYI: https://github.com/ojisan-toybox/hover-spacing
 
@@ -521,6 +552,61 @@ FYI: https://codesandbox.io/s/schover-gldmv
 
 しかし、 `&:hover`ではなく`:hover` が動くことは styled-components に書かれていなさそうなので、`&:hover`を使った方が良いと筆者は考えています。
 
+### &&& と & & &
+
+同様のスペースの扱いに関しては & & & についても言えます。
+これは SCSS の節で紹介した通り、詳細度をコントロールするテクニックです。
+このセレクタは & の間にスペースが必要で、実際 &&& として SCSS をコンパイルするとエラーになります。
+
+```scss
+div {
+  && {
+    color: blue;
+  }
+}
+```
+
+```sh
+$ npx node-sass index.scss
+{
+  "status": 1,
+  "file": "/scss-exec/index.scss",
+  "line": 4,
+  "column": 9,
+  "message": "Invalid CSS after \"&\": expected \"{\", was \"&\"\n\n\"&\"
+  may only be used at the beginning of a compound selector.",
+  "formatted": "Error: Invalid CSS after \"&\": expected \"{\", was \"&\"\n\n
+  \"&\" may only be used at the beginning of a compound selector.\n
+   on line 4 of index.scss\n>>   span && {\n\n   --------^\n"
+}
+```
+
+しかし styled-components では成功します。
+
+```jsx
+const CCC = styled.div`
+  && {
+    color: blue;
+  }
+`;
+...
+<CCC>fiojfwjfi</CCC>
+```
+
+```css
+.lmbrhy.lmbrhy.lmbrhy {
+  color: blue;
+}
+```
+
+これも SCSS と記法がぶれてる箇所なので注意しましょう。
+ここは反対に **styled-components では `&&` ではなく `& &`だとスタイルが当たってくれません**。
+公式の例も `&&` と並べて書いています。
+
+FYI: https://styled-components.com/docs/basics#pseudoelements-pseudoselectors-and-nesting
+
+完全に混乱の原因ですので気をつけましょう。
+
 ## 個人的勘違いポイント
 
 と、ここまでの話を踏まえて、僕が styled-components 内の記号においてどういうところで混乱していたかを紹介します。
@@ -545,7 +631,7 @@ div {
         color: blue;
     }
     :hover {
-        color:　　　　　　　　　　　　 blue;
+        color: blue;
     }
 }
 `
@@ -562,15 +648,15 @@ div:hover{color:blue;}div :hover{color:blue;}
 
 ## 次回予告: なぜ styled-components では結果が異なるのか
 
-そこで気になるのはどうして styled-components には & がなくても hover ができるのかという疑問が生まれます。
-答えは内部で使っている stylis にあることがわかりました。
+そこで気になるのはどうして styled-components には & がなくても hover ができるのかということです。
+ざっと読んだ限りでは、答えは内部で使っている stylis にあることがわかりました。
 （※ 実際は styled-components は stylis ではなく、@emotion/stylis という stylis を軽量化したものを使っています。）
 
 > switched from stylis to @emotion/stylis (#2640); mostly a bundle size win and a minor performance boost
 
 FYI: https://styled-components.com/releases#v5.0.0-beta.5
 
-これは stylis 語幹のはずですが、stylis そのものと挙動が違っており @emotion/stylis を実行すると先のようなスタイルを吐き出されてることが確認できました。
-(ここにデバッガを入れて確認した。 https://github.com/liwire/styled-components/blob/cae8d82e1c26c06b82efcfdf547ecb7c7ff96f64/src/utils/stylis.js#L92 )
-ではここの stylis インスタンスがどういう設定になっているかを読めば解決なのですが、実際は [@emotion/stylis](https://github.com/emotion-js/emotion/tree/master/packages/stylis) がソースそのものが minify されていて読めず明らかにできていないです。
+これは stylis 互換のはずですが、stylis そのものと挙動が違っており @emotion/stylis を実行すると styled-components の出力結果と同じものが吐き出されてることが確認できました(=つまり SCSS に準拠していないものが @emotion/stylis から吐かれている)。
+(ここにデバッガを入れて確認した。 https://github.com/styled-components/styled-components/blob/1fde8f09ac77a7a6647b15628b25c774ea42463e/packages/styled-components/src/utils/stylis.js#L93 )
+ではここの stylis インスタンスがどういう設定になっているかを読めば解決なのですが、[@emotion/stylis](https://github.com/emotion-js/emotion/tree/master/packages/stylis) がソースそのものが minify されていて読めず明らかにできていないのが現状です。
 しかしこのライブラリの影響によるということはデバッグの末に掴んでいるので、次回は styled-components をデバッグする記事を書いて紹介したいと思います。
