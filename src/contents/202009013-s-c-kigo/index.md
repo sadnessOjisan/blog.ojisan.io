@@ -611,11 +611,93 @@ FYI: https://styled-components.com/docs/basics#pseudoelements-pseudoselectors-an
 
 と、ここまでの話を踏まえて、僕が styled-components 内の記号においてどういうところで混乱していたかを紹介します。
 
-### : は特別な記法でも何でもない
+### :+~>& は styled-components 特有の特別な記法ではない
 
-擬似クラス・擬似要素で使う CSS にもある記号です。
-: は擬似クラス、::は擬似要素に使います。
+たとえば : は擬似クラス、::は擬似要素で使う CSS にもある記号です。
 :hover, ::before のように : の数で混乱しないように意識しましょう。
+
+あと個人的には
+
+```jsx
+const Component = styled.div`
+  > p {
+  }
+
+  & p {
+  }
+`
+```
+
+の使い分けに悩んでいました。
+SCSS の記法を意識すればわかりますね。
+`div > p` と `div p` の違いです。
+直下要素にスタイルを当てるか、複数にスタイルを当てるかという違いです。
+
+### & なしでも子孫の指定ができる
+
+ただし、 上の例に付け加えるなら
+
+```jsx
+const Component = styled.div`
+  p {
+  }
+`
+```
+
+というパターンもあり得ます。
+
+公式には & なしのパターンと紹介されており、
+
+> If you put selectors in without the ampersand, they will refer to children of the component.
+
+とのことです。
+
+そしてこれは直下だけではなく子を全て対象にとっています。
+
+```jsx
+const DDD = styled.div`
+  p {
+    color: green;
+  }
+`;
+
+...
+
+<DDD>
+  <p>
+    aaaaaaa（適用される）
+  </p>
+  <p>
+    aaaaaaa（適用される）
+  </p>
+  <p>
+    aaaaaaa（適用される）
+  </p>
+  <p>
+    aaaaaaa（適用される）
+  </p>
+</DDD>
+```
+
+そして、この場合においては
+
+```jsx
+const DDD = styled.div`
+  p {
+    color: green;
+  }
+`
+
+const EEE = styled.div`
+  & p {
+    color: yellow;
+  }
+`
+```
+
+は同じセレクタ(.class p) を出力します。
+これも混乱のもとなので気をつけましょう。
+&を付けないパターンはなるべく使わないようにすると良いと思います。
 
 ### :hover は SCSS の記法では &:hover
 
@@ -645,6 +727,10 @@ div:hover{color:blue;}div :hover{color:blue;}
 ```
 
 なのに、styled-components では &無し hover は hover できる CSS として出力されるので **&の役割とは何なのか**と混乱することになりました。
+
+## 個人的な主張
+
+& がなくても動くパターンがありますが、とりあえず SCSS の記法に従って全部 & を付けた書き方をすれば混乱はないと思います。
 
 ## 次回予告: なぜ styled-components では結果が異なるのか
 
