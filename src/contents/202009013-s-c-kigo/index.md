@@ -605,7 +605,7 @@ const CCC = styled.div`
 
 FYI: https://styled-components.com/docs/basics#pseudoelements-pseudoselectors-and-nesting
 
-完全に混乱の原因ですので気をつけましょう。
+気をつけましょう。
 
 ## 個人的勘違いポイント
 
@@ -701,7 +701,7 @@ const EEE = styled.div`
 
 ### :hover は SCSS の記法では &:hover
 
-styled-components では 動きますが、やめておいた方が良さそうです。
+:hover の利用は、styled-components では 動きますがやめておいた方が良さそうです。
 たとえば、styled-components が利用しているライブラリ(stylis)を直接叩くと white-space が入り、hover できない CSS が出力されることが確認できます。
 
 ```js
@@ -742,7 +742,8 @@ div:hover{color:blue;}div :hover{color:blue;}
 
 FYI: https://styled-components.com/releases#v5.0.0-beta.5
 
-これは stylis 互換のはずですが、stylis そのものと挙動が違っており @emotion/stylis を実行すると styled-components の出力結果と同じものが吐き出されてることが確認できました(=つまり SCSS に準拠していないものが @emotion/stylis から吐かれている)。
+これは stylis 互換のはずですが、stylis そのものと I/F が違っており怪しんでいます。
+また @emotion/stylis を実行すると styled-components の出力結果と同じものが吐き出されてることが確認できたので、 これが& やスペースの扱いを制御していそうです。(=つまり SCSS に準拠していないものが @emotion/stylis から吐かれている)。
 (ここにデバッガを入れて確認した。 https://github.com/styled-components/styled-components/blob/1fde8f09ac77a7a6647b15628b25c774ea42463e/packages/styled-components/src/utils/stylis.js#L93 )
 ではここの stylis インスタンスがどういう設定になっているかを読めば解決なのですが、[@emotion/stylis](https://github.com/emotion-js/emotion/tree/master/packages/stylis) がソースそのものが minify されていて読めず明らかにできていないのが現状です。
 しかしこのライブラリの影響によるということはデバッグの末に掴んでいるので、次回は styled-components をデバッグする記事を書いて紹介したいと思います。
