@@ -9,11 +9,10 @@ import Toc from "../components/article/toc/toc"
 import TocMobile from "../components/article/toc/tocMoblie"
 import Social from "../components/article/social/socials"
 import { UserType } from "../type"
-import { Card } from "../components/indices/card"
-import Swiper from "../components/common/swiper"
 import styled from "styled-components"
 import { createFluidImageFromImageSharp } from "../helper/createImageObject"
 import { PostHeader } from "../components/article/postHeader"
+import { PostFooter } from "../components/article/postFooter"
 
 interface IPassedProps {
   data: BlogTemplateQuery
@@ -107,41 +106,10 @@ const Component: React.FC<IProps> = ({
                 dateYYYYMMDD={post.frontmatter.created.replace(/-/g, "")}
               ></TocMobile>
             </div>
-            <div className={"posts"}>
-              <div
-                style={{
-                  maxWidth: "95vw",
-                  marginLeft: "auto",
-                }}
-              >
-                <h3 className={"sectionTitle"}>最新の記事</h3>
-                <Swiper className={"swiper"}>
-                  {latestPosts.nodes.map(
-                    node =>
-                      node.frontmatter?.path && (
-                        <Card
-                          data={node.frontmatter}
-                          className={"card"}
-                          key={node.frontmatter.path}
-                        ></Card>
-                      )
-                  )}
-                </Swiper>
-                <h3 className={"sectionTitle"}>人気の記事</h3>
-                <Swiper className={"swiper"}>
-                  {favoriteArticles.nodes.map(
-                    node =>
-                      node.frontmatter?.path && (
-                        <Card
-                          data={node.frontmatter}
-                          className={"card"}
-                          key={node.frontmatter.path}
-                        ></Card>
-                      )
-                  )}
-                </Swiper>
-              </div>
-            </div>
+            <PostFooter
+              latestPosts={latestPosts}
+              favoriteArticles={favoriteArticles}
+            ></PostFooter>
           </div>
         </>
       ) : (
@@ -311,43 +279,6 @@ const StyledComponent = styled(Component)`
     & .content iframe {
       width: initial;
       height: initial;
-    }
-  }
-
-  // 記事以下
-  & .posts {
-    margin-top: 60px;
-    padding: 24px;
-    padding-right: 0;
-    background-color: white;
-  }
-
-  & .sectionTitle {
-    font-size: 32px;
-    margin: 20px 0px;
-    font-weight: bold;
-  }
-
-  & .card {
-    flex-shrink: 0;
-    width: 30%;
-    border: solid 3px #ccc;
-    display: block;
-  }
-
-  & .card:not(:first-child) {
-    margin-left: 12px;
-  }
-
-  & .swiper {
-    scroll-margin-right: 12px;
-    margin-right: 12px;
-  }
-
-  @media screen and (max-width: 1024px) {
-    & .card {
-      width: 90%;
-      border: solid 3px #ccc;
     }
   }
 `

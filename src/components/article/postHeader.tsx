@@ -30,13 +30,13 @@ const Component: React.FC<IProps> = props => {
       </h2>
       {/* TODO: tasgsコンポーネントで置き換える */}
       {/* FIXME: Cardのtagとclassが衝突する事故 */}
-      <div className={"article-tags"}>
+      <div className={"tags"}>
         {frontmatter.tags.map(
           tag =>
             tag && (
               <Link to={`/tags/${tag}`} key={tag}>
                 <a>
-                  <Tag className={"article-tag"} name={tag}></Tag>
+                  <Tag className={"tag"} name={tag}></Tag>
                 </a>
               </Link>
             )
@@ -96,12 +96,12 @@ const StyledComponent = styled(Component)`
     padding: 0 8px;
   }
 
-  & .article-tags {
+  & .tags {
     display: flex;
     margin: 8px 0px;
   }
 
-  & .article-tag {
+  & .tag {
     margin-right: 12px;
     margin-bottom: 8px;
   }
