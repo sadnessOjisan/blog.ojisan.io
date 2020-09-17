@@ -18,4 +18,4 @@ display: flex;
 }
 }`
 
-export default StyledComponent
+export const Swiper = StyledComponent
