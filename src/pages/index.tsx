@@ -9,7 +9,6 @@ import { Card } from "../components/indices/card"
 interface IProps {
   data: AllBlogsQuery
 }
-
 const IndexPage: React.FC<IProps> = ({ data }) => {
   return (
     <Layout>
