@@ -9,7 +9,7 @@ isFavorite: false
 isProtect: false
 ---
 
-a タグに`target=_blank`をつける時はとりあえず rel 属性に　`noopener noreferrer` と脳死で書いておけばいいと思ったのですが、どうして noreferrer だけだとだめなんだろうと気になったので調べてみました。
+a タグに`target=_blank`をつける時はとりあえず rel 属性に `rel="noopener noreferrer"` と脳死で書いておけばいいと思ったのですが、どうして noreferrer だけだとだめなんだろうと気になったので調べてみました。
 
 ## 結論
 
@@ -17,7 +17,7 @@ noreferrer だけでも問題はないが、ちょーーーーーーーーーー
 
 ## 前回までのあらすじ！
 
-### どうして noopener noreferrer が必要なの？
+### どうして noopener noreferrer が必要なのか
 
 a タグ には target=\_blank という設定があり、別タブで開かせることができます。
 
@@ -27,7 +27,7 @@ a タグ には target=\_blank という設定があり、別タブで開かせ�
 </a>
 ```
 
-そこで `rel="noreferrer noreferrer"` を付けようという話があり、
+そこには `rel="noreferrer noreferrer"` を付けようという話があり、
 
 ```jsx
 <a href="http://example.com" target="_blank" rel="noreferrer noreferrer">
@@ -53,27 +53,19 @@ FYI: https://chaika.hatenablog.com/entry/2018/12/06/110000
 
 FYI: https://chaika.hatenablog.com/entry/2018/12/06/110000
 
-#### IE 対応
+#### 古いブラウザへの対応
 
 しかし、noopener は古いブラウザ(例えば Chronium 以前の Edge(~79)など)ではサポートされていません。
 そこで noreferrer です。
 これはリファラを送らないようにする指定であり、さらに noopener と同様の効果も持ちます。
 
-それは HTML の Spec にも書かれています。
-
-```sh
-<a href="..." rel="noreferrer" target="_blank"> has the same behavior as <a href="..." rel="noreferrer noopener" target="_blank">.
-```
-
-FYI: https://html.spec.whatwg.org/multipage/links.html#link-type-noreferrer
-
-実際、noreferrer の方がサポートしているブラウザは広いです。
+そして noreferrer の方がサポートしているブラウザは広いため、利用が推奨されています。
 
 ![noopenerの Can I See](./noopener.png)
 
 ![noreferrerの Can I See](./noreferrer.png)
 
-### ESLint の警告が変わっていたよ
+### ESLint Plugin の警告が変わっていた
 
 ところでこの rel がついていないこのコード
 
@@ -83,10 +75,12 @@ FYI: https://html.spec.whatwg.org/multipage/links.html#link-type-noreferrer
 </a>
 ```
 
-をそのまま JSX に書いて eslint にかけると、
+をそのまま JSX に書いて eslint(+[eslint-plugin-react](https://github.com/yannickcr/eslint-plugin-react)) にかけると、
 
 ```sh
-error  Using target="_blank" without rel="noreferrer" is a security risk: see https://html.spec.whatwg.org/multipage/links.html#link-type-noopener  react/jsx-no-target-blank
+error  Using target="_blank" without rel="noreferrer" is a security risk:
+see https://html.spec.whatwg.org/multipage/links.html#link-type-noopener
+react/jsx-no-target-blank
 ```
 
 のような警告が出ます。
@@ -104,7 +98,8 @@ error  Using target="_blank" without rel="noreferrer" is a security risk: see ht
 が、ここの警告が昔は
 
 ```sh
-Using target="_blank" without rel="noopener noreferrer" is a security risk: see https://mathiasbynens.github.io/rel-noopener/
+Using target="_blank" without rel="noopener noreferrer" is a security risk:
+see https://mathiasbynens.github.io/rel-noopener/
 ```
 
 でした。
@@ -112,15 +107,20 @@ Using target="_blank" without rel="noopener noreferrer" is a security risk: see 
 
 なのにいつの間にか `rel="noreferrer"` でよくなっているみたいです。
 
+FYI: https://github.com/yannickcr/eslint-plugin-react/commit/b9d2eb58b89eec8645c135e12d0a592951499abf (PR)
+
 どうしてでしょうか？
+詳しくは後述します。
 
 ### noreferrer だけを外したい動機
 
-一方でアフィリエイトサイトに使われがちな某 CMS などで noreferrer を調べてみると、「noreferrer を外す方法を紹介します！」といった記事がたくさん出てきます。
-ESLint の世界では noreferrer を付けようぜという温度感になっていたのにどうしてなんだと思っていくつか記事を読んでいくと、どうやらアフィリエイトに使う目的の一貫として、referrer が取れない = 成果がわからない といった問題が起きてしまうらしく、そういった悩みを解決する記事のようでした。
-そしてそれらは 「noopener があるからセキュリティ的には大丈夫だよ」とのことでプラグインやスクリプトとして公開されており、noreferrer を外すことを望んでそうなことがみて取れました。（少数派だとは思いますが）
+一方でアフィリエイトサイトに使われる CMS のフォーラムで noreferrer を調べてみると、「noreferrer を外す方法を紹介します・教えてください」といった投稿を目にします。
+ESLint の世界では noreferrer を付けようぜという温度感になっていたのにどうしてなんだと思っていくつか読んでいくと、どうやら referrer が取れない = アフィリエイト報酬が計算されない といった問題が起きる場合があるようでした。
+そしてそれらは 「noopener があるからセキュリティ的には大丈夫だよ」とのことでプラグインやスクリプトが配布されていたりもして、noreferrer を外したい要望もあることがわかりました。
 
-## ここで整理
+## パターンの整理
+
+ここまでの流れを整理すると、
 
 - セキュリティへの対応として noopener をつける必要がある
 - noopener と同様の効果は noreferer にもある
@@ -128,13 +128,11 @@ ESLint の世界では noreferrer を付けようぜという温度感になっ�
 - ESLint は noreferrer だけを推奨するようになった（両方つけることを非推奨にしているわけではないことに注意）
 - 一方で アフィリエイト業界では noopener だけをつけたい要望が上がっている
 
-ESLint と アフィリエイト CMS の動向が反対なのが気になりますね。
+といったことがわかりました。
+
+ESLint と アフィリエイト の動向が反対なのが気になりますね。
 結局何を指定すれば良いのでしょうか。
 そこでそれらの組み合わせについて整理していきましょう。
-
-### 何も付けない
-
-せめてどれか付けましょう。
 
 ### noopener のみ
 
@@ -164,6 +162,8 @@ ESLint と アフィリエイト CMS の動向が反対なのが気になりま�
 おそらくアフィリエイトツールが気にしているのはこの辺のことです。
 個人的には利用者のセキュリティを第一に考えて欲しい気持ちもありますが、アフィリエイトツールの要件次第では noreferrer と比較してサポート範囲は狭まりますが、noopener を付けましょう。
 
+ただし noreferrer でも計測できるものも多いとは思うのでまずは外さずに使ってみると良いでしょう。
+
 ### noopener noreferrer の双方
 
 一番安全なパターンです。
@@ -178,8 +178,11 @@ noopener もつけるメリットとしては　https://github.com/yannickcr/esl
 と、両方つけるメリットも少しはありそうと書いたのですがそもそも spec には
 
 ```sh
-<a href="..." rel="noreferrer" target="_blank"> has the same behavior as <a href="..." rel="noreferrer noopener" target="_blank">.
+<a href="..." rel="noreferrer" target="_blank"> has the same behavior as
+<a href="..." rel="noreferrer noopener" target="_blank">.
 ```
 
-とあるので、noopener をつける必要は本当になさそうです。
+FYI: https://html.spec.whatwg.org/multipage/links.html#link-type-noreferrer
+
+とあるので、noopener をつける必要はなさそうです。
 付けても微々たるバンドルサイズ以外の損はないと思うので僕は付けていますが・・・
