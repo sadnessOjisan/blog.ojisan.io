@@ -175,10 +175,9 @@ ESLint と アフィリエイト の動向が反対なのが気になります�
 はずなのに、双方をつける理由って一体何なのでしょうか。
 
 noopener もつけるメリットとしては先ほど紹介した ESLint が双方を書くような警告をやめた際の PR/Issue に書かれていました。
+noreferrer だけがついていると別タブで開かなくなる不具合がある Firefox 33–35 にも対応できるとのことです。
 
 FYI:　https://github.com/yannickcr/eslint-plugin-react/issues/2022
-
-noreferrer だけがついていると別タブで開かなくなる不具合がある Firefox 33–35 にも対応できるとのことです。
 
 FYI: https://bugzilla.mozilla.org/show_bug.cgi?id=1031264
 
