@@ -1,6 +1,6 @@
 ---
 path: /noreferer-noopener
-created: "2020-09-17"
+created: "2020-09-18"
 title: noopener と noreferrer の整理、結局どっちを使えば良いのか
 visual: "./visual.png"
 tags: [HTML]
@@ -55,9 +55,10 @@ FYI: https://chaika.hatenablog.com/entry/2018/12/06/110000
 
 #### 古いブラウザへの対応
 
+これらの対応は noopener を使うことで実現できます。
 しかし、noopener は古いブラウザ(例えば Chronium 以前の Edge(~79)など)ではサポートされていません。
 そこで noreferrer です。
-これはリファラを送らないようにする指定であり、さらに noopener と同様の効果も持ちます。
+これはリファラを送らないようにする指定であり、**さらに noopener と同様の効果も持ちます。**
 
 そして noreferrer の方がサポートしているブラウザは広いため、利用が推奨されています。
 
@@ -110,7 +111,6 @@ see https://mathiasbynens.github.io/rel-noopener/
 FYI: https://github.com/yannickcr/eslint-plugin-react/commit/b9d2eb58b89eec8645c135e12d0a592951499abf (PR)
 
 どうしてでしょうか？
-詳しくは後述します。
 
 ### noreferrer だけを外したい動機
 
@@ -154,7 +154,7 @@ ESLint と アフィリエイト の動向が反対なのが気になります�
 
 とあり、referrer を送らないだけでなく、noopener と同じ効果も持ちます。
 
-つまりこれを使うことで、リンク先のページから元ページの操作を防げます。
+つまりこれを使うことで、リンク先のページから元ページの操作も防げます。
 
 そして noopener より広いサポート範囲を持ちます。
 
@@ -167,10 +167,22 @@ ESLint と アフィリエイト の動向が反対なのが気になります�
 ### noopener noreferrer の双方
 
 一番安全なパターンです。
-しかし ブラウザの守備範囲としては noreferrer のみ でいいと思っていますが双方をつけるメリットって一体何なのでしょうか。
+しかし
 
-noopener もつけるメリットとしては　https://github.com/yannickcr/eslint-plugin-react/issues/2022 によると、noreferrer がついていると別タブでそもそも開かなくなる不具合がある Firefox 33–35 の対応とのことです。
-ただし Firefox のバージョンは自動で上がるため考慮せず、何も rel の指定がなければ noreferrer のみをつけるように警告はするが noopener がついていることに対して警告しないとなったとのことです。
+- noreferrer のみでも noopener と同じ効果を得られる
+- noreferrer の方がブラウザの守備範囲が広い
+
+はずなのに、双方をつける理由って一体何なのでしょうか。
+
+noopener もつけるメリットとしては先ほど紹介した ESLint が双方を書くような警告をやめた際の PR/Issue に書かれていました。
+
+FYI:　https://github.com/yannickcr/eslint-plugin-react/issues/2022
+
+noreferrer だけがついていると別タブで開かなくなる不具合がある Firefox 33–35 にも対応できるとのことです。
+
+FYI: https://bugzilla.mozilla.org/show_bug.cgi?id=1031264
+
+ただし Firefox のバージョンは自動で上がるため考慮せず何も rel の指定がなければ noreferrer のみをつけるように警告はするが noopener がついていることに対して警告しないようになったようです。
 
 上記のドキュメントは ESLint のプラグインの話なので、本当はまた違ったメリットもあるのかもしれません。
 もしご存知でしたらどなたか教えてください。
@@ -184,5 +196,5 @@ noopener もつけるメリットとしては　https://github.com/yannickcr/esl
 
 FYI: https://html.spec.whatwg.org/multipage/links.html#link-type-noreferrer
 
-とあるので、noopener をつける必要はなさそうです。
-付けても微々たるバンドルサイズ以外の損はないと思うので僕は付けていますが・・・
+とあるので、noopener をつけなくても問題はなさそうです。
+付けても微々たるバンドルサイズ以外の損はなく、救えるブラウザがほんのちょっと増えるという理由で僕は付けていますが・・・
