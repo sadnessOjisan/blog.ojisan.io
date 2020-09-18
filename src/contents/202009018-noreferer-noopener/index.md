@@ -68,7 +68,7 @@ FYI: https://chaika.hatenablog.com/entry/2018/12/06/110000
 
 ### ESLint Plugin の警告が変わっていた
 
-ところでこの rel がついていないこのコード
+ところでこの rel がついていないコード
 
 ```jsx
 <a href="http://example.com" target="_blank">
@@ -141,10 +141,8 @@ ESLint と アフィリエイト の動向が反対なのが気になります�
 > The keyword indicates that any newly created top-level browsing context which results from following the hyperlink will not be an auxiliary browsing context. E.g., its window.opener attribute will be null.
 
 とあり、開き元の情報を見えなくする働きを持っています。
-
 つまりこれを使うことで、リンク先のページから元ページの操作を防げます。
-
-ただし、 noreferrer に比べてブラウザのサポートはされません。
+ただし、 noreferrer に比べてブラウザのサポートは狭いです。
 
 ### noreferrer のみ
 
@@ -153,9 +151,7 @@ ESLint と アフィリエイト の動向が反対なのが気になります�
 > It indicates that no referrer information is to be leaked when following the link and also implies the noopener keyword behavior under the same conditions.
 
 とあり、referrer を送らないだけでなく、noopener と同じ効果も持ちます。
-
 つまりこれを使うことで、リンク先のページから元ページの操作も防げます。
-
 そして noopener より広いサポート範囲を持ちます。
 
 ただし referrer が送られなくなるので、トラッキングツールや広告 SDK に影響があるかもしれません。
@@ -177,7 +173,7 @@ ESLint と アフィリエイト の動向が反対なのが気になります�
 noopener もつけるメリットとしては先ほど紹介した ESLint が双方を書くような警告をやめた際の PR/Issue に書かれていました。
 noreferrer だけがついていると別タブで開かなくなる不具合がある Firefox 33–35 にも対応できるとのことです。
 
-FYI:　https://github.com/yannickcr/eslint-plugin-react/issues/2022
+FYI: https://github.com/yannickcr/eslint-plugin-react/issues/2022
 
 FYI: https://bugzilla.mozilla.org/show_bug.cgi?id=1031264
 
