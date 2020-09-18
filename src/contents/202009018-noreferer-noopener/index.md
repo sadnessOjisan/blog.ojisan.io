@@ -60,7 +60,7 @@ FYI: https://chaika.hatenablog.com/entry/2018/12/06/110000
 そこで noreferrer です。
 これはリファラを送らないようにする指定であり、**さらに noopener と同様の効果も持ちます。**
 
-そして noreferrer の方がサポートしているブラウザは広いため、利用が推奨されています。
+そして noreferrer の方がサポートしているブラウザは広いため、noopener を使えない場合のフォールバックとして利用が推奨されています。
 
 ![noopenerの Can I See](./noopener.png)
 
