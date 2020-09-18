@@ -175,6 +175,8 @@ noreferrer だけがついていると別タブで開かなくなる不具合が
 
 FYI: https://github.com/yannickcr/eslint-plugin-react/issues/2022
 
+(PR には Firefox 33–35 removes opener with rel="noreferrer" とあるのですが、実際 FireFox のリリースノートや IssueTracker をみる限りだと referrer が送られてしまうバグの修正とあり、本当に opener が消えてるのかは確証を持てていないです. )
+
 FYI: https://bugzilla.mozilla.org/show_bug.cgi?id=1031264
 
 ただし Firefox のバージョンは自動で上がるため考慮せず何も rel の指定がなければ noreferrer のみをつけるように警告はするが noopener がついていることに対して警告しないようになったようです。
