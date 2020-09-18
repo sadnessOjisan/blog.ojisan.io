@@ -9,7 +9,7 @@ isFavorite: false
 isProtect: false
 ---
 
-a タグに`target=_blank`をつける時はとりあえず rel 属性に `rel="noopener noreferrer"` と脳死で書いておけばいいと思ったのですが、どうして noreferrer だけだとだめなんだろうと気になったので調べてみました。
+a タグに`target=_blank`をつける時はとりあえず rel 属性に `rel="noopener noreferrer"` と書いておけばいいと思ったのですが、どうして noreferrer だけだとだめなんだろうと気になったので調べてみました。
 
 ## 結論
 
