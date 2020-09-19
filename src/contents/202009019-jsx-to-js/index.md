@@ -1,6 +1,6 @@
 ---
 path: /jsx-to-js
-created: "2020-09-19"
+created: "2020-09-19 09:00"
 title: どうしてJSXを使ってもエラーにならないのか？
 visual: "./visual.png"
 tags: [React]
