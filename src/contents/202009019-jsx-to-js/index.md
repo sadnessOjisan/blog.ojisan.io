@@ -1,7 +1,7 @@
 ---
 path: /jsx-to-js
 created: "2020-09-19"
-title: JSXってどうして使えるんだっけ？
+title: どうしてJSXを使ってもエラーにならないのか？
 visual: "./visual.png"
 tags: [React]
 userId: sadnessOjisan
@@ -19,17 +19,14 @@ export const Hoge = () => {
 }
 ```
 
-といった形ですが、どうしてこれが実行できるのでしょうか。
+の return 以下の部分を指しますが、どうしてこれが実行できるのでしょうか。
 
-これが JS として実行できるまでの流れを追ってみました。
+これが `createElement` 相当であることは知っていましたが、どうやってその変換をしているのだっけというのがきちんと説明できる自信がなかったので調べてみました。
 
 ## JSX は createElement の糖衣構文
 
-[JSX なしで React を使う](https://ja.reactjs.org/docs/react-without-jsx.html) という節に詳しく書かれています。
-
+JSX は `createElement` の糖衣構文であることは、React 公式の[JSX なしで React を使う](https://ja.reactjs.org/docs/react-without-jsx.html) という節に詳しく書かれています。
 コンポーネントが返す UI のブロックは普段は `<div></div>` などで書いていましたが、それらは `createElement('div')` としても書けるというわけです。
-
-というよりそもそも React そのものには JSX をサポートする機能はなく(断定できる自信はない)、コンポーネントや要素は createElement を通して使われています。
 
 ところで公式の例には
 
@@ -59,9 +56,11 @@ ReactDOM.render(
 ```
 
 とありますが、普段 JSX が使えているのはどうしてでしょうか？
-誰が createElement への変換をになっているのでしょうか？
+誰が `createElement` への変換をになっているのでしょうか？
 
 ## React の外にあるものが createElement へ変換する
+
+React そのものには JSX 用の機能があるわけでは無いので React の外側にあるものがその責務をになっているはずです。
 
 ### Babel
 
@@ -229,11 +228,11 @@ const Component = () => {
 そのときに書く `import React from "react"` は JSX が `React.createElement` と変換されることを見越してのことです。
 昔は Editor や Linter が強くなく未定義変数として警告が出ていたりもしていたのですが、いまではそれもなくなっているので以前ほどのおまじない感は無くなってきているとは思いますが、`import React from "react"`を忘れずに書きましょう。
 
-ちなみに preact では createElement 相当なものは h 関数という別の名前になっていたりするのですが、それは`jsxFactory`という設定で制御可能です。詳しくは [Preact の環境構築 of 2020](https://blog.ojisan.io/how-to-create-preact-app-2020)をご覧ください。
+ちなみに preact では `createElement` 相当なものは h 関数という別の名前になっていたりするのですが、それは`jsxFactory`という設定で制御可能です。詳しくは [Preact の環境構築 of 2020](https://blog.ojisan.io/how-to-create-preact-app-2020)をご覧ください。
 
 ## サンプルコード
 
-もともと Styled Components 製のコンポーネントをビルドしたときの中身を読むために作っていたプロジェクトなので styled とついていますが、その辺りは置き換えながら読んでいたでければと思います。
+もともと styled-components 製のコンポーネントをビルドしたときの中身を読むために作っていたプロジェクトなので styled とついていますが、その辺りは置き換えながら読んでいたでければと思います。
 
 - https://github.com/ojisan-toybox/styled-babel
 - https://github.com/ojisan-toybox/styled-tsc
