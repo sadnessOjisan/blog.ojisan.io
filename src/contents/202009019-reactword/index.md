@@ -10,6 +10,7 @@ isProtect: false
 ---
 
 React のコンポーネント周りの用語ってごっちゃごちゃになったことないですか？
+
 友人と話すときなどはなんとなくのニュアンスで伝わるので気にしていなかったのですが、型注釈つけるときやコードリーディングするときに言葉の定義がわからなくなって何回も調べるといったことをよくやるのでこれを機に整理しようと思います。
 
 ここでは
@@ -35,6 +36,8 @@ React のコンポーネント周りの用語ってごっちゃごちゃにな�
 
 ほとんどが TypeScript の型定義に現れる用語で、React それ自体のコード(+Flow)とズレがあるかもしれませんが、私は React を TypeScript で書くことが多いのでそのまま整理しました。
 
+本記事では JSX 意外にも createElement 記法の知識も要するので、自信がない方は[公式](https://ja.reactjs.org/docs/react-without-jsx.html)や[どうして JSX を使ってもエラーにならないのか？](/jsx-to-js)をご覧ください。
+
 ## コンポーネントにまつわる用語
 
 React 内部の話に入る前に[Glossary of React Terms](https://reactjs.org/docs/glossary.html)にで紹介されている概念を復習しましょう。
@@ -59,7 +62,7 @@ const A = () => {
 <div>hello</div>
 ```
 
-は JSX で書かれているということが分かりますが、内部ではそれぞれ Component や ReactElement とも呼ばれたりしています。
+は JSX で書かれているということが分かりますが、内部ではそれぞれ JSX.Element や ReactElement とも呼ばれたりしています。
 それらは JSX と何が違うのでしょうか。
 僕はこの答えに自信を持てないので、公式や具体例を通じて JSX が何かを調べていきましょう。
 
@@ -128,7 +131,7 @@ const El = () => <div>hello world!</div>
 
 > React components are small, reusable pieces of code that return a React element to be rendered to the page.
 
-とり、**Components は React element を返す**ものを指すことが分かります。
+とあり、**Components は React element を返す**ものを指すことが分かります。
 それは関数だったり、 `render(){}` を実装した クラスとして実装されます。
 いわゆる関数コンポーネントとクラスコンポーネントと呼ばれるものです。
 
@@ -173,6 +176,8 @@ ReactDOM.render(<App />, document.getElementById("root"))
 ```
 
 が正解です。
+
+createElement に拾ってもらう必要があるからです。
 
 ## TypeScript における型定義
 
@@ -272,7 +277,7 @@ type JSXElementConstructor<P> =
 TypeScript では new の型を書くことでそのクラスのコンストラクタの型定義を書いたこととなります。
 
 また ReactElement の定義に JSXElementConstructor が含まれ、JSXElementConstructor の定義に ReactElement が含まれることから、要素は入れ子にできることがわかるはずです。
-つまりこの 2 つが
+つまり
 
 ```tsx
 <Items>
@@ -282,11 +287,11 @@ TypeScript では new の型を書くことでそのクラスのコンストラ�
 </Items>
 ```
 
-を表現しています。
+といったコードが可能になるわけです。
 
 ### DetailedReactHTMLElement
 
-ところでコンポーネントは createElement() からも作れます。
+ところで Element(UI ブロックでいう意味でのコンポーネント) は createElement() からも作れます。
 これの戻り値の型は `DetailedReactHTMLElement` というものです。
 
 ```tsx
@@ -298,7 +303,7 @@ interface DetailedReactHTMLElement<
 }
 ```
 
-これは HTML のキーワードを引数にもらってコンポーネントを作る関数なのでそれっぽい型がたくさん含まれています。
+これは HTML のキーワードを引数にもらって Element を作る関数なのでそれっぽい型がたくさん含まれています。
 
 #### DOMElement
 
@@ -529,7 +534,7 @@ const Hoge3 = () => {
 
 ## まとめ
 
-依存関係と入出力を整理するとこう言う形になると思います。
+依存関係と入出力を整理するとこういう形になると思います。
 
 ![依存図](./visual.png)
 
