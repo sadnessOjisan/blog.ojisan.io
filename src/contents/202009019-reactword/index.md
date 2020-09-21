@@ -173,7 +173,7 @@ ReactDOM.render(<App />, document.getElementById("root"))
 
 が正解です。
 
-createElement に拾ってもらう必要があるからです。
+createElement に変換される必要があるからです。
 
 ## TypeScript における型定義
 
@@ -492,11 +492,11 @@ const Component = () => {
 type ReactChild = ReactElement | ReactText
 ```
 
-`ReactChild` は `ReactNode` の型定義で使われているだけです。
 Child という名前から`props.children`に関係がある何かかもしれないと思うかもしれませんが、直接は関係ないので注意しましょう。
 props.children の型は ReactNode です。
+ファイル内検索をしてみると、`ReactChild` は `ReactNode` の型定義で使われているだけであることが分かります。
 
-とはいえ ReactNode の型定義の上で、ReactNode 以外の`ReactFragment| ReactPortal | boolean | null | undefined` が children として展開されることはそうそう無いと思うので、実質的には props.children に入るものは `ReactChild` と言えるかもしれません。
+とはいえ ReactNode の型定義の上で、ReactNode 以外の`ReactFragment| ReactPortal | boolean | null | undefined` が children として展開されることはそうそう無いと思うので、実質的には ReactNode 型である props.children に入るものは `ReactChild` と言えるかもしれません。
 
 ### ReactText
 
