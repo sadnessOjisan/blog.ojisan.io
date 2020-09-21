@@ -1,10 +1,6 @@
 import * as React from "react"
 import styled from "styled-components"
-import { Link } from "gatsby"
 import { BlogTemplateQuery } from "../../../types/graphql-types"
-import { UserType } from "../../type"
-import { Tag } from "../indices/tag"
-import UserImage from "../common/image"
 import { Card } from "../indices/card"
 import { Swiper } from "../common/swiper"
 
