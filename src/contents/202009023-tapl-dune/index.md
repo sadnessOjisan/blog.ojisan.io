@@ -205,3 +205,7 @@ FLG -open Dune__exe -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40
 ## サンプルコード
 
 https://github.com/sadnessOjisan/arith-dune
+
+## おわりに
+
+TaPL 本当になんもわからんという状態ですのでどなたか手解き頂きたいです・・・
