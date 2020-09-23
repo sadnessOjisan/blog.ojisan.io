@@ -9,6 +9,18 @@ isFavorite: true
 isProtect: false
 ---
 
+# 注意
+
+この記事は 2020 年 09 月 24 日現在、古い情報となりました。
+[eslint-plugin-prettier](https://github.com/prettier/eslint-plugin-prettier) はなく [prettier-eslint](https://github.com/prettier/prettier-eslint) を使うようにと公式がアナウンスを出しています。
+そのことについては [Prettier と ESLint の組み合わせの公式推奨が変わった](/prettier-eslint-cli) にてまとめましたので、こちらもご覧ください。
+
+また eslint-plugin-prettier は公式推奨ではなくなりましたが、それは Editor などの外部環境の進化によるものでこのプラグイン自体に何か問題が起きたわけではありません。
+そして eslint-plugin-prettier を利用した設定方法、特に slint-plugin-prettier と eslint-config-prettier が何を解決していたかを知らないと、prettier-eslint が何をどう解決したかを理解できないはずなのでこの記事はそのまま残します。そう言う意味では 2020 年 09 月 24 日現在もこの情報は有用なので興味がある方は一読すると良いでしょう。
+ESLint の仕組みについて詳しくなれると思います。
+
+# 本文
+
 以前, [ESLint の plugin と extend について解説した記事](https://blog.ojisan.io/eslint-plugin-and-extend)を書いた際に、[Prettier](https://github.com/prettier) と [ESLint](https://eslint.org/) の共存設定について触れました。
 いま Google で「Prettier ESLint」などで検索すると、最善とは言えない情報（重複した設定をしている）や根拠に欠ける情報が上の方に出てきており、混乱を助長していると思いましたので、根拠を示した記事を書きたいと思います。
 この情報は 2020 年 6 月 24 日における公式ドキュメントやライブラリの実装を根拠に解説した記事です。
