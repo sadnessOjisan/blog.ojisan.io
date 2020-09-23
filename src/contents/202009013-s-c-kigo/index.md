@@ -174,7 +174,7 @@ selector:pseudo-class {
 :: は擬似要素(Pseudo-elements)を表すのに使います。
 MDN の説明を借りるなら、擬似要素 Pseudo-elements はセレクターに付加するキーワードで、選択された要素の特定の部分にスタイル付けできるようにするものです。
 
-FYI: https://developer.mozilla.org/ja/docs/Web/CSS/Pseudo-classes
+FYI: https://developer.mozilla.org/ja/docs/Web/CSS/Pseudo-elements
 
 ```css
 selector::pseudo-element {
