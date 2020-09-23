@@ -73,7 +73,7 @@ ESLint のルールは Formatting rules と Code-quality rules という 2 つ�
 
 Prettier が新しいものだった時は plugin を使うのが推奨されてしましたが、今はエディタなどがネイティブでサポートするようになったので、Prettier を実行する層を挟まなくて良くなったと言ったところでしょうか。そしてこのドキュメントでは eslint-plugin-prettier よりいい手法として提案されているものがあるのでそれを見ていきましょう。
 
-## eslint-prettier
+## prettier-eslint
 
 [prettier-eslint](https://github.com/prettier/prettier-eslint) と呼ばれるツールがその代替となります。
 
@@ -209,7 +209,7 @@ eslint-plugin-prettier は不要なので、その内部で使っていた eslin
 
 ## サンプルコード
 
-TBD
+https://github.com/ojisan-toybox/prettier-eslint-example.git
 
 ## あとがき
 
