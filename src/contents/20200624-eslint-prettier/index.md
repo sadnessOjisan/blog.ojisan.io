@@ -12,7 +12,7 @@ isProtect: false
 # 注意
 
 この記事は 2020 年 09 月 24 日現在、古い情報となりました。
-eslint-plugin-prettier ではなく prettier-eslint を使うようにと公式がアナウンスを出しています。
+[eslint-plugin-prettier](https://github.com/prettier/eslint-plugin-prettier) はなく [prettier-eslint](https://github.com/prettier/prettier-eslint) を使うようにと公式がアナウンスを出しています。
 そのことについては [Prettier と ESLint の組み合わせの公式推奨が変わった](/prettier-eslint-cli) にてまとめましたので、こちらもご覧ください。
 
 また eslint-plugin-prettier は公式推奨ではなくなりましたが、それは Editor などの外部環境の進化によるものでこのプラグイン自体に何か問題が起きたわけではありません。

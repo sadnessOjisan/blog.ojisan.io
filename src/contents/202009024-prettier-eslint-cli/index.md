@@ -14,8 +14,8 @@ isProtect: false
 
 ## 変更点の要約
 
-[公式](https://github.com/prettier/prettier/blob/554b15473dd4032a036d7db91a8f579e624c9822/docs/integrating-with-linters.md) の推奨方法が変わりました。
-きっといつかこの情報も古くなるので直リンクではなく、ドキュメントの GitHub のリンクです。
+Prettier と ESLint の組み合わせについて[公式](https://github.com/prettier/prettier/blob/554b15473dd4032a036d7db91a8f579e624c9822/docs/integrating-with-linters.md) の推奨方法が変わりました。
+きっといつかこの情報も古くなるので直リンクではなく、ドキュメントの GitHub のリンクを貼っておきます。
 ドキュメント自体のリンクは[こちら](https://prettier.io/docs/en/integrating-with-linters.html)です。
 
 新しいドキュメントを要約すると、
@@ -28,6 +28,8 @@ isProtect: false
 
 ## Formatter と Linter の組み合わせの復習
 
+競合問題について知っていれば読み飛ばしていい節です。
+
 ### そもそも Formatter と Linter の組み合わせは何が問題だったか
 
 ESLint にも format に関するルールがあり、そのルールの設定と Prettier の設定が矛盾すると、eslint 後の prettier、もしくは prettier 後の eslint でエラーが起きるからです。
@@ -38,19 +40,19 @@ ESLint にも format に関するルールがあり、そのルールの設定�
 ESLint のルールは Formatting rules と Code-quality rules という 2 つのカテゴリがあります。
 このうち Formatting rules を ESLint 側で off にします。
 ただそのルールを探し出して全部ちまちま手で off にしていくと大変なので extends を使ってオフにするルールをセットにした config を読み込みます。
-それが eslint-config-prettier です。
+それが [eslint-config-prettier](https://github.com/prettier/eslint-config-prettier) です。
 これらの config は ESLint の react や typescript の plugin ごとに対応する config があるので、それらを足していくことで柔軟にコントロールができます。
 
 そして ESLint -> Prettier, Prettier -> ESLint といった順序についても悩まなくていいように ESLint の中で Prettier を実行し、さらには Prettier のエラーを ESLint のエラーとして扱うようにします。
-それを担うのが eslint-plugin-prettier です。
+それを担うのが [eslint-plugin-prettier](https://github.com/prettier/eslint-plugin-prettier) です。
 そして eslint-plugin-prettier は その内部で eslint-config-prettier も読み込む設定もしてくれるので、ESLint の設定としてはこの eslint-plugin-prettier を使うことで解決ができます。
 
-まあ実際は eslint-plugin-prettier の sharable config を extends して読み込ませるのでもう少し複雑なことをしているのですが、それについては過去に書いたこちらをご覧ください。
+実際には eslint-plugin-prettier の sharable config を extends して読み込ませるのでもう少し複雑なことをしているのですが、その説明をすると膨大になるのでそちらについては過去に書いたこちらをご覧ください。
 
 - [ESLint と Prettier の共存設定とその根拠について](/eslint-prettier)
 - [ESLint の Plugin と Extend の違い](https://blog.ojisan.io/eslint-plugin-and-extend)
 
-## 新しい変更では何が問題になったか
+## 新しい変更はどういうものか
 
 大きな変更点は **ESLint の plugin 系の利用は推奨しない** ことです。
 
@@ -67,7 +69,7 @@ ESLint のルールは Formatting rules と Code-quality rules という 2 つ�
 - 直接 Prettier を実行するより遅い
 - レイヤーをひとつ挟んでおり、不整合が起きる可能性がある
 
-さらに 最近のエディターのプラグインは直接 Prettier を実行できるようにもなっているので、わざわざ eslint-plugin-prettier の内部で prettier を import して設定をセットアップして実行すると言った手間を省けます。
+さらに 最近のエディターのプラグインは直接 Prettier を実行できるようにもなっているので、エディタの eslint プラグインを動かすためにわざわざ eslint-plugin-prettier の内部で prettier を import して設定をセットアップして実行すると言った手間を省けます。
 
 Prettier が新しいものだった時は plugin を使うのが推奨されてしましたが、今はエディタなどがネイティブでサポートするようになったので、Prettier を実行する層を挟まなくて良くなったと言ったところでしょうか。そしてこのドキュメントでは eslint-plugin-prettier よりいい手法として提案されているものがあるのでそれを見ていきましょう。
 
@@ -91,7 +93,7 @@ Prettier が新しいものだった時は plugin を使うのが推奨されて
 
 とのことです。
 
-やっていることはめちゃくちゃシンプルなのですが、このライブラリを入れることで ESLint 側に Prettier を入れる必要がなくなり、ESLint 上での Prettier にまつわるボトルネックやエディタのエラーを解消できるというわけです。
+やっていることはめちゃくちゃシンプルなのですが、このライブラリを入れることで ESLint のプラグイン側から Prettier を呼び出す必要がなくなり、ESlint を利用するエディタ 上での Prettier にまつわるボトルネックやエラーを解消できるというわけです。
 
 公式の例では
 
@@ -126,11 +128,9 @@ formatted // const { foo } = bar
 ```
 
 とあり、format 対象と ESLint と Prettir の設定を渡すと、結果がよしなに出てくる感じで簡単です。
-良い感じがします。
-
 またこのライブラリ自体はこのために作られたというわけではなく、4 年以上前から作られており Contributors も著名な方が多いのでこれに乗って問題ないと個人的には思います。
 
-## 使い方
+### 使い方
 
 実際に使ってみましょう。
 先ほどの pretteir-eslint は NodeJS 環境で動かす core の部分なので単体だと使い勝手が悪いので、それに引数としてファイルを与えられるような cli ツールも使います。
@@ -161,7 +161,11 @@ success formatting 1 file with prettier-eslint
 
 となり、`throw{ a:0 }` として出力されます。
 
+prettier と同じ感覚で使えて良さそうです。
+
 ### 落とし穴
+
+実際に使うとハマる点もあるのでそれについてみていきましょう。
 
 公式の例では
 
@@ -173,7 +177,7 @@ success formatting 1 file with prettier-eslint
 }
 ```
 
-となっているのですが、これは不十分な場合があるのでそれについて説明します。
+となっているのですが、これは不十分な場合があります。
 
 #### --write オプション
 
@@ -197,10 +201,15 @@ FYI: https://github.com/prettier/prettier-eslint-cli/issues/208
 
 format に関しては prettier-eslint を使うだけで良いです。
 eslint-plugin-prettier は不要なので、その内部で使っていた eslint-config-prettier も不要です。
-ただしその場合は prettier → eslint --fix という順序で format を当てるのでこれまで config で off にしていたルールに対しても format が当たります。
+ただしその場合は prettier → `eslint --fix` という順序で format を当てるのでこれまで config で off にしていたルールに対しても format が当たります。
 ただ中で .eslintrc を読めるので eslint-config-prettier を使って eslint にある format rule を無効にすることも可能です。
+どちらを選ぶかはお好みや CI(ESLint)の都合で決めていいと思います。
 
-また prettier-eslint は format 用のツールなので lint に関してはまた別途 npm scripts を定義して実行してください。
+また prettier-eslint は format 用のツールなので lint に関してはまた別途 lint の npm scripts を定義して実行してください。
+
+## サンプルコード
+
+TBD
 
 ## あとがき
 
