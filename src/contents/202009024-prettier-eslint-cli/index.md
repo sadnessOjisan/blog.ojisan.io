@@ -9,8 +9,8 @@ isFavorite: false
 isProtect: false
 ---
 
-前に書いた [ESLint と Prettier の共存設定とその根拠について](/eslint-prettier) が一部間違った情報になっているのでその訂正記事です。
-該当記事に書いた内容は Prettier の内部を読む上で役立つ情報だと思うので、警告とこのページへのリンクを書いた上でそのまま残しておきます。
+前に書いた [ESLint と Prettier の共存設定とその根拠について](/eslint-prettier) が公式推奨が変わったことにより一部間違った情報になっているのでその訂正記事です。
+該当記事に書いた内容は Prettier と ESLint の関係を読み解く上で役立つ情報だと思うので、警告とこのページへのリンクを書いた上でそのまま残しておきます。
 
 ## 変更点の要約
 
@@ -20,8 +20,8 @@ Prettier と ESLint の組み合わせについて[公式](https://github.com/pr
 
 新しいドキュメントを要約すると、
 
-- 不要なルールは ESLint の config を入れて回避できる
-- ESLint の plugin 系の利用は推奨しない
+- Linter と Formatter の競合は ESLint の config を入れて回避できる
+- 競合の回避に ESLint の plugin の利用は推奨しない
 - 代わりに prettier-eslint を使う
 
 これらの意味について解説します。
@@ -33,7 +33,7 @@ Prettier と ESLint の組み合わせについて[公式](https://github.com/pr
 ### そもそも Formatter と Linter の組み合わせは何が問題だったか
 
 ESLint にも format に関するルールがあり、そのルールの設定と Prettier の設定が矛盾すると、eslint 後の prettier、もしくは prettier 後の eslint でエラーが起きるからです。
-このとき 後に実行する方を eslint なら --fix, prettier なら--write オプションをつけてルール違反の箇所を上書けばエラーで落ちたりしませんが、CI などでそれをやると静的検査にならないのでよくない設定であり避けるべきです。
+このとき 後に実行する方を eslint なら `--fix`, prettier なら `--write` オプションをつけてルール違反の箇所を上書けばエラーで落ちたりしませんが、CI などでそれをやると静的検査にならないのでよくない設定であり避けるべきです。
 
 ### 設定の矛盾への対応策
 
@@ -65,11 +65,11 @@ ESLint のルールは Formatting rules と Code-quality rules という 2 つ�
 
 これらのプラグインには次の欠点があります。
 
-- エディターに赤いニョロニョロがたくさん出てくる。Prettier は format のことを忘れさせたいのに、前面にでてきてしまう。
+- エディターに赤いニョロニョロがたくさん出てくる。Prettier は format のことを気にしなくてもいいようにさせるツールなのに、フォーマットの警告が前面にでてきてしまう。
 - 直接 Prettier を実行するより遅い
 - レイヤーをひとつ挟んでおり、不整合が起きる可能性がある
 
-さらに 最近のエディターのプラグインは直接 Prettier を実行できるようにもなっているので、エディタの eslint プラグインを動かすためにわざわざ eslint-plugin-prettier の内部で prettier を import して設定をセットアップして実行すると言った手間を省けます。
+さらに 最近のエディタのプラグインは直接 Prettier を実行できるようにもなっているので、エディタの eslint プラグインを動かすためにわざわざ eslint-plugin-prettier の内部で prettier を import して設定をセットアップして実行すると言った手間を省けます。
 
 Prettier が新しいものだった時は plugin を使うのが推奨されてしましたが、今はエディタなどがネイティブでサポートするようになったので、Prettier を実行する層を挟まなくて良くなったと言ったところでしょうか。そしてこのドキュメントでは eslint-plugin-prettier よりいい手法として提案されているものがあるのでそれを見ていきましょう。
 
@@ -89,11 +89,13 @@ Prettier が新しいものだった時は plugin を使うのが推奨されて
 
 とあり、
 
-> Prettier で整形後に eslint --fix に渡します。この方法で、prettier の整形機能を得ることができ、ESLint のチェック機能も得られる
+> Prettier で整形後に eslint --fix に渡します。この方法で、prettier の整形機能を得ることができ、ESLint の整形機能も得られる
 
 とのことです。
 
-やっていることはめちゃくちゃシンプルなのですが、このライブラリを入れることで ESLint のプラグイン側から Prettier を呼び出す必要がなくなり、ESlint を利用するエディタ 上での Prettier にまつわるボトルネックやエラーを解消できるというわけです。
+つまり、**フォーマットを Prettier で行ってから ESLint で行う**ということです。
+
+やっていることはとてもシンプルなのですが、このライブラリを入れることで ESLint のプラグイン側から Prettier を呼び出す必要がなくなり、ESlint を利用するエディタ 上での Prettier にまつわるボトルネックやエラーを解消できるというわけです。
 
 公式の例では
 
