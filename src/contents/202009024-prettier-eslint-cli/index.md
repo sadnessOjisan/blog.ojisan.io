@@ -92,8 +92,21 @@ Prettier が新しいものだった時は plugin を使うのが推奨されて
 ## 結局どう設定したらいいのか
 
 **eslint-config-prettier で競合ルールを OFF にした後、prettier && eslint といった風にチェックをかける**です。
-eslint-config-prettier がルールへの追従が遅れるとエラーが出るのでアップデートに綱渡り感もあるのですが、公式推奨はこれです。
+これまでは eslint plugin や外部ライブラリに prettier の実行を任せていたものをユーザー側で実行させようとのことですね。
 
+prettier 本体の prettier の設定もこうなっています。
+
+```json
+{
+  "fix": "run-s fix:eslint fix:prettier",
+  "fix:eslint": "yarn lint:eslint --fix",
+  "fix:prettier": "yarn lint:prettier --write"
+}
+```
+
+FYI: https://github.com/prettier/prettier/blob/master/package.json#L151-L153
+
+eslint-config-prettier がルールへの追従が遅れるとエラーが出るのでアップデートに綱渡り感もあるのですが、公式推奨はこれです。
 一応 prettier-eslint なら eslint-config-prettier がなくてもルールの競合を気にせずに使えるのでこちらも有力手ではあると思います。
 また prettier-eslint は format 用のツールなので lint に関してはまた別途 lint の npm scripts を定義して実行してください。
 prettier-eslint を動かす例はこちらを参照ください。
