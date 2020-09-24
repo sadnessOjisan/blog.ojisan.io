@@ -12,6 +12,8 @@ isProtect: false
 前に書いた [ESLint と Prettier の共存設定とその根拠について](/eslint-prettier) が公式推奨が変わったことにより一部間違った情報になっているのでその訂正記事です。
 該当記事に書いた内容は Prettier と ESLint の関係を読み解く上で役立つ情報だと思うので、警告とこのページへのリンクを書いた上でそのまま残しておきます。
 
+(追記) この記事の内容も間違った内容を書いていました。なので一度大幅な訂正をしています。
+
 ## 変更点の要約
 
 Prettier と ESLint の組み合わせについて[公式](https://github.com/prettier/prettier/blob/554b15473dd4032a036d7db91a8f579e624c9822/docs/integrating-with-linters.md) の推奨方法が変わりました。
@@ -22,7 +24,6 @@ Prettier と ESLint の組み合わせについて[公式](https://github.com/pr
 
 - Linter と Formatter の競合は ESLint の config を入れて回避できる
 - 競合の回避に ESLint の plugin の利用は推奨しない
-- 代わりに prettier-eslint を使う
 
 これらの意味について解説します。
 
@@ -71,148 +72,33 @@ ESLint のルールは Formatting rules と Code-quality rules という 2 つ�
 
 さらに 最近のエディタのプラグインは直接 Prettier を実行できるようにもなっているので、エディタの eslint プラグインを動かすためにわざわざ eslint-plugin-prettier の内部で prettier を import して設定をセットアップして実行すると言った手間を省けます。
 
-Prettier が新しいものだった時は plugin を使うのが推奨されてしましたが、今はエディタなどがネイティブでサポートするようになったので、Prettier を実行する層を挟まなくて良くなったと言ったところでしょうか。そしてこのドキュメントでは eslint-plugin-prettier よりいい手法として提案されているものがあるのでそれを見ていきましょう。
+Prettier が新しいものだった時は plugin を使うのが推奨されてしましたが、今はエディタなどがネイティブでサポートするようになったので、Prettier を実行する層を挟まなくて良くなったと言ったところでしょうか。
 
-## prettier-eslint
+また同様の変更として prettier-eslint の利用も推奨しないことが新たに付け加えられています。
 
-[prettier-eslint](https://github.com/prettier/prettier-eslint) と呼ばれるツールがその代替となります。
-
-説明には
+[prettier-eslint](https://github.com/prettier/prettier-eslint) は
 
 > Formats your JavaScript using prettier followed by eslint --fix
 
 とあり、 `eslint --fix` の前に Prettier をかけてくれるツールです。
 
-どうしてこのライブラリが解決策になるのか、Solution を見てみると、
-
-> This formats your code via prettier, and then passes the result of that to eslint --fix. This way you can get the benefits of prettier's superior formatting capabilities, but also benefit from the configuration capabilities of eslint.
-
-とあり、
-
-> Prettier で整形後に eslint --fix に渡します。この方法で、prettier の整形機能を得ることができ、ESLint の整形機能も得られる
-
-とのことです。
-
+これは、Prettier で整形後に eslint --fix に渡します。この方法で、prettier の整形機能を得ることができ、ESLint の整形機能も得られるもです。
 つまり、**フォーマットを Prettier で行ってから ESLint で行う**ということです。
-なぜこれで競合を回避できるかと言うと **eslint --fix で上がいているから** です。
-
+なぜこれで競合を回避できるかと言うと **eslint --fix で上書いているから** です。
 やっていることはとてもシンプルなのですが、このライブラリを入れることで ESLint のプラグイン側から Prettier を呼び出す必要がなくなり、ESlint を利用するエディタ 上での Prettier にまつわるボトルネックやエラーを解消できるというわけです。
 
-公式の例では
-
-```js
-const format = require("prettier-eslint")
-
-// notice, no semicolon in the original text
-const sourceCode = "const {foo} = bar"
-
-const options = {
-  text: sourceCode,
-  eslintConfig: {
-    parserOptions: {
-      ecmaVersion: 7,
-    },
-    rules: {
-      semi: ["error", "never"],
-    },
-  },
-  prettierOptions: {
-    bracketSpacing: true,
-  },
-  fallbackPrettierOptions: {
-    singleQuote: false,
-  },
-}
-
-const formatted = format(options)
-
-// notice no semicolon in the formatted text
-formatted // const { foo } = bar
-```
-
-とあり、format 対象と ESLint と Prettir の設定を渡すと、結果がよしなに出てくる感じで簡単です。
-またこのライブラリ自体はこのために作られたというわけではなく、4 年以上前から作られており Contributors も著名な方が多いのでこれに乗って問題ないと個人的には思います。
-
-### 使い方
-
-実際に使ってみましょう。
-先ほどの pretteir-eslint は NodeJS 環境で動かす core の部分なので単体だと使い勝手が悪いので、それに引数としてファイルを与えられるような cli ツールも使います。
-
-prettier-eslint-cli: https://github.com/prettier/prettier-eslint-cli
-
-```sh
-$ npm i -D prettier-eslint-cli
-```
-
-そしてこれを npm scripts から使います。
-
-```json:title=package.json
-"format": "prettier-eslint --write $PWD/'src/**/*.{js,ts}'"
-```
-
-これを `throw{a:0}` (space-return-throw-case への違反)に対して実行すると、
-
-```sh
-$ npm run format
-
-> hoge@0.0.1 n /Users/ojisan/Documents/100_projects/hoge
-> prettier-eslint --write $PWD/'src/**/*.{js,ts}'
-
-success formatting 1 file with prettier-eslint
-1 file was unchanged
-```
-
-となり、`throw{ a:0 }` として出力されます。
-
-prettier と同じ感覚で使えて良さそうです。
-
-### 落とし穴
-
-実際に使うとハマる点もあるのでそれについてみていきましょう。
-
-公式の例では
-
-```json:title=package.json
-{
-  "scripts": {
-    "format": "prettier-eslint \"src/**/*.js\""
-  }
-}
-```
-
-となっているのですが、これは不十分な場合があります。
-
-#### --write オプション
-
-普通の prettier と同じく --write を受け取れ、それでコードの上書きができます。
-このオプションについては ドキュメントや help にもあるのでみておくと良いでしょう。
-
-#### glob への対応
-
-glob の記法でファイルを指定する時、 `$PWD` をつけないと、 `There was trouble creating the ESLint CLIEngine.` というエラーが出ます。
-
-Prettier の場合は `$PWD` がなくても glob 記法に対応できていたのでこれは prettier との相違点です。
-また Prettier と同じく glob を使う場合は '(シングルクオート)が必要です。
-
-```json:title=package.json
-"format": "prettier-eslint $PWD/'src/**/*.{js,ts}'"
-```
-
-FYI: https://github.com/prettier/prettier-eslint-cli/issues/208
+ただこれもレイヤーを一つ挟んでいるので、prettier を直接実行するよりかは遅くなります。
 
 ## 結局どう設定したらいいのか
 
-format に関しては prettier-eslint を使うだけで良いです。
-eslint-plugin-prettier は不要なので、その内部で使っていた eslint-config-prettier も不要です。
-ただしその場合は prettier → `eslint --fix` という順序で format を当てるのでこれまで config で off にしていたルールに対しても format が当たります。
-ただ中で .eslintrc を読めるので eslint-config-prettier を使って eslint にある format rule を無効にすることも可能です。
-どちらを選ぶかはお好みや CI(ESLint)の都合で決めていいと思います。
+**eslint-config-prettier で競合ルールを OFF にした後、prettier && eslint といった風にチェックをかける**です。
+eslint-config-prettier がルールへの追従が遅れるとエラーが出るのでアップデートに綱渡り感もあるのですが、公式推奨はこれです。
 
+一応 prettier-eslint なら eslint-config-prettier がなくてもルールの競合を気にせずに使えるのでこちらも有力手ではあると思います。
 また prettier-eslint は format 用のツールなので lint に関してはまた別途 lint の npm scripts を定義して実行してください。
+prettier-eslint を動かす例はこちらを参照ください。
 
-## サンプルコード
-
-https://github.com/ojisan-toybox/prettier-eslint-example.git
+サンプルコード: https://github.com/ojisan-toybox/prettier-eslint-example.git
 
 ## あとがき
 
