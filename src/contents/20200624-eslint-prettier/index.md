@@ -12,11 +12,11 @@ isProtect: false
 # 注意
 
 この記事は 2020 年 09 月 24 日現在、古い情報となりました。
-[eslint-plugin-prettier](https://github.com/prettier/eslint-plugin-prettier) はなく [prettier-eslint](https://github.com/prettier/prettier-eslint) を使うようにと公式がアナウンスを出しています。
+[eslint-plugin-prettier](https://github.com/prettier/eslint-plugin-prettier) の利用は非推奨であると公式がアナウンスを出しています。
 そのことについては [Prettier と ESLint の組み合わせの公式推奨が変わった](/prettier-eslint-cli) にてまとめましたので、こちらもご覧ください。
 
 また eslint-plugin-prettier は公式推奨ではなくなりましたが、それは Editor などの外部環境の進化によるものでこのプラグイン自体に何か問題が起きたわけではありません。
-そして eslint-plugin-prettier を利用した設定方法、特に slint-plugin-prettier と eslint-config-prettier が何を解決していたかを知らないと、prettier-eslint が何をどう解決したかを理解できないはずなのでこの記事はそのまま残します。そう言う意味では 2020 年 09 月 24 日現在もこの情報は有用なので興味がある方は一読すると良いでしょう。
+そして eslint-plugin-prettier を利用した設定方法、特に eslint-plugin-prettier と eslint-config-prettier が何を解決していたかを知らないと、prettier-eslint が何をどう解決したかを理解できないはずなのでこの記事はそのまま残します。そう言う意味では 2020 年 09 月 24 日現在もこの情報は有用なので興味がある方は一読すると良いでしょう。
 ESLint の仕組みについて詳しくなれると思います。
 
 # 本文
