@@ -225,6 +225,7 @@ const StyledComponent = styled(Component)`
 
   & .content > blockquote {
     font-style: italic;
+    line-height: 1.6;
   }
 
   & .content > p,
