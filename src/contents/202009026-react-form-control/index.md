@@ -1,7 +1,7 @@
 ---
 path: /react-form-control
 created: "2020-09-26"
-title: Reactのフォームをコントロールしたときのパフォーマンス周りのデメリットについて考える
+title: Reactのフォームをコントロールしたときのデメリットを考える
 visual: "./visual.png"
 tags: [React, お気持ち]
 userId: sadnessOjisan
