@@ -26,7 +26,7 @@ FYI: https://ja.reactjs.org/docs/forms.html#controlled-components
 
 しかし僕は制御されたコンポーネントを使いたくないです。
 
-FYI: https://ja.reactjs.org/docs/forms.html#controlled-components
+FYI: https://ja.reactjs.org/docs/uncontrolled-components.html
 
 ## 制御されたコンポーネントを使いたくない
 
