@@ -6,10 +6,10 @@ visual: "./visual.png"
 tags: [React, お気持ち]
 userId: sadnessOjisan
 isFavorite: false
-isProtect: false
+isProtect: true
 ---
 
-公式のフォームの例は`<input type="text" value={this.state.value} onChange={this.handleChange} />` のように onChange を使って更新、value に state を入れて制御という形なのですが、このやり方の方が良い場合の方が少ないんじゃないかなぁという疑問を書きます。
+公式では制御されたコンポーネントを推奨し、`<input type="text" value={this.state.value} onChange={this.handleChange} />` のように onChange を使って更新、value に state を入れて制御するようにしているのですが、推奨は言いすぎではと思っていることについて書きます。
 「公式のここがおかしいのではないか」という問いかけはだいたい自分が間違っているだけという場合がほとんであることは自覚していますので、もし間違っていたら """優しく""" 指摘してくれると嬉しいです。
 
 ## React は制御されたコンポーネントを推奨している
