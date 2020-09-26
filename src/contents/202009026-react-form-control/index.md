@@ -175,6 +175,8 @@ FYI: https://ja.reactjs.org/docs/uncontrolled-components.html#default-values
 あと react-hook-form はちゃんと試してみたいなと思っています。
 react-hook-form は onBlur も使わずに ref を使って非制御コンポーネントをコントロールしています。
 
+**ただのお気持ち表明なので何か自信やエビデンスに裏付けられたものではありません。onBlur 使うかどうかは一度周りの詳しい大人に相談するとよいでしょう！**
+
 (エクセルやエディタのような気合が必要なものを作るときは onChange + debounce で頑張っています。)
 
 ## サンプルコード
