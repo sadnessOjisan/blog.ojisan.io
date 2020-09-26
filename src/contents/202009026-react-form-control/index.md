@@ -170,6 +170,8 @@ FYI: https://ja.reactjs.org/docs/uncontrolled-components.html#default-values
 ## おわりに
 
 最近は個人的には onBlur だけを使うようにしています。
+特に困ったことは起きていないです。
+
 あと react-hook-form はちゃんと試してみたいなと思っています。
 react-hook-form は onBlur も使わずに ref を使って非制御コンポーネントをコントロールしています。
 
