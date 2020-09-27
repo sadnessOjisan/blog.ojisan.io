@@ -1,6 +1,6 @@
 ---
 path: /react-component-words
-created: "2020-09-20 09:00"
+created: "2020-09-20"
 title: Reactのコンポーネント周りの用語を整理する
 visual: "./visual.png"
 tags: [React]

@@ -1,6 +1,6 @@
 ---
 path: /swipe-fix
-created: "2020-09-20 23:00"
+created: "2020-09-20"
 title: CSS スワイプ 固定 横スクロール
 visual: "./visual.png"
 tags: [CSS]
