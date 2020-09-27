@@ -1,6 +1,6 @@
 ---
 path: /mui-select
-created: "2020-09-07 09:00"
+created: "2020-09-07"
 title: material-ui の Select の挙動まとめ
 visual: "./visual.png"
 tags: [React, "material-ui"]

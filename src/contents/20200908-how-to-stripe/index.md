@@ -1,6 +1,6 @@
 ---
 path: /how-to-stripe
-created: "2020-09-08 09:00"
+created: "2020-09-08"
 title: stripe を使った決済機能の実装方法を学ぶ前に知っとくといい全体感
 visual: "./visual.png"
 tags: [React, stripe]
