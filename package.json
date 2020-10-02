@@ -56,13 +56,14 @@
   "scripts": {
     "build": "gatsby build",
     "develop": "gatsby develop",
-    "format": "prettier --write \"**/*.{js,jsx,json,md,tsx,ts}\"",
-    "format:ci": "prettier \"**/*.{js,jsx,json,md,tsx,ts}\"",
+    "format:fix": "prettier --write '**/*.{ts,tsx,js,jsx,json,md}'",
+    "format": "prettier --check './src/**/*.{ts,tsx,js,jsx,json,md}'",
+    "lint:fix": "eslint --fix 'src/**/*.{ts,tsx,js,jsx,json}'",
+    "lint": "eslint 'src/**/*.{ts,tsx,js,jsx,json}'",
     "start": "npm run develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
-    "typecheck": "tsc -p . --noEmit",
-    "lint": "eslint '**/*.{js,jsx,json.md,tsx,ts}'"
+    "typecheck": "tsc -p . --noEmit"
   },
   "repository": {
     "type": "git",

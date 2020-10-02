@@ -24,12 +24,3 @@ jobs:
         run: npm run lint
       - name: format
         run: npm run format
-      - name: test
-        run: npm run test:cov
-      - name: build
-        run: npm run build:prd
-      - name: Deploy Coverage Report
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./coverage/lcov-report
