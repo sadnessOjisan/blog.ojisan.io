@@ -2,7 +2,6 @@ import * as React from "react"
 import { Link } from "gatsby"
 import styled from "styled-components"
 import { DrawerContext } from "./layout"
-import { IconButton } from "@material-ui/core"
 import MenuIcon from "@material-ui/icons/Menu"
 import GitHubIcon from "@material-ui/icons/GitHub"
 import RssFeedIcon from "@material-ui/icons/RssFeed"
@@ -29,34 +28,33 @@ const Component: React.FC<IProps> = ({
     </h1>
     <div>
       <a href="/rss.xml" aria-label="rssへのリンク">
-        <IconButton
-          aria-label="rssアイコン"
-          style={{ color: "white", padding: 8 }}
-        >
-          <RssFeedIcon />
-        </IconButton>
+        <button aria-label="rssアイコン" className="button">
+          <span>
+            <RssFeedIcon />
+          </span>
+        </button>
       </a>
       <a
         href="https://github.com/sadnessOjisan/blog.ojisan.io"
         aria-label="githubへのリンク"
       >
-        <IconButton
-          aria-label="githubアイコン"
-          style={{ color: "white", padding: 8 }}
-        >
-          <GitHubIcon />
-        </IconButton>
+        <button aria-label="githubアイコン" className="button">
+          <span>
+            <GitHubIcon />
+          </span>
+        </button>
       </a>
-      <IconButton
+      <button
         aria-label="menu"
-        color="default"
         onClick={() => {
           setDrawerState(true)
         }}
-        style={{ color: "white", padding: 8 }}
+        className="button"
       >
-        <MenuIcon />
-      </IconButton>
+        <span>
+          <MenuIcon />
+        </span>
+      </button>
     </div>
   </header>
 )
@@ -75,6 +73,27 @@ const StyledComponent = styled(Component)`
   top: 0;
   width: 100%;
   z-index: 1;
+
+  & .button {
+    flex: 0 0 auto;
+    color: rgba(0, 0, 0, 0.54);
+    padding: 12px;
+    overflow: visible;
+    font-size: 1.5rem;
+    text-align: center;
+    transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    border-radius: 50%;
+    color: white;
+    padding: 8px;
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.04);
+    }
+
+    & > span {
+      // TODO: これがないと高さが揃わないのを調べる
+      display: flex;
+    }
+  }
 
   & .title {
     font-size: 20px;
