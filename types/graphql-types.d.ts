@@ -3247,11 +3247,6 @@ export type AllBlogsQuery = { blogs: { nodes: Array<(
       )> }
     )> }, site?: Maybe<{ siteMetadata?: Maybe<Pick<SiteSiteMetadata, 'title' | 'description' | 'author'>> }> };
 
-export type TagsQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type TagsQuery = { allMarkdownRemark: { group: Array<Pick<MarkdownRemarkGroupConnection, 'fieldValue' | 'totalCount'>> } };
-
 export type BlogTemplateQueryVariables = Exact<{
   path: Scalars['String'];
 }>;

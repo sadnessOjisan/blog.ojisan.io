@@ -2,45 +2,65 @@ import * as React from "react"
 import { graphql, Link } from "gatsby"
 import Layout from "../components/common/layout"
 import { TagsQuery } from "../../types/graphql-types"
+import styled from "styled-components"
 
-interface IProps {
+interface IContainerProps {
   data: TagsQuery
 }
 
-const IndexPage: React.FC<IProps> = ({ data }) => {
+interface IProps extends IContainerProps {
+  /** 呼び出し元から書き換えるためのclassName */
+  className?: string
+}
+
+const Component: React.FC<IProps> = ({ data, className }) => {
   return (
-    <Layout>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
-        <h2
-          style={{ fontSize: "32px", marginTop: "32px", marginBottom: "32px" }}
-        >
-          タグ一覧
-        </h2>
-        {data.allMarkdownRemark.group.map(
-          tag =>
-            tag &&
-            tag.fieldValue && (
-              <Link
-                to={tag.fieldValue ? `/tags/${tag.fieldValue}` : "/"}
-                key={tag.fieldValue}
-              >
-                <div style={{ marginTop: "12px" }}>
-                  <a>
-                    {tag.fieldValue}({tag.totalCount})
-                  </a>
-                </div>
-              </Link>
-            )
-        )}
-      </div>
-    </Layout>
+    <div className={className}>
+      <Layout>
+        <div className="pageWrapper">
+          <h2 className="title">タグ一覧</h2>
+          {data.allMarkdownRemark.group.map(
+            tag =>
+              tag &&
+              tag.fieldValue && (
+                <Link
+                  to={tag.fieldValue ? `/tags/${tag.fieldValue}` : "/"}
+                  key={tag.fieldValue}
+                >
+                  <div className="item">
+                    <a>
+                      {tag.fieldValue}({tag.totalCount})
+                    </a>
+                  </div>
+                </Link>
+              )
+          )}
+        </div>
+      </Layout>
+    </div>
   )
+}
+
+const StyledComponent = styled(Component)`
+  & .pageWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  & .title {
+    font-size: 32px;
+    margin-top: 32px;
+    margin-bottom: 32px;
+  }
+
+  & .item {
+    margin-top: 12px;
+  }
+`
+
+const ContainerComponent: React.FC<IContainerProps> = ({ children, data }) => {
+  return <StyledComponent data={data}>{children}</StyledComponent>
 }
 
 export const pageQuery = graphql`
@@ -54,4 +74,4 @@ export const pageQuery = graphql`
   }
 `
 
-export default IndexPage
+export default ContainerComponent
