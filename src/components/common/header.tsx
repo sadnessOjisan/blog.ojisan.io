@@ -76,8 +76,6 @@ const StyledComponent = styled(Component)`
 
   & .button {
     flex: 0 0 auto;
-    color: rgba(0, 0, 0, 0.54);
-    padding: 12px;
     overflow: visible;
     font-size: 1.5rem;
     text-align: center;
@@ -88,7 +86,6 @@ const StyledComponent = styled(Component)`
     &:hover {
       background-color: rgba(0, 0, 0, 0.04);
     }
-
     & > span {
       // TODO: これがないと高さが揃わないのを調べる
       display: flex;

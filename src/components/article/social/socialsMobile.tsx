@@ -3,7 +3,6 @@ import styled from "styled-components"
 import GitHubIcon from "@material-ui/icons/GitHub"
 import FacebookIcon from "@material-ui/icons/Facebook"
 import TwitterIcon from "@material-ui/icons/Twitter"
-import { IconButton } from "@material-ui/core"
 
 interface IProps {
   path: string
@@ -28,9 +27,11 @@ const Component: React.FC<IProps> = ({
         rel="noopener noreferrer"
         aria-label="twitterへのリンク"
       >
-        <IconButton aria-label="twitterアイコン">
-          <TwitterIcon />
-        </IconButton>
+        <button aria-label="twitterアイコン" className="button">
+          <span>
+            <TwitterIcon />
+          </span>
+        </button>
       </a>
 
       <a
@@ -39,9 +40,11 @@ const Component: React.FC<IProps> = ({
         rel="noopener noreferrer"
         aria-label="facebookへのリンク"
       >
-        <IconButton aria-label="facebookアイコン">
-          <FacebookIcon />
-        </IconButton>
+        <button aria-label="facebookアイコン" className="button">
+          <span>
+            <FacebookIcon />
+          </span>
+        </button>
       </a>
       <a
         href={`https://github.com/sadnessOjisan/blog.ojisan.io/blob/master/src/contents/${dateYYYYMMDD}-${path.replace(
@@ -52,9 +55,11 @@ const Component: React.FC<IProps> = ({
         rel="noopener noreferrer"
         aria-label="githubへのリンク"
       >
-        <IconButton aria-label="githubアイコン">
-          <GitHubIcon />
-        </IconButton>
+        <button aria-label="githubアイコン" className="button">
+          <span>
+            <GitHubIcon />
+          </span>
+        </button>
       </a>
     </div>
   </div>
@@ -79,6 +84,23 @@ const StyledComponent = styled(Component)`
   > .icon {
     width: 20px;
     cursor: pointer;
+  }
+  & .button {
+    flex: 0 0 auto;
+    overflow: visible;
+    font-size: 1.5rem;
+    text-align: center;
+    transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    border-radius: 50%;
+    color: rgba(0, 0, 0, 0.54);
+    padding: 8px;
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.04);
+    }
+    & > span {
+      // TODO: これがないと高さが揃わないのを調べる
+      display: flex;
+    }
   }
   @media screen and (min-width: 1024px) {
     display: none;
