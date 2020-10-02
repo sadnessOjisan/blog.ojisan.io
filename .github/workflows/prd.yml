@@ -1,4 +1,5 @@
 name: PRD
+
 on:
   push:
     tags:
@@ -17,21 +18,9 @@ jobs:
           registry-url: "https://registry.npmjs.org"
       - name: install
         run: npm install
-      - name: Can Publish
-        run: npx can-npm-publish --verbose
       - name: typecheck
         run: npm run typecheck
       - name: lint
         run: npm run lint
       - name: format
         run: npm run format
-      - name: test
-        run: npm run test
-      - name: build
-        run: npm run build:stg
-      - name: Deploy to Firebase
-        uses: w9jds/firebase-action@master
-        with:
-          args: deploy --only hosting
-        env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
