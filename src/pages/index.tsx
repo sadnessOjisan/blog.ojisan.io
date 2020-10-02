@@ -13,7 +13,6 @@ const IndexPage: React.FC<IProps> = ({ data }) => {
   return (
     <Layout>
       <SEO title={data.site?.siteMetadata?.title || "HOME"} />
-      <Title>ブログのためのブログ</Title>
       <Cards>
         {data.blogs.nodes.map(node =>
           node.frontmatter?.path ? (
@@ -31,20 +30,14 @@ const IndexPage: React.FC<IProps> = ({ data }) => {
   )
 }
 
-const Title = styled.h1`
-  font-size: 24px;
-  font-weight: 600;
-  margin: 24px 0px;
-  text-align: center;
-`
-
 const Cards = styled.div`
-  margin: 0 auto;
+  margin: 24px auto;
   padding: 5px;
   width: 90%;
-  column-count: 4;
+  column-count: 3;
   column-gap: 0;
-  @media (max-width: 1024px) {
+  max-width: 1024px;
+  @media (max-width: 768px) {
     display: flex;
     flex-direction: column;
     width: 100%;
