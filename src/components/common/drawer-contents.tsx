@@ -19,11 +19,7 @@ interface IContainerProps {
 
 interface IProps extends IPassedProps, IContainerProps {}
 
-const Component: React.FC<IProps> = ({
-  classes,
-  allMarkdownRemark,
-  className,
-}) => (
+const Component: React.FC<IProps> = ({ allMarkdownRemark, className }) => (
   <div className={className}>
     <h2 className="title">Navigation</h2>
     <ul className="block">
