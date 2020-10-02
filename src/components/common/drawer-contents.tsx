@@ -12,7 +12,6 @@ interface IPassedProps {
 }
 
 interface IContainerProps {
-  classes: Record<"label" | "root", string>
   allMarkdownRemark: {
     group: Pick<MarkdownRemarkGroupConnection, "fieldValue" | "totalCount">[]
   }
