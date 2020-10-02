@@ -9,6 +9,7 @@ import {
 interface IPassedProps {
   /** 明示的に上書きしない場合でもclassNameは必要(なぜならStyledで絶対に上書くから) */
   className?: string
+  isOpenDrawer: boolean
 }
 
 interface IContainerProps {
@@ -19,66 +20,74 @@ interface IContainerProps {
 
 interface IProps extends IPassedProps, IContainerProps {}
 
-const Component: React.FC<IProps> = ({ allMarkdownRemark, className }) => (
+const Component: React.FC<IProps> = ({
+  allMarkdownRemark,
+  className,
+  isOpenDrawer,
+}) => (
   <div className={className}>
-    <h2 className="title">Navigation</h2>
-    <ul className="block">
-      <li className="item">
-        <Link to="/">
-          <button className="button">
-            <a>Top</a>
-          </button>
-        </Link>
-      </li>
-      <li className="item">
-        <Link to="/users/sadnessOjisan">
-          <button className="button">
-            <a>About Me</a>
-          </button>
-        </Link>
-      </li>
-      <li className="item">
-        <Link to="/tags">
-          <button className="button">
-            <a>Tag一覧</a>
-          </button>
-        </Link>
-      </li>
-    </ul>
-    <h2 className="title">Link</h2>
-    <ul className="block">
-      <li className="item">
-        <Link to="/rss.xml">
-          <button className="button">
-            <a>RSS</a>
-          </button>
-        </Link>
-      </li>
-      <li className="item">
-        <Link to="https://github.com/sadnessOjisan/blog.ojisan.io">
-          <button className="button">
-            <a>Github</a>
-          </button>
-        </Link>
-      </li>
-    </ul>
-    <h2 className="title">tags</h2>
-    <ul className="block">
-      {allMarkdownRemark.group.map(
-        tag =>
-          tag.fieldValue && (
-            <li className="item" key={tag.fieldValue}>
-              <Link to={`/tags/${tag.fieldValue}`}>
-                <button className="button">
-                  <a>
-                    {tag.fieldValue}({tag.totalCount})
-                  </a>
-                </button>
-              </Link>
-            </li>
-          )
-      )}
-    </ul>
+    {isOpenDrawer && (
+      <>
+        <h2 className="title">Navigation</h2>
+        <ul className="block">
+          <li className="item">
+            <Link to="/">
+              <button className="button">
+                <a>Top</a>
+              </button>
+            </Link>
+          </li>
+          <li className="item">
+            <Link to="/users/sadnessOjisan">
+              <button className="button">
+                <a>About Me</a>
+              </button>
+            </Link>
+          </li>
+          <li className="item">
+            <Link to="/tags">
+              <button className="button">
+                <a>Tag一覧</a>
+              </button>
+            </Link>
+          </li>
+        </ul>
+        <h2 className="title">Link</h2>
+        <ul className="block">
+          <li className="item">
+            <Link to="/rss.xml">
+              <button className="button">
+                <a>RSS</a>
+              </button>
+            </Link>
+          </li>
+          <li className="item">
+            <Link to="https://github.com/sadnessOjisan/blog.ojisan.io">
+              <button className="button">
+                <a>Github</a>
+              </button>
+            </Link>
+          </li>
+        </ul>
+        <h2 className="title">tags</h2>
+        <ul className="block">
+          {allMarkdownRemark.group.map(
+            tag =>
+              tag.fieldValue && (
+                <li className="item" key={tag.fieldValue}>
+                  <Link to={`/tags/${tag.fieldValue}`}>
+                    <button className="button">
+                      <a>
+                        {tag.fieldValue}({tag.totalCount})
+                      </a>
+                    </button>
+                  </Link>
+                </li>
+              )
+          )}
+        </ul>
+      </>
+    )}
   </div>
 )
 

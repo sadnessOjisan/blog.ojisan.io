@@ -46,7 +46,7 @@ const Component: React.FC<IProps> = ({
         setDrawerState(false)
       }}
     >
-      <DrawerContents></DrawerContents>
+      <DrawerContents isOpenDrawer={isOpenDrawer}></DrawerContents>
     </MyDrawer>
     <DrawerContext.Provider value={{ setDrawerState }}>
       <Header siteTitle={siteTitle} />
