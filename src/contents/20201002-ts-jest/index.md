@@ -13,7 +13,7 @@ Jest で TypeScript を動かす時「`preset: ts-jest` とすればいい」と
 
 ## 結論
 
-jest.config.js の transform もしくは preset に ts-jest をセットすれば TS をテストできるようになります。ただ TS が使えるようになる直接的な立役者は transform であり、preset は内部で transform の設定をしているだけです。そのためユーザーは `preset: ts-jest` と設定すればよく、これが公式推奨の Basic Usage もそのやり方です。
+jest.config.js の transform もしくは preset に ts-jest をセットすれば TypeScript をテストできるようになります。ただ TypeScript が使えるようになる直接的な立役者は transform であり、preset は内部で transform の設定をしているだけです。そのためユーザーは `preset: ts-jest` と設定すればよく、公式推奨の Basic Usage もこのやり方です。
 
 ## 準備
 
@@ -70,7 +70,7 @@ module.exports = {
 }
 ```
 
-TS の設定
+TypeScript の設定
 
 ```js:title=tsconfig.js
 {
@@ -91,7 +91,7 @@ TS の設定
 ## Jest の設定で preset を指定しないと何が問題になるか
 
 上の設定で preset を undefined にしました。
-この状態で TS のテストを実行します。
+この状態で TypeScript のテストを実行します。
 
 ```sh
 npm run test
@@ -234,7 +234,7 @@ jest の[preset](https://jestjs.io/docs/ja/configuration#preset-string) は
 
 とあり、指定されたファイルパターンのファイルに変換をかけてくれる機能です。
 
-つまり、**transform が TS がテストを実行できる立役者**です。
+つまり、**transform が TypeScript でテストを実行できる立役者**です。
 
 ## preset: "ts-jest" はどういう設定を提供しているのか
 
@@ -272,7 +272,7 @@ transform は先ほど説明したからはしょるとして、残りの 2 つ�
 ### testMatch
 
 [testMatch](https://jestjs.io/docs/ja/configuration#testmatch-arraystring) はテストファイルを検出するのに Jest が使用する glob パターンを指定します。
-標準では、`__tests__/**/` や `*.test.` がサポートされていますが、ts-jest を使うとこれを TS 用にセットしてくれます。
+標準では、`__tests__/**/` や `*.test.` がサポートされていますが、ts-jest を使うとこれを TypeScript 用にセットしてくれます。
 
 ただデフォルトで `[ "**/__tests__/**/*.[jt]s?(x)", "**/?(*.)+(spec|test).[jt]s?(x)" ]`がサポートされているので、ts-jest 側から恣意的に上書きたい場合にしか嬉しくない気がします。
 （=ts-jest を直接使うユーザーからは恩恵がなさそうな気も）
@@ -288,7 +288,7 @@ import 時に自動で resolve してくれます。（同一ファイル名な�
 ## 結局 preset: ts-jest は何をしているのか
 
 Jest には transform という機能があり、特定のファイルに変換処理をかけられる。
-preset がこの transform を実行してファイルを変換しているので、ts-jest を指定すると TS 対応ができる。
+preset がこの transform を実行してファイルを変換しているので、ts-jest を指定すると TypeScript 対応ができる。
 ts-jest 自体はただの変換ツールなので、直接 transform に指定して実行することもできる。
 
 ## サンプルコード
