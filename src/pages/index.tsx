@@ -6,9 +6,15 @@ import { AllBlogsQuery } from "../../types/graphql-types"
 import styled from "styled-components"
 import { Card } from "../components/indices/card"
 
-interface IProps {
+interface IContainerProps {
   data: AllBlogsQuery
 }
+
+interface IProps extends IContainerProps {
+  /** 呼び出し元から書き換えるためのclassName */
+  className?: string
+}
+
 const Component: React.FC<IProps> = ({ data, className }) => {
   return (
     <div className={className}>
