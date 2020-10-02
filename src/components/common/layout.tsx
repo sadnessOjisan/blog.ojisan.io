@@ -5,12 +5,12 @@
 
 import * as React from "react"
 import { useStaticQuery, graphql } from "gatsby"
-import Drawer from "@material-ui/core/Drawer"
 import Header from "./header"
 import Footer from "./footer"
 import DrawerContents from "./drawer-contents"
 import styled from "styled-components"
 import { SiteTitleQuery } from "../../../types/graphql-types"
+import { MyDrawer } from "./drawer"
 
 interface IPassedProps {
   className?: string
@@ -40,20 +40,19 @@ const Component: React.FC<IProps> = ({
   className,
 }) => (
   <div className={className}>
+    <MyDrawer
+      open={isOpenDrawer}
+      onClose={() => {
+        setDrawerState(false)
+      }}
+    >
+      <DrawerContents></DrawerContents>
+    </MyDrawer>
     <DrawerContext.Provider value={{ setDrawerState }}>
       <Header siteTitle={siteTitle} />
       <div>
         <main className="body">{children}</main>
         <Footer></Footer>
-        <Drawer
-          anchor="right"
-          open={isOpenDrawer}
-          onClose={() => {
-            setDrawerState(false)
-          }}
-        >
-          <DrawerContents></DrawerContents>
-        </Drawer>
       </div>
     </DrawerContext.Provider>
   </div>
