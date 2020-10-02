@@ -13,19 +13,25 @@ Jest で TypeScript を動かす時「`preset: ts-jest` とすればいい」と
 
 ## 結論
 
-TS が使えるのは transform のお陰だけど、preset が内部でそれを呼び出してくれるから、ぼくたちはテスト動かす前に `preset: ts-jest` とすればいいし、公式推奨の Basic Usage もそのやり方です。
+TS が使えるのは transform のお陰。しかし prest が内部で transform の設定をする。そのためユーザーはテスト動かす前に `preset: ts-jest` とすればよく、公式推奨の Basic Usage もそのやり方。
 
 ## 準備
 
+パッケージインストール
+
 ```sh
-npm i -D jest @types/jest
+npm i -D jest @types/jest typescript
 ```
+
+ツールの設定ファイルを生成
 
 ```sh
 npx jest --init
 
 npx tsc --init
 ```
+
+テスト対象を作成
 
 ```ts:title=src/index.ts
 export const sum = (left: number, right: number): number => {
@@ -34,6 +40,8 @@ export const sum = (left: number, right: number): number => {
 
 console.log(sum(1, 2))
 ```
+
+テストを作成
 
 ```ts:title=src/index.test.ts
 import { sum } from "."
@@ -45,6 +53,8 @@ describe("index.js", () => {
   })
 })
 ```
+
+jest の設定. 検証用として preset は undefined にする。
 
 ```js:title=jest.config.js
 module.exports = {
@@ -59,6 +69,8 @@ module.exports = {
   // transform: undefined,
 }
 ```
+
+TS の設定
 
 ```js:title=tsconfig.js
 {
@@ -78,59 +90,58 @@ module.exports = {
 
 ## Jest の設定で preset を指定しないと何が問題になるか
 
+上の設定で preset を undefined にしました。
+この状態で TS のテストを実行します。
+
 ```
 npm run test
-
-> ts-jest-practice@1.0.0 test /Users/ojisan/Documents/project/toybox/ts-jest-practice
-> jest
 
  FAIL  src/index.test.ts
   ● Test suite failed to run
 
     Jest encountered an unexpected token
 
-    This usually means that you are trying to import a file which Jest cannot parse, e.g. it's not plain JavaScript.
+    This usually means that you are trying to import
+    a file which Jest cannot parse, e.g. it's not plain JavaScript.
 
-    By default, if Jest sees a Babel config, it will use that to transform your files, ignoring "node_modules".
+    By default, if Jest sees a Babel config,
+    it will use that to transform your files, ignoring "node_modules".
 
     Here's what you can do:
-     • To have some of your "node_modules" files transformed, you can specify a custom "transformIgnorePatterns" in your config.
-     • If you need a custom transformation specify a "transform" option in your config.
-     • If you simply want to mock your non-JS modules (e.g. binary assets) you can stub them out with the "moduleNameMapper" config option.
+     • To have some of your "node_modules" files
+     transformed, you can specify a custom
+     "transformIgnorePatterns" in your config.
+     • If you need a custom transformation
+     specify a "transform" option in your config.
+     • If you simply want to mock your non-JS modules
+     (e.g. binary assets) you can stub them out with
+     the "moduleNameMapper" config option.
 
-    You'll find more details and examples of these config options in the docs:
+    You'll find more details and examples of
+    these config options in the docs:
     https://jestjs.io/docs/en/configuration.html
 
     Details:
 
-    /Users/ojisan/Documents/project/toybox/ts-jest-practice/src/index.test.ts:1
     import { sum } from ".";
     ^^^^^^
 
     SyntaxError: Cannot use import statement outside a module
 
-      at Runtime._execModule (node_modules/jest-runtime/build/index.js:1179:56)
+      at Runtime._execModule
 
 Test Suites: 1 failed, 1 total
 Tests:       0 total
 Snapshots:   0 total
 Time:        1.13 s
 Ran all test suites.
-npm ERR! code ELIFECYCLE
-npm ERR! errno 1
-npm ERR! ts-jest-practice@1.0.0 test: `jest`
-npm ERR! Exit status 1
-npm ERR!
-npm ERR! Failed at the ts-jest-practice@1.0.0 test script.
-npm ERR! This is probably not a problem with npm. There is likely additional logging output above.
-
-npm ERR! A complete log of this run can be found in:
-npm ERR!     /Users/ojisan/.npm/_logs/2020-10-02T15_05_42_527Z-debug.log
 ```
+
+予想通り失敗しました。
 
 ### prest: ts-jest に設定してみる
 
-prest に指定してみましょう。
+次に prest に ts-jest を指定してみましょう。
 
 ```sh
 npm i -D ts-jest
@@ -151,11 +162,7 @@ module.exports = {
 ```
 
 ```sh
-~/Documents/project/toybox/ts-jest-practice main* 10s
-❯ npm run test
-
-> ts-jest-practice@1.0.0 test /Users/ojisan/Documents/project/toybox/ts-jest-practice
-> jest
+$ npm run test
 
  PASS  src/index.test.ts
   index.js
@@ -173,9 +180,11 @@ Time:        3.041 s
 Ran all test suites.
 ```
 
+成功しました。
+
 ## transform と何が違うのか？
 
-しかし先ほどのコードはこの jest.config.js でも実行できます。
+ちなみに先ほどのコードは、preset を使わずに transform に `ts-jest` を指定してもうまく行きます。
 
 ```js:title=jest.config.js
 module.exports = {
@@ -189,7 +198,6 @@ module.exports = {
 }
 ```
 
-preset を使わずに transform に `ts-jest` を指定してもうまく行きました。
 それでは僕たちはどういう設定をすべきなのでしょうか。
 どっちでもいいのでしょうか？
 
@@ -216,7 +224,7 @@ jest の[preset](https://jestjs.io/docs/ja/configuration#preset-string) は
 
 とあり、jest のいろんな設定の詰め合わせです。
 
-つまり `{preset: ts-jest}` としていたのは、いろんな設定を読み込んでいたのですね。
+つまり `{preset: ts-jest}` としていたのは、いろんな設定を読み込んでいたのです。
 
 ### transorm
 
@@ -266,16 +274,16 @@ transform は先ほど説明したからはしょるとして、残りの 2 つ�
 [testMatch](https://jestjs.io/docs/ja/configuration#testmatch-arraystring) はテストファイルを検出するのに Jest が使用する glob パターンを指定します。
 標準では、`__tests__/**/` や `*.test.` がサポートされていますが、ts-jest を使うとこれを TS 用にセットしてくれます。
 
-ただデフォルトで `[ "**/__tests__/**/*.[jt]s?(x)", "**/?(*.)+(spec|test).[jt]s?(x)" ]`がサポートされているので、ts-jest 側から恣意的に上書きたい場合にしか嬉しくはありません。
-（ts-jest を直接使うユーザーからは恩恵がなさそうな気も）
+ただデフォルトで `[ "**/__tests__/**/*.[jt]s?(x)", "**/?(*.)+(spec|test).[jt]s?(x)" ]`がサポートされているので、ts-jest 側から恣意的に上書きたい場合にしか嬉しくない気がします。
+（=ts-jest を直接使うユーザーからは恩恵がなさそうな気も）
 
 ### moduleFileExtensions
 
 [moduleFileExtensions](https://jestjs.io/docs/ja/configuration#modulefileextensions-arraystring) は拡張子のファイル自動解決をしてくれるオプションです。
 import 時に自動で resolve してくれます。（同一ファイル名なら先頭が優先される）
 
-ただこれもデフォルトで `Default: ["js", "json", "jsx", "ts", "tsx", "node"]` がサポートされているので、ts-jest 側から恣意的に上書きたい場合にしか嬉しくはありません。
-（ts-jest を直接使うユーザーからは恩恵がなさそうな気も）
+ただこれもデフォルトで `Default: ["js", "json", "jsx", "ts", "tsx", "node"]` がサポートされているので、ts-jest 側から恣意的に上書きたい場合にしか嬉しくない気がします。
+（=ts-jest を直接使うユーザーからは恩恵がなさそうな気も）
 
 ## 結局 preset: ts-jest は何をしているのか
 
