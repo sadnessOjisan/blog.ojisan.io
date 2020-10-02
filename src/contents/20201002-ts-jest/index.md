@@ -1,7 +1,7 @@
 ---
 path: /ts-jest
 created: "2020-10-02"
-title: ts-jest と preset とは何か
+title: "preset: ts-jest とは"
 visual: "./visual.png"
 tags: [jest, ts-jest]
 userId: sadnessOjisan
@@ -13,7 +13,7 @@ Jest で TypeScript を動かす時「`preset: ts-jest` とすればいい」と
 
 ## 結論
 
-TS が使えるのは transform のお陰。しかし prest が内部で transform の設定をする。そのためユーザーはテスト動かす前に `preset: ts-jest` とすればよく、公式推奨の Basic Usage もそのやり方。
+jest.config.js の transform もしくは preset に ts-jest をセットしれば TS をテストできるようになる。ただ TS が使える直接的な立役者は transform であり、prest は内部で transform の設定をしているだけ。そのためユーザーはテスト動かす前に `preset: ts-jest` とすればよく、公式推奨の Basic Usage もそのやり方です。
 
 ## 準備
 
@@ -93,7 +93,7 @@ TS の設定
 上の設定で preset を undefined にしました。
 この状態で TS のテストを実行します。
 
-```
+```sh
 npm run test
 
  FAIL  src/index.test.ts
@@ -137,7 +137,7 @@ Time:        1.13 s
 Ran all test suites.
 ```
 
-予想通り失敗しました。
+当然素の JS では import が使えないので、予想通り失敗しました。
 
 ### prest: ts-jest に設定してみる
 
