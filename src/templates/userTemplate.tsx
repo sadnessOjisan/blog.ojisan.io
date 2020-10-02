@@ -4,7 +4,6 @@ import Layout from "../components/common/layout"
 import UserImage from "../components/common/image"
 import GitHubIcon from "@material-ui/icons/GitHub"
 import Twittercon from "@material-ui/icons/Twitter"
-import { IconButton } from "@material-ui/core"
 import { UserType } from "../type"
 import { graphql, Link } from "gatsby"
 import { AllPostsByUserIdQuery } from "../../types/graphql-types"
@@ -41,19 +40,25 @@ const Component: React.FC<IProps> = props => {
                   target="_blank"
                   rel="noopener noreferrer"
                   href={`https://twitter.com/${pageContext.twitterId}`}
+                  aria-label="twitterへのリンク"
                 >
-                  <IconButton>
-                    <Twittercon />
-                  </IconButton>
+                  <button aria-label="twitterアイコン" className="button">
+                    <span>
+                      <Twittercon />
+                    </span>
+                  </button>
                 </a>
                 <a
                   target="_blank"
                   rel="noopener noreferrer"
                   href={`https://github.com/${pageContext.gitHubId}`}
+                  aria-label="githubへのリンク"
                 >
-                  <IconButton>
-                    <GitHubIcon />
-                  </IconButton>
+                  <button aria-label="githubアイコン" className="button">
+                    <span>
+                      <GitHubIcon />
+                    </span>
+                  </button>
                 </a>
               </div>
             </div>
