@@ -13,7 +13,7 @@ Jest で TypeScript を動かす時「`preset: ts-jest` とすればいい」と
 
 ## 結論
 
-jest.config.js の transform もしくは preset に ts-jest をセットしれば TS をテストできるようになる。ただ TS が使える直接的な立役者は transform であり、prest は内部で transform の設定をしているだけ。そのためユーザーはテスト動かす前に `preset: ts-jest` とすればよく、公式推奨の Basic Usage もそのやり方です。
+jest.config.js の transform もしくは preset に ts-jest をセットすれば TS をテストできるようになります。ただ TS が使えるようになる直接的な立役者は transform であり、preset は内部で transform の設定をしているだけです。そのためユーザーは `preset: ts-jest` と設定すればよく、これが公式推奨の Basic Usage もそのやり方です。
 
 ## 準備
 
@@ -139,9 +139,9 @@ Ran all test suites.
 
 当然素の JS では import が使えないので、予想通り失敗しました。
 
-### prest: ts-jest に設定してみる
+### preset: ts-jest に設定してみる
 
-次に prest に ts-jest を指定してみましょう。
+次に preset に ts-jest を指定してみましょう。
 
 ```sh
 npm i -D ts-jest
