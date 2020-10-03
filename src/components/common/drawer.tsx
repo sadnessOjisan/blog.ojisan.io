@@ -39,7 +39,7 @@ const StyledComponent = styled(Component)<IProps>`
     height: 100%;
     display: flex;
     outline: 0;
-    z-index: ${props => (props.open ? 1200 : 0)};
+    z-index: ${props => (props.open ? 1200 : -1)};
     position: fixed;
     overflow-y: auto;
     flex-direction: column;
