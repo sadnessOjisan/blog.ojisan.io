@@ -9,11 +9,11 @@ isFavorite: false
 isProtect: false
 ---
 
-firestore SDK に withConverter というメソッドがあるのですが、その宣伝です。
+[firestore の SDK](https://firebase.google.com/docs/reference/js/firebase.firestore) に withConverter というメソッドがあるのですが、その宣伝です。
 
-##  型が欲しいってどういうこと？
+## 型が欲しいってどういうこと？
 
-たとえば name と age というフィールドを持っているとして、それが本当に持っているかという保証はあるのでしょうか。
+たとえば firestore 上のあるドキュメントが name と age というフィールドを持っているとして、それをクライアントが取得したときそのデータに name と age が村沿いする保証はあるのでしょうか。
 
 ```ts
 db.collection("user")
@@ -30,7 +30,7 @@ db.collection("user")
   })
 ```
 
-`d.data()` はクライアントバリデーションを通った訳でも型がついている訳ではないので、`d.data().name` が本当に name(string)が入っているかは怪しいです。
+`d.data()` はクライアントバリデーションを通った訳でも型がついている訳ではないので、`d.data().name` が本当に name(string)が入っているかはクライアントサイドからすれば分からないことです。
 
 この問題を解決するのが `withConverter` です。
 
@@ -77,17 +77,16 @@ if (post !== undefined) {
 ```
 
 こういうことができる訳です。
-つまり、firestore とやり取りするときに converter を通して、型をつけることができます。
-さらにこの例だと Post クラスのインスタンスを作るときにバリデーションを挟むと、ランタイムでデータ不整合を検知することもできます。
 
-この withConverter を効果的に使う方法を紹介します。
+つまり、firestore とやり取りするときに converter を通して、型をつけることができます。
+では、この withConverter を効果的に使う方法を紹介します。
 
 ## 自分の withConverter の使い方
 
 ### ランタイムバリデーション
 
 取得したデータは firestore 上での型が決まっていても、クライアントからすれば unknown なので型をつけたいです。
-そのためには バリデーションと is を使ったガードが効果的です。
+そのためには バリデーションと is を使った [user-defined type guard](https://www.typescriptlang.org/docs/handbook/advanced-types.html)が効果的です。
 
 ```ts
 const converter = {
@@ -125,9 +124,11 @@ const isValid = (data: any): data is DataItemType => {
 }
 ```
 
+こうすることで data に不正な値が含まれていたら検知することができ、その検査に通ったことの保証を型を通じて後続処理に伝えることができます。
+
 ### DB に対する共通処理を実行する
 
-converter に共通処理を挟むこともできます。
+converter には共通処理を挟むこともできます。
 たとえば投稿日時を保存するコードなんかを共通で挟むことができます。
 
 ```ts
