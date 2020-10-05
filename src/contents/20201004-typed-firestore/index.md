@@ -1,5 +1,5 @@
 ---
-path: /ts-jest
+path: /typed-firestore
 created: "2020-10-02"
 title: "firestore の入出力に型をつける"
 visual: "./visual.png"
