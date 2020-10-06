@@ -1,7 +1,7 @@
 ---
 path: /s-c-refactor
 created: "2020-10-06"
-title: ブログのスタイルに経年劣化対策リファクタリングを施した感想
+title: ブログにCSS in JS 環境下での スタイル分離リファクタリングを施してみた
 visual: "./visual.png"
 tags: [react, "styled-components"]
 userId: sadnessOjisan
@@ -38,19 +38,11 @@ isProtect: false
 - DOM にスタイリングを施す処理を切り出す
 - スタイリングされた DOM に振る舞いを付け加える関数を切り出す
 
-具体的な説明は上でしょうかいした [経年劣化に耐える ReactComponent の書き方](https://qiita.com/Takepepe/items/41e3e7a2f612d7eb094a)を読んでください。
+具体的な説明は上で紹介した [経年劣化に耐える ReactComponent の書き方](https://qiita.com/Takepepe/items/41e3e7a2f612d7eb094a)を読んでください。
 
 早い話が、こういうコンポーネントを作りました。
 
 ```tsx
-import * as React from "react"
-import { graphql } from "gatsby"
-import Layout from "../components/common/layout"
-import SEO from "../components/common/seo"
-import { AllBlogsQuery } from "../../types/graphql-types"
-import styled from "styled-components"
-import { Card } from "../components/indices/card"
-
 interface IContainerProps {
   data: AllBlogsQuery
 }
@@ -91,11 +83,6 @@ const StyledComponent = styled(Component)`
     column-count: 3;
     column-gap: 0;
     max-width: 1024px;
-    @media (max-width: 768px) {
-      display: flex;
-      flex-direction: column;
-      width: 100%;
-    }
 
     & .card {
       margin: 16px;
@@ -105,9 +92,6 @@ const StyledComponent = styled(Component)`
       break-inside: avoid;
       box-shadow: 8px 12px 10px -6px rgba(0, 0, 0, 0.3);
       display: inline-block;
-      @media (max-width: 1024px) {
-        margin-bottom: 16px;
-      }
     }
   }
 `
@@ -118,31 +102,12 @@ const ContainerComponent: React.FC<IProps> = ({ children, data }) => {
 
 export const pageQuery = graphql`
   query AllBlogs {
-    blogs: allMarkdownRemark(filter: {fileAbsolutePath: {regex: "/(/src/contents)/.*\\.md$/"}}, sort: {order: DESC, fields: frontmatter___created}) {
-      nodes {
-        excerpt
-        frontmatter {
-          title
-          path
-          visual {
-            childImageSharp {
-              fluid(maxWidth: 800) {
-                ...GatsbyImageSharpFluid
-              }
-            }
-          }
-          created(formatString: "YYYY-MM-DD")
-          tags
-        }
-      }
+    blogs: allMarkdownRemark {
+      ...
     }
 
     site {
-      siteMetadata {
-        title
-        description
-        author
-      }
+      ...
     }
   }
 `
@@ -168,7 +133,7 @@ const ContainerComponent: React.FC<PassedProps> = props => {
 
 ### HTML から CSS に埋め込んでいた参考演算子が消える
 
-これまでは `<Wrapper isOpen={isOpen} />` のようなことをしていたわけですが、HTML だけに分離すると <div isOpen={isOpen} /> と書くことになります。しかし div に isOpen はないのでこのコードは動きません。
+これまでは `<Wrapper isOpen={isOpen} />` のようなことをしていたわけですが、HTML だけに分離すると `<div isOpen={isOpen} />` と書くことになります。しかし div に isOpen はないのでこのコードは動きません。
 
 そのため container 側でフラグを全部作って埋め込むという実装になります。
 
@@ -274,25 +239,43 @@ export const Fuga = styled(Component)`
 このとき `& > .piyo` とすれば解決できますが、クラスの衝突が起きるという問題の本質的な解決方法ではないので、どう扱うかは考えものです。
 きっとこのルールでスタイルを書くときは「あとから触る人がこの配下にコンポーネントを作ってそれと衝突しないか？」を意識して書く必要があると思います。
 
-**パーツごとにスタイルを作る運用であれば全部のクラスネームが異なるため、あるスタイルの変更がその子コンポーネントに影響を及ぼすことは考えなくてよかった**のですが、この運用だとその問題はある気がしていて、どうしたものかはちょっと悩んでます。解決策は色々思いつきますが、デファクトはコレみたいな話にはなってないので、ゆっくり考えておきたいです。
+**パーツごとにスタイルを作る運用であれば全部のクラスネームが異なるため、あるスタイルの変更がその子コンポーネントに影響を及ぼすことは考えなくてよかった**のですが、この運用だと衝突問題があるので対応は少し悩んでます。
+解決策は色々思いつきますが、デファクトはコレみたいな話にはなってないので、ゆっくり考えておきたいです。
+ひとまずは 直下セレクタを使ってスタイルが外に漏れないように気をつけて書いていきます。
 
 ### props が自然と分離できる
 
 外から渡される props, 自パーツが作る props と自然に分けられます。
 そしてそれらに対して型をつけると、型の表現範囲(この言い方伝われ！)が増します。
-(昔、FlowType で Redux に型を付け回っていた人だったら懐かしい気持ちになるのではないでしょうか？)
+(昔 FlowType で Redux に型を付け回っていた人だったら懐かしい気持ちになるのではないでしょうか？)
 
 ```tsx
-interface IPassedProps {}
+interface IPassedProps {
+  message: string
+}
 
-interface IContainerProps {}
+interface IContainerProps {
+  state: boolean
+  setState: (state: boolean) => void
+}
 
 interface IProps extends IPassedProps, IContainerProps {
   className?: string
 }
 
 const Component = props => {
-  return <div className={props.className}></div>
+  return (
+    <div className={props.className}>
+      {props.state && props.message}
+      <button
+        onClick={() => {
+          setState(!state)
+        }}
+      >
+        toggle
+      </button>
+    </div>
+  )
 }
 
 const StyledComponent = styled(Component)``
@@ -309,7 +292,7 @@ const ContainerComponent: React.FC<IPassedProps> = props => {
 }
 ```
 
-ここで味噌なのは
+ここでミソなのは
 
 ```tsx
 interface IProps extends IPassedProps, IContainerProps {
@@ -326,20 +309,24 @@ interface IProps extends IPassedProps, IContainerProps {
 
 ```tsx
 interface IPassedProps {
+  message: string
   className?: string
 }
 
-interface IContainerProps {}
+interface IContainerProps {
+  state: boolean
+  setState: (state: boolean) => void
+}
 
 interface IProps extends IPassedProps, IContainerProps {}
 ```
 
-とします。
+と、IPassedProps に移動します。
 こうすることで上書き可能であることがコンポーネント呼び出し側から分かります。
 
 ちなみに上書くときは ContainerComponent で親から className を受け取って 伝搬させる必要があるので、ContainerComponent で className をバケツリレーするのを忘れないようにしましょう。
 
-それに関してはこのように props を全部渡すようにすると良いです。
+それに関してはこのように spread 演算子で props を全部渡すようにすると良いです。
 
 ```tsx
 const ContainerComponent: React.FC<PassedProps> = props => {
