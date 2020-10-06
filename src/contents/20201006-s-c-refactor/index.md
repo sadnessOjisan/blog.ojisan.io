@@ -51,6 +51,7 @@ interface IProps extends IContainerProps {
   className?: string
 }
 
+// DOM だけを返すコンポーネント
 const Component: React.FC<IProps> = ({ data, className }) => {
   return (
     <div className={className}>
@@ -75,6 +76,7 @@ const Component: React.FC<IProps> = ({ data, className }) => {
   )
 }
 
+// コンポーネントにスタイルを埋め込むラッパーコンポーネント
 const StyledComponent = styled(Component)`
   & .cards {
     margin: 24px auto;
@@ -96,6 +98,8 @@ const StyledComponent = styled(Component)`
   }
 `
 
+// スタイリングされたコンポーネントにデータや振る舞いを埋め込むコンポーネント
+// Gatsby環境下では graphql から得たdataをpropsから取得できるのでそれを下位のコンポーネントに伝える役割を担う
 const ContainerComponent: React.FC<IProps> = ({ children, data }) => {
   return <StyledComponent data={data}>{children}</StyledComponent>
 }
@@ -131,7 +135,7 @@ const ContainerComponent: React.FC<PassedProps> = props => {
 }
 ```
 
-### HTML から CSS に埋め込んでいた参考演算子が消える
+### HTML から CSS に埋め込むためだけの props が消える
 
 これまでは `<Wrapper isOpen={isOpen} />` のようなことをしていたわけですが、HTML だけに分離すると `<div isOpen={isOpen} />` と書くことになります。しかし div に isOpen はないのでこのコードは動きません。
 
