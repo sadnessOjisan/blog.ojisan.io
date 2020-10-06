@@ -99,7 +99,8 @@ const StyledComponent = styled(Component)`
 `
 
 // スタイリングされたコンポーネントにデータや振る舞いを埋め込むコンポーネント
-// Gatsby環境下では graphql から得たdataをpropsから取得できるのでそれを下位のコンポーネントに伝える役割を担う
+// Gatsby環境下では graphql から得たdataをpropsから取得できるのでそれを
+// 下位のコンポーネントに伝える役割を担う
 const ContainerComponent: React.FC<IProps> = ({ children, data }) => {
   return <StyledComponent data={data}>{children}</StyledComponent>
 }
