@@ -3,7 +3,7 @@ path: /s-c-refactor
 created: "2020-10-06"
 title: ブログに CSS in JS 環境下での スタイル分離リファクタリングを施してみた
 visual: "./visual.png"
-tags: [react, "styled-components"]
+tags: [React, "styled-components"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false
