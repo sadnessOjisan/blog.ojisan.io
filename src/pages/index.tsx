@@ -26,7 +26,7 @@ const Component: React.FC<IProps> = ({ data, className }) => {
               <Card
                 className="card"
                 key={node.frontmatter.path}
-                excerpt={node.excerpt}
+                excerpt={node.excerpt.slice(0, 100)}
                 data={node.frontmatter}
               ></Card>
             ) : (
@@ -76,7 +76,7 @@ export const pageQuery = graphql`
   query AllBlogs {
     blogs: allMarkdownRemark(filter: {fileAbsolutePath: {regex: "/(/src/contents)/.*\\.md$/"}}, sort: {order: DESC, fields: frontmatter___created}) {
       nodes {
-        excerpt
+        excerpt(format: PLAIN, truncate: true)
         frontmatter {
           title
           path
