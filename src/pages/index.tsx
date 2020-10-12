@@ -26,7 +26,7 @@ const Component: React.FC<IProps> = ({ data, className }) => {
               <Card
                 className="card"
                 key={node.frontmatter.path}
-                excerpt={node.excerpt.slice(0, 100)}
+                excerpt={node.excerpt?.slice(0, 100)}
                 data={node.frontmatter}
               ></Card>
             ) : (
