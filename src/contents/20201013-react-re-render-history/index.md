@@ -66,7 +66,7 @@ export Hoge extends React.Component{
 #### shouldComponentUpdate を利用する
 
 `PureComponent` は有力ですが、全てをそれで置き換えても必ずしもパフォーマンスが上がるとは限りません。
-なぜなら、再レンダリングのコストは下がるものの、あらたに `props`/`state` の新旧比較のコストがかかるからです。
+なぜなら、再レンダリングのコストは下がるものの、新たに `props`/`state` の新旧比較のコストがかかるからです。
 
 そこで [shouldComponentUpdate](https://ja.reactjs.org/docs/react-component.html#shouldcomponentupdate) を使ってこの新旧比較ロジックをオーバーライドして計算コストを節約します。
 
@@ -172,15 +172,15 @@ export class _ClassComponent extends React.Component {
 }
 ```
 
-といった風に、`handleClick` をアロー関数で渡さずクラスフィールドに用意して、それを bind しましょう。
+といった風に、`handleClick` をアロー関数で渡さずクラスフィールドに用意して、それを `bind` しましょう。
 
-React と bind については公式の FAQ にもまとめられています。
+React と `bind` については公式の FAQ にもまとめられています。
 
 FYI: https://ja.reactjs.org/docs/faq-functions.html
 
 #### class-fields を使う
 
-また bind は class-field を使えば不要です。
+また `bind` は class-field を使えば不要です。
 
 ```tsx
 class Foo extends Component {
@@ -199,7 +199,7 @@ FYI: https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Classes
 
 #### それでもやっぱり render 内でアロー使いたい
 
-実際このように bind を使うのはめんどくさいところがあります。
+実際このように `bind` を使うのはめんどくさいところがあります。
 また環境によっては class-field も使えません。
 
 一応のところ公式は、
@@ -219,7 +219,7 @@ Stateless Functioal Component(SFC) を使えるところは SFC で置き換え�
 
 FYI: https://medium.com/missive-app/45-faster-react-functional-components-now-3509a668e69f
 
-ただ、このベンチマークは SFC をただ単純なデータで描画するだけに使っている場合なので一概に SFC > Component とは言えないかもしれません。
+ただ、このベンチマークは SFC をただ単純なデータで描画するだけに使っている場合なので一概に SFC の方が優れているとは言えないかもしれません。
 なぜなら **SFC 単体では shouldComponentUpdate が使えないため再レンダリングは抑制できない**ためです。
 この SFC を親からもらった props を元に描画、それが大量にある場合にアプリケーション全体で計測したら話が変わってくるかもしれません。
 
@@ -230,20 +230,20 @@ FYI: https://medium.com/missive-app/45-faster-react-functional-components-now-35
 
 ## Redux に対するチューニング
 
-Class Component 時代は 外部 store としては Redux を使っていました。
+Class Component 時代は 外部 `store` としては Redux を使っていました。
 そのときのチューニングテクニックを復習します。
 
 ### なぜ Redux のチューニングが必要なのか
 
 Redux は中央集権的な状態管理をします。
-その結果 store が膨れすぎていき、そこへの読み書きがボトルネックになったり、関心外の store の更新に巻き込まれた再レンダリングなどの問題が起き、Redux の使い方にもチューニングが必要になりました。
+その結果 `store` が膨れすぎていき、そこへの読み書きがボトルネックになったり、関心外の `store` の更新に巻き込まれた再レンダリングなどの問題が起き、Redux の使い方にもチューニングが必要になりました。
 
 ### mapStateToProps を作る
 
-store は全アプリケーションの状態を持ちます。
-これをそのままコンポーネントに connect して購読すると、そのコンポーネントで必要な情報以外の更新でもそのコンポーネントで再レンダリングが起きます。
+`store` は全アプリケーションの状態を持ちます。
+これをそのままコンポーネントに `connect` して購読すると、そのコンポーネントで必要な情報以外の更新でもそのコンポーネントで再レンダリングが起きます。
 これを解決するものが `mapStateToProps`です。
-これは state のうち自分が欲しいものだけを切り出せるもので、connect の第一引数です。
+これは state のうち自分が欲しいものだけを切り出せるもので、`connect` の第一引数です。
 
 ```tsx:title=container.tsx
 const mapStateToProps = (state: any) => ({
@@ -265,7 +265,7 @@ const initialState = {
 
 ### selector のメモ化
 
-さて、この `mapStateToProp`s は単に監視対象を切り出すだけならいいのですが、なんらかの計算をするとなるとボトルネックになるかもしれません。
+さて、この `mapStateToProps` は単に監視対象を切り出すだけならいいのですが、なんらかの計算をするとなるとボトルネックになるかもしれません。
 たとえば、isDone が true な todos だけを visibleTodos として切り出すような場合です。
 なぜなら **state の変更に応じて毎回 mapStateToProps が呼び出され、この計算が何度も走るから**です。
 そこでメモ化をしてこの計算コストを節約します。
@@ -354,7 +354,8 @@ FYI: https://react-redux.js.org/api/connect#options-object
 > While the defaults are probably appropriate 99% of the time, you may wish to override them with custom implementations for performance or other reasons.
 
 とあり、99%が使わなくても正しく動くとされているので、オーバーライドする必要はあまりないと思っています。
-第３引数の `mergeProps` を使って渡された props を使って計算するとかをすると使う場面はありそうですが、自分はそもそも `mergeProps` すら使ったことないのでまだ使ったことはないです。
+末端コンポーネントに直接 `connect` してそれを再レンダリング抑制したい場合などは使いたいかもしれません。
+(自分は Container Component からデータ流し込むのでこのやり方はしたことがないです。)
 
 ちなみにこれらの扱いを間違える（例えば boolean を返さない）などをすると、`mapStateToProps` で切り出したコンポーネントも切り出し外の `props` 変更によって再レンダリングが走るなんてこともあるので扱いには注意しましょう。
 
@@ -363,16 +364,16 @@ FYI: https://react-redux.js.org/api/connect#options-object
 やっときました、Hooks の話です。
 多分これはほぼほぼ現役な情報でいろんな人がまとめているのでそれをみた方が良いと思うので、さらっとだけ書いていきます。
 
-またここからは、いわゆるライフサイクル持ち SFC をこれまでの Stateless Functional Component と対比するため、 Function Component と呼びます。
+またここからは、いわゆるライフサイクルや state を持てる SFC(`useState`, `useEffect`を呼べるという意味) をこれまでの Stateless Functional Component と対比するため、 Function Component と呼びます。
 
 （呼び方混同するから Function Component と呼ぼうみたいな内容のツイートかブログがあった気がします。）
 
 ### React.memo
 
-[memo](https://ja.reactjs.org/docs/react-api.html#reactmemo)はいわば関数コンポーネントでも使える shouldComponentUpdate です。
-memo のおかげで `PureComponent` か `shouldComponentUpdate` か `Function Component` かと考える必要はほぼ無くなりました。
+[memo](https://ja.reactjs.org/docs/react-api.html#reactmemo)はいわば関数コンポーネントでも使える `shouldComponentUpdate` です。
+`memo` のおかげで `PureComponent` か `shouldComponentUpdate` か `Function Component` かと考える必要はほぼ無くなりました。
 
-memo は
+`memo` は
 
 ```jsx
 const Button = React.memo(props => {
@@ -437,7 +438,6 @@ FYI: https://qiita.com/seya/items/8291f53576097fc1c52a#usecallbackusememo-%E8%87
 ## おわりに
 
 久しぶりに Class Component 周りを調べて懐かしい気持ちになりました。
-個人的にはひたすら意味を理解しないコピペで乗り切っていた時代の構文なので、いろいろ謎が解けて楽しかったです。
-僕の Hello World は React v16.2 なので辛い新人時代を思い出しました（涙）
+個人的にはひたすら意味を理解せずにコピペで乗り切っていた時代の構文なので、いろいろ謎が解けて楽しかったです。
 
 パフォーマンスチューニングはあまり得意な分野ではないので誤りがあれば指摘していただいたり、また他にも覚えておいた方がいいテクニックがあれば教えてくれると嬉しいです！
