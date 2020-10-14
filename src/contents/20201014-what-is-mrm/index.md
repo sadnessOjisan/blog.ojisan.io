@@ -1,7 +1,7 @@
 ---
 path: /react-re-render-history
 created: "2020-10-13"
-title: mrm で JavaScript のエコシステムを整える
+title: mrm で JavaScript ライブラリの config を整える
 visual: "./visual.png"
 tags: [JavaScript, NodeJS]
 userId: sadnessOjisan
@@ -15,7 +15,7 @@ isProtect: false
 npx mrm lint-staged
 ```
 
-とあるのですが、ここは `npm i -D lint-staged` でもよく、この `mrm` が何なのかを調べてみました。
+とあったのですが、ここは `npm i -D lint-staged` でもよいはずなので、この `mrm` が何なのかを調べてみました。
 
 ## mrm とは
 
