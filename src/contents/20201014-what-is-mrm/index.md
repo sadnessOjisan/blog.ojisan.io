@@ -1,6 +1,6 @@
 ---
-path: /react-re-render-history
-created: "2020-10-13"
+path: /what-is-mrm
+created: "2020-10-14"
 title: mrm で JavaScript ライブラリの config を整える
 visual: "./visual.png"
 tags: [JavaScript, NodeJS]
