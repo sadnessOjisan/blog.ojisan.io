@@ -19,13 +19,13 @@ ESLint にも TypeScript にも「ルールを設定してみたけど、いざ�
 
 ### 行単位で無視する
 
-`@ts-ignore` でごまかせます。
+`@ts-ignore` で抑制できます。
 
 TS2.6 からの機能で[Suppress errors in .ts files using ’// @ts-ignore’ comments](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-6.html#suppress-errors-in-ts-files-using--ts-ignore-comments)によると、
 
 > TypeScript 2.6 support suppressing errors in .js files using // @ts-ignore comments placed above the offending lines.
 
-とあり エラーが起きている箇所の上に `@ts-ignore` と書くとその箇所のエラーを誤魔化すことができます。
+とあり エラーが起きている箇所の上に `@ts-ignore` と書くとその箇所のエラーを抑制できます。
 
 #### React Element(JSX) に対して抑制したい
 
@@ -75,7 +75,7 @@ const Hoge = () => {
 
 ### ファイル単位で無視する
 
-`// @ts-nocheck` でごまかせます。
+`// @ts-nocheck` で抑制できます。
 
 TS3.7 からの機能で[Announcing TypeScript 3.7 Beta](https://devblogs.microsoft.com/typescript/announcing-typescript-3-7-beta/)によると、
 
@@ -196,9 +196,9 @@ FYI: https://eslint.org/docs/user-guide/configuring.html#disabling-rules-with-in
 disable したのに想定通りの挙動にならない時の犯人はこの取り違いだったりします。
 基本的には `/* */` を使うようにしておけばこのミスにはハマりにくいです。
 
-## ごまかすくらいなら最初からルール設定するなよとはいえ・・・？
+## エラーを誤魔化すくらいなら最初からルール設定するなよとはいえ・・・？
 
-僕はどちらかと言うとこういうごまかしは **「「「だめっ！」」」** という立場なのですが、実際には「次の要件でこういう機能実装しないといけないから実現可能かちょっと試したい」や「認識合わせのために制作途中のものを開発環境にデプロイしたい」といった **カジュアルなビルドは通したいニーズ**というのはあったりして、こういうときはいちいち型合わせたりルールを遵守したりというのはしなくて良いと思うので、検査エラーを誤魔化す方法は知っといた方が嬉しかったりします。
+僕はどちらかと言うとこういう誤魔化しは **「「「だめっ！」」」** という立場なのですが、実際には「次の要件でこういう機能実装しないといけないから実現可能かちょっと試したい」や「認識合わせのために制作途中のものを開発環境にデプロイしたい」といった **カジュアルなビルドは通したいニーズ**というのはあったりして、こういうときはいちいち型合わせたりルールを遵守したりというのはしなくて良いと思うので、検査エラーを抑制する方法は知っといた方が嬉しかったりします。
 
 もちろん恒久的にはルールに適合するコードを書く努力やルールそのものの見直しの方が大切だと思います。
 
