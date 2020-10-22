@@ -1,7 +1,7 @@
 ---
 path: /eslint-ts-ignore
 created: "2020-10-23"
-title: ESLint と TypeScript における検査エラーを無視したい時のおまじないまとめ
+title: TypeScript と ESLint における検査エラーを無視したい時のおまじないまとめ
 visual: "./visual.png"
 tags: [ESLint, TypeScript]
 userId: sadnessOjisan
