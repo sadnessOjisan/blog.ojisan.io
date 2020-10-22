@@ -1,7 +1,7 @@
 ---
 path: /eslint-ts-ignore
 created: "2020-10-23"
-title: ESLint と TS をごまかしたい時のおまじない
+title: ESLint と TypeScript における検査エラーを無視したい時のおまじないまとめ
 visual: "./visual.png"
 tags: [ESLint, TypeScript]
 userId: sadnessOjisan
@@ -9,7 +9,7 @@ isFavorite: false
 isProtect: false
 ---
 
-ESLint にも TypeScript にも「ルールを設定してみたけど、いざ運用するとなるとエラー出ちゃった。ごまかしちゃえ ⭐️」って時に使えるハッチが存在しています。
+ESLint にも TypeScript にも「ルールを設定してみたけど、いざ運用するとなるとエラー出ちゃった。ごまかしちゃえ(てへぺろ)」って時に使えるハッチが存在しています。ファイル単位・ブロック単位・行単位でそれぞれいろいろな方法があるのでそれらをまとめます。
 
 ## TypeScript
 
@@ -27,7 +27,7 @@ TS2.6 からの機能で[Suppress errors in .ts files using ’// @ts-ignore’ 
 
 とあり エラーが起きている箇所の上に `@ts-ignore` と書くとその箇所のエラーを誤魔化すことができます。
 
-#### React Element(JSX) に対して抑制させたい
+#### React Element(JSX) に対して抑制したい
 
 `render` や `return` の中では コメントを書くのが難しいかもしれません。
 例えば、
@@ -57,7 +57,7 @@ JSX の中では `//` が文字列として認識されることもあります�
 const Hoge = () => {
   return (
     <div>
-      {/* //@ts-ignore としましょう */}
+      {/* @ts-ignore としましょう */}
       <HogeChild
         type="admin"
         user={user}
@@ -69,7 +69,9 @@ const Hoge = () => {
 }
 ```
 
-`{/* //@ts-ignore */}` と言ったように `{}` で JS の式を入れられるようにして、そこに `//@ts-ignore` を埋め込みましょう。
+とします。
+
+`{/* @ts-ignore */}` と言ったように `{}` で JS の式を入れられるようにして、そこに `@ts-ignore` を埋め込みましょう。ここで注意なのが `{/* //@ts-ignore */}` ではないことです。**`//`は不要**です。むしろ`//`を入れると ignore がうまく働きません。
 
 ### ファイル単位で無視する
 
@@ -83,13 +85,13 @@ TS3.7 からの機能で[Announcing TypeScript 3.7 Beta](https://devblogs.micros
 
 ### ブロック単位で無視する
 
-というのはできなさそうです。`no-nocheck` だけでは足りないという意見は出ているのでもしかしたら・・・（？）
+というのはできなさそうです。`no-nocheck` だけでは足りないという意見は出ているのでもしかしたら将来的には・・・（？）
 
 FYI: https://github.com/Microsoft/TypeScript/issues/19573
 
 ## ESLint
 
-公式の[Disabling Rules with Inline Comments](https://eslint.org/docs/user-guide/configuring.html#disabling-rules-with-inline-comments) にある程度まとまっていますが、補足を加えながらまとめます。
+公式の[Disabling Rules with Inline Comments](https://eslint.org/docs/user-guide/configuring.html#disabling-rules-with-inline-comments) にある程度まとまっていますが、補足したいことがいくつかあるのでそれらを加えながらまとめます。
 
 ### ファイル単位で無視する
 
@@ -112,25 +114,33 @@ FYI: https://github.com/Microsoft/TypeScript/issues/19573
 
 `/* eslint ルール名: 0|1|2 */` をファイル先頭に書くことで制御できます。
 ESLint の rule の設定そのものを書けるので、ここで 0(つまり off)を指定すればエラーを抑制できます。
+もちろん、0|1|2 ではなく`"off"`,`"warn"`,`"error"`で書いても良いです。
 
 ### 行単位で無視する
+
+`eslint-disable-next-line` を使って下の行のエラーをピンポイントで抑制できます。
+
+```js
+// eslint-disable-next-line
+hoge
+```
+
+また、eslint-disable-line とすれば同一行のエラーを抑制できます。
+
+```js
+hoge // eslint-disable-line
+```
+
+またコメントの後ろにルール名を書けばそのルールだけをピンポイントで抑制できます。
 
 ```js
 // eslint-disable-next-line ルール名
 hoge
+
+fuga // eslint-disable-line ルール名
 ```
 
-とすることで下の行のエラーをピンポイントで抑制できます。
-
-また、
-
-```js
-hoge // eslint-disable-line ルール名
-```
-
-とすれば同一行のエラーを抑制できます。
-
-### ブロック単位で指定する
+### ブロック単位で無視する
 
 `eslint-disable` と `eslint-enable` で囲った範囲はそこだけエラーを抑制できます。
 
@@ -155,11 +165,6 @@ piyo
 alert("foo") // eslint-disable-line no-alert, quotes, semi
 
 // eslint-disable-next-line no-alert, quotes, semi
-alert("foo")
-
-alert("foo") /* eslint-disable-line no-alert, quotes, semi */
-
-/* eslint-disable-next-line no-alert, quotes, semi */
 alert("foo")
 ```
 
@@ -187,14 +192,15 @@ FYI: https://eslint.org/docs/user-guide/configuring.html#disabling-rules-with-in
 ### コメントの種類に注意！
 
 抑制するコメントに使うコメントタイプが `/* */` なのか `//` なのかは意識しておきましょう。
-`//` は行単位の抑制でしか使いません。
+`//` は行単位の抑制でしか使いません。反対に `/* */` は行単位でもファイル単位でもブロック単位でも使えます。
 disable したのに想定通りの挙動にならない時の犯人はこの取り違いだったりします。
+基本的には `/* */` を使うようにしておけばこのミスにはハマりにくいです。
 
 ## ごまかすくらいなら最初からルール設定するなよとはいえ・・・？
 
-僕はどちらかと言うとこういうごまかしは「「「悪」」」という立場なのですが、実際には「次の要件でこういう機能実装しないといけないから実現可能かちょっと試したい」や「認識合わせのために制作途中のものを開発環境にデプロイしたい」といったカジュアルなビルドは通したい時というのはあったりして、こういうときはいちいち型合わせたりルールを遵守したりというのはしなくて良いと思うので、こういうルールを誤魔化す方法はしっといた方が良いと思います。
+僕はどちらかと言うとこういうごまかしは **「「「だめっ！」」」** という立場なのですが、実際には「次の要件でこういう機能実装しないといけないから実現可能かちょっと試したい」や「認識合わせのために制作途中のものを開発環境にデプロイしたい」といった **カジュアルなビルドは通したいニーズ**というのはあったりして、こういうときはいちいち型合わせたりルールを遵守したりというのはしなくて良いと思うので、検査エラーを誤魔化す方法は知っといた方が嬉しかったりします。
 
-もちろん恒久的にはルールに適合するコードを書く努力やルールそのものを見直すべきだと思います。
+もちろん恒久的にはルールに適合するコードを書く努力やルールそのものの見直しの方が大切だと思います。
 
 ## 参考にしたもの
 
