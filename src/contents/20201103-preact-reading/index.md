@@ -623,6 +623,7 @@ diffChildren と diffElementNodes です。
 
 ### diffElementNodes
 
+diffElementNodes は 要素の props を比較して、更新があればそれを DOM に反映する処理の起点となるものです。
 diffElementNodes の定義はこうなっています。
 
 ```js
@@ -637,8 +638,12 @@ function diffElementNodes(
   isHydrating
 ) {
   let i
+
+  // 比較対象の抽出
   let oldProps = oldVNode.props
   let newProps = newVNode.props
+
+  // svg かどうかで変わる処理があるのでフラグとして持つ
   isSvg = newVNode.type === "svg" || isSvg
 
   if (excessDomChildren != null) {
@@ -658,6 +663,7 @@ function diffElementNodes(
     }
   }
 
+  // dom がないときは作る
   if (dom == null) {
     if (newVNode.type === null) {
       return document.createTextNode(newProps)
@@ -678,15 +684,20 @@ function diffElementNodes(
       dom.data = newProps
     }
   } else {
+    // 更新するVNode typeがなんらかの値を持っている場合
+
     if (excessDomChildren != null) {
       excessDomChildren = EMPTY_ARR.slice.call(dom.childNodes)
     }
 
     oldProps = oldVNode.props || EMPTY_OBJ
 
+    // props の diff を取って DOM に反映する関数. この関数は 実DOM を直接操作する
     diffProps(dom, newProps, oldProps, isSvg, isHydrating)
 
     i = newVNode.props.children
+
+    // 新propsにchildrenがあるのならばchildrenに対しても差分を取る
     diffChildren(
       dom,
       Array.isArray(i) ? i : [i],
@@ -700,6 +711,7 @@ function diffElementNodes(
       isHydrating
     )
 
+    // form周りの扱い. input 要素が value や checked を持っている場合の扱い
     if (
       "value" in newProps &&
       (i = newProps.value) !== undefined &&
@@ -719,6 +731,8 @@ function diffElementNodes(
   return dom
 }
 ```
+
+それでは一つずつ見ていきましょう。
 
 ### diffChildren
 
@@ -754,8 +768,10 @@ export function diffChildren(
     childVNode = renderResult[i]
 
     if (childVNode == null || typeof childVNode == "boolean") {
+      // JSXの中に{null}とか{true}を入れてる場合の挙動
       childVNode = newParentVNode._children[i] = null
     } else if (typeof childVNode == "string" || typeof childVNode == "number") {
+      // JSXの中に{1}とか{"1"}を入れてる場合の挙動
       childVNode = newParentVNode._children[i] = createVNode(
         null,
         childVNode,
@@ -764,6 +780,7 @@ export function diffChildren(
         childVNode
       )
     } else if (Array.isArray(childVNode)) {
+      // JSXの中に{[1, <div>hoge</div>]}などを入れてる場合の挙動
       childVNode = newParentVNode._children[i] = createVNode(
         Fragment,
         { children: childVNode },
@@ -772,6 +789,7 @@ export function diffChildren(
         null
       )
     } else if (childVNode._dom != null || childVNode._component != null) {
+      // JSXの中に<div>hoge</div>などコンポーネントを入れ子にしている場合の挙動
       childVNode = newParentVNode._children[i] = createVNode(
         childVNode.type,
         childVNode.props,
@@ -784,6 +802,7 @@ export function diffChildren(
     }
 
     if (childVNode == null) {
+      // loopから抜けて次のloopに移る
       continue
     }
 
@@ -802,6 +821,7 @@ export function diffChildren(
     } else {
       for (j = 0; j < oldChildrenLength; j++) {
         oldVNode = oldChildren[j]
+        // children のうち key と type が一致したものは children の比較をしない (break する)
         if (
           oldVNode &&
           childVNode.key == oldVNode.key &&
@@ -814,6 +834,8 @@ export function diffChildren(
       }
     }
 
+    // 上の比較で key や type が異なっていた場合は oldVNode は null なので、oldVNode は EMPTY_OBJ として diffを取る
+    // key やtype が一致していれば oldVNode は oldChildren[j] で、この値を使って diff を取る。
     oldVNode = oldVNode || EMPTY_OBJ
     newDom = diff(
       parentDom,
@@ -826,12 +848,6 @@ export function diffChildren(
       oldDom,
       isHydrating
     )
-
-    if ((j = childVNode.ref) && oldVNode.ref != j) {
-      if (!refs) refs = []
-      if (oldVNode.ref) refs.push(oldVNode.ref, null, childVNode)
-      refs.push(j, childVNode._component || newDom, childVNode)
-    }
 
     if (newDom != null) {
       if (firstChildDom == null) {
@@ -869,14 +885,9 @@ export function diffChildren(
     }
   }
 
+  // for ループの中で使用済みのものには undefined が詰め込まれているはず。それでも余っているものをここでunmountする
   for (i = oldChildrenLength; i--; ) {
     if (oldChildren[i] != null) unmount(oldChildren[i], oldChildren[i])
-  }
-
-  if (refs) {
-    for (i = 0; i < refs.length; i++) {
-      applyRef(refs[i], refs[++i], refs[++i])
-    }
   }
 }
 ```
@@ -905,3 +916,13 @@ if (
 
 そもそも componentWillReceiveProps は新規コンポーネントに対しては呼ばれないものです。
 そして oldProps = c.props は新規コンポーネント作成でしか呼ばれないためです。
+
+### なんで再帰構造になっているのか
+
+木を辿るためです。
+
+### key の比較のところがよく分からなかった
+
+これは EMPTY_OBJECT が入った状態で diff が呼ばれる時のループを追うと良い。
+newDom が作られることがわかる。
+そのため DOM が作り直されることとなり再レンダリングが必然的には知りパフォーマンスが落ちる。
