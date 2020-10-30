@@ -54,7 +54,7 @@ module.exports = {
 }
 ```
 
-```
+```sh
 $ npx webpack
 
 [webpack-cli] Compilation finished
