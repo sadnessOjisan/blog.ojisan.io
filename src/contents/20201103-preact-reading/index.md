@@ -684,8 +684,7 @@ function diffElementNodes(
       dom.data = newProps
     }
   } else {
-    // 更新するVNode typeがなんらかの値を持っている場合
-
+    // 更新するVNode typeがなんらかの要素である場合
     if (excessDomChildren != null) {
       excessDomChildren = EMPTY_ARR.slice.call(dom.childNodes)
     }
@@ -698,6 +697,7 @@ function diffElementNodes(
     i = newVNode.props.children
 
     // 新propsにchildrenがあるのならばchildrenに対しても差分を取る
+    // newVNode.typeが存在する分岐の中にいるので、何かしらのchildren(=i)は持っている
     diffChildren(
       dom,
       Array.isArray(i) ? i : [i],
@@ -734,6 +734,122 @@ function diffElementNodes(
 
 それでは一つずつ見ていきましょう。
 
+### diffProps
+
+diffElementNodes の中で diffProps が呼ばれています。
+これをみていきましょう。
+
+```js
+export function diffProps(dom, newProps, oldProps, isSvg, hydrate) {
+  let i
+
+  for (i in oldProps) {
+    if (i !== "children" && i !== "key" && !(i in newProps)) {
+      setProperty(dom, i, null, oldProps[i], isSvg)
+    }
+  }
+
+  for (i in newProps) {
+    if (
+      (!hydrate || typeof newProps[i] == "function") &&
+      i !== "children" &&
+      i !== "key" &&
+      i !== "value" &&
+      i !== "checked" &&
+      oldProps[i] !== newProps[i]
+    ) {
+      setProperty(dom, i, newProps[i], oldProps[i], isSvg)
+    }
+  }
+}
+```
+
+どうやら props の新旧比較をして setProperty を呼び出しているようです。
+
+### setProperty
+
+その名の通り、props を要素に埋め込む関数です。
+
+```js
+export function setProperty(dom, name, value, oldValue, isSvg) {
+  let useCapture, nameLower, proxy
+
+  if (isSvg && name == "className") name = "class"
+
+  if (name === "style") {
+    if (typeof value == "string") {
+      dom.style.cssText = value
+    } else {
+      if (typeof oldValue == "string") {
+        dom.style.cssText = oldValue = ""
+      }
+
+      if (oldValue) {
+        for (name in oldValue) {
+          if (!(value && name in value)) {
+            setStyle(dom.style, name, "")
+          }
+        }
+      }
+
+      if (value) {
+        for (name in value) {
+          if (!oldValue || value[name] !== oldValue[name]) {
+            setStyle(dom.style, name, value[name])
+          }
+        }
+      }
+    }
+  } else if (name[0] === "o" && name[1] === "n") {
+    useCapture = name !== (name = name.replace(/Capture$/, ""))
+    nameLower = name.toLowerCase()
+    if (nameLower in dom) name = nameLower
+    name = name.slice(2)
+
+    if (!dom._listeners) dom._listeners = {}
+    dom._listeners[name + useCapture] = value
+
+    proxy = useCapture ? eventProxyCapture : eventProxy
+    if (value) {
+      if (!oldValue) dom.addEventListener(name, proxy, useCapture)
+    } else {
+      dom.removeEventListener(name, proxy, useCapture)
+    }
+  } else if (
+    name !== "list" &&
+    name !== "tagName" &&
+    name !== "form" &&
+    name !== "type" &&
+    name !== "size" &&
+    name !== "download" &&
+    name !== "href" &&
+    !isSvg &&
+    name in dom
+  ) {
+    dom[name] = value == null ? "" : value
+  } else if (typeof value != "function" && name !== "dangerouslySetInnerHTML") {
+    if (name !== (name = name.replace(/xlink:?/, ""))) {
+      if (value == null || value === false) {
+        dom.removeAttributeNS(
+          "http://www.w3.org/1999/xlink",
+          name.toLowerCase()
+        )
+      } else {
+        dom.setAttributeNS(
+          "http://www.w3.org/1999/xlink",
+          name.toLowerCase(),
+          value
+        )
+      }
+    } else if (value == null || (value === false && !/^ar/.test(name))) {
+      dom.removeAttribute(name)
+    } else {
+      dom.setAttribute(name, value)
+    }
+  }
+}
+```
+
 ### diffChildren
 
 ```js
@@ -765,6 +881,7 @@ export function diffChildren(
 
   newParentVNode._children = []
   for (i = 0; i < renderResult.length; i++) {
+    // props.children から child を取り出す
     childVNode = renderResult[i]
 
     if (childVNode == null || typeof childVNode == "boolean") {
@@ -806,11 +923,15 @@ export function diffChildren(
       continue
     }
 
+    // 作りだしたVNodeの親が何か記録する
     childVNode._parent = newParentVNode
     childVNode._depth = newParentVNode._depth + 1
 
     oldVNode = oldChildren[i]
 
+    // <<<IMPORTANT>>>
+    // key の一致を調べてる
+    // Key は、どの要素が変更、追加もしくは削除されたのかを識別するのに使う
     if (
       oldVNode === null ||
       (oldVNode &&
@@ -837,6 +958,8 @@ export function diffChildren(
     // 上の比較で key や type が異なっていた場合は oldVNode は null なので、oldVNode は EMPTY_OBJ として diffを取る
     // key やtype が一致していれば oldVNode は oldChildren[j] で、この値を使って diff を取る。
     oldVNode = oldVNode || EMPTY_OBJ
+
+    // diffElementNodes が適用された DOM がここに入る
     newDom = diff(
       parentDom,
       childVNode,
@@ -854,6 +977,8 @@ export function diffChildren(
         firstChildDom = newDom
       }
 
+      // DOM操作
+      // diff -> diffElementNodes を行った DOM を挿入する
       oldDom = placeChild(
         parentDom,
         childVNode,
@@ -892,6 +1017,140 @@ export function diffChildren(
 }
 ```
 
+### DOM 操作
+
+#### placeChild
+
+newDOM を DOM ツリーに追加する操作、もしくは newDOM を oldDOM の兄弟として置く操作をする。
+
+```js
+export function placeChild(
+  parentDom,
+  childVNode,
+  oldVNode,
+  oldChildren,
+  excessDomChildren,
+  newDom,
+  oldDom
+) {
+  let nextDom
+  if (childVNode._nextDom !== undefined) {
+    nextDom = childVNode._nextDom
+
+    childVNode._nextDom = undefined
+  } else if (
+    excessDomChildren == oldVNode ||
+    newDom != oldDom ||
+    newDom.parentNode == null
+  ) {
+    outer: if (oldDom == null || oldDom.parentNode !== parentDom) {
+      parentDom.appendChild(newDom)
+      nextDom = null
+    } else {
+      for (
+        let sibDom = oldDom, j = 0;
+        (sibDom = sibDom.nextSibling) && j < oldChildren.length;
+        j += 2
+      ) {
+        if (sibDom == newDom) {
+          break outer
+        }
+      }
+      parentDom.insertBefore(newDom, oldDom)
+      nextDom = oldDom
+    }
+  }
+
+  if (nextDom !== undefined) {
+    oldDom = nextDom
+  } else {
+    oldDom = newDom.nextSibling
+  }
+
+  return oldDom
+}
+```
+
+#### getDomSibling
+
+自分の親の子が持つ DOM を順番にみていく。
+つまり自分の兄弟要素を取得し返す関数です。
+
+```js
+export function getDomSibling(vnode, childIndex) {
+  if (childIndex == null) {
+    return vnode._parent
+      ? getDomSibling(vnode._parent, vnode._parent._children.indexOf(vnode) + 1)
+      : null
+  }
+
+  let sibling
+  for (; childIndex < vnode._children.length; childIndex++) {
+    sibling = vnode._children[childIndex]
+
+    if (sibling != null && sibling._dom != null) {
+      return sibling._dom
+    }
+  }
+  return typeof vnode.type == "function" ? getDomSibling(vnode) : null
+}
+```
+
+#### removeNode
+
+```js
+export function removeNode(node) {
+  let parentNode = node.parentNode
+  if (parentNode) parentNode.removeChild(node)
+}
+```
+
+#### unmount
+
+```js
+export function unmount(vnode, parentVNode, skipRemove) {
+  let r
+  if (options.unmount) options.unmount(vnode)
+
+  if ((r = vnode.ref)) {
+    if (!r.current || r.current === vnode._dom) applyRef(r, null, parentVNode)
+  }
+
+  let dom
+  if (!skipRemove && typeof vnode.type != "function") {
+    skipRemove = (dom = vnode._dom) != null
+  }
+  vnode._dom = vnode._nextDom = undefined
+
+  if ((r = vnode._component) != null) {
+    if (r.componentWillUnmount) {
+      try {
+        r.componentWillUnmount()
+      } catch (e) {
+        options._catchError(e, parentVNode)
+      }
+    }
+
+    r.base = r._parentDom = null
+  }
+
+  if ((r = vnode._children)) {
+    for (let i = 0; i < r.length; i++) {
+      if (r[i]) unmount(r[i], parentVNode, skipRemove)
+    }
+  }
+
+  if (dom != null) removeNode(dom)
+}
+```
+
+## setState
+
+差分更新がどう行われるのかみてみましょう。
+
+oldChildrenLength で足りないものが unmount されることがわかります。
+そしてこの差異自体は setState が生み出します。
+
 ## 読む上で出てくるであろう疑問とその答え
 
 ### VNode.type が function だとどうなるのか
@@ -926,3 +1185,35 @@ if (
 これは EMPTY_OBJECT が入った状態で diff が呼ばれる時のループを追うと良い。
 newDom が作られることがわかる。
 そのため DOM が作り直されることとなり再レンダリングが必然的には知りパフォーマンスが落ちる。
+
+### newVNode.type === null のような分岐
+
+VNode が null になる場面はどういうときなのでしょうか。
+
+`createVNode` から辿ってみると、diffChildren に該当するコードがあります。
+
+```js:title=children.js
+if (childVNode == null || typeof childVNode == "boolean") {
+  childVNode = newParentVNode._children[i] = null
+} else if (typeof childVNode == "string" || typeof childVNode == "number") {
+  childVNode = newParentVNode._children[i] = createVNode(
+    null,
+    childVNode,
+    null,
+    null,
+    childVNode
+  )
+} else if (Array.isArray(childVNode)) {
+  ...
+}
+```
+
+つまり、入れ子の要素が Element ではなく string, number のような primitive な場合に作られる VNode です。
+
+たとえば、
+
+```jsx
+<div>hoge</div>
+```
+
+のようなものです。
