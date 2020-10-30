@@ -30,7 +30,82 @@ React の軽量版です。
 
 ### 仮想 DOM とは何か
 
+いままでブラウザが持っていたリアル DOM ツリーを、JavaScript のオブジェクトとして表現したものです。
+
+たとえば、
+
+```html
+<div>
+  <p>hello world</p>
+</div>
+```
+
+を
+
+```js
+{
+  type: 'div',
+  childrens: [{
+    type: "p",
+    childrens: [
+      {type: null, childrens: ["hello world"]}
+    ]
+  }]
+}
+```
+
+のように表現したものです。
+
+このように表現すると、部分的に変更をピンポイントに適用しやすくなり、本物の DOM を操作するときの計算コスト（HTML の解析、DOM ツリーの再構築など）を節約することができます。
+
+仮想 DOM については、だーしのさんの [自作フレームワークをつくって学ぶ 仮想 DOM 実践入門](https://kuroeveryday.blogspot.com/2018/11/how-to-create-virtual-dom-framework.html) にとてもわかりやすくチュートリアル形式でまとまっていますのでこちらを見ると良いでしょう。
+
 ### jsx と h 関数
+
+preact もいわゆる仮想 DOM 系のライブラリです。
+そのデータ構造は VNode と呼ばれるオブジェクトに従いますが、これを作る関数が h 関数 です。
+
+```js
+import { h, Component, render } from "https://unpkg.com/preact?module"
+
+const app = h("h1", null, "Hello World!")
+
+render(app, document.body)
+```
+
+そしてこれだと見辛いということで使われるのが お馴染みの jsx です。
+先ほどのコードは、
+
+```jsx
+import { h, Component, render } from "https://unpkg.com/preact?module"
+
+const app = <h1>Hello World!</h1>
+
+render(app, document.body)
+```
+
+としても書けます。
+
+h 関数はの引数は `h(type, props, ...children)` となっており、props を持たせることもできます。
+そのため例えば、
+
+```js
+h("div", { id: "foo" }, "Hello!")
+```
+
+は、
+
+```jsx
+<div id="foo">Hello!</div>
+```
+
+と同じです。
+
+この挙動は JSX のネストがあっても、イベントハンドラを設定しても同様に動作します。
+諸々の実験は[こちら](https://github.com/ojisan-toybox/preact-h-babel)でできるようにしましたので、jsx と h 関数の関係がよくわからない方は試してみてください。
+
+preact の内部では jsx は h 関数に変換されて VNode 形式でデータをやりとりされるので、コードリーディングする上では直接見ることはありません。
+しかし props や children の描画や探索をライブラリが行うので、元々はどういう形式のコードだったかを考える必要があるので、VNode, h, jsx の関係は意識しながら読んだ方が読みやすいでしょう。
 
 ## preact の全体感
 
@@ -38,18 +113,14 @@ React の軽量版です。
 
 microbundle というツールで行われています。
 これは rollup のラッパーで作者が preact のビルド設定をデフォルトに設定したものです。
-zero config でできます。
+package.json のフィールドをみてビルドをしてくれるため、zero config でビルドできます。
 
 ### 言語
 
 JavaScript で実装されています。
 TypeScript ではありません。
 ただし JSDoc に型情報があり、型を出力しています。
-ちなみに TypeScript で実装しようとするとエラーがたくさん出るので現実的では無さそうです。
-
-### フォルダ構成
-
-src 配下を解説します。
+ちなみに TypeScript で実装しようとするとエラーがたくさん出るので、本当に型を入れるのは難しいです。
 
 ### データ構造
 
@@ -85,7 +156,30 @@ export interface VNode<P = {}> extends preact.VNode<P> {
 }
 ```
 
+### preact の仕組み
+
+DOM を VNode で表現し、なにかしらの状態変化が起きた時に新旧の VNode に差分があった箇所を検知してその箇所の DOM を書き換えます。
+新旧 VNode の比較は diff 関数で行われます。
+この diff 関数は VNode の子要素の差分を調べる関数 diffChildren を呼び出しており、この diffChildren も diff を呼び出すことで、DOM ツリーに対して再帰的に diff を取っていき、差分があった場所の DOM を書き換えます。
+
 ### 呼出し関係
+
+関数単位で考えるとこのような呼び出し関係になります。
+
+![呼び出し関係](call.png)
+
+やっかいなのは diff を再帰的に呼ぶ関数が 2 つあり、その使い分けです。
+
+### フォルダ構成
+
+src 配下を解説します。
+基本的には、render, component, diff, children, create-element, props が主軸となります。
+
+![src配下の主要なフォルダ一覧](./src.png)
+
+index.js から h と render が export されています。
+これらは利用者にとっての起点になる関数で、render は内部で diff を呼び出しています。
+diff を呼ぶことで初回時のレンダリング、状態変化時の再レンダリングの登録を行っています。
 
 ## コードリーディング
 
@@ -734,10 +828,159 @@ function diffElementNodes(
 
 それでは一つずつ見ていきましょう。
 
-### diffProps
+#### フラグや変数のセット
 
-diffElementNodes の中で diffProps が呼ばれています。
-これをみていきましょう。
+```js
+let i
+
+// 比較対象の抽出
+let oldProps = oldVNode.props
+let newProps = newVNode.props
+
+// svg かどうかで変わる処理があるのでフラグとして持つ
+isSvg = newVNode.type === "svg" || isSvg
+```
+
+#### DOM の再利用
+
+仮想ノードタイプが null で、既存のノードタイプがテキストであるか、仮想ノードタイプが既存のノードタイプと同じである場合
+または、dom と既存のノードが同じである場合は、再利用します
+
+```js
+if (excessDomChildren != null) {
+  for (i = 0; i < excessDomChildren.length; i++) {
+    const child = excessDomChildren[i]
+    if (
+      child != null &&
+      ((newVNode.type === null
+        ? child.nodeType === 3
+        : child.localName === newVNode.type) ||
+        dom == child)
+    ) {
+      dom = child
+      excessDomChildren[i] = null
+      break
+    }
+  }
+}
+```
+
+主に hydrate 用の機能です。
+
+詳しくはこの中国語のドキュメントを日本語翻訳しながら読み解いてみてください
+
+- https://juejin.im/post/6883003425890500615
+- https://zhuanlan.zhihu.com/p/100076938
+
+#### 初回レンダリング
+
+DOM がない場合は作ります。
+これは主に初回レンダリングのときの分岐です。
+
+```js
+if (dom == null) {
+  if (newVNode.type === null) {
+    return document.createTextNode(newProps)
+  }
+
+  dom = isSvg
+    ? document.createElementNS("http://www.w3.org/2000/svg", newVNode.type)
+    : document.createElement(newVNode.type, newProps.is && { is: newProps.is })
+  excessDomChildren = null
+  isHydrating = false
+}
+```
+
+#### 要素のレンダリング
+
+そして、
+
+```js
+if (newVNode.type === null) {
+  if (oldProps !== newProps && (!isHydrating || dom.data !== newProps)) {
+    dom.data = newProps
+  }
+} else {
+  ...
+}
+```
+
+と続きます。
+
+これは VNode がなんらかの要素を持っていればレンダリングする分岐です。
+こ k での newVNode.type は "div" や "h1" などを想定しており、else 節を詳しくみていきましょう。
+
+#### 差分の比較と DOM への反映
+
+```js
+oldProps = oldVNode.props || EMPTY_OBJ
+
+// props の diff を取って DOM に反映する関数. この関数は 実DOM を直接操作する
+diffProps(dom, newProps, oldProps, isSvg, isHydrating)
+
+i = newVNode.props.children
+
+// 新propsにchildrenがあるのならばchildrenに対しても差分を取る
+// newVNode.typeが存在する分岐の中にいるので、何かしらのchildren(=i)は持っている
+diffChildren(
+  dom,
+  Array.isArray(i) ? i : [i],
+  newVNode,
+  oldVNode,
+  globalContext,
+  newVNode.type === "foreignObject" ? false : isSvg,
+  excessDomChildren,
+  commitQueue,
+  EMPTY_OBJ,
+  isHydrating
+)
+
+// form周りの扱い. input 要素が value や checked を持っている場合の扱い
+if (
+  "value" in newProps &&
+  (i = newProps.value) !== undefined &&
+  (i !== dom.value || (newVNode.type === "progress" && !i))
+) {
+  setProperty(dom, "value", i, oldProps.value, false)
+}
+if (
+  "checked" in newProps &&
+  (i = newProps.checked) !== undefined &&
+  i !== dom.checked
+) {
+  setProperty(dom, "checked", i, oldProps.checked, false)
+}
+  }
+return dom
+```
+
+diffProps で、props の 差分を比較します。
+この関数は 後述する setProperty をを呼び出すことで実 DOM を直接操作を内部で行っており、差分があった箇所の DOM を実際に変更する役割をになっています。
+
+そして続く diffChildren で、props に children があればそれを比較します。
+ちなみに children は createElement 経由で VNode が作られた場合 props に埋め込まれます。
+
+```js
+if (children != null) {
+  normalizedProps.children = children
+}
+```
+
+`i = newVNode.props.children`　はその children を取り出しています。
+
+そして DOM の種類によっては（主にフォーム要素を想定）、この関数の中で直接 setProperty を呼び出して DOM 要素への props 適用を行います。
+
+このようにして編集した DOM を最終的に return します。
+diffProps などは その呼び出し先の関数の中で修正済み DOM をオブジェクトを破壊的変更することで上書いてくれているので、それらの関数の呼び出し後に DOM を返すだけで、新しい構築済み DOM を返すことができます。
+
+### 差分の比較と要素の反映をする関数たち
+
+diffElementNodes が呼び出していた 差分の比較と要素の反映をする関数たちを見ていきましょう。
+これらは diffElementNodes 以外からも呼ばれる関数なので覚えておきましょう。
+
+#### diffProps
+
+diffProps は 新旧の props を比較して、差分があればその差分を 後述する setProperty を使って上書く関数です。
 
 ```js
 export function diffProps(dom, newProps, oldProps, isSvg, hydrate) {
@@ -764,9 +1007,9 @@ export function diffProps(dom, newProps, oldProps, isSvg, hydrate) {
 }
 ```
 
-どうやら props の新旧比較をして setProperty を呼び出しているようです。
+たとえば key や value といった props の種類に応じては setProperty を読んでいないことが確認できます。
 
-### setProperty
+#### setProperty
 
 その名の通り、props を要素に埋め込む関数です。
 
@@ -850,7 +1093,112 @@ export function setProperty(dom, name, value, oldValue, isSvg) {
 }
 ```
 
+それぞれケースごとに分岐が書かれているので読みやすいですね。
+この関数 `setProperty(dom, name, value, oldValue, isSvg)` は、`diffProps` からは
+
+```js
+for (i in newProps) {
+  // 新旧propsに差分があるとsetProperty
+  if (
+    (!hydrate || typeof newProps[i] == "function") &&
+    i !== "children" &&
+    i !== "key" &&
+    i !== "value" &&
+    i !== "checked" &&
+    oldProps[i] !== newProps[i]
+  ) {
+    setProperty(dom, i, newProps[i], oldProps[i], isSvg)
+  }
+}
+```
+
+などとして呼ばれます。
+
+つまり name は props オブジェクトの key であり、value は props オブジェクトの値です。
+それを踏まえた上で読んでみましょう。
+
+#### style への props 適用
+
+`if (name === "style") {` では、`setStyle(dom.style, name, value[name])` が呼ばれています。
+
+この `setStyle` は
+
+```js
+function setStyle(style: CSSStyleDeclaration, key, value) {
+  if (key[0] === "-") {
+    style.setProperty(key, value)
+  } else if (value == null) {
+    style[key] = ""
+  } else if (typeof value != "number" || IS_NON_DIMENSIONAL.test(key)) {
+    style[key] = value
+  } else {
+    style[key] = value + "px"
+  }
+}
+```
+
+といった関数で、`dom.style` に対して CSS のセット（=DOM の更新）をしています。
+
+```jsx
+<div style={{ margin: 16 }}></div>
+```
+
+のように px を使わなくても動く理由もこのコードから分かって面白いですね。
+
+#### イベントハンドラへの props 適用
+
+`else if (name[0] === "o" && name[1] === "n") {` では、
+
+```js
+if (value) {
+  if (!oldValue) dom.addEventListener(name, proxy, useCapture)
+} else {
+  dom.removeEventListener(name, proxy, useCapture)
+}
+```
+
+と言った風にイベントリスナーの登録が行われています。
+
+`else if (name[0] === "o" && name[1] === "n") {` のような分岐になっているのは `onXXX` をランタイムで見つけ出すときのパフォーマンスが良いかららしいです。
+
+#### name への props 適用
+
+```js
+else if (
+    name !== "list" &&
+    name !== "tagName" &&
+    name !== "form" &&
+    name !== "type" &&
+    name !== "size" &&
+    name !== "download" &&
+    name !== "href" &&
+    !isSvg &&
+    name in dom
+) {}
+```
+
+という分岐では、DOM 組み込み以外の値を更新します。
+つまり JSX や VNode における props の更新の分岐です。
+
+#### value がないときへの props 適用
+
+`else if ( value == null ||` の分岐では、`<a href={false}></a>` などが当たります。
+この場合
+
+```js
+dom.removeAttribute(name)
+```
+
+としてその要素は消します。
+
+#### それ以外への props 適用
+
+この場合は DOM 組み込みの値の更新の分岐です。
+`href` や `type` などがこれにあたります。
+
 ### diffChildren
+
+diff や diffElementNodes から呼ばれる関数です。
 
 ```js
 export function diffChildren(
