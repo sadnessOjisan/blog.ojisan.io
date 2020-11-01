@@ -246,9 +246,9 @@ preact が行っていることは、DOM を VNode で表現しなにかしら�
 
 ![呼び出し関係](call.png)
 
-やっかいなのは diff を再帰的に呼ぶ関数が 2 つあり、その使い分けです。
+意外とシンプルですね。（デフォルメした図なので・・・）
 
-しかしファイル自体は多くはなく、大まかな挙動は単純なものです。
+ファイル自体も多くはなく、大まかな挙動は単純なものです。
 
 ![src配下の主要なフォルダ一覧](./src.png)
 
@@ -839,26 +839,23 @@ diff を取る対象がコンポーネントであれば、必ずその子要素
 diff を取る対象が primitive の場合のコードブロックは次の通りです。
 
 ```js:title=diff/index.js
-else if (
-			excessDomChildren == null &&
-			newVNode._original === oldVNode._original
-		) {
-      // 基本的にはこの分岐には入らないから考えない
-			newVNode._children = oldVNode._children;
-			newVNode._dom = oldVNode._dom;
-		} else {
-      // typeがfunctionでない && 過剰なchildren(excessDomChildren) がある場合
-			newVNode._dom = diffElementNodes(
-				oldVNode._dom,
-				newVNode,
-				oldVNode,
-				globalContext,
-				isSvg,
-				excessDomChildren,
-				commitQueue,
-				isHydrating
-			);
-		}
+else if (excessDomChildren == null && newVNode._original === oldVNode._original) {
+  // 基本的にはこの分岐には入らないから考えない
+  newVNode._children = oldVNode._children
+  newVNode._dom = oldVNode._dom
+} else {
+  // typeがfunctionでない && 過剰なchildren(excessDomChildren) がある場合
+  newVNode._dom = diffElementNodes(
+    oldVNode._dom,
+    newVNode,
+    oldVNode,
+    globalContext,
+    isSvg,
+    excessDomChildren,
+    commitQueue,
+    isHydrating
+  )
+}
 ```
 
 この diffElementNodes は一体なんでしょうか。
