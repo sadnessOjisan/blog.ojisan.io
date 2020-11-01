@@ -885,9 +885,6 @@ newVNode._dom = diffElementNodes(
 しかし diff 関数自体は diff をとっているわけではなく、`diffChildren` と `diffElementNodes` といった本命が別にいることがわかりました。
 
 これからそれらを読んでいきましょう。
-
-`diffChildren` と `diffElementNodes` です。
-
 先にいうと、 `diffChildren` は内部で diff を呼び出し続け DOM ツリーを再帰的に辿り、その結果いつかは葉にたどり着くと `diffElementNodes` が呼ばれる分岐に入ります。
 そのため差分更新の本丸はこの `diffElementNodes`なのでこちらから見ていきましょう。
 
