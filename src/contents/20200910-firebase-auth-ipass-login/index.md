@@ -5,7 +5,7 @@ title: firebaseでのパスワードログイン機能の実装をやりきる�
 visual: "./visual.png"
 tags: [firebase]
 userId: sadnessOjisan
-isFavorite: false
+isFavorite: true
 isProtect: false
 ---
 
