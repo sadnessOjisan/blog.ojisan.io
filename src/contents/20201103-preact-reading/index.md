@@ -1481,9 +1481,7 @@ export function diffChildren(
 
     oldVNode = oldChildren[i]
 
-    // <<<IMPORTANT>>>
-    // key の一致を調べてる
-    // Key は、どの要素が変更、追加もしくは削除されたのかを識別するのに使う
+    // oldChildren から oldVNode と一致したものを見つけて削除する(undefinedを代入)
     if (
       oldVNode === null ||
       (oldVNode &&
@@ -1494,7 +1492,7 @@ export function diffChildren(
     } else {
       for (j = 0; j < oldChildrenLength; j++) {
         oldVNode = oldChildren[j]
-        // children のうち key と type が一致したものは children の比較をしない (break する)
+        // children のうち key と type が一致したものがあれば children の比較をしない (break する)
         if (
           oldVNode &&
           childVNode.key == oldVNode.key &&
@@ -1507,7 +1505,8 @@ export function diffChildren(
       }
     }
 
-    // 上の比較で key や type が異なっていた場合は oldVNode は null なので、oldVNode は EMPTY_OBJ として diffを取る
+    // 上の比較で key や type が異なっていた場合は oldVNode は null なので、
+    // oldVNode は EMPTY_OBJ として diffを取る.
     // key やtype が一致していれば oldVNode は oldChildren[j] で、この値を使って diff を取る。
     oldVNode = oldVNode || EMPTY_OBJ
 
@@ -1550,7 +1549,7 @@ export function diffChildren(
       oldVNode._dom == oldDom &&
       oldDom.parentNode != parentDom
     ) {
-      // oldDomはこの後使わないので多分不要（？）このブロックが必要な理由が分からないので解説しない。
+      // oldDomはこの後使わないので多分不要（？）
       oldDom = getDomSibling(oldVNode)
     }
   }
@@ -1563,7 +1562,8 @@ export function diffChildren(
     }
   }
 
-  // for ループの中で使用済みのものには undefined が詰め込まれているはず。それでも余っているものをここでunmountする
+  // for ループの中で使用済みのものには undefined が詰め込まれているはず。
+  // それでも余っているものをここでunmountする
   for (i = oldChildrenLength; i--; ) {
     if (oldChildren[i] != null) unmount(oldChildren[i], oldChildren[i])
   }
@@ -1664,7 +1664,8 @@ childVNode._depth = newParentVNode._depth + 1
 
 #### 比較されなかったコンポーネントを削除する準備
 
-oldVNode と比較されなかったコンポーネントを削除する準備をします。
+このブロック自体は、oldChildren から oldVNode と一致したものを見つけて削除する(undefined を代入)ものです。
+ただそれに加えて、oldVNode と比較されなかったコンポーネントを削除する準備もしています。
 
 ```js:title=diff/children.js
 oldVNode = oldChildren[i]
@@ -1692,7 +1693,8 @@ if (
   }
 }
 
-// 上の比較で key や type が異なっていた場合は oldVNode は null なので、oldVNode は EMPTY_OBJ として diffを取る
+// 上の比較で key や type が異なっていた場合は oldVNode は null なので、
+// oldVNode は EMPTY_OBJ として diffを取る
 // key やtype が一致していれば oldVNode は oldChildren[j] で、この値を使って diff を取る。
 oldVNode = oldVNode || EMPTY_OBJ
 ```
@@ -1706,8 +1708,9 @@ for (i = oldChildrenLength; i--; ) {
 }
 ```
 
-が呼ばれて key が一致したコンポーネントのそれ以降の兄弟コンポーネントは全て unmount されます。
-そのためもし消したコンポーネントに対してもなにかしらの DOM 操作をする場合は、差分更新ではなく新規追加がされることとなりパフォーマンスが悪化します。
+が呼ばれて、key が一致したコンポーネントのそれ以降の兄弟コンポーネントは全て(undefined が代入されなかったもの) unmount されます。
+DOM ツリーの操作が発生するためパフォーマンスは悪化します。
+ちゃんと key は割り振りましょう！
 
 #### 子要素に対して diff を取る
 
@@ -1775,7 +1778,8 @@ if (excessDomChildren != null && typeof newParentVNode.type != "function") {
   }
 }
 
-// for ループの中で使用済みのものには undefined が詰め込まれているはず。それでも余っているものをここでunmountする
+// for ループの中で使用済みのものには undefined が詰め込まれているはず。
+// それでも余っているものをここでunmountする
 for (i = oldChildrenLength; i--; ) {
   if (oldChildren[i] != null) unmount(oldChildren[i], oldChildren[i])
 }
@@ -2504,7 +2508,7 @@ if (oldVNode._component) {
 } else {
   // Instantiate the new component
   if ("prototype" in newType && newType.prototype.render) {
-    newVNode._component = c = new newType(newProps, componentContext) // eslint-disable-line new-cap
+    newVNode._component = c = new newType(newProps, componentContext)
   } else {
     newVNode._component = c = new Component(newProps, componentContext)
     c.constructor = newType
@@ -2590,12 +2594,6 @@ if (oldVNode._component) {
 のように diffChildren を経由して diff が再帰しています。
 
 そして diffChildren を繰り返し呼ぶことで DOM ツリーを操作し、変更対象がコンポーネントを持たないのならば diffElementNode を呼び出すことで DOM Node のプロパティを更新します。
-
-### key の比較をもっと詳しく
-
-これは EMPTY_OBJECT が入った状態で diff が呼ばれる時のループを追うと良い。
-newDom が作られることがわかる。
-そのため DOM が作り直されることとなり再レンダリングが必然的には知りパフォーマンスが落ちる。
 
 ### newVNode.type === null のような分岐になるのはどのようなときか
 
