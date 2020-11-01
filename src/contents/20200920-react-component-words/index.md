@@ -5,7 +5,7 @@ title: Reactのコンポーネント周りの用語を整理する
 visual: "./visual.png"
 tags: [React]
 userId: sadnessOjisan
-isFavorite: false
+isFavorite: true
 isProtect: false
 ---
 
