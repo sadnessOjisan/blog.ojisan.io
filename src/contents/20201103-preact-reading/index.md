@@ -1,6 +1,6 @@
 ---
 path: /preact-reading
-created: "2020-11-03"
+created: "2020-11-02"
 title: preact コードリーディング
 visual: "./visual.png"
 tags: [preact]
