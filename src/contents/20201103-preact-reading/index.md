@@ -1950,12 +1950,56 @@ diffChildren が再帰的に diffElementNode を呼び出して差分更新を�
 
 つまり、**diffElementNode は DOM の Node の値を書き換え、diffChildren は DOM ツリーの構造を変える**と考えると良いでしょう。
 
+### commitRoot で renderQueue の ライフサイクルメソッドを実行する
+
+ここまででライフサイクルイベントを `renderQueue` に詰めた処理をみたと思います。
+
+それを実行するのが commitRoot というもので、たとえば render では diff の後に呼ばれています。
+
+```js
+export function commitRoot(commitQueue, root) {
+  if (options._commit) options._commit(root, commitQueue)
+
+  commitQueue.some(c => {
+    try {
+      commitQueue = c._renderCallbacks
+      c._renderCallbacks = []
+      commitQueue.some(cb => {
+        cb.call(c)
+      })
+    } catch (e) {
+      options._catchError(e, c._vnode)
+    }
+  })
+}
+```
+
+commitQueue にはコンポーネントが詰め込まれているので、そのコンポーネントが持つ `_renderCallbacks` を実行するのが役目です。
+たとえば diff では componentDidMount をこの \_renderCallbacks に詰め込んでいます。
+
+```js:title=diff/index.js
+if (c.componentDidMount != null) {
+  c._renderCallbacks.push(c.componentDidMount)
+}
+```
+
+そのため diff の後で呼び出すことで mount 直後のイベント発火が実現できます。
+
 ### 状態を書き換えたときの再レンダリングを見て行こう
 
-差分更新がどう行われるのかみてみましょう。
+ここまでで目標であった、
+
+- state を書き換える方法
+- state が書き換わった時に再レンダリングがされること
+
+の一部が明らかになりました。
+
+すくなくとも preact においてレンダリングがどのようにされるかが明らかになっています。
+ここからはどのようにして状態を書き換えるかを見ていきましょう。
+
 preact では state や props の値が変わるとそれを表示している箇所とその子要素で再レンダリングが発生します。
 そして state は なにかしらの外部イベントによって書き換えられ、props の変更はそれを伝搬することで発生します。
-その結果起きる再レンダリングをどのように実現しているのかを見てみましょう。
+その結果起きる再レンダリングをどのように実現しているのかについてです。
 
 #### state を書き換えるトリガー
 
