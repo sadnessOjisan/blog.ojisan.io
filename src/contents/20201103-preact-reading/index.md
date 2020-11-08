@@ -219,7 +219,7 @@ h("div", { id: "foo" }, "Hello!")
 const vnode = {
   type: "div"
   props: { id: "foo" }
-  _children:  null
+  _children:  [{...}]
   _parent:  null
   _depth:  null
   _dom:  null
