@@ -39,9 +39,8 @@ Redux をやめて例えば Context(useContext) や custom hooks で状態管理
 ```jsx
 const Index = () => {
   const data = useContext(Context)
-  const indexData = useQuery()
   return <div>検索ページ
-  {indexData.map(
+  {data.map(
       ...
   )}
   </div>
@@ -85,7 +84,7 @@ Provider を routing の外側に持てば、routing が切り替わっても状
 その影響を減らしたいなら state ではなく useReducer を使うと疎結合にできて移しやすいのですが、「useReducer を使うなら Redux 使えば？」と思ったりもします。
 
 また [react-query](https://react-query.tanstack.com/) も良い選択肢だと思います。
-これには cache provider という仕組みが備わっておりデータを保持しておくことができます。
+これには CacheProvider という仕組みが備わっており、これを routing の外で持っておけばデータを保持しておくことができます。
 しかし react-query はデータ取得の状態管理のライブラリでありモーダルの開閉状態や検索フォームの状態管理などは別途やり方を考える必要はあります。
 
 ### Redux やめると global store をやめるは別の話だが・・・
