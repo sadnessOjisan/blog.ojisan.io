@@ -3,7 +3,7 @@ path: /datsu-redux-regret
 created: "2020-11-08"
 title: 脱Reduxを試みて失敗した話、その原因と対策について
 visual: "./visual.png"
-tags: [redux]
+tags: [react, redux]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false
