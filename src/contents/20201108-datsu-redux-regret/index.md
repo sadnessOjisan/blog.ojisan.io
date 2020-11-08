@@ -10,10 +10,13 @@ isProtect: false
 ---
 
 さて、年末が近づいてきましたが今年も 「Redux 使うべき使わないべきか」という話で盛り上がりましたね。
-僕もずっと悩める人なのですが、@f_subal さんの [Tweet](https://twitter.com/f_subal/status/1320051081028587520?s=20) や@takepepe さんの[Next.js の状態管理 2020](https://zenn.dev/takepepe/articles/state-manegement-in-nextjs-2020) が示すように Read 要件・Write 要件の多さで使い分けるという指針には深く納得をしました。
-そしてやっぱり Redux の代替になるツールやノウハウも出てきていてより Redux 以外の選択肢を考える 1 年になったのかなと思います。
-自分も色々試していたのですが「やっぱ Redux を使えばよかった」と思ったときがあったので、これから Redux を剥がそうと考えている人に向けてその失敗談を語りたいと思います。
+僕もずっと悩める人なのですが、@f_subal さんの [Tweet](https://twitter.com/f_subal/status/1320051081028587520) や@takepepe さんの[Next.js の状態管理 2020](https://zenn.dev/takepepe/articles/state-manegement-in-nextjs-2020) が示すように Read 要件・Write 要件の多さで使い分けるという指針には深く納得をしました。
+Redux の代替になるツールやノウハウもより活発に出てきて、Redux 以外の選択肢を考えるにあたって様々な学びがあった 1 年でした。
+自分も色々と Redux 以外の選択肢を試していたのですが、その中で「やっぱ Redux を使えばよかった」と思ったときがあったので、これから Redux を剥がそうと考えている人に向けてその失敗談を語りたいと思います。
 自分も手探りで正解がわかっていないところなのでアドバイス・反論・指摘などもお待ちしています。
+
+（あくまでも「Redux を剥がそうとしてこういう失敗しちゃった」という共有なので、Redux とそれ以外の優劣については語っていませんし何も思っていません。
+むしろこういうことに最初から気をつけると Redux を剥がせますよという情報でもあります。）
 
 ## Routing で状態が吹っ飛ぶ ~Store はグローバルに欲しい~
 
@@ -303,3 +306,10 @@ ReactDOM.render(
 
 と、Redux 以外で状態管理をしようとするとこういった考慮をする必要があり、Redux 使った方が楽かなぁと僕は思っています。
 もちろん再レンダリングを考慮しなくても良い要件であればここまでの考慮は不要とは思いますがプロダクトが育って機能が増えた時にパフォーマンスが問題になって直したいという時、その変更は大変だろうなと思うので僕は最初から Redux を使っています。
+
+## サンプルコード
+
+- routing で store を吹っ飛ばす例、関心外の変更で再レンダリングされる例
+  - https://github.com/ojisan-toybox/store-context
+- routing の外で状態管理すれば store が吹っ飛ばない例
+  - https://github.com/ojisan-toybox/store-context-outer
