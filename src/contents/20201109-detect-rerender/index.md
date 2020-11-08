@@ -60,7 +60,7 @@ div {
 
 のようにアニメーションを与えても良い。
 
-これは [@uhyo](https://twitter.com/uhyo_)さんの[Stable React でも observedBits を使いたい！](https://zenn.dev/uhyo/articles/react-stable-observedbits) から拝借してきたコードです。
+これは [@uhyo](https://twitter.com/uhyo_)さんの[Stable React でも observedBits を使いたい！](https://zenn.dev/uhyo/articles/react-stable-observedbits) から拝借してきたコード。
 
 uhyo さんのコードはこんな感じで動いていた。
 
@@ -72,6 +72,7 @@ uhyo さんのコードはこんな感じで動いていた。
 ></iframe>
 
 注意事項としては、データが変わった時に確実に再レンダリングさせるためにコンポーネントに key を割り振るのを忘れないように。
+preact + CSS in JS で実装し直すとこういう感じになる。
 
 ```tsx
 import { h } from "preact"
@@ -101,15 +102,14 @@ const StyledComponent = styled(Component)`
   }
 `
 
-const ContainerComponent = (props: { cnt: number }) => {
-  return <StyledComponent {...{ cnt: props.cnt }}></StyledComponent>
-}
-
-export const Count = ContainerComponent
+export const Count = StyledComponent
 ```
 
+## 終わりに
+
 profiler の再レンダリングの表示は境界が見え難かったり、どのコンポーネントが再レンダリングしているのかみたいな調査しにくかったり(インスペクタから分かるけど開くのがめんどくさい)したので、こういう方法も取り入れていきたい。
-自分でこれを思い付けなかったのはちょっと悔しい。
+またこういうブログで再レンダリングについてを扱うときは、読者にプロファイラを要求せずに例を出せるのでこういうテクニックは嬉しい。
+そして単純に実装できるこれを今まで自分で思い付けなかったのはちょっと悔しい。
 
 ## サンプルコード
 
