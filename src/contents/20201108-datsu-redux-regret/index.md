@@ -108,11 +108,12 @@ react-redux は内部で react 本体の Context を使っているのですが�
 ここでいう設定というのは `connect(mapStateToProps, mapDispatchToProps)(HogeComponent)` のうち、`connect(mapStateToProps, mapDispatchToProps)` を実行して WrapperdComponent に必要となる props を埋め込むことです。
 直接コンポーネントを返すのではなく、コンポーネントの設定を返すことで、コンポーネントを返す前に諸々のチューニング処理を挟み込めます。例えば関心のある mapStateToProps で関心のある状態だけを抜き取ったり、areStatesEqual で状態更新の条件を縛れます。
 
-#### useSelector はメモ化されたオブジェクトを返す
+#### useSelector は関心のある props のみを監視する
 
 connect の代わりに useSelector が導入されてそれを使うと connect の持っていたメリットが失われるようにも思えます。
-しかし useSelector は内部で `useMemo` を使った最適化がされており、関心を持つ値だけの更新ができます。
-ただし connect の第四引数の option による状態変化判定は受け取る口が消えているのでできなさそうです。
+なぜならコンポーネントに関心の props だけを埋め込めないからです。
+しかし useSelector は内部で `useMemo` を使った最適化や`useIsomorphicLayoutEffect`(`useEffect`, `useLayoutEffect`のラッパー)を使った差分検知が施されており、関心を持つ値だけを効率よく更新ができます。
+そのため react-redux を使っていれば 自然と最適化は施されます。
 
 (connect を useSelector に置き換えた場合の弊害については自分も詳しくないので、誰か補足していただけると助かります。)
 
@@ -293,7 +294,7 @@ const Root = () => {
   return (
     <StateContext.Provider value={state}>
       <StateHandleContext.Provider value={setState}>
-              <App></App>
+         <App></App>
       </StateHandleContext.Provider>
     </StateContext.Provider>
   );
@@ -316,3 +317,5 @@ ReactDOM.render(
   - https://github.com/ojisan-toybox/store-context
 - routing の外で状態管理すれば store が吹っ飛ばない例
   - https://github.com/ojisan-toybox/store-context-outer
+- useSelector は関心のある値しか再レンダリングしない
+  - https://github.com/ojisan-toybox/use-selector-interest
