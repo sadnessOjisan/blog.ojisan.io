@@ -1,9 +1,9 @@
 ---
 path: /animation-radio
-created: "2020-11-09"
+created: "2020-11-11"
 title: おしゃれなラジオボタンをちゃんと作る
 visual: "./visual.png"
-tags: [react]
+tags: [HTML, CSS]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false
@@ -18,12 +18,41 @@ isProtect: false
 
 ![tweet](./aaptiv.png)
 
-アニメーション周りは transiton で box-shadow を良い感じにするだけで良かったのですが、こういう手の込んだデザインはブラウザネイティブなラジオボタンを再実装することになるので、その辺をどうしたらいいかの注意点について述べます。
+こういうデザインはブラウザネイティブなラジオボタンを再実装することになるので、その辺をどうしたらいいかの注意点について述べます。
+
+## アニメーション
+
+box-shadow を transiton にすると良い感じになります。
+
+```css
+&::before {
+    position: absolute;
+    content: "";
+    display: inline-block;
+    transition: all 0.2s ease-in;
+    height: 22px;
+    width: 22px;
+    top: 20px;
+    left: 24px;
+    background-color: #f6f8fa;
+    border: 2px solid #c8c9cc;
+    border-color: ${props => (props.isSelected ? "#05f" : "#c8c9cc")};
+    border-radius: 50%;
+    box-shadow: ${props =>
+      props.isSelected ? "0 0 0 4px rgba(0,85,255,.32)" : undefined};
+  }
+```
 
 ## ラジオボタンのパーツは label 要素で作る
 
 スタイルを当てる箱を作ればいいので `div` で作ってもいいかもしれませんが、ラベルをクリックしたときでもラジオボタン本体にフォーカスを当てるためにユーザーにクリックさせる要素は label 要素で作ります。
-昔からラジオボタンを独自に作る例とかはみかけていて、それらが label で実装されていることはずっと疑問に思っていたのですが、どうやらこのような背景があるようです。
+昔からラジオボタンを独自に作る例はよく見かけていて、それらが label で実装されていることはずっと疑問に思っていたのですがどうやらこのような背景があるようです。
+
+```jsx
+<label className={props.className} onClick={props.handleClick} id={props.value}>
+  {props.value}
+</label>
+```
 
 （この辺を教えてくださった [@L_e_k_o](https://twitter.com/L_e_k_o)さんありがとうございます。）
 
@@ -35,6 +64,43 @@ isProtect: false
 
 この外側の半透明の青色は before, 中の濃い青色は after で作ります。
 こうすると選択状態にある時だけ after を付与するだけでボタンの切り替えができます。
+
+```css
+&::before {
+    position: absolute;
+    content: "";
+    display: inline-block;
+    transition: all 0.2s ease-in;
+    height: 22px;
+    width: 22px;
+    top: 20px;
+    left: 24px;
+    background-color: #f6f8fa;
+    border: 2px solid #c8c9cc;
+    border-color: ${props => (props.isSelected ? "#05f" : "#c8c9cc")};
+    border-radius: 50%;
+    box-shadow: ${props =>
+      props.isSelected ? "0 0 0 4px rgba(0,85,255,.32)" : undefined};
+  }
+
+  &::after {
+    ${props =>
+      props.isSelected
+        ? `
+        content: "";
+        height: 16px;
+        width: 16px;
+        left: 27px;
+        top: 23px;
+        background-color: #05f;
+        border-radius: 50%;
+        position: absolute;
+        content: "";
+        display: inline-block;
+    `
+        : undefined}
+  }
+```
 
 このように作れば label 要素の中に選択時のスタイル用 div を入れなくて済みます。
 選択状態に応じてそうすれば要素の表出を管理しなくて済むのでアニメーションを付けやすくなります。
@@ -51,7 +117,7 @@ isProtect: false
 
 ## input 要素も使う
 
-ここまでで要件を満たせますが、もう一踏ん張りします。
+ここまでで要件を満たせますが、もう一頑張りします。
 `label` の中に `<input type='radio' />` を入れます。
 こうすることでユーザーにキーボードでの操作を可能にします。
 もちろん見えると変なので `opacity: 0` で見えなくします。
