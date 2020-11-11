@@ -1,5 +1,5 @@
 ---
-path: /detect-rerender
+path: /animation-radio
 created: "2020-11-09"
 title: おしゃれなラジオボタンをちゃんと作る
 visual: "./visual.png"
@@ -11,12 +11,12 @@ isProtect: false
 
 [Aaptiv](https://aaptiv.com/fitness-evaluation) の登録導線のラジオボタンを見てて、「これどうやって実装するんだろう？」って気になったので調べてみた + 実装してみました。
 
-<iframe src="https://aaptiv.com/fitness-evaluation"
-     style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
-     title="stable-observedBits-useMutableSource"
-     allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
-     sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-></iframe>
+![tweet](./tweet.png)
+(https://twitter.com/sadnessOjisan/status/1320284047482875904)
+
+こういうラジオボタンを作りたいっていう話です。（アニメーションもつきます）
+
+![tweet](./aaptiv.png)
 
 アニメーション周りは transiton で box-shadow を良い感じにするだけで良かったのですが、こういう手の込んだデザインはブラウザネイティブなラジオボタンを再実装することになるので、その辺をどうしたらいいかの注意点について述べます。
 
@@ -25,7 +25,7 @@ isProtect: false
 スタイルを当てる箱を作ればいいので `div` で作ってもいいかもしれませんが、ラベルをクリックしたときでもラジオボタン本体にフォーカスを当てるためにユーザーにクリックさせる要素は label 要素で作ります。
 昔からラジオボタンを独自に作る例とかはみかけていて、それらが label で実装されていることはずっと疑問に思っていたのですが、どうやらこのような背景があるようです。
 
-（この辺を教えてくださった [@L_e_k_o]()さんありがとうございます。）
+（この辺を教えてくださった [@L_e_k_o](https://twitter.com/L_e_k_o)さんありがとうございます。）
 
 ## ラジオボタンのパーツは擬似要素で作る
 
@@ -57,7 +57,7 @@ isProtect: false
 もちろん見えると変なので `opacity: 0` で見えなくします。
 ここで注意すべきは **`visibility: hidden`にしない** ことです。
 visibility や display を使ってスタイルを見えなくするとキーボード操作はできなくなります。
-（この辺を教えてくださった [@ymrl]()さんありがとうございます。）
+（この辺を教えてくださった [@ymrl](https://twitter.com/ymrl)さんありがとうございます。）
 
 そして、もうすこし踏み込んで input 要素に name, value, for, label 要素に id も振ります。
 こうすることで開発者が独自に作ったラジオボタンであっても スクリーンリーダーでも読ませることができます。
