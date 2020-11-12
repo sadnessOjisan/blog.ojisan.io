@@ -537,6 +537,8 @@ with:
 
 このような yml を書けばデプロイできます。
 
+peaceiris/actions-gh-pages は github pages にデプロイするタスク、peaceiris/actions-gh-pages は firebase にデプロイするタスクです。
+
 FYI: [GitHub Actions と GitHub Pages で yml をフォルダに入れておくだけのお手軽デプロイ](https://blog.ojisan.io/gha-ghpage)
 
 #### firebase
