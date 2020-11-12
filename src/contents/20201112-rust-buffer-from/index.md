@@ -1,6 +1,6 @@
 ---
 path: /rust-buffer-from
-created: "2020-11-12"
+created: "2020-11-12 20:00"
 title: Rust でも require("crypto").createHash("sha1").update(key).digest("base64") したい
 visual: "./visual.png"
 tags: [Rust]
