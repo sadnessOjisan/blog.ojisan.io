@@ -12,6 +12,8 @@ isProtect: false
 websocket サーバーを作る時に sha1 の base64 ダイジェスト値が欲しくなったのでそのときのメモです。
 Buffer.from()同等のコードの作り方を教えてくださった [@\_likr](https://twitter.com/_likr)さんありがとうございます。
 
+Node.js でいう
+
 ```js
 require("crypto").createHash("sha1").update(key).digest("base64")
 ```
@@ -57,7 +59,7 @@ Buffer.from(
 )
 ```
 
-digest 値は 16 進数に変換されているためで、Buffer.from はデフォルトでは utf-8 を想定しています。
+digest 値は 16 進数に変換されていて、Buffer.from はデフォルトでは utf-8 を想定しているためです。
 つまり本来の文字列と異なる文字でバイト列を作ろうとしてしまいます。
 （ここが Rust 化するときの落とし穴になる）
 
@@ -116,6 +118,19 @@ Buffer.from(
 ```
 
 のようなことをする必要が生まれます。
+
+つまりここで愚直に sha1 取った後に base64 化するということで、
+
+```rs
+// String に as_bytes はできないけど疑似コードということで。
+let sha1_bytes = hasher.result_str().as_bytes();
+let sha1_base64 = base64::encode(sha1_bytes);
+println!("{:?}", sha1_base64);
+```
+
+とすると値はおかしくなります。
+Buffer.from() で hex を指定しなかった時と同じ挙動になります。
+
 というわけで 16 進数を前提としたバイト列を作りましょう。
 
 幸いにも 16 進数文字列からバイト列を作るクレートがあるのでそれを使います。
