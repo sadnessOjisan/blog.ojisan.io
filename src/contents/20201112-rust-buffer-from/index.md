@@ -10,7 +10,7 @@ isProtect: false
 ---
 
 websocket サーバーを作る時に sha1 の base64 ダイジェスト値が欲しくなったのでそのときのメモです。
-Buffer.from()同等のコードの作り方を教えてくださった [@\_likr](https://twitter.com/_likr)さんありがとうございます。
+`Buffer.from(str, 'hex')` 同等のコードの作り方を教えてくださった [@\_likr](https://twitter.com/_likr)さんありがとうございます。
 
 Node.js でいう
 
