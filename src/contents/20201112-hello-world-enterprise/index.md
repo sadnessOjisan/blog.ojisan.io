@@ -211,6 +211,14 @@ Prettier を入れます。
 npm i -D prettier
 ```
 
+設定ファイルも生成します。（標準に乗りたいから書かないけど）
+
+```sh
+touch .prettierrc .prettierignore
+```
+
+prettierignore には md ファイルなどを指定しておくと、英数字後に半角スペースが入らないようにできたりします。
+
 ### ESLint
 
 ではここから静的に縛っていきましょう。
@@ -246,7 +254,16 @@ module.exports = {
 }
 ```
 
-初期設定では入っていないのですが、 eslint-prettier-config の設定も足しておきます。
+初期設定では入っていないのですが、 eslint-prettier-config の設定も足しています。
+
+```js
+extends: [
+  "eslint:recommended",
+  "plugin:react/recommended",
+  "plugin:@typescript-eslint/recommended",
+  "prettier",
+],
+```
 
 設定ファイル系は lint 対象から外したいので ignore します。
 
