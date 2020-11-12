@@ -308,6 +308,13 @@ FYI: [preset: ts-jest とは](https://blog.ojisan.io/ts-jest)
 jest
 ```
 
+そしてカバレッジレポートも生成します。
+これは後にデプロイします。
+
+![cov](./cov.png)
+
+https://sadnessojisan.github.io/HelloWorldEnterpriseEdition/
+
 #### DOM をまたいだ環境
 
 DOM に対してもテストを書きたいので react-testing-library を導入します。
@@ -365,6 +372,12 @@ export default {
   title: "App",
 }
 ```
+
+![story](./story.png)
+
+https://enterprise-storybook.netlify.app/
+
+これも後にデプロイします。
 
 ### CI
 
