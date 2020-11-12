@@ -9,7 +9,7 @@ isFavorite: false
 isProtect: false
 ---
 
-HelloWorldEnterpriseEdition という、「ハローワールドするためにどこまで複雑にできるか」というレポジトリを作って遊んでいたのですが、いろいろなエコシステムに触れることができて勉強になるのでそのまとめです。
+「ハローワールドするためにどこまで複雑にできるか」を目指して HelloWorldEnterpriseEdition というレポジトリを作って遊んでいたのですが、いろいろなエコシステムに触れることができて勉強になるのでそのまとめです。
 
 FYI: https://github.com/sadnessOjisan/HelloWorldEnterpriseEdition
 
@@ -20,13 +20,11 @@ FYI: https://github.com/sadnessOjisan/HelloWorldEnterpriseEdition
 
 という前提で作っているレポジトリです。
 
-だいたいこれくらいのファイル数になります。
+![hello](./hello.png)
+
+という画面を作るために、だいたいこれくらいのファイル数になります。
 
 ![file](./file.png)
-
-ライブラリもこれくらい入ります。
-
-![lib](./lib.png)
 
 一見単純な機能だけど裏側ではとてつもなくめんどくさいことをしているというのが推しポイントです。
 これは FizzBuzzEnterpriseEdition というただ FizzBuzz するだけなのに大量のデザインパターンを使って実装しているプロジェクトに影響を受けています。
@@ -74,6 +72,8 @@ module.exports = {
 ```
 
 となります。
+
+FYI: [Babel の Plugin で .tsx をビルドする](https://blog.ojisan.io/babel-plugin-to-tsx)
 
 また preset-env はビルドターゲットを .browserslictrc で制御できるのでその設定ファイルも足します。
 
@@ -183,6 +183,12 @@ ReactDOM.render(
 )
 ```
 
+```css
+body {
+  background-color: antiquewhite;
+}
+```
+
 ```tsx
 import * as React from "react"
 
@@ -195,11 +201,13 @@ export const App: React.FC<Props> = props => <p>{props.message}</p>
 
 はい、これで HelloWorld できるようになりました。
 
+![hello](./hello.png)
+
 ### Format
 
 Prettier を入れます。
 
-```
+```sh
 npm i -D prettier
 ```
 
@@ -207,7 +215,7 @@ npm i -D prettier
 
 ではここから静的に縛っていきましょう。
 
-```
+```sh
 npx eslint --init
 ```
 
@@ -242,7 +250,7 @@ module.exports = {
 
 設定ファイル系は lint 対象から外したいので ignore します。
 
-```
+```sh
 dist
 babel.config.js
 webpack.*.js
@@ -276,7 +284,7 @@ jest の設定をしていきます。
 
 jest をいれます。
 
-```
+```sh
 npm i -D jest
 ```
 
@@ -291,7 +299,8 @@ npx jest --init
 で生成できます。
 
 いまは babel でコンパイルしているので transformmer の設定は不要です。
-TS を使う場合は[こちら](https://blog.ojisan.io/ts-jest)
+
+FYI: [preset: ts-jest とは](https://blog.ojisan.io/ts-jest)
 
 テストファイルを **tests** の中に書くとテストを実行できます。
 
@@ -498,6 +507,8 @@ with:
 
 このような yml を書けばデプロイできます。
 
+FYI: [GitHub Actions と GitHub Pages で yml をフォルダに入れておくだけのお手軽デプロイ](https://blog.ojisan.io/gha-ghpage)
+
 #### firebase
 
 本番は firebase を使います。
@@ -587,6 +598,9 @@ npx firebase login:ci
 v12.18.4
 ```
 
+FYI: [Gatsby 製サイトを Netlify にデプロイする前に見ておきたい設定 2 つ（ビルドと表示）](https://blog.ojisan.io/gatsby-meet-netlify)
+FYI: [gatsby-plugin-netlify-cache のキャッシュが効かない](https://blog.ojisan.io/gatsby-meet-netlify-botsu)
+
 #### Vercel
 
 これも[Vercel](https://vercel.com/) でブランチ連携をするだけでよいです。
@@ -608,21 +622,21 @@ v12.18.4
 
 これはルート直下、もしくは .github 配下に置くことで効果を発揮します。
 
-#### CODE_OF_CONDUCT.md
+#### CODE OF CONDUCT
 
 このレポジトリの行動指針です。
 テンプレートから生成できます。
 
 FYI: https://docs.github.com/ja/free-pro-team@latest/github/building-a-strong-community/adding-a-code-of-conduct-to-your-project
 
-#### CONTRIBUTING.md
+#### CONTRIBUTING
 
 コントリビューターのためのガイドラインです。
 PR のフローや開発者向けドキュメントのリンクを公開するものです。
 
 FYI: https://docs.github.com/ja/free-pro-team@latest/github/building-a-strong-community/setting-guidelines-for-repository-contributors
 
-#### PULL_REQUEST_TEMPLATE.md
+#### PULL REQUEST TEMPLATE
 
 PR のテンプレートです。
 
@@ -642,10 +656,16 @@ PR のテンプレートです。
 
 こういうのを入れておきます。
 
-#### ISSUE_TEMPLATE.md
+#### ISSUE TEMPLATE
 
 PR 同様、ISSUE のテンプレートです。
 
 ## まとめ
 
 何してるんだろ僕...
+
+## おわりに
+
+他にもなにか面白い設定がありましたら、是非とも PR や Issue をいただきたいです。
+
+https://github.com/sadnessOjisan/HelloWorldEnterpriseEdition
