@@ -60,7 +60,7 @@ Buffer.from(
 ```
 
 digest 値は 16 進数に変換されていて、Buffer.from はデフォルトでは utf-8 を想定しているためです。
-つまり本来の文字列と異なる文字でバイト列を作ろうとしてしまいます。
+つまり`"hex"`を渡しておかなければ本来の文字列と異なる文字でバイト列を作ろうとしてしまいます。
 （ここが Rust 化するときの落とし穴になる）
 
 ```sh
@@ -105,8 +105,8 @@ hasher.input(key);
 let sha1_string = hasher.result_str();
 ```
 
-このとき、sha1_string は 16 進数表記です。
-result_str の挙動は `String in hexadecimal format.`を返します。
+このとき、`sha1_string` は 16 進数表記です。
+`result_str` の挙動は `String in hexadecimal format.`を返します。
 
 ということはここで
 
