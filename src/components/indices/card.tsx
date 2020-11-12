@@ -77,6 +77,7 @@ const StyledComponent = styled(Component)<{ isHover: boolean }>`
     font-size: 24px;
     font-weight: 600;
     margin-top: 12px;
+    word-break: break-all;
   }
 
   & .excerpt {

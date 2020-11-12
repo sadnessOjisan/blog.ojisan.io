@@ -63,7 +63,7 @@ digest 値は 16 進数に変換されていて、Buffer.from はデフォルト
 つまり本来の文字列と異なる文字でバイト列を作ろうとしてしまいます。
 （ここが Rust 化するときの落とし穴になる）
 
-```
+```sh
 558c6e2f93212d10f8b4ab1ac77031e2ba157471
 <Buffer 55 8c 6e 2f 93 21 2d 10 f8 b4 ab 1a c7 70 31 e2 ba 15 74 71>
 ```
@@ -98,7 +98,7 @@ cargo add rust-crypto
 
 まずは普通に sha1 をとります。
 
-```rs
+```sh
 let key = "this_is_key".as_bytes();
 let mut hasher = Sha1::new();
 hasher.input(key);
@@ -121,7 +121,7 @@ Buffer.from(
 
 つまりここで愚直に sha1 取った後に base64 化するということで、
 
-```rs
+```sh
 // String に as_bytes はできないけど疑似コードということで。
 let sha1_bytes = hasher.result_str().as_bytes();
 let sha1_base64 = base64::encode(sha1_bytes);
@@ -139,7 +139,7 @@ Buffer.from() で hex を指定しなかった時と同じ挙動になります�
 cargo add hex
 ```
 
-```rs
+```sh
 extern crate hex;
 
 hex::decode(sha1_string)
@@ -147,7 +147,7 @@ hex::decode(sha1_string)
 
 そうしたらあとはこのバイト列を base64 すれば完了です。
 
-```rs
+```sh
 let sha1_base64 = base64::encode(bytes);
 println!("{:?}", sha1_base64);
 ```
@@ -156,7 +156,7 @@ println!("{:?}", sha1_base64);
 
 というわけでこういう実装になります。
 
-```rs
+```sh
 extern crate base64;
 extern crate hex;
 
