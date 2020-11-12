@@ -84,7 +84,7 @@ not IE_Mob 11
 maintained node versions
 ```
 
-### webpack の設定
+## webpack の設定
 
 babel だけでは React のアプリケーションを動かせないので、webpack でモジュールの依存を解決します。
 
@@ -154,7 +154,7 @@ module.exports = wm.merge(common, {
 このように webpack-merge を使うと分離することができます。
 本番だけの設定とかを入れられるので覚えておきましょう。
 
-### ビルド対象を作る
+## ビルド対象を作る
 
 index.tsx, index.html, App.tsx を作るだけです。
 
@@ -203,7 +203,7 @@ export const App: React.FC<Props> = props => <p>{props.message}</p>
 
 ![hello](./hello.png)
 
-### Format
+## Format
 
 Prettier を入れます。
 
@@ -219,7 +219,7 @@ touch .prettierrc .prettierignore
 
 prettierignore には md ファイルなどを指定しておくと、英数字後に半角スペースが入らないようにできたりします。
 
-### ESLint
+## ESLint
 
 ではここから静的に縛っていきましょう。
 
@@ -275,7 +275,7 @@ webpack.*.js
 jest.config.js
 ```
 
-### commithook
+## commithook
 
 commit 前に prettier, eslint が実行されるようにします。
 そのために、
@@ -288,16 +288,16 @@ commit 前に prettier, eslint が実行されるようにします。
 そして commit message も lint するように commitlint を入れます。
 これは `chore: hoge` や `fix: fuga` といった決まった prefix からしか commit できなくするツールです。
 
-#### 設定はファイルとして分離できる
+### 設定はファイルとして分離できる
 
 eslint, prettier, commitlint, husky, lint-staged の設定は package.json にもかけますが、設定ファイルを増やしたいので分離したファイルにしました。
 このように package.json に書く設定は分離できることが多いです。
 
-### test
+## test
 
 jest の設定をしていきます。
 
-#### UT の環境
+### UT の環境
 
 jest をいれます。
 
@@ -332,7 +332,7 @@ jest
 
 https://sadnessojisan.github.io/HelloWorldEnterpriseEdition/
 
-#### DOM をまたいだ環境
+### DOM をまたいだ環境
 
 DOM に対してもテストを書きたいので react-testing-library を導入します。
 
@@ -361,7 +361,7 @@ test("shows the children when the checkbox is checked", () => {
 })
 ```
 
-### storybook
+## storybook
 
 コンポーネントカタログを作りましょう。
 
@@ -396,7 +396,7 @@ https://enterprise-storybook.netlify.app/
 
 これも後にデプロイします。
 
-### CI
+## CI
 
 テストもカタログも書いたので CI workflow も作りましょう。
 GitHub Actions を整備します。
@@ -518,11 +518,11 @@ jobs:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 ```
 
-### デプロイ
+## デプロイ
 
 デプロイします。
 
-#### GitHub Pages
+### GitHub Pages
 
 Github Actions から簡単にデプロイできる選択肢として GitHub Pages があります。
 ただしこれは 3 環境用意できないので、テストカバレッジのデプロイだけに使います。
@@ -541,7 +541,7 @@ peaceiris/actions-gh-pages は github pages にデプロイするタスク、pea
 
 FYI: [GitHub Actions と GitHub Pages で yml をフォルダに入れておくだけのお手軽デプロイ](https://blog.ojisan.io/gha-ghpage)
 
-#### firebase
+### firebase
 
 本番は firebase を使います。
 作ってるいうものは静的ページな上、firebase は早いためです。
@@ -603,7 +603,7 @@ npx firebase login:ci
       FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 ```
 
-#### Netflify
+### Netflify
 
 [Netlify](https://www.netlify.com/) でブランチ連携をするだけでよいです。
 ただこれも設定を複雑にしようと思えばできて、\_headers ファイルでキャッシュをレスポンスヘッダをコントロールできます。
@@ -633,7 +633,7 @@ v12.18.4
 FYI: [Gatsby 製サイトを Netlify にデプロイする前に見ておきたい設定 2 つ（ビルドと表示）](https://blog.ojisan.io/gatsby-meet-netlify)
 FYI: [gatsby-plugin-netlify-cache のキャッシュが効かない](https://blog.ojisan.io/gatsby-meet-netlify-botsu)
 
-#### Vercel
+### Vercel
 
 これも[Vercel](https://vercel.com/) でブランチ連携をするだけでよいです。
 そして嬉しいことに Vercel も設定ファイルを足せます。
@@ -647,28 +647,28 @@ FYI: [gatsby-plugin-netlify-cache のキャッシュが効かない](https://blo
 こうすることで /\_src とすればソースコードを確認できます。
 もともとソースコードを公開してるプロジェクトなので問題ないです。
 
-### github
+## github
 
 もっと複雑にしたいので皆さんからの PR を待っています。
 ということで各種テンプレートも入れました。
 
 これはルート直下、もしくは .github 配下に置くことで効果を発揮します。
 
-#### CODE OF CONDUCT
+### CODE OF CONDUCT
 
 このレポジトリの行動指針です。
 テンプレートから生成できます。
 
 FYI: https://docs.github.com/ja/free-pro-team@latest/github/building-a-strong-community/adding-a-code-of-conduct-to-your-project
 
-#### CONTRIBUTING
+### CONTRIBUTING
 
 コントリビューターのためのガイドラインです。
 PR のフローや開発者向けドキュメントのリンクを公開するものです。
 
 FYI: https://docs.github.com/ja/free-pro-team@latest/github/building-a-strong-community/setting-guidelines-for-repository-contributors
 
-#### PULL REQUEST TEMPLATE
+### PULL REQUEST TEMPLATE
 
 PR のテンプレートです。
 
@@ -688,7 +688,7 @@ PR のテンプレートです。
 
 こういうのを入れておきます。
 
-#### ISSUE TEMPLATE
+### ISSUE TEMPLATE
 
 PR 同様、ISSUE のテンプレートです。
 
