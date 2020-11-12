@@ -1,5 +1,5 @@
 ---
-path: /animation-radio
+path: /hello-world-enterprise-edition
 created: "2020-11-12"
 title: Hello World (EnterpriseEdition)
 visual: "./visual.png"
@@ -23,6 +23,10 @@ FYI: https://github.com/sadnessOjisan/HelloWorldEnterpriseEdition
 だいたいこれくらいのファイル数になります。
 
 ![file](./file.png)
+
+ライブラリもこれくらい入ります。
+
+![lib](./lib.png)
 
 一見単純な機能だけど裏側ではとてつもなくめんどくさいことをしているというのが推しポイントです。
 これは FizzBuzzEnterpriseEdition というただ FizzBuzz するだけなのに大量のデザインパターンを使って実装しているプロジェクトに影響を受けています。
