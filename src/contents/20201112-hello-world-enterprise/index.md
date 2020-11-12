@@ -319,7 +319,7 @@ npx jest --init
 
 FYI: [preset: ts-jest とは](https://blog.ojisan.io/ts-jest)
 
-テストファイルを **tests** の中に書くとテストを実行できます。
+テストファイルを \_\_tests\_\_ の中に書くとテストを実行できます。
 
 ```sh
 jest
@@ -375,7 +375,7 @@ npx sb init
 昔はもっと複雑な設定が必要だったのですがいまは addon なども addon-essentials としてこのコマンドで入るようになってしまいました。
 残念。
 
-あとは storyfile を **stories** の中に格納すればコンポーネントカタログが出来上がります。
+あとは storyfile を \_\_stories\_\_ の中に格納すればコンポーネントカタログが出来上がります。
 
 ```tsx
 import * as React from "react"
