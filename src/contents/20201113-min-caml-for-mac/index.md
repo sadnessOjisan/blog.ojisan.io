@@ -191,7 +191,7 @@ RUN sed -i 's/\$basearch/i386/g' /etc/yum.repos.d/CentOS-\*.repo \
  && git clone https://github.com/sadnessOjisan/min-caml.git
 ```
 
-yum install の -y 　を付けないとインストールが中断されて止まるので付け忘れないように注意しましょう。
+yum install の -y を付けないとインストールが中断されて止まるので付け忘れないように注意しましょう。
 
 そしてこのファイルを次のコマンドで実行します。
 
