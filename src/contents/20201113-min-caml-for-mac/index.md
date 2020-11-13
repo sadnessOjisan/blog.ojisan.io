@@ -199,9 +199,7 @@ yum install の -y を付けないとインストールが中断されて止ま�
 docker run --rm -v \$PWD:/min-caml -w /min-caml mincaml-builder make
 ```
 
--v を使うことで ホストの任意のパスをコンテナの任意のパスにマウントできます。
-ここではホストの現在位置(Dockerfile がある位置)をコンテナ内の min-caml にマウントしています。
+-v を使うことで ホストの任意のパスをコンテナの任意のパスにマウントでき、ここではホストの現在位置(Dockerfile がある位置)をコンテナ内の min-caml にマウントしています。
 これは Dockerfile で git clone したことで作られているフォルダです。
-そして -w で コンテナ内の作業用ディレクトリを指定します。
-/min-caml 内にある makefile を使いたいので/min-caml を指定します。
+そして -w で コンテナ内の作業用ディレクトリを指定できるので、/min-caml 内にある makefile を使うために/min-caml を指定します。
 -rm は コンテナ終了時にコンテナを自動的に削除するオプションです。
