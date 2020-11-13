@@ -5,7 +5,7 @@ title: preact コードリーディング
 visual: "./visual.png"
 tags: [preact]
 userId: sadnessOjisan
-isFavorite: false
+isFavorite: true
 isProtect: false
 ---
 
