@@ -35,13 +35,11 @@ make
 
 ## make のエラーログ
 
-```
+```sh
 make
 
 File "parser.cmo", line 1:
-Warning 31: files parser.cmo and /Users/ojisan/.opam/4.09.1/lib/ocaml/compiler-libs/ocamlcommon.cma(Parser) both define a module named Parser
 File "lexer.cmo", line 1:
-Warning 31: files lexer.cmo and /Users/ojisan/.opam/4.09.1/lib/ocaml/compiler-libs/ocamlcommon.cma(Lexer) both define a module named Lexer
 ./min-caml test/print
 free variable print_int assumed as external
 iteration 1000
@@ -49,12 +47,12 @@ eliminating variable Ti7.13
 eliminating variable Ti6.12
 eliminating variable Ti4.15
 iteration 999
-register allocation: may take some time (up to a few minutes, depending on the size of functions)
+register allocation: may take some time
+(up to a few minutes, depending on the size of functions)
 generating assembly...
 gcc -g -O2 -Wall -m32 test/print.s libmincaml.S stub.c -lm -o test/print
-ld: warning: The i386 architecture is deprecated for macOS (remove from the Xcode build setting: ARCHS)
-ld: warning: ignoring file /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib/libSystem.tbd, missing required architecture i386 in file /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib/libSystem.tbd
-ld: warning: ignoring file /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib/libm.tbd, missing required architecture i386 in file /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib/libm.tbd
+ld: warning: The i386 architecture is deprecated for macOS
+ (remove from the Xcode build setting: ARCHS)
 Undefined symbols for architecture i386:
   "___stack_chk_fail", referenced from:
       _main in stub-890dc1.o
@@ -143,7 +141,6 @@ cd min-caml/
 ./to_x86
 
 make
-
 ```
 
 これで min-caml コンパイラを作れました。
@@ -186,24 +183,20 @@ less test/adder.res
 
 先ほどコンテナ内でやったことを Dockerfile に書いておきます。
 
-```
-
+```sh
 FROM i386/centos:6
 
 RUN sed -i 's/\$basearch/i386/g' /etc/yum.repos.d/CentOS-\*.repo \
  && yum install -y git ocaml \
  && git clone https://github.com/sadnessOjisan/min-caml.git
-
 ```
 
 yum install の -y 　を付けないとインストールが中断されて止まるので付け忘れないように注意しましょう。
 
 そしてこのファイルを次のコマンドで実行します。
 
-```
-
+```sh
 docker run --rm -v \$PWD:/min-caml -w /min-caml mincaml-builder make
-
 ```
 
 -v を使うことで ホストの任意のパスをコンテナの任意のパスにマウントできます。
