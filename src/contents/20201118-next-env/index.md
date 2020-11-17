@@ -269,7 +269,7 @@ export default MyImage
 ## 起動方法による環境変数の分岐
 
 さて、NextJS は起動時に `process.env.NODE_ENV` に production や development が渡っています。
-これは next start か npx dev かによって切り替わります。（もちろん起動時に `NODE_ENV` を渡せば上書けますが！（それでもランタイムでは適切な値に戻される））
+これは next start か next dev かによって切り替わります。（もちろん起動時に `NODE_ENV` を渡せば上書けますが！（それでもランタイムでは適切な値に戻される））
 これを利用してクライアント側に next.config.js 経由で いま production か development かをビルド 時に判断することができます。
 それができるのであれば、あらかじめクライアント側に環境変数をハードコードしておけば起動方法によって環境変数を出し分けることが可能となります。
 もっとも秘匿情報などでやってはいけないですが、Firebase の API_KEY（漏れても良い！）たちはこの方法で読み込むことも可能です。
