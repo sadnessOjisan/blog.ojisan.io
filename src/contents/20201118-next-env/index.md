@@ -110,7 +110,7 @@ FYI: https://github.com/vercel/next.js/tree/canary/examples/with-dotenv
 
 ### build 時に渡すか start 時に渡すか
 
-結論: 両方に渡しましょう。
+結論: 両方に同じ値を渡しましょう。
 
 NextJS は SSR や ISR する場合は ホスティング先で `next build`, `next start` と二つのコマンドを実行しなければいけません。
 next build はレンダリングのための事前ビルドフェーズで SSR や ISR するための雛形を作るので、Data Fetching methods が実行されます。
@@ -120,7 +120,7 @@ next start はサーバー自体を立ち上げる機能で起動に環境変数
 
 簡単な実験をしてみましょう。
 
-たとえば、
+たとえば、npm scripts には
 
 ```js
 "scripts": {
@@ -129,7 +129,7 @@ next start はサーバー自体を立ち上げる機能で起動に環境変数
 },
 ```
 
-とビルド時と起動時で hoge, piyo という別の環境変数を渡して、
+とビルド時と起動時で hoge, piyo という別の環境変数を渡して、コンポーネントは
 
 ```jsx:title=index.jsx
 export default () => {
@@ -199,6 +199,7 @@ $ npx next start
 
 としてログが出ます。
 
+つまり、ビルド時・起動時・アクセス時で環境変数が異なります。
 ビルド時と起動時で環境変数を揃えておかないと、ビルド時・起動時・アクセス時で挙動が異なるようになるので双方に同じ値を設定するようにしておきましょう。
 
 ### Runtime Configuration を使って値を渡す
@@ -207,7 +208,7 @@ $ npx next start
 実はこの挙動を変えることもできます。
 そのための機能が [Runtime Configuration](https://nextjs.org/docs/api-reference/next.config.js/runtime-configuration)です。
 
-この仕組みを使うと `config()` から事前設定した値をクライアントサイドに持ち込めます。
+この仕組みを使うと `config()` から事前設定した値をサーバー・クライアントのランタイムに持ち込めます。
 
 ```js:title=next.config.js
 module.exports = {
@@ -251,19 +252,23 @@ export default MyImage
 > Generally you'll want to use build-time environment variables to provide your configuration. The reason for this is that runtime configuration adds rendering / initialization overhead and is incompatible with Automatic Static Optimization.
 
 ビルド時と違う値をランタイムで使うことによって最適化が効きにくくなります。
-ただ環境変数を使いたいだけならお勧めの方法ではないです。
+もし環境変数を使いたいだけならお勧めの方法ではないです。
+(next.config.js の env 越しに環境変数を伝える方法もこの一種と言えるだろう。)
 もっともアプリケーション共通の値を配布する方法としては使えるかもしれず、サーバー・クライアントそれぞれのランタイムの変数をスコープごとに定義できるのは便利かもしれません。
-（上のコードでいう staticFolder）
 
 ## 起動方法による環境変数の分岐
 
 さて、NextJS は起動時に `process.env.NODE_ENV` に production や development が渡っています。
-これは next start か npx dev かによって切り替わります。（もちろん起動時に `NODE_ENV` を渡せば上書けますが！）
+これは next start か npx dev かによって切り替わります。（もちろん起動時に `NODE_ENV` を渡せば上書けますが！（それでもランタイムでは適切な値に戻される））
 これを利用してクライアント側に next.config.js 経由で いま production か development かをビルド 時に判断することができます。
 それができるのであれば、あらかじめクライアント側に環境変数をハードコードしておけば起動方法によって環境変数を出し分けることが可能となります。
 もっとも秘匿情報などでやってはいけないですが、Firebase の API_KEY（漏れても良い！）たちはこの方法で読み込むことも可能です。
 
 FYI: [Firebase の API キーは公開しても大丈夫だよ（2020 年夏）](https://shiodaifuku.io/articles/txEgArhm4Z2BOzrd0IKJ)
+
+ちなみにこれをやるためには、ランタイムでは`NODE_ENV` は本来の値に戻されるので、next.config.js 越しに別の環境変数に詰めてランタイムまで引き回す必要があります。
+
+[vercel での環境変数の扱いが便利になった(preview-用に分岐させる物自体を環境変数にセットしよう)](https://blog.ojisan.io/vercel-env#preview-%E7%94%A8%E3%81%AB%E5%88%86%E5%B2%90%E3%81%95%E3%81%9B%E3%82%8B%E7%89%A9%E8%87%AA%E4%BD%93%E3%82%92%E7%92%B0%E5%A2%83%E5%A4%89%E6%95%B0%E3%81%AB%E3%82%BB%E3%83%83%E3%83%88%E3%81%97%E3%82%88%E3%81%86)を読むとイメージが付くと思います。
 
 ## 本番環境での設定
 
