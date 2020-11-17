@@ -9,13 +9,15 @@ isFavorite: false
 isProtect: false
 ---
 
-NextJS へ環境変数をセットする時、dotenv を使いたい、ブラウザ側に持ってくるときどうしたらいいの、という情報が錯乱していたり困っている人がいたり、自分もよく調べ直すことが多く、ややこしい部分だと思います。
+OGP は「環境を考慮しよう！」という画像です。
+
+NextJS へ環境変数をセットする時、.env を使いたい・ビルド時と起動時の環境変数がある・サーバーとブラウザでの環境変数があるといった風に混乱しやすい点があったり、自分はよく調べ直しています。
 
 基本的には以下の 3 つの公式ドキュメントを見ればいいのですが、
 
-- https://nextjs.org/docs/api-reference/next.config.js/environment-variables
-- https://nextjs.org/docs/basic-features/environment-variables
-- https://nextjs.org/docs/api-reference/next.config.js/runtime-configuration
+- [Environment Variables](https://nextjs.org/docs/api-reference/next.config.js/environment-variables)
+- [Environment Variables(basic-features)](https://nextjs.org/docs/basic-features/environment-variables)
+- [Runtime Configuration](https://nextjs.org/docs/api-reference/next.config.js/runtime-configuration)
 
 整備されたのが最近なので古い情報が定着していたり、ここに書いていない細かい挙動なんかもあったりするので、まとめて行こうと思います。
 
@@ -31,18 +33,19 @@ DB_USER=myuser
 DB_PASS=mypassword
 ```
 
-この機能を使うだけで環境変数を読み込めます。（使えるとは言ってない。）
+.env.local は `next dev` のときに読み込まれ、.env.development は `NODE_ENV` が development のとき、 .env.production は `NODE_ENV` が production のときに読み込まれます。
+なのでこの機能を使うだけで環境変数を読み込めます。（※完全に使えるとは言っていない。）
 
 ## ブラウザから環境変数を使う
 
 さて、先ほどの環境変数が使えるのは **Data Fetching methods** と **API Routes** の中だけです。
 [Data Fetching methods](https://nextjs.org/docs/basic-features/data-fetching)は`getStaticProps`, `getStaticPaths`, `getServerSideProps` などのメソッドで、SSR/SSG/ISR などで実行される NodeJS 上でのメソッドです。
 API Route は NextJS に生えている API サーバーの口です。
-つまり 先ほどの.env 経由での環境変数 は NodeJS のサーバー側の処理でしか使えず、クライアントサイドでは process.env の配下にセットされません。
+**つまり 先ほどの.env 経由での環境変数 は NodeJS のサーバー側の処理でしか使えず、クライアントサイドでは process.env の配下にセットされません。**
 
 これは理由が明記されてはいないのですが、おそらくビルド時にバンドルへ環境変数が紛れ込まないようにしているのだと思います。
 
-### ブラウザから読み込むためには NEXT*PUBLIC*をつける
+### ブラウザから読み込むためには `NEXT_PUBLIC_` をつける
 
 では、どのようにしてクライアントサイドでその環境変数を使えば良いのでしょうか。
 一つには環境変数名を `NEXT_PUBLIC_` で始まるものにしておくというものです。
@@ -95,21 +98,21 @@ module.exports = {
 
 ちなみに dotenv を使うことは昔は公式も example を作るくらいには推奨されていましたが、Next が 9.4 出た時から公式のサンプルプロジェクトが消えました。
 
-https://github.com/vercel/next.js/tree/canary/examples/with-dotenv
+FYI: https://github.com/vercel/next.js/tree/canary/examples/with-dotenv
 
 ただレポジトリは残っているので、上のリンクでタグを 9.3.0 とかのを見るとやり方は確認できます。
 
 ## そもそも何の機能も使わない = npm scripts から渡す
 
 あと、環境変数の秘匿などを考えないのでいいのであれば、そもそも起動時に環境変数を渡しても良いです。
-next build, next start に環境変数を渡すことで利用できます。
+`next build`, `next start` に環境変数を渡すことで利用できます。
 しかし、これは起動スクリプトをカスタマイズできる必要があり、例えば vercel や Netlify のようなマネジメントサービスを使う場合は厳しい方法です。（起動スクリプトの改変はできるが、ブランチごとにスクリプトを指定できないため。）
 
 ### build 時に渡すか start 時に渡すか
 
 結論: 両方に渡しましょう。
 
-NextJS は SSR や ISR する場合は ホスティング先で next build, next start と二つのコマンドを実行しなければいけません。
+NextJS は SSR や ISR する場合は ホスティング先で `next build`, `next start` と二つのコマンドを実行しなければいけません。
 next build はレンダリングのための事前ビルドフェーズで SSR や ISR するための雛形を作るので、Data Fetching methods が実行されます。
 この時に環境変数を使うことができます。
 next start はサーバー自体を立ち上げる機能で起動に環境変数を埋め込めます。
@@ -204,7 +207,7 @@ $ npx next start
 実はこの挙動を変えることもできます。
 そのための機能が [Runtime Configuration](https://nextjs.org/docs/api-reference/next.config.js/runtime-configuration)です。
 
-この仕組みを使うと config() から事前設定した値をクライアントサイドに持ち込めます。
+この仕組みを使うと `config()` から事前設定した値をクライアントサイドに持ち込めます。
 
 ```js:title=next.config.js
 module.exports = {
@@ -254,8 +257,8 @@ export default MyImage
 
 ## 起動方法による環境変数の分岐
 
-さて、NextJS は起動時に process.env.NODE_ENV に production や development が渡っています。
-これは next start か npx dev かによって切り替わります。（もちろん起動時に NODE_ENV を渡せば上書けますが！）
+さて、NextJS は起動時に `process.env.NODE_ENV` に production や development が渡っています。
+これは next start か npx dev かによって切り替わります。（もちろん起動時に `NODE_ENV` を渡せば上書けますが！）
 これを利用してクライアント側に next.config.js 経由で いま production か development かをビルド 時に判断することができます。
 それができるのであれば、あらかじめクライアント側に環境変数をハードコードしておけば起動方法によって環境変数を出し分けることが可能となります。
 もっとも秘匿情報などでやってはいけないですが、Firebase の API_KEY（漏れても良い！）たちはこの方法で読み込むことも可能です。
@@ -276,10 +279,16 @@ GUI をぽちぽちすれば設定できます。
 インフラが自由にできるのであれば立ち上げ時に .env を作ったり、起動スクリプトに渡せば良いです。
 IaaS 系サービスならそれぞれが提供する秘匿情報を管理するプラクティスから NextJS に連携すると良いです。
 
+## 結局どうすればいいか
+
+お勧めは、NextJS 9.4 以上を使って、.env.local を定義し、クライアントで使う環境変数には `NEXT_PUBLIC_` をつけておくことです。
+このようにしておけば少なくとも開発では困ることはないはずです。
+本番環境での環境変数は Vercel なら GUI でぽちぽちしてください。
+
 ## サンプルコード
 
 環境変数を npm scripts から渡す実験をしていました。
-NODE_ENV もオリジナルの環境変数もビルド時・起動時には設定されますが、ランタイムでは NODE_ENV は prodcution, development に上書かれます。
+`NODE_ENV` もオリジナルの環境変数もビルド時・起動時には設定されますが、ランタイムでは `NODE_ENV` は prodcution, development に上書かれます。
 そしてランタイムで受け取れたオリジナルの環境変数もクライアントサイドでは受け取れません。
 受け取るためには next.config.js を跨いだ環境変数渡しが必要です。
 
