@@ -11,7 +11,7 @@ isProtect: false
 
 OGP は「環境を考慮しよう！」という画像です。
 
-NextJS へ環境変数をセットする時、.env を使いたい・ビルド時と起動時の環境変数がある・サーバーとブラウザでの環境変数があるといった風に混乱しやすい点があったり、自分はよく調べ直しています。
+NextJS へ環境変数をセットする時、.env を使いたい・ビルド時と起動時の環境変数がある・サーバーとブラウザでの環境変数があるといった風に混乱しやすい点があり、自分はよく調べ直しています。
 
 基本的には以下の 3 つの公式ドキュメントを見ればいいのですが、
 
@@ -59,7 +59,15 @@ NEXT_PUBLIC_API_ENDOPOINT=http://localhost:3001
 
 NEXT_PUBLIC を使わなくても環境変数を渡せる方法もあります。
 それは next.config.js の中から渡すというものです。
-ここの env というフィールドを使えばクライアント側の JS へと環境変数を渡せるようになります。
+
+next.config.js は NextJS の設定ファイルで、ここに環境変数を設定する env という機能があります。
+その解説では、
+
+> To add environment variables to the JavaScript bundle, open next.config.js and add the env config:
+
+FYI: https://nextjs.org/docs/api-reference/next.config.js/environment-variables
+
+とある通り、env を使えばクライアント側の JS へと環境変数を渡せるようになります。
 
 ```js
 module.exports = {
@@ -75,6 +83,8 @@ export default () => {
   return <div>hello</div>
 }
 ```
+
+つまりこれを使って、.env.\* から読み込んだ環境変数を流してやれば良いのです。
 
 ## dotenv 系は不要?
 
