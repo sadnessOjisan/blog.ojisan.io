@@ -6,7 +6,7 @@ visual: "./visual.png"
 tags: ["キャリア", "雑記"]
 userId: sadnessOjisan
 isFavorite: false
-isProtect: true
+isProtect: false
 ---
 
 働いていないことへの言い訳記事です。
