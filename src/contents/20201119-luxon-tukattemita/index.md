@@ -96,12 +96,12 @@ FYI: [Object.prototype.valueOf()](https://developer.mozilla.org/ja/docs/Web/Java
 
 FYI: [比較演算子](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Operators/Comparison_Operators)
 
-## date だけにフォーマットできる
+## date(日付) だけにフォーマットできる
 
 YYYY-MM-DD 形式で取得するとき、moment だと
 
 ```js
-// 日付だけを表記
+// 日付までを表記
 const formatDate = moment().format("YYYY-MM-DD")
 console.log("formatDate", formatDate)
 ```
@@ -109,7 +109,7 @@ console.log("formatDate", formatDate)
 としていたものが、
 
 ```js
-// 日付だけを表記
+// 日付までを表記
 const formatDate = now.toISODate()
 console.log("formatDate", formatDate)
 ```
