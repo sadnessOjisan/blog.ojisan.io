@@ -1,6 +1,6 @@
 ---
 path: /luxon-tukattemita
-created: "2020-11-18"
+created: "2020-11-20"
 title: luxon 使ってみた
 visual: "./visual.png"
 tags: ["JavaScript"]
@@ -9,7 +9,7 @@ isFavorite: false
 isProtect: false
 ---
 
-「何を今さら」って感じのタイトルですが、最近 初めて luxon を使って「へぇ〜〜〜」って思ったことが色々あったのでまとめていきます。
+「何を今さら」って感じのタイトルですが、最近 初めて luxon を使うことがありまして「へぇ〜〜〜」って思ったことが色々あったのでまとめていきます。
 当方 moment, dayjs しか使ったことがなかったので、「こういう差分があるんだなぁ」と学んだという話です。
 
 ## immutable
@@ -21,9 +21,28 @@ const now = moment()
 console.log("now", now)
 const addNow = now.add(1, "days") // これをやるとnowそのものが書き換わるから注意！
 console.log("addNow", addNow)
+
+// now Moment<2020-11-20T17:02:09+09:00>
+// addNow Moment<2020-11-21T17:02:09+09:00>
 ```
 
-などとすると、now も変更されていたのが、luxon だと
+などとすると、now も変更されていました。
+
+console.log の位置を変えると、
+
+```js
+const now = moment()
+const addNow = now.add(1, "days") // これをやるとnowそのものが書き換わるから注意！
+console.log("now", now)
+console.log("addNow", addNow)
+
+// now Moment<2020-11-21T17:00:54+09:00>
+// addNow Moment<2020-11-21T17:00:54+09:00>
+```
+
+として表示されます。
+
+一方で luxon だと
 
 ```js
 const luxon = require("luxon")
@@ -56,11 +75,11 @@ const now = luxon.DateTime.local()
 console.log("now", now)
 ```
 
-dayjs も moment 気分で使えていたのでこの挙動は最初はハマりました。
+dayjs も moment も inport したモジュールから直接オブジェクトを作れていたのでこの挙動は最初はハマりました。
 
 ## 比較関数がない
 
-DateTime にはいわゆる isAfter や isBefore のような関数が DateTime オブジェクトに存在しません。
+DateTime にはいわゆる isAfter や isBefore のような関数が存在しません。
 一応そのようなインターフェースは [Interval](https://moment.github.io/luxon/docs/class/src/interval.js~Interval.html) というパッケージに含まれていますが、これは moment-range 相当のものですのでただ比較するだけに持ち出すのはオーバーなものです。
 それに [公式](https://moment.github.io/luxon/docs/manual/math.html#comparing-datetimes) の推奨方法は違ったものです。
 それはただ
