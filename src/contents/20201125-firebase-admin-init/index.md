@@ -1,5 +1,5 @@
 ---
-path: /luxon-tukattemita
+path: /firebase-admin-init
 created: "2020-11-20"
 title: 柔軟に firebase admin を初期化する
 visual: "./visual.png"
