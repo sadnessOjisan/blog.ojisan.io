@@ -1,0 +1,70 @@
+---
+path: /luxon-tukattemita
+created: "2020-11-20"
+title: 柔軟に firebase admin を初期化する
+visual: "./visual.png"
+tags: ["Firebaase"]
+userId: sadnessOjisan
+isFavorite: false
+isProtect: false
+---
+
+いつも忘れて調べているのでメモ。
+
+[firebase-admin](https://www.npmjs.com/package/firebase-admin) を初期化する際、[サーバーに Firebase Admin SDK を追加する](https://firebase.google.com/docs/admin/setup) を見ると、
+
+```js
+var admin = require("firebase-admin")
+var app = admin.initializeApp()
+```
+
+や、
+
+```js
+admin.initializeApp({
+  credential: admin.credential.applicationDefault(),
+  databaseURL: "https://<DATABASE_NAME>.firebaseio.com",
+})
+```
+
+として初期化されています。
+
+しかし、おそらくこの初期化方法だけだと不十分に感じたことはないでしょうか。
+
+例えば前者では、initializeApp の引数がなくこれは[default service account](https://cloud.google.com/docs/authentication/production)が読み込まれる GCP 上でしか動作しないコードです。
+そして後者は予め環境変数`GOOGLE_APPLICATION_CREDENTIALS`にサービスアカウント情報を持った json ファイルへのパスを指定しておく必要があり、GitHub から直接 Vercel などにデプロイする時には実現しづらい方法だったりします。
+
+## initializeApp に認証情報を渡す
+
+`admin.initializeApp` に [Credential](https://firebase.google.com/docs/reference/admin/node/admin.credential.Credential-1?hl=en) を渡せば初期化できるので、それを作って渡すと認証が通ります。
+つまりサービスアカウント情報が書かれた json ファイルに書かれている内容をそのまま渡せば良いです。
+
+そして、その Credential は [cert](https://firebase.google.com/docs/reference/admin/node/admin.credential?hl=en#cert)から作れます。
+
+```js
+const cert = {
+  projectId: process.env.FIREBASE_PROJECT_ID,
+  clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
+  privateKey: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, "\n"),
+}
+admin.initializeApp({
+  credential: admin.credential.cert(cert),
+})
+```
+
+firebase のサービスアカウントの認証情報は projectId, clientEmail, privateKey 以外にもたくさんありますが、 cert が受け取る [ServiceAccount](https://firebase.google.com/docs/reference/admin/node/admin.ServiceAccount)は、projectId, clientEmail, privateKey で構成されているのでこの 3 つだけ渡してください。
+
+replace 以下はエスケープ避けを回避するための処理です。
+
+FYI: https://stackoverflow.com/questions/50299329/node-js-firebase-service-account-private-key-wont-parse
+
+## まとめ
+
+- firebase admin を使うためには `admin.initializeApp()` を実行する必要がある
+- GCP 以外にデプロイ・key file をデプロイ環境に含めない場合は、`Credential` を `initializeApp` に渡して初期化
+- `Credential` は `admin.credential.cert` に projectId, clientEmail, privateKey を渡すと作れる。
+
+## 参考文献
+
+- https://firebase.google.com/docs/reference/admin/node/admin?hl=en#initializeapp
+- https://firebase.google.com/docs/reference/admin/node/admin.AppOptions?hl=en
