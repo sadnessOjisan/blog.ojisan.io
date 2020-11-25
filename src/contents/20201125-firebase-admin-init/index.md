@@ -9,7 +9,7 @@ isFavorite: false
 isProtect: false
 ---
 
-いつも忘れて調べているのでメモ。
+毎回やり方を調べている気がするシリーズです。
 
 [firebase-admin](https://www.npmjs.com/package/firebase-admin) を初期化する際、[サーバーに Firebase Admin SDK を追加する](https://firebase.google.com/docs/admin/setup) を見ると、
 
@@ -29,14 +29,16 @@ admin.initializeApp({
 
 として初期化されています。
 
-しかし、おそらくこの初期化方法だけだと不十分に感じたことはないでしょうか。
+しかし、この初期化方法だと困ることがあります。
 
 例えば前者では、initializeApp の引数がなくこれは[default service account](https://cloud.google.com/docs/authentication/production)が読み込まれる GCP 上でしか動作しないコードです。
-そして後者は予め環境変数`GOOGLE_APPLICATION_CREDENTIALS`にサービスアカウント情報を持った json ファイルへのパスを指定しておく必要があり、GitHub から直接 Vercel などにデプロイする時には実現しづらい方法だったりします。
+そして後者は予め環境変数`GOOGLE_APPLICATION_CREDENTIALS`にサービスアカウント情報を持った json ファイルへのパスを指定しておく必要があり、GitHub への PUSH をトリガーに Vercel などにデプロイする時には実現しづらい方法だったりします。(使用する PaaS によっては credential 情報を.git で管理する必要があるから)
 
-## initializeApp に認証情報を渡す
+## initializeApp に認証情報を渡すことで初期化する。
 
-`admin.initializeApp` に [Credential](https://firebase.google.com/docs/reference/admin/node/admin.credential.Credential-1?hl=en) を渡せば初期化できるので、それを作って渡すと認証が通ります。
+そこで GCP 以外の PaaS にデプロイする方法を紹介します。
+
+`admin.initializeApp` に [Credential](https://firebase.google.com/docs/reference/admin/node/admin.credential.Credential-1?hl=en) を渡せば初期化できるので、それを作って渡すと認証を通せます。
 つまりサービスアカウント情報が書かれた json ファイルに書かれている内容をそのまま渡せば良いです。
 
 そして、その Credential は [cert](https://firebase.google.com/docs/reference/admin/node/admin.credential?hl=en#cert)から作れます。
