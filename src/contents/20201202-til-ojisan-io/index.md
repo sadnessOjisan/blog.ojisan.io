@@ -1,5 +1,5 @@
 ---
-path: /firebase-admin-init
+path: /til-ojisan-io
 created: "2020-12-02"
 title: ISRでブログを作ってみて気づいたこと・ハマったこと
 visual: "./visual.png"
@@ -9,7 +9,9 @@ isFavorite: false
 isProtect: false
 ---
 
-このブログと別にもう一つ別で、[til.ojisan.io](https://til.ojisan.io)というブログ的なものを作ってみました。
+この記事は [Next.js Advent Calendar 2020](https://qiita.com/advent-calendar/2020/nextjs) 2 日目の記事です。
+
+先日このブログと別にもう一つ別で、[til.ojisan.io](https://til.ojisan.io)というブログ的なものを作ってみました。
 これはブログというより、毎日調べたことをメモするために使っています。
 （というのは建前で NextJS の ISR で作る題材として作っただけです。）
 
