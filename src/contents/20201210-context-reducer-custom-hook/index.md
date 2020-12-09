@@ -171,7 +171,6 @@ export const useUserFetch = (): [State, () => void] => {
 }
 ```
 
-hooks では UserUpdateContext から渡される dispatch に名前を付けて View に渡します。
 View で直接 dispatch が出てくると、その dispach にどんな action を渡せばいいか迷子になりやすいですが、dispach を View に渡さず hooks の中だけで完結させることで迷子になりやすい問題の解決を図ります。
 useUserFetch という user 情報を fetch する hooks に閉じている限りは dispach の種類で迷子になることもないはずです。
 
