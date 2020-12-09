@@ -136,6 +136,12 @@ export const reducer = (state: State, action: ActionType): State => {
 }
 ```
 
+Cotext を関心ごとに作る以上は各 state は膨らまないはずで、useReducer を使わなくても useState で完結できケースがほとんどだとは思います。
+ただ、spread helling への対処をするときに、もしビルドサイズの制約上 immer や normilizr のようなライブラリを入れられないのであれば、useReducer を使って reducer で正規化をする手があります。
+reducer でやることでテストがしやすいので正規化するときは useReducer を選んでいます。
+
+(プロからすれば preact ですら重いという意見もありますが、)省ビルドサイズ環境での開発では preact が使え、preact には hooks 一式と ContextAPI があるので、バンドルサイズを抑えないといけないがそこそこ複雑な UI を持つ 3rd party script を開発せねばならないと行った時に、Context + useReducer + custom hooks を使った開発方法に旨味が出てきます。
+
 ### hooks
 
 hooks は View から渡されるイベントを dispatch に伝えたり、dispatch の結果を View に伝える役割を担います。
