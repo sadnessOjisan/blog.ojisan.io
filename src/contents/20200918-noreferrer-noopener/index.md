@@ -27,10 +27,10 @@ a タグ には target=\_blank という設定があり、別タブで開かせ�
 </a>
 ```
 
-そこには `rel="noreferrer noreferrer"` を付けようという話があり、
+そこには `rel="noopener noreferrer"` を付けようという話があり、
 
 ```jsx
-<a href="http://example.com" target="_blank" rel="noreferrer noreferrer">
+<a href="http://example.com" target="_blank" rel="noopener noreferrer">
   アンカーリンク
 </a>
 ```
