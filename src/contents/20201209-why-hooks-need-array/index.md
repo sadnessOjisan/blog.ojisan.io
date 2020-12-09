@@ -1,7 +1,7 @@
 ---
 path: /why-hooks-need-array
 created: "2020-12-09"
-title: カスタムhooksの返り値は配列であるべきか
+title: custom hookの返り値は配列であるべきか
 visual: "./visual.png"
 tags: ["React"]
 userId: sadnessOjisan
