@@ -111,7 +111,7 @@ export const useHoge = () => {
 
 ### destructuring と placeholder を活用しよう
 
-配列はラベルでアクセスできませんが、\_を使えば placeholder として評価されてピンポイントで必要な要素を取り出せます。
+配列はラベルでアクセスできませんが、\_などの placeholder を用意してピンポイントで必要な要素を取り出せます。
 
 ```ts
 const getVal = () => [1, 2, 3, 4]
@@ -123,8 +123,6 @@ const [_, second] = getVal()
 > second
 2
 ```
-
-このとき \_ は linter などからは未定義変数として怒られないので、容易に使えます。
 
 (追記)
 

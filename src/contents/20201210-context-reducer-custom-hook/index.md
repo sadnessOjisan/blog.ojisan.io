@@ -1,6 +1,6 @@
 ---
-path: /why-hooks-need-array
-created: "2020-12-09"
+path: /context-reducer-custom-hook
+created: "2020-12-10"
 title: Context API と useReducer で custom hook を作る時のテンプレート
 visual: "./visual.png"
 tags: ["React"]
@@ -9,7 +9,7 @@ isFavorite: false
 isProtect: false
 ---
 
-Context API と useReducer で custom hook を作る例が見つからなくて色々思考錯誤したのですが、自分なりにたどり着いた答えを紹介します。
+Context API と useReducer で custom hook を作る例が見つからなくて色々と思考錯誤をしていたのですが、現時点で自分なりにたどり着いた答えを紹介します。
 
 ## フォルダ構成とそれぞれの役割
 
@@ -44,7 +44,9 @@ export function UserContextProvider({ children }: { children: ReactChild }) {
 データの表示と取得系は別の Context に分けています。
 これは再レンダリングの抑制に使えるテクニックであり、関心のある小さい単位で Context は管理します。
 
-Context のラッパーでは reducer から state を取得し埋め込んでおきます。
+FYI: [脱 Redux を試みて失敗した話、その原因と対策について](https://blog.ojisan.io/datsu-redux-regret#%E5%86%8D%E3%83%AC%E3%83%B3%E3%83%80%E3%83%AA%E3%83%B3%E3%82%B0%E3%81%8C%E8%B5%B7%E3%81%8D%E3%82%8B-store-%E3%81%AF-props-%E3%81%A8%E3%81%97%E3%81%A6%E6%AC%B2%E3%81%97%E3%81%84)
+
+Context のラッパーでは reducer から state を取得し埋め込んでおきます。(useReducer を使わないなら useState から持ってきた state でも良い。)
 ラッパー関数を作ることで呼び出し側は 2 つの Provider を呼ばなくて済むので見通しはよくなります。
 また、ラッパーを作りその中で reducer を呼び出すことで、reducer と context の関係を紐付けられます。
 こうすることで Provider の階層を変える修正が入っても、呼び出し側は value の埋め込む階層を気にしなくて済むので修正もしやすいです。
@@ -174,6 +176,9 @@ View で直接 dispatch が出てくると、その dispach にどんな action 
 useUserFetch という user 情報を fetch する hooks に閉じている限りは dispach の種類で迷子になることもないはずです。
 
 ## View からは hooks を呼ぶだけ
+
+View は hooks にしか依存しないようにしています。
+refetch を実行すると hooks 内から action を発行し、それを reducer が state に反映して View を書き換えています。
 
 ```ts
 import { useUserFetch } from "../hooks/useUserFetch"
