@@ -14,7 +14,7 @@ Context API と useReducer で custom hook を作る例が見つからなくて�
 ## フォルダ構成とそれぞれの役割
 
 context, reducer, hooks で分けています。ただこだわりはなく、実際にはフォルダ構成はなんでもいいと思いますし、手を抜きたい時は Context のファイルに reducer を書いたりしています。
-それでも技術的な関心には分離できるのでそのようにしています。
+それでも技術的な関心には分離できるのでそのように分けることを意識しています。
 
 ### context
 
@@ -136,11 +136,11 @@ export const reducer = (state: State, action: ActionType): State => {
 }
 ```
 
-Cotext を関心ごとに作る以上は各 state は膨らまないはずで、useReducer を使わなくても useState で完結できケースがほとんどだとは思います。
-ただ、spread helling への対処をするときに、もしビルドサイズの制約上 immer や normilizr のようなライブラリを入れられないのであれば、useReducer を使って reducer で正規化をする手があります。
-reducer でやることでテストがしやすいので正規化するときは useReducer を選んでいます。
+Cotext を関心ごとに作る以上は各 state は膨らまないはずで、useReducer を使わなくても useState で完結できるケースがほとんどだとは思います。
+ただ、spread hell への対処が必要な場合に、もしビルドサイズの制約上 immer や normalizr のようなライブラリを入れられないのであれば、useReducer を使って reducer で正規化をする手があります。
+正規化は reducer でやることでテストがしやすくなるので、正規化するときは useState ではなく useReducer を選んでいます。
 
-(プロからすれば preact ですら重いという意見もありますが、)省ビルドサイズ環境での開発では preact が使え、preact には hooks 一式と ContextAPI があるので、バンドルサイズを抑えないといけないがそこそこ複雑な UI を持つ 3rd party script を開発せねばならないと行った時に、Context + useReducer + custom hooks を使った開発方法に旨味が出てきます。
+(プロからすれば preact ですら重いという意見もありますが、)省ビルドサイズ環境での開発では preact が使え、preact には hooks 一式と ContextAPI があるので、バンドルサイズを抑えないといけないがそこそこ複雑な UI を持つものを開発せねばならないといった時に、Context + useReducer + custom hooks を使った開発方法に旨味が出てきます。
 
 ### hooks
 
