@@ -194,10 +194,6 @@ Firebase Hosting にデプロイするのでビルトインコードを使えて
       content="自分でパーツを選んで自分だけのコロナウイルスを作ろう！"
     />
     <meta property="og:url" content="https://my-covid.web.app/" />
-    <meta
-      property="og:image"
-      content="https://firebasestorage.googleapis.com/v0/b/my-covid-prd.appspot.com/o/Slide2.png?alt=media&token=a58493eb-df4f-4673-9498-a4f149a8aa04"
-    />
     <meta name="twitter:card" content="summary_large_image" />
     <style>
       h1 {
@@ -242,7 +238,7 @@ Firebase Hosting にデプロイするのでビルトインコードを使えて
 
           document.getElementById(
             "tweetLink"
-          ).href = `https://twitter.com/intent/tweet?text=my COVIDを作ったよ ${window.location.href} #my_covid_generator`
+          ).href = `https://twitter.com/intent/tweet?text=${window.location.href}`
         })
         .catch(function (error) {
           console.log("Error getting cached document:", error)
