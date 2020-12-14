@@ -120,7 +120,7 @@ function drawImage(imageObj: HTMLImageElement) {
 }
 ```
 
-#### レイヤを跨いだ検索
+#### レイヤを内での検索
 
 KonvaJS では画像オブジェクトと Transformer(操作オブジェクト)は別のものとして扱われます。
 そのためどの画像がどの Transformer に紐づくかという紐付けをしなければいけません。
