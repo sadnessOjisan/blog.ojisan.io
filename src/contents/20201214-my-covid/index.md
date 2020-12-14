@@ -171,7 +171,7 @@ Firebase Hosting にデプロイするのでビルトインコードを使えて
 ちなみに [Firebase Hosting は GHA からもデプロイできて](https://github.com/sadnessOjisan/my-covid/blob/main/.github/workflows/dev.yml#L36)、その場合も引数を渡せるので、デプロイ先の分離自体は可能で自分もやっていました。
 ただサイト名とプロジェクト名が紐づいてしまったり(そのせいで my-covid-prd.app みたいな URL になったり)、その site name やアプリを Firebase 上から消しても勝手に復活したり謎挙動を踏んだので途中で諦めました。
 
-#### 途中で TypeScript 使うの辞めた
+#### 途中で TypeScript やライブラリを使うのを辞めた
 
 シェアページを作ろうとしたときに webpack を複数のエントリポイントを持たせないといけないようにしたり、出力を分けないといけないようにしないといけないことに気付き、そもそも webpack を使うのを辞めました。
 直接 HTML の中に JS を書きました。
