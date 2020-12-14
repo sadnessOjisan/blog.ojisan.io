@@ -1,9 +1,9 @@
 ---
 path: /my-covid
 created: "2020-12-14"
-title: My COVID っていう糞アプリの作り方
+title: My COVID っていうクソアプリの作り方
 visual: "./visual.png"
-tags: ["糞アプリ"]
+tags: ["クソアプリ"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false
@@ -27,6 +27,7 @@ isProtect: false
 
 クソアプリ Advent Calendar は今年で 5 回目の開催で、私は今回を含めて過去 3 回参加しました。
 
+- [俺の恋人 ~my covid~](https://qiita.com/sadnessOjisan/items/45d2c3e6e3f5a38a7f0b)
 - [ビルド時に俳句を読めるプラグイン](https://qiita.com/sadnessOjisan/items/98619eaaef1da8d6545a)
 - [Marquee タグに詳しくないと攻略できないブロック崩しゲーム](https://qiita.com/sadnessOjisan/items/51bb949466fdd065a5a6)
 
