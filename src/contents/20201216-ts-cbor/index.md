@@ -11,12 +11,11 @@ isProtect: false
 
 この記事は [Node.js Advent Calendar 2020](https://qiita.com/advent-calendar/2020/nodejs) の 16 日目の投稿です。
 
-今年のゴールデンウィークに CBOR(Concise Binary Object Representation) のエンコーダー・デコーダーを作っていました。
-ここではデコーダーについて解説します。
+今年のゴールデンウィークに CBOR(Concise Binary Object Representation) のエンコーダー・デコーダーを作っていまして、今日はデコーダーの作り方を紹介します。
 
 FYI: https://cbor.io/
 
-作る動機としてはどこかで CBOR を使う機会があったわけではなく、[jxck](https://twitter.com/jxck_) さんがゴールデンウィークに開催してくださった [mozaic bootcamp](https://blog.jxck.io/entries/2019-05-12/mozaic-bootcamp-2019.html) という講義(?)で推奨されたワークの一つとして、RFC を読みそれを実装するというものがありそれに挑戦した形です。
+CBOR は WebAuthn の Attention の検証などで使われている技術ですが、自分が CBOR を勉強した動機はどこかで CBOR を使う機会があったわけではなく、[jxck](https://twitter.com/jxck_) さんがゴールデンウィークに開催してくださった [mozaic bootcamp](https://blog.jxck.io/entries/2019-05-12/mozaic-bootcamp-2019.html) というブートキャンプで推奨されたワークの一つとして、RFC を読みそれを実装するというものがありそれに挑戦した形です。
 初めて RFC を読むトレーニングとしては CBOR, UDP, WebSocket がオススメとのことでしたので、僕は CBOR を選びました。
 一緒に受けた他の受講生の方は WebSocket を選んでいたので、ちょっと逆張りしてみました。
 
