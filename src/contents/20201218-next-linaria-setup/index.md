@@ -128,7 +128,6 @@ module.exports = withLinaria({
   linaria: {
     /* linaria options here */
   },
-  assetPrefix: process.env.GITHUB_PAGES ? repoName : "",
 })
 ```
 
@@ -160,6 +159,62 @@ module.exports = withCSS({
 
 さきほどの設定でうまくいきそうなのでビルドしてみましょう。
 
+### babel.config.js の設定
+
+クライアント側のコードで linaria を呼び出します。
+
+```tsx
+import { css } from "linaria"
+
+const styles = {
+  title: css`
+    color: red;
+  `,
+}
+
+export default () => {
+  return <div className={styles.title}>hello world!!</div>
+}
+```
+
+そしてビルドします。
+
+```sh
+$ npx next build
+
+Error: Using the "css" tag in runtime is not supported. Make sure you have set up the Babel plugin correctly.
+```
+
+失敗しました。
+
+Make sure you have set up the Babel plugin correctly. とのことなので、babel の設定を足せばうまく動きそうです。
+
+ちなみに NextJS 単体では babel の設定はデフォルトで行われるので不要なので、このエラーが出たということは linaria が何かしら babel の設定を要求しています。
+そして NextJS のデフォルトの babel の設定を書き換えるためには next/babel の設定に他の設定を足していきます。
+ちなみに next/babel は preset で、preset-env や preset-react の設定をしています。
+
+FYI: https://github.com/vercel/next.js/blob/9dd5ff2baa716a6b12f681ff09559a3c8dd7b5cd/packages/next/build/babel/preset.ts
+
+ここでは linaria/babel を足す必要があります。
+これは linaria が提供している babel preset です。
+
+```js:title=babel.config.js
+module.exports = {
+  presets: ["next/babel", "linaria/babel"],
+}
+```
+
+linaria/babel の実体は [@linaria/babel-preset](https://github.com/callstack/linaria/tree/master/packages/babel)です。
+ここにある transform 関数がキモで、 linaria/loader の内部でそれを呼び出すため、あらかじめ babel の設定としてこの関数を入手する必要があります。
+
+FYI: https://github.com/callstack/linaria/blob/master/packages/webpack4-loader/src/index.ts#L16
+
+この transform は babel における traverser として働くので、linaria を適用するためには必要なものです。(traverser が何かについては [Babel の変換処理と向き合う](https://blog.ojisan.io/babel-parse-traverse-generate)をご覧ください。)
+
+### NextJS 組み込みの babel の設定
+
+さて、これで動きそうなのでビルドしてみましょう。
+
 ```sh
 $ npx next build
 info  - Creating an optimized production build
@@ -171,22 +226,12 @@ Error: Cannot find module '@babel/core'
 
 どうやら @babel/core がなくて怒られるようです。
 
-### NextJS と babel
-
-NextJS は TypeScript を使っている場合でもトランスパイルは babel で行われます。
-NextJS が生成している tsconfig の jsx は preserve に設定されており、tsx => jsx という風に変換されるため、jsx から js への変換は babel 側で行います。
-そのときデフォルトでは next/babel という config を読み込んで変換します。
-
-next/babel は preset で、preset-env や preset-react の設定をします。
-
-FYI: https://github.com/vercel/next.js/blob/9dd5ff2baa716a6b12f681ff09559a3c8dd7b5cd/packages/next/build/babel/preset.ts
-
-このとき @babel/core は devDependencies として使われるだけで、@babel/core パッケージ自体への依存はありません。
+実は NextJS 標準の next/babel は @babel/core を依存として含んでいません。
 
 FYI: https://github.com/vercel/next.js/blob/9dd5ff2baa716a6b12f681ff09559a3c8dd7b5cd/packages/next/package.json
 
 そのため ユーザー側で@babel/core が要求する処理を行うとエラーとなります。
-そして先ほど追加した linaria/loader の中を読んでいくと、peerDependencies に@babel/core を要求しています。
+実際のところ、先ほど追加した linaria/loader の中を読んでいくと peerDependencies に@babel/core を要求しています。
 
 FYI: https://github.com/callstack/linaria/blob/master/packages/webpack5-loader/package.json#L60
 
@@ -224,6 +269,40 @@ Page                                                           Size     First Lo
 ```
 
 成功しました。
+
+## やるべきことをまとめると
+
+必要なライブラリの install
+
+```sh
+npm i react react-dom next linaria
+
+npm i -D next-linaria @babel/core
+```
+
+next.config.js の設定
+
+```js:title=webpack.config.js
+const withLinaria = require("next-linaria")
+require("dotenv").config()
+
+const repoName = "/nextjs-linaria"
+module.exports = withLinaria({
+  linaria: {
+    /* linaria options here */
+  },
+})
+```
+
+babel.config.js の設定
+
+```js:title=babel.config.js
+module.exports = {
+  presets: ["next/babel", "linaria/babel"],
+}
+```
+
+(linaria/babel は linaria に含まれるので install は不要です)
 
 ## ソースコード
 
