@@ -1,7 +1,7 @@
 ---
-path: /ts-cbor
-created: "2020-12-16"
-title: NextJS で linaria を動かすために知っておくべきこと
+path: /next-linaria-setup
+created: "2020-12-18"
+title: NextJS で linaria を動かすために知っておくと良いこと
 visual: "./visual.png"
 tags: ["NextJS"]
 userId: sadnessOjisan
@@ -9,13 +9,12 @@ isFavorite: false
 isProtect: false
 ---
 
-linaria の NextJS で動かすためには、linaria の install、NextJS の webpack の設定に linaria loader を付け加える、 NextJS の babel の設定が必要です。
+linaria を NextJS で動かすためには、linaria の install、NextJS の webpack の設定に linaria loader を付け加える、 NextJS の babel の設定が必要です。
 最近 linaria + Next を仕事で使うことがあって、それぞれのステップで初見殺しっぽいものを経験したり、手順の意味を知っておいた方がいいと思ったものがあるので、まとめようとおもいます。
 
 ## linaria とは
 
-[linaria](https://github.com/callstack/linaria) は Zero-runtime CSS in JS library であり、多くの CSS in JS ライブラリと同様の記法で書けるも、ビルド時に CSS を生成することでランタイムでのスタイル生成を無くせるライブラリです。
-ただしそのため動的なスタイリングを強要する CSS を書くことはできないという制約はあります。
+[linaria](https://github.com/callstack/linaria) は Zero-runtime CSS in JS library で、多くの CSS in JS ライブラリと同様の記法で書けるも、ビルド時に CSS を生成することでランタイムでのスタイル生成を無くせるライブラリです。
 
 ビルド時に CSS を生成するため、linaria はただクライアントサイドのコードで呼び出すだけではなく、ビルドの設定も行う必要があります。
 Webpack 環境を例に挙げると、linaria では公式が linaria/loader を提供しておりこれを利用します。
@@ -82,22 +81,41 @@ sourcemap の設定以外にもキャッシュファイルの保存先の変更�
 
 ### next-linaria
 
+linaria/loader が吐き出した CSS を NextJS の中で読み込むための設定が必要です。
+それが [next-linaria](https://github.com/Mistereo/next-linaria) です。
+
+```js
+const withLinaria = require("next-linaria")
+module.exports = withLinaria({
+  linaria: {
+    /* linaria options here */
+  },
+})
+```
+
+やっていることは単純で css-loader を使って CSS を解決できるようにしてくれます。
+
+FYI: https://github.com/Mistereo/next-linaria/blob/master/index.js#L5
+
 #### @zeit/next-css の設定 でも可能
 
-NextJS では CSS ファイルを読み込む場合に必要となる設定があります。
-それが [@zeit/next-css]() です。
-中を読めば分かりますが、いわゆる css-loader のような設定が必要になります。
+ところで linaria がうまく NextJS で動かない理由を調べていると、[@zeit/next-css](https://github.com/vercel/next-plugins/tree/master/packages/next-css) を使って解決する例を見かけます。
+しかし @zeit/next-css は deprecated なライブラリです。
+このライブラリが担っていた責務は NextJS の標準でサポートされるようになっています。
 
-NextJS では CSS のサポートは標準で行われるようになったので、@zeit/next-css 自体は deprecated なライブラリです。
-しかし [next-linaria](https://github.com/Mistereo/next-linaria) の設定にもある通り、うまく動きません。
-そのため独自に CSS を読み込む設定をする必要があります。
-next-linaria を使わない場合は古典的な方法ですが @zeit/next-css を使うことで CSS ファイルを読み込めるようになります。
+FYI: https://nextjs.org/blog/next-9-2#built-in-css-support-for-global-stylesheets
+
+しかし [next-linaria](https://github.com/Mistereo/next-linaria) の説明にもある通り、どうやらこの機能がうまく働いていないようです。
+そのため独自に CSS を読み込む設定をする必要があり、@zeit/next-css の利用はその解決策となっています。
+そのため next-linaria を使わない場合は古典的な方法ですが @zeit/next-css を使うことで CSS ファイルを読み込めるようになります。
 
 ```js
 const withCSS = require("@zeit/next-css")
 
 module.exports = withCSS({})
 ```
+
+が、どうせライブラリを入れるなら next-linaria を使った方が良いのではないだろうかと個人的には思っています。
 
 ### 完成系
 
@@ -142,7 +160,7 @@ module.exports = withCSS({
 
 さきほどの設定でうまくいきそうなのでビルドしてみましょう。
 
-```
+```sh
 $ npx next build
 info  - Creating an optimized production build
 Failed to compile.
@@ -168,7 +186,6 @@ FYI: https://github.com/vercel/next.js/blob/9dd5ff2baa716a6b12f681ff09559a3c8dd7
 FYI: https://github.com/vercel/next.js/blob/9dd5ff2baa716a6b12f681ff09559a3c8dd7b5cd/packages/next/package.json
 
 そのため @babel/core が要求される処理があると 動かなくなります。
-
 そして先ほど追加した linaria/loader の中を読んでいくと、peerDependencies に@babel/core を要求します。
 
 FYI: https://github.com/callstack/linaria/blob/master/packages/webpack5-loader/package.json#L60
@@ -183,7 +200,6 @@ npm i -D @babel/core
 
 ```sh
 $ npx next build
-info  - Using external babel configuration from /Users/ideyuta/Documents/100_projects/toybox/nextjs-linaria/babel.config.js
 info  - Creating an optimized production build
 info  - Compiled successfully
 info  - Collecting page data
