@@ -54,8 +54,6 @@ CBOR では`6161`が`a`として表現できる例を挙げると、0x6161 は 1
 
 FYI: http://ash.jp/code/unitbl21.htm
 
-FYI: https://home.unicode.org/
-
 では その CBOR の解釈方法について詳しく見ていきましょう。
 
 ### Major Type
