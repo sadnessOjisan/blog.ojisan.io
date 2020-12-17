@@ -9,8 +9,8 @@ isFavorite: false
 isProtect: false
 ---
 
-linaria を NextJS で動かすためには、linaria の install、NextJS の webpack の設定に linaria loader を付け加える、 NextJS の babel の設定が必要です。
-最近 linaria + Next を仕事で使うことがあって、それぞれのステップで初見殺しっぽいものを経験したり、手順の意味を知っておいた方がいいと思ったものがあるので、まとめようとおもいます。
+linaria を NextJS で動かすためには、linaria の install、linaria/loader の設定、 babel の設定が必要です。
+最近 linaria + Next を仕事で使うことがあり、それぞれのステップで初見殺しっぽいものを経験したり、手順の意味を知っておいた方がいいものがあったので、まとめようと思います。
 
 ## linaria とは
 
@@ -20,7 +20,7 @@ linaria を NextJS で動かすためには、linaria の install、NextJS の w
 Webpack 環境を例に挙げると、linaria では公式が linaria/loader を提供しておりこれを利用します。
 この linaria/loader は linaria 本体に含まれているので、特別他の loader を install する必要はありません。
 
-linaria には スタイリングを生成する処理以外にもこのようなエコシステム向けのコードが含まれていることを覚えておきましょう。
+linaria には スタイリングを生成する処理以外にもこのようなエコシステム向けのコードが含まれています。
 ソースコードもモノレポになっており、様々なエコシステム向けのコードが格納されています。
 
 FYI: https://github.com/callstack/linaria/tree/master/packages
