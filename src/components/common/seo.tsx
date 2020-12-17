@@ -75,10 +75,6 @@ function SEO({ description, meta, title, image }: IProps & SeoQuery) {
           content: metaDescription,
         },
         {
-          property: `og:image`,
-          content: metaImage,
-        },
-        {
           // FIXME: これなんで必要なんだっけ？GAのプラグインだけあればよかったかも
           name: "google-site-verification",
           content: "fkXw7Bl_HSSeB9JeI3GWJ9fnhax0X_MHngOd7ji7FmM",
