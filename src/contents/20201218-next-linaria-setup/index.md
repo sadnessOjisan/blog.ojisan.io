@@ -115,7 +115,7 @@ const withCSS = require("@zeit/next-css")
 module.exports = withCSS({})
 ```
 
-が、どうせライブラリを入れるなら next-linaria を使った方が良いのではないだろうかと個人的には思っています。
+が、@zeit/next-css は deprecated されているライブラリなので、どうせライブラリを入れるなら next-linaria を使った方が良いのではないだろうかと個人的には思っています。
 
 ### 完成系
 
@@ -174,19 +174,19 @@ Error: Cannot find module '@babel/core'
 ### NextJS と babel
 
 NextJS は TypeScript を使っている場合でもトランスパイルは babel で行われます。
-NextJS が生成している tsconfig の jsx は preserve に設定されており、tsx => jsx に変換しており、 jsx から js への変換が babel 側で行われます。
+NextJS が生成している tsconfig の jsx は preserve に設定されており、tsx => jsx という風に変換されるため、jsx から js への変換は babel 側で行います。
 そのときデフォルトでは next/babel という config を読み込んで変換します。
 
 next/babel は preset で、preset-env や preset-react の設定をします。
 
 FYI: https://github.com/vercel/next.js/blob/9dd5ff2baa716a6b12f681ff09559a3c8dd7b5cd/packages/next/build/babel/preset.ts
 
-このとき @babel/core は devDependencies として使われるだけで、@babel/core パッケージ自体の依存はありません。
+このとき @babel/core は devDependencies として使われるだけで、@babel/core パッケージ自体への依存はありません。
 
 FYI: https://github.com/vercel/next.js/blob/9dd5ff2baa716a6b12f681ff09559a3c8dd7b5cd/packages/next/package.json
 
-そのため @babel/core が要求される処理があると 動かなくなります。
-そして先ほど追加した linaria/loader の中を読んでいくと、peerDependencies に@babel/core を要求します。
+そのため ユーザー側で@babel/core が要求する処理を行うとエラーとなります。
+そして先ほど追加した linaria/loader の中を読んでいくと、peerDependencies に@babel/core を要求しています。
 
 FYI: https://github.com/callstack/linaria/blob/master/packages/webpack5-loader/package.json#L60
 
