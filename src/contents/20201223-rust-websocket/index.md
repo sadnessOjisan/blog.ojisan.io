@@ -10,7 +10,7 @@ isProtect: false
 ---
 
 WebSocket は [RFC 6455](https://tools.ietf.org/html/rfc6455) で定められた仕様で、クライアント <-> サーバ間の双方向通信を可能にします。
-この WebSocket で通信できるサーバーを、ライブラリを使わずに RFC にある規格をそのままコードに起こして実装してみましょう。（ハッシュ計算などの util ライブラリは追加います)
+この WebSocket で通信できるサーバーを、ライブラリを使わずに RFC にある規格をそのままコードに起こして実装してみましょう。（ハッシュ計算などの util ライブラリは使います)
 
 約 8 年ほど前に jxck さんが [WebSocket サーバの実装とプロトコル解説](http://jxck.hatenablog.com/entry/20120725/1343174392)で同様のことをされている（というよりこれを読んで今回やろうと決意した）のですが、それを Rust でもやってみようというのが、この記事でやりたい事です。上記の記事内にある通り Node.js で実装すると標準ライブラリが勝手に行ってくれる部分があるので、あえて Rust で実装します。Rust はほぼ経験がない言語なのでもし滅茶苦茶なことを書いていたら突っ込んでいただけると助かります。（文字列の結合とかもっとうまくやれるだろと言う自覚はあります・・・）
 
@@ -160,7 +160,7 @@ NodeJS なら crypto で一発だったので少し苦労しました。
 
 先ほど作った Sec-WebSocket-Accept を使ってレスポンスヘッダを作りましょう。
 
-```
+```sh
 HTTP/1.1 101 Switching Protocols
 Upgrade: websocket
 Connection: Upgrade
@@ -263,7 +263,7 @@ let opcode = msg_buf[0] & 0x0f;
 ```
 
 とすれば取り出せます。
-msg_buf は u8[]　なのでその先頭はデータフレームの 8bit が含まれています。そしてそのなかのお尻 4bit が欲しいので、 0b00001111 を　 AND 演算すると opcode 取り出せます。(本当は 0bit があと 8 つ頭についていますが)
+msg_buf は u8[]　なのでその先頭はデータフレームの 8bit が含まれています。そしてそのなかのお尻 4bit が欲しいので、 0b00001111 を AND 演算すると opcode 取り出せます。(本当は 0bit があと 8 つ頭についていますが)
 
 #### text を読み取る
 
@@ -313,7 +313,7 @@ for i in 0..payload_length {
 > octet i of the original data ("original-octet-i") with octet at index
 > i modulo 4 of the masking key ("masking-key-octet-j"):
 
-```
+```sh
 j                   = i MOD 4
 transformed-octet-i = original-octet-i XOR masking-key-octet-j
 ```
@@ -414,6 +414,10 @@ function () {
 
 以上が WebSocket サーバーそのものの実装です。
 opcode が 1 の場合しか扱っていないので完成系ではありませんが、基本的な箇所は実装できたと思います。
+
+## ソースコード
+
+https://github.com/sadnessOjisan/orusocket
 
 ## 参考にしたもの
 
