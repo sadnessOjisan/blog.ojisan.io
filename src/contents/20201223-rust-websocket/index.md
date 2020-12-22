@@ -1,7 +1,7 @@
 ---
 path: /rust-websocket
 created: "2020-12-23"
-title: RustでWebsocketサーバーそのものを作ってみた！
+title: RustでWebSocketサーバーそのものを作ってみた！
 visual: "./visual.png"
 tags: ["Rust"]
 userId: sadnessOjisan
