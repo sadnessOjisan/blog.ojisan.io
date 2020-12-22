@@ -1,9 +1,9 @@
 ---
 path: /rust-websocket
-created: "2020-12-18"
+created: "2020-12-23"
 title: RustでWebsocketサーバーそのものを作ってみた！
 visual: "./visual.png"
-tags: ["NextJS"]
+tags: ["Rust"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false
@@ -93,7 +93,8 @@ match path {
 いまは「クライアント JS を返すための処理」の中で、先ほどの JS を HTTP の body に詰めて、クライアントに返します。
 
 ```rust
-let mut body = "<html><head><title>rust web socket</title><script type='text/javascript'>(".to_string()
+let mut body =
+"<html><head><title>rust web socket</title><script type='text/javascript'>(".to_string()
   + clientCode
   + ")()</script></head><body>hello world!!!!!</body></html>";
 let status = "HTTP/1.1 200 OK\r\n".to_string();
@@ -375,14 +376,14 @@ MASK と Payload len です。
 MASK は今は 0 です。
 Payload len は 0b0000101 で、5 です。
 
-##### 3 フレーム目以降
+#### 3 フレーム目以降
 
 文字がそのまま DataFrame に入ります。
 それぞれの文字は 文字コード表を照らし合わせてみてみると、Hello は、72 101 108 108 111 です。
 
 FYI: http://www.edu.i.hosei.ac.jp/~sigesada/kyouzai/mojicodehenkan.html
 
-##### 返すべきデータ
+#### 返すべきデータ
 
 つまりそれらをまとめると、
 [129, 5, 72, 101, 108, 108, 111]

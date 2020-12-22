@@ -5,7 +5,7 @@ title: 会社をやめて約1年プログラミングの勉強に費やしたこ
 visual: "./visual.png"
 tags: ["キャリア", "雑記"]
 userId: sadnessOjisan
-isFavorite: false
+isFavorite: true
 isProtect: true
 ---
 
