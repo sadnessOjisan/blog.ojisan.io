@@ -1,7 +1,7 @@
 ---
 path: /my-step-up
 created: "2020-12-24"
-title: 自分がプログラミング力の成長を実感できるようになった瞬間まとめ
+title: 自分がプログラミング力の成長を実感できるようになった瞬間について
 visual: "./visual.png"
 tags: ["雑記", "駆け出しプログラマー応援"]
 userId: sadnessOjisan
