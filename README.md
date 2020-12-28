@@ -34,4 +34,4 @@ deploy 自体は master に merge されると自動でデプロイされる on 
 
 ## How To Contribute
 
-[CONTRIBUTING]()
+[CONTRIBUTING](https://github.com/sadnessOjisan/blog.ojisan.io/blob/master/.github/CONTRIBUTING.md)
