@@ -14,9 +14,9 @@ isProtect: false
 
 話したり一緒にプレイしてくれるお友達を探したくても書いてますのでリプなどいただけると嬉しいです。
 
-## ファイアーエンブレム風花雪月
+## ファイアーエムブレム風花雪月
 
-ファイアーエンブレムはいわゆる軍記物のシミュレーション RPG シリーズです。
+ファイアーエムブレムはいわゆる軍記物のシミュレーション RPG シリーズです。
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/9ZqLpzlaiyo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
