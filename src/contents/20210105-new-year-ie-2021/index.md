@@ -10,17 +10,18 @@ isProtect: false
 ---
 
 明けましておめでとうございます。
-私はつい昨日に早速 "IE 始め" を行いました。
-久々の IE 対応でいろいろなところでハマったので備忘録としてやったことを残しておきます。
+早速ですが私はつい昨日 "IE 始め" を行いました。
+久々の IE 対応で様々な箇所でハマった、また babel を使わずに tsc のみという普段の IE 対応とは異なるやり方で色々迷ったので、備忘録としてやったことを残したいと思います。
 
 ## なにを IE 対応したか
 
-TypeScript + preact 製のアプリケーションで、何らかのデータを取ってきて、それに対してユーザーの何らかの入力を保存する、よくみる現代的なアプリケーションです。
-サードパーティスクリプトとしても埋め込めるように、バンドルサイズ削減を目的に preact, goober にしか依存を持たず、諸々のライブラリは自作しています。
-
+TypeScript + preact 製のアプリケーションで、何らかのデータを取ってきて、それに対してユーザーの何らかの入力を保存する、よくみる現代的なアプリケーションを IE 対応しました（具体的な内容は伏せます）。
+さらにサードパーティスクリプトとしても埋め込めるように、バンドルサイズ削減を目的に preact, goober にしか依存を持たず、諸々のライブラリは自作するといったものです。
 ビルドは webpack + ts-loader で行われており、ES5 を target に吐き出しています。
 
-では、このようなコードの IE 対応をしていきましょう。
+このようなコードを IE 対応していくことになりました。
+こう書くとまるで後出しジャンケンで PM に負けたみたいな言いぶりですが、IE 対応の要件があるのは初めから知っていての開発です。
+「preact は標準で IE 対応されているから依存ライブラリを減らせば余裕で IE 対応できる」と舐めてかかった罰が降ったという話です。
 
 ## webpack5 の出力は必ず arrow function を含む
 
@@ -74,12 +75,12 @@ FYI: https://webpack.js.org/configuration/target/
 
 そうすれば、arrow ではなく function で出力できます。
 
-これの対処法を教えてくださった、[@about_hiroppy]()さん、ありがとうございました。
+これの対処法を教えてくださった、[@about_hiroppy](https://twitter.com/about_hiroppy)さん、ありがとうございました。
 
-## IE 対応されていないライブラリに対処する
+## IE 対応されていないライブラリに loader で対処する
 
 多くのライブラリはすでに ES5 向けにビルド済みなので、webpack でビルドする際に tsc や babel を通さないやり方があります。
-そうすればビルド時間を短縮できるからです。
+そうすればビルド時間を短縮できるメリットがあります。
 
 そのオプションが exclude で、
 
@@ -101,14 +102,14 @@ module.exports = {
 }
 ```
 
-として、node_modules を loader の対象外にします。
+として、`node_modules` を loader の対象外にします。
 
 このようにすれば自分が書いたアプリケーションコードのみを ts-loader の対象にできます。
 
 しかし IE 対応が必要な場合は話が変わってきます。
-たとえばライブラリにある ES5 のコードが IE 対応されていない（たとえば arrow が含まれている）場合は loader に含めて IE 向けのコードに変換しなければいけません。
+たとえばライブラリにある JS のコードが IE 対応されていない（たとえば arrow が含まれている）場合は、そのコードも loader に通して IE 向けのコードに変換しなければいけません。
 
-たとえば goober のビルド済みファイルには `=>` が 13 箇所含まれています。
+たとえば goober のビルド済みファイルには `=>` が 13 箇所含まれており、そのままバンドルに含めるとランタイムでこけます。
 
 ```js
 let e={data:""},t=t=>{try{let e=t?t.querySelector("#_goober"):self._goober;return e||(e=(t||document.head).appendChild(document.createElement("style")),e.innerHTML=" ",e.id="_goober"),e.firstChild}catch(e){}return t||e},r=e=>{let r=t(e),a=r.data;return r.data="",a},a=/(?:([A-Z0-9-%@]+) *:? *([^{;]+?);|([^;}{]*?) *{)|(})/gi,l=/\/\*[\s\S]*?\*\/|\s{2,}|\n/gm,o=(e,t)=>{let r,a="",l...
@@ -116,9 +117,9 @@ let e={data:""},t=t=>{try{let e=t?t.querySelector("#_goober"):self._goober;retur
 
 このコードを IE 対応するにはライブラリのコードも loader に読み込ませます。
 tsc でも babel で target を指定していれば (polyfill の都合が抜け落ちているので不完全ではあるものの)IE 向けのコードを出力できるためです。
-しかし先ほど exclude してるため、それはできないわけです。
-じゃあ exclude を剥がしなよとなるのでそうしましょう。
-ただそれはやりすぎなので必要なライブラリだけ include します。
+しかし先ほど `node_modules`を exclude したため、loader に通すことはできないわけです。
+「じゃあ exclude を剥がしなよ」となるのでそうしましょう。
+ただ全て exclude するのはやりすぎなので、IE 対応が必要なライブラリだけ include します。
 
 ```js
 module.exports = {
@@ -143,7 +144,7 @@ module.exports = {
 
 いま IE 対応が必要なので goober だけなので、ライブラリからは goober だけを loader に読ませます。
 
-これでいいじゃんとなりますが、これだけでは動きません。
+さて、これで一件解決したように見えますがそうは行きません。
 
 ## ビルドにライブラリを含めるとビルドが落ちる
 
@@ -151,17 +152,16 @@ module.exports = {
 そのためそのコードを関数として呼び出すと、「関数でないものを関数として呼び出そうとするな」と怒られてランタイムでエラーが起きます。
 この時 tsc の型検査はちゃんと通っています。
 
-もしかすると皆さんの環境では落ちないのかもしれません。
-しかし、私は落ちていて、落ちていた理由は tsconfig.json の `allowJS` です。
-ライブラリ側のコードを tsc のビルド対象に含めるので `allowJS: true` にする必要がありました。
-こうすることでビルドが通るようになります。
+何故でしょうか、それは tsconfig.json の `allowJS` に理由があります。
+exclude しないということは、つまりライブラリ側のコードを tsc のビルド対象に含めることなので、tsc の設定で `allowJS: true` にする必要がありました。
+なのでここが初期値の false だとビルドは通りません。
 
-ちなみに今まで `allowJS: false` にしてビルドを通せていたのは webpack.config.js で `exclude: /node_modules/` していたからで、そもそもライブラリにある JS をビルド対象に含めていなかったためです。
-それが IE 対応するためにビルド対象に node_modules を含める必要が出てきて顕在化した問題だったという訳です。
+ちなみにこれまで `allowJS: false` にしてビルドを通せていたのは webpack.config.js で `exclude: /node_modules/` していたからで、そもそもライブラリにある JS をビルド対象に含めていなかったためです。
+それが IE 対応するためにビルド対象に `node_modules` を含める必要が出てきて顕在化した問題だったという訳です。
 
-これの原因を教えてくださった、[@sinaygeek]()さん、ありがとうございました。
+これの原因を教えてくださった、[@Shinyaigeek](https://twitter.com/Shinyaigeek)さん、ありがとうございました。
 
-##　 Object.assign の polyfill
+## Object.assign の polyfill
 
 自分のコードは状態管理部分を ContextAPI + useReducer で行っており、state を作るための計算で spread 演算子を使用します。
 
@@ -195,7 +195,7 @@ export const reducer = (state: State, action: ActionType): State => {
 }
 ```
 
-さて、この spread 演算子は ES6 の機能の一つですが、ES5 へと出力するとこのようになります。
+さて、この spread 演算子は ES6 の機能の一つですが、ES5 へと出力するとこのように`Object.assign` を使ったものへとなります。
 
 before
 
@@ -213,15 +213,19 @@ const old = { k: "v" }
 const newObj = Object.assign(Object.assign({}, old), { k: "v2" })
 ```
 
-spread 演算子は ES5 では `Object.assign` になります。
 さて、この `Object.assign` は IE11 では動作しません。
 
 FYI: https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
 
-なので、これを解消するために polyfill を入れましょう。
+なので、IE でも使えるようにするために polyfill を入れましょう。
 polyfill の入れ方は CDN 経由でヘッダに差し込んだり、node_moudles として import したり色々ありますが、私は自前で src 配下に polyfill コードを入れました。
 
-1 ファイルで完結する有名なコードがあるので依存をわざわざ増やさなくて良い、手元にあるコードはバンドラにまとめさせられるので最適化を効かせられるようになるためです。（最適化のくだりは loader に node_modules を含めることができる今の構成ならば、node_modules 経由でも同じ効果が得られる。）
+その理由としては、
+
+- 1 ファイルで完結する有名なコードがあるので依存をわざわざ増やさなくて良い
+- 手元にあるコードはバンドラにまとめさせられるので最適化を効かせられるようになる
+
+ためです。（最適化のくだりは loader に `node_modules` を含めることができる今の構成ならば、`node_modules` 経由でも同じ効果が得られる。）
 
 私はこのようなコードを配置し、
 
@@ -322,7 +326,7 @@ FYI: https://github.com/github/fetch/blob/master/fetch.js#L508
 
 ### whatwg-fetch を使うために
 
-さて、これを IE 環境で使うようにしたい、つまり Chrome などの環境と IE 環境で出し分ける仕組みを設けたいです。
+whatwg-fetch の polyfill を import するだけでもいいのですが、これを IE 環境だけで使うようにしたい、つまり Chrome などの環境と IE 環境で出し分けることができます。
 
 それを実現するスニペットとして[How to polyfill JavaScript fetch function for Internet Explorer](https://dev.to/adrianbdesigns/how-to-polyfill-javascript-fetch-function-for-internet-explorer-g46)にはこういうものがあります。
 
@@ -377,18 +381,21 @@ if (!global.fetch) {
 
 と、しています。
 
-そのため先ほどのコ e ドを fetch メソッドとしてユーザーが呼び出せば、IE のときでもうまく動くようになります。
+そのため先ほどのコードを fetch メソッドとしてユーザーが呼び出せば、IE のときでもうまく動くようになります。
 
-### その他 polyfill
+この手法のメリットは IE 用のコードを動的に引っ張ってくる必要はあるものの、IE ユーザー以外にはバンドルサイズを増やさずに機能を提供できるところにあります。
 
-これで動くかと思いきや「error: TypeError: このオブジェクトではサポートされていない操作です」とだけ表示され、トレースに現れないエラーが現れました。
+## その他 polyfill
+
+さて、もろもろ対処したのでこれで動くかと思いきや「error: TypeError: このオブジェクトではサポートされていない操作です」とだけ表示され、トレースに現れないエラーが現れました。
 まあ何かしらのメソッドが足りてないのだろうなと思い、とりあえず babel-polyfill を入れて動かしました。
-そうすると動きました。
-何が足りていないのかは把握できていないので見つけ次第入れ替える予定です。
+そうすると動きましたので、今はそのようにしています。
+何が足りていないのかは把握できていないので見つけ次第、必要な polyfill だけをピンポイントで入れ替える予定です。
 
 この手の polyfill は core-js を入れるべきかと思ったのですが、いまは tsc でビルドしており、tsc も lib を入れてくれるので、そこである程度カバーできると思い、core-js より古くてバンドルサイズが小さい babel-polyfill を入れました。
 
-polyfill 周りがガバガバなのは正直 tsc だけを使っている時に polyfill をどうしたらいいかわかっていないというのがあるので、誰か教えてくれると助かります。
+polyfill 周りの import を手抜きしているのは正直 tsc だけを使う場合に polyfill をどうすればいいか分かっていないためです。
+そのため誰か教えて下さると助かります。
 個人的には必要な polyfill を差し込む仕組みは@babel/preset-env 経由の方がやりやすいなと感じました。
 @babel/preset-env を噛ませるために多段ビルドする話も聞いたことがあり、そういうのも面白そうだなぁと思っています。
 
@@ -397,7 +404,7 @@ polyfill 周りがガバガバなのは正直 tsc だけを使っている時に
 
 ## flex-box 周りの修正
 
-案の定 flex-box 周りも色々崩れました。
+よくある話ですが、flex-box 周りは色々崩れました。
 flex-box のバグだけを集めたレポジトリがあるので、これを見ながら適宜直しました。
 
 FYI: https://github.com/philipwalton/flexbugs
@@ -405,3 +412,15 @@ FYI: https://github.com/philipwalton/flexbugs
 ## おわりに
 
 2021 年こそは IE 対応を卒業したいです・・・
+
+### ソースコード
+
+流石にプロダクションコードは出せないので、実験で使った断片のみ公開します。
+
+FYI: https://github.com/ojisan-toybox/preact-ie11
+
+### P.S.
+
+IE で動作確認してエラー出たときに、そのまま IE でググって MDN に飛ぶと、MDN に「IE サポートしていません」「Error: Promise」と出てフリーズして、「IE ユーザーの気持ちを考えろ！IE 対応ちゃんとして！！」という気持ちになりました。
+
+って、不幸な人の水準に合わせろっていう思考は良くないですね、皆さん一緒に幸せになりましょう。IE 対応を卒業するぞ 2021！！
