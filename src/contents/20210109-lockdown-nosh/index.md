@@ -1,5 +1,5 @@
 ---
-path: /new-year-ie-2021
+path: /lockdown-nosh
 created: "2021-01-09"
 title: ロックダウン中こそnoshを検討してはどうだろうか
 visual: "./visual.png"
