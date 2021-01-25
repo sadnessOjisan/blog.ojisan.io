@@ -9,7 +9,7 @@ isFavorite: false
 isProtect: false
 ---
 
-ReScript は BuckleScript と ReasonML をベースに作られたプログラミング言語で、それらと同じように OCaml に似たシンタックス、機能、強力な型推論を利用しながら、JavaScript を出力できるプログラミング言語です。
+ReScript は BuckleScript と ReasonML をベースに作られたプログラミング言語で、それらと同じように OCaml に似たシンタックス、機能、強力な型推論を利用しながら、JavaScript を出力できます。
 ただ、ReScript の世界から JavaScript のモジュール・ライブラリ・オブジェクトを利用するためには型推論を通すために bind が必要となります。
 その bind の書き方を紹介します。
 
@@ -17,7 +17,7 @@ ReScript は BuckleScript と ReasonML をベースに作られたプログラ�
 
 decorator は
 
-```ocaml
+```sh
 @bs.inline
 let mode = "dev"
 ```
@@ -28,7 +28,7 @@ ReScript では、主に変数宣言、関数宣言、フィールド宣言な�
 
 詳しくはこちらをご覧ください。
 
-https://rescript-lang.org/docs/manual/latest/attribute
+FYI: https://rescript-lang.org/docs/manual/latest/attribute
 
 ## bind
 
@@ -36,7 +36,7 @@ binding には decorator を使います。
 
 例えば、
 
-```ocaml
+```sh
 @bs.val external timerOn: (unit => unit, int) => float = "setTimeout"
 ```
 
@@ -44,7 +44,7 @@ binding には decorator を使います。
 
 これは ReScript の世界で、
 
-```ocaml
+```sh
 timerOn(()=>(), 1000)
 ```
 
@@ -78,7 +78,7 @@ FYI: https://rescript-lang.org/docs/manual/latest/bind-to-global-js-values
 
 公式にある Tips & Tricks では
 
-```ocaml
+```sh
 type timerId
 @bs.val external setTimeout: (unit => unit, int) => timerId = "setTimeout"
 @bs.val external clearTimeout: timerId => unit = "clearTimeout"
@@ -104,7 +104,7 @@ FlowType でいうところの opaque に近いものと捉えると良いかも
 
 FYI: https://rescript-lang.org/docs/manual/latest/bind-to-global-js-values
 
-```ocaml
+```sh
 @bs.val @bs.scope(("window", "location"))
 external url: string = "href"
 ```
@@ -112,7 +112,7 @@ external url: string = "href"
 @bs.val と @bs.scope を駆使すると global オブジェクトが持つどんな値にも bind を書いていけます。
 例えば chrome 拡張の開発などにも使えます。
 
-```ocaml
+```sh
 @bs.val @bs.scope(("chrome", "storage", "local"))
 external get: string => ((dataType)=>())  => () = "get"
 
@@ -130,19 +130,24 @@ module は val に比べてもっと広い範囲で bind を作れるもので�
 - As a class.
 - As a module to import/export.
 
+とあるように、HashMap, Class, module に対して bind を作れます。
+
 FYI: https://rescript-lang.org/docs/manual/latest/bind-to-js-object
 
-に対して bind を作れます。
+module のバインドを作れるということはライブラリそのものに対する bind を作れます。
 
-そのためライブラリそのものに対する bind を作れます。
-
-```ocaml
+```sh
 // Import nodejs' path.dirname
 @bs.module("path") external dirname: string => string = "dirname"
 let root = dirname("/User/github") // returns "User"
 ```
 
 FYI: https://rescript-lang.org/docs/manual/latest/import-from-export-to-js#import-a-javascript-modules-content
+
+このように ライブラリの bind を作っていけます。
+ただし毎度このように bind を書くのは骨が折れますが、genType という仕組みで TS や Flow の型定義から出力もできます。
+
+FYI: https://github.com/reason-association/genType
 
 ### @bs.send external
 
@@ -151,7 +156,7 @@ send は関数に特化して bind できるものです。
 
 たとえば、
 
-```ocaml
+```sh
 type document // abstract type for a document object
 @bs.send external getElementById: (document, string) => Dom.element = "getElementById"
 @bs.val external doc: document = "document"
@@ -171,7 +176,7 @@ var el = document.getElementById("myId")
 
 bind されたオブジェクトに直接 bind された値を代入するには setter を利用します。
 
-```ocaml
+```sh
 type window
 @bs.val external window: window = "window"
 @bs.set external setOnload: (window, (() => unit)) => unit = "onload"
@@ -193,11 +198,9 @@ window.onload = function (param) {}
 
 FYI: https://github.com/glennsl/bucklescript-ffi-cheatsheet#bsset
 
-## bind の作り方がよくわからない
+## bind の作り方がよくわからない場合は？
 
 ReScript でのライブラリの bind を調べようとすると全然情報が出てこないことに気づくはずです。
 それもそのはず、 ReScript は最近作られた言語だからです。
 もし bind の情報を調べるのであれば ReasonML や BucleScript で書かれた bind を調べると良いです。
 ただしそのままでは動かないこともあるのでそこは適宜 ReScript で書き直してください。
-
-またライブラリの bind に関しては [genType](https://github.com/reason-association/genType) などで自動生成するのが良いです。
