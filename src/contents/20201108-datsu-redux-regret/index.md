@@ -26,7 +26,7 @@ Redux をやめて例えば Context(useContext) や custom hooks で状態管理
 
 たとえば、
 
-```jsx
+```javascriptx
 <Switch>
   <Route path='index'>
     <Search></Search>
@@ -37,7 +37,7 @@ Redux をやめて例えば Context(useContext) や custom hooks で状態管理
 <Switch>
 ```
 
-```jsx
+```javascriptx
 const Index = () => {
   const data = useContext(Context)
   return <div>検索ページ
@@ -225,7 +225,7 @@ Context は参照の同一性を使用して再レンダーするかを決める
 
 たとえば、
 
-```jsx
+```javascriptx
 class App extends React.Component {
   render() {
     return (
@@ -240,7 +240,7 @@ class App extends React.Component {
 という風に value にオブジェクトを渡していると、再レンダリングのときに必ず value 再生成されるのでそれに依存する consumer も再レンダリングします。
 これを防ぐためには親の state に value をリフトアップする必要があります。
 
-```jsx
+```javascriptx
 class App extends React.Component {
   constructor(props) {
     super(props)
@@ -272,7 +272,7 @@ context に詰めた値は当然変更もしたいわけですがそのハンド
 リフトアップを考慮したらこれも state に入れるべきですが、state に関数を詰め込むのは不自然な気もします。
 これに対する解決策はハンドラだけ別の Provider に分割することで、よく見かけるノウハウです。
 
-```jsx
+```javascriptx
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 

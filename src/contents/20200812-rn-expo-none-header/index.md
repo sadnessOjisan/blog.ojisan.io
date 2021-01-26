@@ -16,7 +16,7 @@ isProtect: false
 expo-cli で作ったアプリの場合、header を表出しているのは react-navigation の StackNavigator です。
 おそらく検索結果には StackNavigator で navigator を作るときのオプション指定で header を消すように言われるのではないでしょうか。
 
-```js
+```javascript
 const MainNavigation = StackNavigator(
   {
     otp: { screen: OTPlogin },
@@ -41,7 +41,7 @@ const MainNavigation = StackNavigator(
 
 事実 expo-cli が生成しているコードは
 
-```js
+```javascript
 const Stack = createStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
@@ -65,7 +65,7 @@ API リファレンスの[createStackNavigator](https://reactnavigation.org/docs
 
 ![headerがある](./header.png)
 
-```js
+```javascript
 const Stack = createStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
@@ -85,7 +85,7 @@ function RootNavigator() {
 header が出ている原因は、expo-cli が生成するコードが Navigator を入れ子にしているところにあります。
 `<Stack.Screen name="Root" component={BottomTabNavigator} />` の BottomTabNavigator から先を読んでいくと、
 
-```jsx
+```javascriptx
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
 export default function BottomTabNavigator() {
@@ -156,7 +156,7 @@ function TabTwoNavigator() {
 
 ここで各スクリーンに紐づく Navigation を定義していますが、
 
-```js
+```javascript
 const TabOneStack = createStackNavigator<TabOneParamList>();
 
 function TabOneNavigator() {
@@ -175,7 +175,7 @@ function TabOneNavigator() {
 とあるとおり、StackNavigator を入れ子にしていたことがわかります。
 **header を消すためにはここにも headerShown の props を書いてあげる必要があります。**
 
-```js
+```javascript
 function TabOneNavigator() {
   return (
     <TabOneStack.Navigator screenOptions={{ headerShown: false }}>

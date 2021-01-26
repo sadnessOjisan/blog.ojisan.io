@@ -51,7 +51,7 @@ JSX の中に書くので JS の変数を展開できます。
 
 使い方はシンプルで
 
-```jsx
+```javascriptx
 import React from "react"
 import { Helmet } from "react-helmet"
 
@@ -99,7 +99,7 @@ isProtect: true
 
 記事取得のクエリで
 
-```js
+```javascript
 export const pageQuery = graphql`
   query BlogTemplate($path: String!) {
     post: markdownRemark(frontmatter: { path: { eq: $path } }) {

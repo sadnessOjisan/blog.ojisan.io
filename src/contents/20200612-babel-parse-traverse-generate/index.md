@@ -249,7 +249,7 @@ export default function* normalizeFile(
 
 ここで返される File は次のようなフィールドを持つ class です。
 
-```js
+```javascript
 export default class File {
   _map: Map<any, any> = new Map();
   opts: Object;
@@ -269,7 +269,7 @@ ast 情報を含めて返しています。
 つまり parse をしています。
 実際 normalize の中にある parser 関数は次の通りです。
 
-```js
+```javascript
 ...
 import { parse } from "@babel/parser"
 
@@ -382,7 +382,7 @@ Babel は各パッケージに分けてそれらの処理を行っているよ�
 
 このようなコードを用意します。
 
-```js
+```javascript
 const parser = require("@babel/parser")
 const traverse = require("@babel/traverse")
 const generate = require("@babel/generator")
@@ -463,7 +463,7 @@ nextTokenStart(): number {
 
 また
 
-```js
+```javascript
 parseBlockOrModuleBlockBody(body, directives, topLevel, end, afterBlockParse) {
   ...
   const stmt = this.parseStatement(null, topLevel);
@@ -476,7 +476,7 @@ parseBlockOrModuleBlockBody(body, directives, topLevel, end, afterBlockParse) {
 
 実際 このように logger をしかけて
 
-```js
+```javascript
 const ast = parser.parse(code)
 console.log(ast)
 ```
@@ -521,7 +521,7 @@ Node {
 言わば AST ノードを操作するパッケージです。
 この traverse 関数がどのように実行されるかみていきましょう。
 
-```js
+```javascript
 export default function traverse(
   parent: Object | Array<Object>,
   opts?: Object,
@@ -558,7 +558,7 @@ explode と node という関数を実行しています。
 この `context.visit(node, key)` が AST を辿って処理をする本体です。
 さらにそこから追っていくと context を実行しています。
 
-```js
+```javascript
 visitQueue(queue: Array<NodePath>) {
     ...
 
@@ -583,7 +583,7 @@ visitQueue(queue: Array<NodePath>) {
 この `path.visit()` は Mixin された NodePath_context の持ち物です。
 **Editor のコードジャンプでは見つけられないので注意しましょう。**
 
-```js
+```javascript
 Object.assign(
   NodePath.prototype,
   NodePath_ancestry,
@@ -625,7 +625,7 @@ export function visit(): boolean {
 まるで AST ノードに入った時と出ていく時に実行する関数のように・・・
 追ってみましょう！
 
-```js
+```javascript
 export function call(key): boolean {
   ...
   if (this.node) {
@@ -672,7 +672,7 @@ call される関数は `this._call(opts[key])`として呼ばれていたわけ
 
 @babel/generate のエントリポイントはこのように実装されています。
 
-```js
+```javascript
 import SourceMap from "./source-map";
 import Printer, { type Format } from "./printer";
 
@@ -710,7 +710,7 @@ generate(ast) {
 
 この print `token` や `printMethod` などを実行しています。
 
-```js
+```javascript
 print(node, parent) {
     ...
     if (needsParens) this.token("(");
@@ -738,7 +738,7 @@ print(node, parent) {
 printMethod は、AST Node の種類に応じて、indent, dedent, semicolon, rightBrace, ... といった処理を実行していきます。
 どういう処理がされるかは Printer クラスのメソッドとして定義されています。
 
-```js
+```javascript
 indent(): void {
   if (this.format.compact || this.format.concise) return;
   this._indent++;

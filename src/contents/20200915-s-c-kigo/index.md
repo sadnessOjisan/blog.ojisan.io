@@ -401,7 +401,7 @@ FYI: https://styled-components.com/docs/basics#pseudoelements-pseudoselectors-an
 
 template literal の中に SCSS を書くだけで SCSS が適用されます。
 
-```jsx
+```javascriptx
 const Wrapper = styled.div`
   > p {
     color: red;
@@ -420,7 +420,7 @@ const Wrapper = styled.div`
 しかしやっかいなものがあり、それが :hover と &:hover です。
 これは SCSS の記法を考えると `&:hover` が正しいのですが、 `:hover` でも動くのが実情です。
 
-```jsx
+```javascriptx
 const AAA = styled.div`
   &:hover {
     color: blue;
@@ -469,7 +469,7 @@ FYI: https://github.com/ojisan-toybox/hover-spacing
 
 ちなみにこれは stylis を実行しても同様の結果が得られます。
 
-```js
+```javascript
 import { compile, serialize, stringify } from "stylis"
 
 const css = `
@@ -505,7 +505,7 @@ div :hover {
 
 ![styled-componentsからのCSSの出力結果を確認すると、hoverの前にspaceありなしで差はなかった](./css.png)
 
-```jsx
+```javascriptx
 import React from "react"
 import styled from "styled-components"
 
@@ -583,7 +583,7 @@ $ npx node-sass index.scss
 
 しかし styled-components では成功します。
 
-```jsx
+```javascriptx
 const CCC = styled.div`
   && {
     color: blue;
@@ -618,7 +618,7 @@ FYI: https://styled-components.com/docs/basics#pseudoelements-pseudoselectors-an
 
 あと個人的には
 
-```jsx
+```javascriptx
 const Component = styled.div`
   > p {
   }
@@ -637,7 +637,7 @@ SCSS の記法を意識すればわかりますね。
 
 ただし、 上の例に付け加えるなら
 
-```jsx
+```javascriptx
 const Component = styled.div`
   p {
   }
@@ -654,7 +654,7 @@ const Component = styled.div`
 
 そしてこれは直下だけではなく子を全て対象にとっています。
 
-```jsx
+```javascriptx
 const DDD = styled.div`
   p {
     color: green;
@@ -681,7 +681,7 @@ const DDD = styled.div`
 
 そして、この場合においては
 
-```jsx
+```javascriptx
 const DDD = styled.div`
   p {
     color: green;
@@ -704,7 +704,7 @@ const EEE = styled.div`
 :hover の利用は、styled-components では 動きますがやめておいた方が良さそうです。
 たとえば、styled-components が利用しているライブラリ(stylis)を直接叩くと white-space が入り、hover できない CSS が出力されることが確認できます。
 
-```js
+```javascript
 import { compile, serialize, stringify, tokenize, parse } from "stylis"
 
 const css = `

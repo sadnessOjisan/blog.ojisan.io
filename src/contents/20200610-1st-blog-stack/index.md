@@ -376,7 +376,7 @@ module.exports = {
 
 私の設定はこれです。
 
-```json:title=tsconfig.json
+```javascripton:title=tsconfig.json
 {
   "compilerOptions": {
     "target": "ESNext",

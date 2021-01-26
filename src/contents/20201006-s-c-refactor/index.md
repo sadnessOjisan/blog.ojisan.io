@@ -128,7 +128,7 @@ export default ContainerComponent
 
 hooks を使うようになってから 関数の中にイベントハンドラ関数をたくさん定義するといったことをして長くなったりなどしていましたが、それらを全部 ConatinerComponent に押し込めることができ、DOM と振る舞いを分離することができて読みやすくなったと思います。
 
-```jsx
+```javascriptx
 const ContainerComponent: React.FC<PassedProps> = props => {
   const [isOpen, setOpen] = React.useState(false)
   const containerProps = { isOpen, setOpen }
@@ -142,7 +142,7 @@ const ContainerComponent: React.FC<PassedProps> = props => {
 
 そのため container 側でフラグを全部作って埋め込むという実装になります。
 
-```jsx
+```javascriptx
 const Component: React.FC<Props> = (props) => {
   const { setShowState, showState, message } = props;
   return (
@@ -344,7 +344,7 @@ const ContainerComponent: React.FC<PassedProps> = props => {
 これはただの感想なのですが、なんか material-ui でみた API を作っている感じがしました。
 [component api](https://material-ui.com/api/alert/#css) を withStyles などで渡すやり方とほとんど同じでした。
 
-```jsx
+```javascriptx
 const StyledButton = withStyles({
   root: {
     background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",

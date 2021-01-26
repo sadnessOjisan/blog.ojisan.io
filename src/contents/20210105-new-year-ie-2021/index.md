@@ -30,7 +30,7 @@ TypeScript + preact 製のアプリケーションで、何らかのデータを
 
 webpack4 でビルドした際、そのバンドルは
 
-```js
+```javascript
 / ******/ (function(modules){
 / ******/ // module cache
 / ******/ var installeddModules = {};
@@ -41,7 +41,7 @@ webpack4 でビルドした際、そのバンドルは
 
 と出力されるのに対して、webpack5 では、
 
-```js
+```javascript
 / ******/(() => {
 / ******/ "use strict";
 / *!******************!*\
@@ -64,7 +64,7 @@ FYI: https://webpack.js.org/configuration/target/
 
 ここに
 
-```js:title=webpack.config.js
+```javascript:title=webpack.config.js
 {
     ...
     target: ["web", "es5"]
@@ -84,7 +84,7 @@ FYI: https://webpack.js.org/configuration/target/
 
 そのオプションが exclude で、
 
-```js:title=webpack.config.js
+```javascript:title=webpack.config.js
 module.exports = {
   module: {
     rules: [
@@ -111,7 +111,7 @@ module.exports = {
 
 たとえば goober のビルド済みファイルには `=>` が 13 箇所含まれており、そのままバンドルに含めるとランタイムでこけます。
 
-```js
+```javascript
 let e={data:""},t=t=>{try{let e=t?t.querySelector("#_goober"):self._goober;return e||(e=(t||document.head).appendChild(document.createElement("style")),e.innerHTML=" ",e.id="_goober"),e.firstChild}catch(e){}return t||e},r=e=>{let r=t(e),a=r.data;return r.data="",a},a=/(?:([A-Z0-9-%@]+) *:? *([^{;]+?);|([^;}{]*?) *{)|(})/gi,l=/\/\*[\s\S]*?\*\/|\s{2,}|\n/gm,o=(e,t)=>{let r,a="",l...
 ```
 
@@ -121,7 +121,7 @@ tsc でも babel で target を指定していれば (polyfill の都合が抜�
 「じゃあ exclude を剥がしなよ」となるのでそうしましょう。
 ただ全て exclude するのはやりすぎなので、IE 対応が必要なライブラリだけ include します。
 
-```js
+```javascript
 module.exports = {
   module: {
     rules: [
@@ -165,7 +165,7 @@ exclude しないということは、つまりライブラリ側のコードを
 
 自分のコードは状態管理部分を ContextAPI + useReducer で行っており、state を作るための計算で spread 演算子を使用します。
 
-```js
+```javascript
 export const reducer = (state: State, action: ActionType): State => {
   switch (action.type) {
     case START_FETCH_DATA:
@@ -199,7 +199,7 @@ export const reducer = (state: State, action: ActionType): State => {
 
 before
 
-```js
+```javascript
 const old = { k: "v" }
 
 const newObj = { ...old, k: "v2" }
@@ -207,7 +207,7 @@ const newObj = { ...old, k: "v2" }
 
 after
 
-```js
+```javascript
 "use strict"
 const old = { k: "v" }
 const newObj = Object.assign(Object.assign({}, old), { k: "v2" })
@@ -229,7 +229,7 @@ polyfill の入れ方は CDN 経由でヘッダに差し込んだり、node_moud
 
 私はこのようなコードを配置し、
 
-```js
+```javascript
 // @ts-nocheck
 /* eslint-disable */
 
@@ -273,7 +273,7 @@ if (!Object.assign) {
 
 [副作用として root で import](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Statements/import#Import_a_module_for_its_side_effects_only) しました。
 
-```js
+```javascript
 import "./lib/object-assign-polyfil"
 ```
 
@@ -304,7 +304,7 @@ FYI: https://github.github.io/fetch/
 
 これは fetch というメソッド名ではあるものの、内部では XMLHttpRequest を使うコードです。
 
-```js
+```javascript
 export function fetch(input, init) {
   return new Promise(function (resolve, reject) {
     var request = new Request(input, init)
@@ -330,7 +330,7 @@ whatwg-fetch の polyfill を import するだけでもいいのですが、こ�
 
 それを実現するスニペットとして[How to polyfill JavaScript fetch function for Internet Explorer](https://dev.to/adrianbdesigns/how-to-polyfill-javascript-fetch-function-for-internet-explorer-g46)にはこういうものがあります。
 
-```js
+```javascript
 var isIE = !!window.MSInputMethodContext && !!document.documentMode
 
 if (isIE) {
@@ -370,7 +370,7 @@ if (isIE) {
 
 CDN で読み込んでいる whatwg-http を確認してみると、(解説のため minify 前のライブラリを利用)
 
-```js
+```javascript
 if (!global.fetch) {
   global.fetch = fetch
   global.Headers = Headers

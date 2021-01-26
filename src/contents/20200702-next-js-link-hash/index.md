@@ -41,7 +41,7 @@ https://next-link-id.vercel.app/
 
 ちなみに動かなかったときのコードはこのようなコードです。
 
-```js:title=遷移元
+```javascript:title=遷移元
 import React, { useState } from "react"
 import Link from "next/link"
 import { useRouter } from "next/router"
@@ -67,7 +67,7 @@ export default () => {
 }
 ```
 
-```js:title=遷移先
+```javascript:title=遷移先
 import React, { useState, useEffect } from "react"
 
 export default () => {
@@ -103,7 +103,7 @@ export default () => {
 
 a タグで遷移した場合、動きました。
 
-```js:title=遷移元
+```javascript:title=遷移元
 import React, { useState } from "react"
 import Link from "next/link"
 
@@ -123,7 +123,7 @@ export default () => {
 }
 ```
 
-```js:title=遷移先
+```javascript:title=遷移先
 import React, { useState } from "react"
 
 export default () => {
@@ -157,7 +157,7 @@ export default () => {
 `router` は NextJS の useRouter Hooks から作れます。
 その `router`を使って `router.push(/cards#${id})` を実行して遷移します。
 
-```js:title=遷移元
+```javascript:title=遷移元
 import React, { useState } from "react"
 import { useRouter } from "next/router"
 
@@ -183,7 +183,7 @@ export default () => {
 }
 ```
 
-```js:title=遷移先
+```javascript:title=遷移先
 import React, { useState } from "react"
 
 export default () => {
@@ -217,7 +217,7 @@ export default () => {
 
 それが最初の例にあったこのようなコードです。
 
-```js:title=遷移元
+```javascript:title=遷移元
 import React, { useState } from "react"
 import Link from "next/link"
 import { useRouter } from "next/router"
@@ -243,7 +243,7 @@ export default () => {
 }
 ```
 
-```js:title=遷移先
+```javascript:title=遷移先
 import React, { useState, useEffect } from "react"
 
 export default () => {
@@ -279,7 +279,7 @@ export default () => {
 
 遷移先が叩いている API はこのようなものです
 
-```js
+```javascript
 export default (req, res) => {
   res.statusCode = 200
   res.setHeader("Content-Type", "application/json")
@@ -315,7 +315,7 @@ http://hogehoge.com#99999 のような URL から 99999 を取り出すために
 
 たとえばこのようなコードになります。
 
-```js
+```javascript
 useEffect(() => {
   setId(window.location.hash.replace("#", ""))
 }, [])
@@ -323,7 +323,7 @@ useEffect(() => {
 
 そして各コンポーネントに
 
-```js
+```javascript
 <div>
   {cards.map(id => (
     <Child id={id} isScroll={id === hashId}></Child>
@@ -342,7 +342,7 @@ MDN の説明を借りると、[scrollIntoView](https://developer.mozilla.org/ja
 
 これは Element インターフェースの持ち物なので ref から呼び出すことができます。
 
-```js
+```javascript
 const Child = ({ id, isScroll }) => {
   const ref = useRef()
   useEffect(() => {
@@ -362,7 +362,7 @@ const Child = ({ id, isScroll }) => {
 
 遷移後のページのコードはこうなります。
 
-```jsx
+```javascriptx
 import React, { useState, useEffect, useRef } from "react"
 
 export default () => {

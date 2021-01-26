@@ -16,7 +16,7 @@ isProtect: false
 
 moment では、
 
-```js
+```javascript
 const now = moment()
 console.log("now", now)
 const addNow = now.add(1, "days") // これをやるとnowそのものが書き換わるから注意！
@@ -30,7 +30,7 @@ console.log("addNow", addNow)
 
 console.log の位置を変えると、
 
-```js
+```javascript
 const now = moment()
 const addNow = now.add(1, "days") // これをやるとnowそのものが書き換わるから注意！
 console.log("now", now)
@@ -44,7 +44,7 @@ console.log("addNow", addNow)
 
 一方で luxon だと
 
-```js
+```javascript
 const luxon = require("luxon")
 
 const now = luxon.DateTime.local()
@@ -61,14 +61,14 @@ moment の後継ライブラリは基本的に immutable になっています�
 
 moment や dayjs は日付オブジェクトを作成するとき、
 
-```js
+```javascript
 const now = moment()
 console.log("now", now)
 ```
 
 などとできますが、luxon では DateTime というクラス（と呼んでいいかは知らないけど）を使って作る必要があります。
 
-```js
+```javascript
 const luxon = require("luxon")
 
 const now = luxon.DateTime.local()
@@ -84,7 +84,7 @@ DateTime にはいわゆる isAfter や isBefore のような関数が存在し�
 それに [公式](https://moment.github.io/luxon/docs/manual/math.html#comparing-datetimes) の推奨方法は違ったものです。
 それはただ
 
-```js
+```javascript
 d1 < d2
 ```
 
@@ -100,7 +100,7 @@ FYI: [比較演算子](https://developer.mozilla.org/ja/docs/Web/JavaScript/Refe
 
 YYYY-MM-DD 形式で取得するとき、moment だと
 
-```js
+```javascript
 // 日付までを表記
 const formatDate = moment().format("YYYY-MM-DD")
 console.log("formatDate", formatDate)
@@ -108,7 +108,7 @@ console.log("formatDate", formatDate)
 
 としていたものが、
 
-```js
+```javascript
 // 日付までを表記
 const formatDate = now.toISODate()
 console.log("formatDate", formatDate)
@@ -121,14 +121,14 @@ console.log("formatDate", formatDate)
 
 moment だと`require("moment-timezone");` とすることで、`.tz`を生やしていました。
 
-```js
+```javascript
 const samoa = utc.tz("Pacific/Apia")
 console.log("samoa", samoa)
 ```
 
 それが luxon では setZone として標準で使えます。
 
-```js
+```javascript
 const samoa = now.setZone("Pacific/Apia")
 console.log("samoa", samoa)
 ```

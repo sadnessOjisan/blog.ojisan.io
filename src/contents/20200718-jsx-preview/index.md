@@ -58,7 +58,7 @@ HTML から画像を作る仕組みはあるので、JSX から HTML に変換�
 
 ゴールとしては、
 
-```jsx
+```javascriptx
 <div style={{ color: "red" }}>Hello, World!</div>
 ```
 
@@ -100,7 +100,7 @@ React のドキュメントを探しても見つけられず、この方法に�
 とあり、babel-core が持っている API はそのまま使えそうです。
 そのためこの transform 関数に React.Element 文字列と JSX をコンパイルする plugin 名([transform-react-jsx](https://babeljs.io/docs/en/babel-plugin-transform-react-jsx/))を渡せば良いです。
 
-```js
+```javascript
 const res = babel.transform(reactElStr, {
   plugins: ["transform-react-jsx"],
 })
@@ -119,7 +119,7 @@ monaco エディタに入力された文字列から React.Element を生成で�
 
 とあり、ReactElement を HTML に変換できます。
 
-```js
+```javascript
 const newHtml = ReactDOMServer.renderToString(el)
 ```
 

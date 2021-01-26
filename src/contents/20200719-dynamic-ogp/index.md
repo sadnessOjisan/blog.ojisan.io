@@ -52,7 +52,7 @@ node-canvas は
 
 例えば、
 
-```js
+```javascript
 import { join } from "path"
 import { createCanvas, loadImage, registerFont } from "canvas"
 
@@ -83,7 +83,7 @@ const createOGP = async title => {
 
 その時に使っていたコードはこういうものです。
 
-```js
+```javascript
 import * as fs from "fs"
 import * as functions from "firebase-functions"
 import * as admin from "firebase-admin"
@@ -156,7 +156,7 @@ const upload = async (image: Buffer): Promise<void> => {
 NextJS を使っていると別のホスティングサービスから叩いているはずなので(なぜなら Firebase に NextJS 向けのサービスがないから)、別ドメインからのリクエストに対する対応、つまり CORS の許可が必要になります。
 [公式](https://cloud.google.com/functions/docs/writing/http?hl=ja#handling_cors_requests)でも解説されている通り、次のコードが必要になります。
 
-```js
+```javascript
 response.set("Access-Control-Allow-Origin", "*")
 
 if (request.method === "OPTIONS") {
@@ -181,7 +181,7 @@ if (request.method === "OPTIONS") {
 
 画像のアップロード関数では、
 
-```js
+```javascript
 const upload = async (image: Buffer): Promise<void> => {
   const loaclTargetPath = `/tmp/target.png`
   const targetPath = `${CLOUD_STORAGE_KEYS.QUESTION}/ogp.png`
@@ -255,7 +255,7 @@ Firebase の SDK には Storage の DL パスを取得できる機能がある�
 
 どうやらドキュメントの[URL 経由でデータをダウンロードする](https://firebase.google.com/docs/storage/web/download-files?hl=ja#download_data_via_url)を見ると、`getDownloadURL` で可能なようです。
 
-```js
+```javascript
 var storageRef = firebase.storage().ref()
 storageRef
   .child("images/stars.jpg")
@@ -283,7 +283,7 @@ storageRef
 
 ここで取得したい URL は SSR 時に必要なので、`getServerSideProps` を使って記述しましょう。
 
-```js
+```javascript
 export async function getServerSideProps() {
   ...
   const url = await storageRef.child("images/stars.jpg").getDownloadURL()
@@ -298,7 +298,7 @@ NextJS の getServerSideProps は SSR 時の処理でいままさしく SSR 時�
 
 そこで、Admin 系ライブラリを利用しましょう。
 
-```js
+```javascript
 export const getOgpImagePath = functions
   .region("asia-northeast1")
   .https.onRequest(async (request, response) => {
@@ -330,7 +330,7 @@ Cloud Functions を使うので**無料では動かない**ですが・・・
 
 案 2 と同じく画像を作った後にこの upload 関数を実行すればいいです。
 
-```js
+```javascript
 const upload = async (image: Buffer): Promise<void> => {
   const loaclTargetPath = `/tmp/target.png`
   const localBasePath = "/tmp/base.png"
@@ -366,7 +366,7 @@ vercel の裏側は lambda らしいのですが、どうやら書き込み権�
 OGP 画像をバイナリで返す API を持っておけば、この API 自体を meta tag に埋め込めば OGP の展開ができます。
 つまり先ほどの API を、
 
-```js
+```javascript
 import { join } from "path"
 import { createCanvas, loadImage } from "canvas"
 import { NextApiRequest, NextApiResponse } from "next"
@@ -406,7 +406,7 @@ const createOGP = async (): Promise<Buffer> => {
 `response.end(buf, "binary")` で作った画像を binary で返してしまえばいいのです。
 そうするとこれを展開する側は、
 
-```jsx
+```javascriptx
 import * as React from "react"
 import Head from "next/head"
 
@@ -434,7 +434,7 @@ export default function Post(props: IProps): JSX.Element {
 
 簡易的な例としてはこんな感じです。
 
-```jsx
+```javascriptx
 import * as React from "react"
 import Head from "next/head"
 

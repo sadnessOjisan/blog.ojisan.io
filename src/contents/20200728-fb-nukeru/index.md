@@ -93,7 +93,7 @@ Firebase と React の組み合わせ経験がある方は [react-firebase-hooks
 
 react-firebase-hooks/firestore は、
 
-```js
+```javascript
 const [userData, userDataLoading] = useCollection(
   firebase.firestore().collection("user"),
   {
@@ -141,7 +141,7 @@ db.collection("cities")
 Firebase を使う為にはアプリケーション内で 初期設定をする必要があります。
 例えばこのようなものです。
 
-```js
+```javascript
 firebase.initializeApp({
   apiKey: "XXXXXXX",
   authDomain: "XXXXXXX",
@@ -222,7 +222,7 @@ export default class Firebase {
 たとえば、初期化するポイントを明示的に指定しないと言うことはあらゆるところで初期化される恐れがあり、また明示的に指定しても React の書き方次第では再レンダリングの影響で再初期化がされるということもあります。
 それに対しては
 
-```js
+```javascript
 if (!firebase.apps.length) {
   firebase.initializeApp({
     apiKey: "XXXXXXX",
@@ -349,7 +349,7 @@ export default () => {
 
 ちなみにここで書いた user の監視問題は [react-firebase-hook/auth](https://github.com/CSFrequency/react-firebase-hooks/tree/master/auth) を使えば鮮やかに解決できたりもします。
 
-```js:title=例
+```javascript:title=例
 import { useAuthState } from "react-firebase-hooks/auth"
 
 const login = () => {
@@ -405,7 +405,7 @@ state や store を配信すると、SSR 前提のアプリであれば routing 
 それをやっているのが先に出したコードの useEffect の部分です。
 認証が必要なページにこれを書いておけば、そのページに来るたびに useEffect が呼ばれ認証が済んでるかチェック、そしてチェックされていたらユーザー情報を store に保存します。
 
-```jsx
+```javascriptx
 React.useEffect(() => {
   SessionRepository.checkAlreadyLogin({
     successHandle: (userId: string) => {

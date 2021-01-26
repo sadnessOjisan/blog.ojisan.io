@@ -22,7 +22,7 @@ stylis は styled-components の内部で使われており、styled-components 
 
 ## 内部の構造
 
-```js:title=src/index.js
+```javascript:title=src/index.js
 export * from "./src/Enum.js"
 export * from "./src/Utility.js"
 export * from "./src/Parser.js"
@@ -133,14 +133,14 @@ compile って AST を何らかの generator に入れた最終結果が返っ�
 
 公式にも下記のような例があり、これによって CSS を出力できるようです。
 
-```js
+```javascript
 serialize(compile(css), stringify)
 ```
 
 つまり AST => CSS を担う鍵は serialize と stringify にありそうです。
 そこでコードを読んでみたり実行したりしてみましょう。
 
-```js:title=src/Serializer.js
+```javascript:title=src/Serializer.js
 export function stringify(element, index, children, callback) {
   switch (element.type) {
     case IMPORT:
@@ -175,7 +175,7 @@ export function serialize(children, callback) {
 そして serialize は stringify が繰り返し実行された結果をまとめあげる役割をになっており、stringify は 渡された AST Node の種類に応じて CSS を組み立てます。
 組み立てにおける注視すべきポイントは
 
-```js
+```javascript
 return strlen((children = serialize(element.children, callback)))
   ? (element.return = element.value + "{" + children + "}")
   : ""
@@ -191,7 +191,7 @@ CSS セレクタは AST の props に含まれています。
 
 最初に紹介した例を実行した AST はこうです。
 
-```js
+```javascript
 ;[
   {
     value: "div",
@@ -258,7 +258,7 @@ props にそれらしきものがあることが確認できるはずです。
 
 そして
 
-```js
+```javascript
 case RULESET:
       element.value = element.props.join(",")
 ```
@@ -267,7 +267,7 @@ case RULESET:
 しかし、element.value は 本当に selector だけが含まれるのでしょうか？
 switch の他の節には
 
-```js
+```javascript
 case IMPORT:
     case DECLARATION:
       return (element.return = element.return || element.value)
@@ -283,7 +283,7 @@ debugger で inspect した部分を下記に貼り付けておきます。
 
 debugger について詳しくは https://blog.ojisan.io/how-to-read-js#debugger-%E3%81%A8-node-inspect 参照.
 
-```js
+```javascript
 > console.log(astnode[1].children)
 < [
 <   {
@@ -329,7 +329,7 @@ debugger について詳しくは https://blog.ojisan.io/how-to-read-js#debugger
 ただ読み進めていくと、相互呼び出しの停止条件を満たすことで value にセレクタ以外が入ることがないことを確認できます。
 type に decl を持った CSS の children は 値(文字)なので、次の `serialize(element.children, callback))` 呼び出しの `element.children` は undefined となり、
 
-```js
+```javascript
 export function serialize(children, callback) {
   var output = ""
   var length = sizeof(children)
@@ -343,7 +343,7 @@ export function serialize(children, callback) {
 
 がそのまま `output = ""` が出力されることとなり、
 
-```js
+```javascript
 return strlen((children = serialize(element.children, callback)))
   ? (element.return = element.value + "{" + children + "}")
   : ""

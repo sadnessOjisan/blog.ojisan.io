@@ -367,7 +367,7 @@ FYI: https://eslint.org/docs/user-guide/configuring#use-a-plugin
 
 実際、eslint-plugin-prettier の package.json は
 
-```json:title=package.json
+```javascripton:title=package.json
 {
   ...
   "dependencies": {

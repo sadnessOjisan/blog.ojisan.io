@@ -27,7 +27,7 @@ markdown ファイル内では [frontmatter](https://www.gatsbyjs.org/docs/addin
 
 この記事だと、
 
-```js
+```javascript
 ---
 path: /gatsby-create-tag
 created: "2020-07-17"
@@ -49,7 +49,7 @@ YAML 形式で書く場合、文字列は `" "` がなくても動くことは�
 GraphQL 上で allMarkdownRemark と markdownRemark というクエリを使えば markdown ファイルを取得できます（前者は全件取得、後者は単一取得でありデータの構造は同じ）。
 frontmatter の情報はその markdown ファイルに含まれているので、
 
-```js
+```javascript
 query AllBlogs {
   blogs: allMarkdownRemark {
     nodes {
@@ -63,7 +63,7 @@ query AllBlogs {
 
 といったクエリや
 
-```js
+```javascript
 query BlogTemplate($path: String!) {
   markdownRemark(frontmatter: { path: { eq: $path } }) {
     frontmatter {
@@ -92,7 +92,7 @@ query BlogTemplate($path: String!) {
 
 例えばこの Blog では、
 
-```js
+```javascript
 const path = require(`path`)
 
 exports.createPages = async ({ actions, graphql, reporter }) => {
@@ -151,7 +151,7 @@ Gatsby が実行する createPages 関数からは createPage というページ
 
 タグ情報の取得は
 
-```js
+```javascript
 allMarkdownRemark(limit: 1000) {
   group(field: frontmatter___tags) {
     tag: fieldValue
@@ -170,7 +170,7 @@ allMarkdownRemark(limit: 1000) {
 ではタグ情報を取得できるようになったので、タグに紐づくページを作っていきましょう。
 仮にクエリの結果が data という変数に入っているなら、
 
-```js
+```javascript
 data.tags.group.forEach(d => {
   createPage({
     path: `/tags/${d.tag}`,
@@ -189,7 +189,7 @@ createPage 関数を呼ぶだけでページを作れるのは楽ですね。
 
 他の解説記事をみると
 
-```js
+```javascript
 const _ = require('lodash')
 
 ...
@@ -221,7 +221,7 @@ data.tags.group.forEach(d => {
 
 これは簡単で、記事詳細となる template の内の query に tags フィールドを追加するだけです。
 
-```js
+```javascript
 export const pageQuery = graphql`
   query BlogTemplate($path: String!) {
     markdownRemark(frontmatter: { path: { eq: $path } }) {
@@ -240,7 +240,7 @@ export const pageQuery = graphql`
 
 例えばこのブログでは、
 
-```jsx
+```javascriptx
 <div className={styles.tags}>
   {markdownRemark.frontmatter.tags.map(
     tag =>
@@ -262,7 +262,7 @@ export const pageQuery = graphql`
 これも tags のクエリを発行するだけで解決します。
 そのクエリは単一取得用のクエリじゃなくて、全件取得用のクエリでも使えることに留意しておきましょう。
 
-```js
+```javascript
 export const pageQuery = graphql`
   query AllBlogs {
     allMarkdownRemark {
@@ -289,7 +289,7 @@ export const pageQuery = graphql`
 そのテンプレートで、記事一覧ページのようなものを作っていきます。
 流し込まれるデータがタグごとの記事であるものの、機能としては記事一覧と全く同じになるはずです。
 
-```js
+```javascript
 export const pageQuery = graphql`
   query TagTemplate($tag: String!) {
     allMarkdownRemark(
@@ -316,7 +316,7 @@ export const pageQuery = graphql`
 そしてこの\$tag は gatsby-node.js の createPage の context に埋め込んでおけば参照できます。
 [公式チュートリアル 7 章](https://www.gatsbyjs.org/tutorial/part-seven/)を参照すると、
 
-```js
+```javascript
 result.data.allMarkdownRemark.edges.forEach(({ node }) => {
   createPage({
     path: node.fields.slug,
@@ -341,7 +341,7 @@ result.data.allMarkdownRemark.edges.forEach(({ node }) => {
 
 タグの一覧ページも作りましょう。もちろん一覧ページとしてではなく一覧コンポーネントとして提供したい場合もあると思いますが、基本的には同じように考えてくれると大丈夫です。（いまはページコンポーネント以外からも GraphQL を叩ける [useStaticQuery](https://www.gatsbyjs.org/blog/2019-02-20-introducing-use-static-query/) というのがあるのでそれも覚えておこう！）
 
-```jsx
+```javascriptx
 import * as React from "react"
 import { graphql, Link } from "gatsby"
 import Layout from "../components/layout"

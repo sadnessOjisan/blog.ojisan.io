@@ -17,7 +17,7 @@ isProtect: false
 
 とあるので、@babel/plugin-transform-typescript を使うとビルドできそうですが、それだけだとは動きません。
 
-```js:title=babel.config.js
+```javascript:title=babel.config.js
 module.exports = {
   plugins: [
     "@babel/plugin-transform-typescript",
@@ -44,7 +44,7 @@ SyntaxError: /toybox/plugin-with-isTSX/src/index.tsx: Unexpected token, expected
 
 そのためフラグを渡すように書き換えると、
 
-```js:title=babel.config.js
+```javascript:title=babel.config.js
 module.exports = {
   plugins: [
     ["@babel/plugin-transform-typescript", { isTSX: true }],

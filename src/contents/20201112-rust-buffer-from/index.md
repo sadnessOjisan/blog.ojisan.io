@@ -14,7 +14,7 @@ websocket サーバーを作る時に sha1 の base64 ダイジェスト値が�
 
 Node.js でいう
 
-```js
+```javascript
 require("crypto").createHash("sha1").update(key).digest("base64")
 ```
 
@@ -25,13 +25,13 @@ require("crypto").createHash("sha1").update(key).digest("base64")
 
 まず、
 
-```js
+```javascript
 require("crypto").createHash("sha1").update(key).digest("base64")
 ```
 
 は
 
-```js
+```javascript
 Buffer.from(
   require("crypto").createHash("sha1").update(key).digest("base64"),
   "hex"
@@ -43,7 +43,7 @@ Buffer.from(
 `digest()` は `'base64'` 以外にも `'hex'` を指定できます。
 `'hex'`を指定すると sha1 を 16 進数で返します。
 
-```js
+```javascript
 const key = 'this_is_key'
 console.log(require("crypto").createHash("sha1").update(key).digest("hex");)
 // 558c6e2f93212d10f8b4ab1ac77031e2ba157471
@@ -52,7 +52,7 @@ console.log(require("crypto").createHash("sha1").update(key).digest("hex");)
 そしてこれを Buffer.from でバイト列にします。
 このとき、hex を指定するのを忘れないでください。
 
-```js
+```javascript
 Buffer.from(
   require("crypto").createHash("sha1").update(key).digest("hex"),
   "hex"
@@ -70,13 +70,13 @@ digest 値は 16 進数に変換されていて、Buffer.from はデフォルト
 
 そうするとあとはこれを base64 にします。
 
-```js
+```javascript
 .toString("base64")
 ```
 
 これで、
 
-```js
+```javascript
 console.log(
   Buffer.from(
     require("crypto").createHash("sha1").update(key).digest("base64"),
@@ -110,7 +110,7 @@ let sha1_string = hasher.result_str();
 
 ということはここで
 
-```js
+```javascript
 Buffer.from(
   require("crypto").createHash("sha1").update(key).digest("hex"),
   "hex"

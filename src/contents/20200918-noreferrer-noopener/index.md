@@ -21,7 +21,7 @@ noreferrer だけでも問題はないが、ちょーーーーーーーーーー
 
 a タグ には target=\_blank という設定があり、別タブで開かせることができます。
 
-```jsx
+```javascriptx
 <a href="http://example.com" target="_blank">
   アンカーリンク
 </a>
@@ -29,7 +29,7 @@ a タグ には target=\_blank という設定があり、別タブで開かせ�
 
 そこには `rel="noopener noreferrer"` を付けようという話があり、
 
-```jsx
+```javascriptx
 <a href="http://example.com" target="_blank" rel="noopener noreferrer">
   アンカーリンク
 </a>
@@ -70,7 +70,7 @@ FYI: https://chaika.hatenablog.com/entry/2018/12/06/110000
 
 ところでこの rel がついていないコード
 
-```jsx
+```javascriptx
 <a href="http://example.com" target="_blank">
   アンカーリンク
 </a>
@@ -88,7 +88,7 @@ react/jsx-no-target-blank
 
 なので、
 
-```jsx
+```javascriptx
 <a href="http://example.com" target="_blank" rel="noreferrer">
   アンカーリンク
 </a>

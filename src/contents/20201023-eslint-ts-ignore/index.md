@@ -121,20 +121,20 @@ ESLint の rule の設定そのものを書けるので、ここで 0(つまり 
 
 `eslint-disable-next-line` を使って下の行のエラーをピンポイントで抑制できます。
 
-```js
+```javascript
 // eslint-disable-next-line
 hoge
 ```
 
 また、eslint-disable-line とすれば同一行のエラーを抑制できます。
 
-```js
+```javascript
 hoge // eslint-disable-line
 ```
 
 またコメントの後ろにルール名を書けばそのルールだけをピンポイントで抑制できます。
 
-```js
+```javascript
 // eslint-disable-next-line ルール名
 hoge
 
@@ -145,7 +145,7 @@ fuga // eslint-disable-line ルール名
 
 `eslint-disable` と `eslint-enable` で囲った範囲はそこだけエラーを抑制できます。
 
-```js
+```javascript
 /* eslint-disable ルール名 */
 hoge
 fuga
@@ -162,7 +162,7 @@ piyo
 
 つまり、たとえば行単位での無視の場合
 
-```js
+```javascript
 alert("foo") // eslint-disable-line no-alert, quotes, semi
 
 // eslint-disable-next-line no-alert, quotes, semi
@@ -173,7 +173,7 @@ alert("foo")
 
 同様に ブロック単位の無視においては
 
-```js
+```javascript
 /* eslint-disable no-alert, no-console */
 
 alert("foo")

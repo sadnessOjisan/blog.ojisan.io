@@ -50,7 +50,7 @@ preact のコードリーディングを進める上では VNode というオブ
 
 を
 
-```js
+```javascript
 {
   type: 'div',
   childrens: [{
@@ -73,7 +73,7 @@ preact のコードリーディングを進める上では VNode というオブ
 preact もいわゆる仮想 DOM 系のライブラリです。
 そのデータ構造は VNode と呼ばれるオブジェクトに従いますが、これを作る関数が h 関数 です。
 
-```js
+```javascript
 import { h, render } from "https://unpkg.com/preact?module"
 
 const app = h("h1", null, "Hello World!")
@@ -87,7 +87,7 @@ render(app, document.body)
 ただ h は見辛い点もあるので、そこで使われるのが お馴染みの jsx です。
 先ほどのコードは、
 
-```jsx
+```javascriptx
 import { h, render } from "https://unpkg.com/preact?module"
 
 const app = <h1>Hello World!</h1>
@@ -100,13 +100,13 @@ render(app, document.body)
 そして h 関数の引数は `h(type, props, ...children)` となっており、props を持たせることもできます。
 そのため例えば、
 
-```js
+```javascript
 h("div", { id: "foo" }, "Hello!")
 ```
 
 は、
 
-```jsx
+```javascriptx
 <div id="foo">Hello!</div>
 ```
 
@@ -129,7 +129,7 @@ preact の内部では jsx は h 関数に変換されて VNode 形式でデー�
 これは rollup のラッパーで作者が preact のビルド設定をデフォルトに設定したものです。
 package.json のフィールドをみてビルドをしてくれるため、zero config でビルドできます。
 
-```json:title=package.json
+```javascripton:title=package.json
 {
   "name": "foo", // your package name
   "source": "src/foo.js", // your source code
@@ -151,7 +151,7 @@ preact は JavaScript で実装されています。
 TypeScript ではありません。
 ただし JSDoc に型情報があり、型を出力しています。
 
-```js
+```javascript
 /**
  * Render a Preact virtual node into a DOM element
  * @param {import('./index').ComponentChild} vnode The virtual node to render
@@ -203,19 +203,19 @@ export interface VNode<P = {}> extends preact.VNode<P> {
 
 簡単な例をあげると、
 
-```jsx
+```javascriptx
 <div id="foo">Hello!</div>
 ```
 
 は、
 
-```js
+```javascript
 h("div", { id: "foo" }, "Hello!")
 ```
 
 となり、h が返す VNode は
 
-```js
+```javascript
 const vnode = {
   type: "div"
   props: { id: "foo" }
@@ -257,7 +257,7 @@ preact が行っていることは、DOM を VNode で表現しなにかしら�
 render から読み進めていきましょう。
 目標は、
 
-```jsx
+```javascriptx
 import { h, render, Component } from "preact"
 
 class App extends Component {
@@ -296,7 +296,7 @@ hydrate, context, ref など上記の目標に関わらないところは説明�
 
 render の実装はこうなっています。
 
-```js:title=render.js
+```javascript:title=render.js
 import { EMPTY_OBJ, EMPTY_ARR } from "./constants"
 import { commitRoot, diff } from "./diff/index"
 import { createElement, Fragment } from "./create-element"
@@ -336,7 +336,7 @@ export function render(vnode, parentDom, replaceNode) {
 
 まず、render はユーザーからは
 
-```js
+```javascript
 render(<App />, document.getElement("body"))
 ```
 
@@ -344,7 +344,7 @@ render(<App />, document.getElement("body"))
 
 render ではこの `<App />` が
 
-```js
+```javascript
 vnode = createElement(Fragment, null, [vnode])
 ```
 
@@ -352,7 +352,7 @@ vnode = createElement(Fragment, null, [vnode])
 
 そして
 
-```js
+```javascript
 diff(
   parentDom,
   ((isHydrating ? parentDom : replaceNode || parentDom)._children = vnode),
@@ -377,7 +377,7 @@ diff(
 
 三項演算子や OR でごちゃごちゃしていますが、hydrate がされない初回レンダリングだと、
 
-```js
+```javascript
 diff(
   parentDom,
   vnode,
@@ -393,7 +393,7 @@ diff(
 
 そして最後に
 
-```js
+```javascript
 commitRoot(commitQueue, vnode)
 ```
 
@@ -410,7 +410,7 @@ diff 関数は次のようになっています。
 全体像は[こちら](https://github.com/preactjs/preact/blob/master/src/diff/index.js)ですが、長すぎて追いにくいので大事なところ以外削って、分岐の条件などをみやすくします。
 これから読んでいくコードはこのような関数です。
 
-```js:title=diff/index.js
+```javascript:title=diff/index.js
 export function diff(
   parentDom,
   newVNode,
@@ -567,7 +567,7 @@ export function diff(
 
 まず最初に
 
-```js
+```javascript
 newType = newVNode.type
 ```
 
@@ -594,7 +594,7 @@ export type ComponentFactory<P> =
 
 タイプによる分岐の説明に入る前に
 
-```js
+```javascript
 outer: if (typeof newType == 'function') {
 ```
 
@@ -611,7 +611,7 @@ goto みたいものなので普段はあまり使われてはいません。
 
 その分岐は
 
-```js:title=diff/index.js
+```javascript:title=diff/index.js
 if (typeof newType == "function") {
   // no op
 } else if (
@@ -632,7 +632,7 @@ if (typeof newType == "function") {
 
 VNode にある情報を使ってコンポーネントを作ります。
 
-```js:title=diff/index.js
+```javascript:title=diff/index.js
 if (oldVNode._component) {
   c = newVNode._component = oldVNode._component
   clearProcessingException = c._processingException = c._pendingError
@@ -664,7 +664,7 @@ if (c._nextState == null) {
 もしすでにコンポーネントがあるのならばそれを使いまわし、なければ新しく作ります。
 たとえば
 
-```js
+```javascript
 c = newVNode._component = oldVNode._component
 ```
 
@@ -674,7 +674,7 @@ c = newVNode._component = oldVNode._component
 新しく作る場合、その新しい VNode の type がコンポーネントかどうかに着目します。
 もしそれがコンポーネントならばその constructor を呼び出して使いまわし、そうでなければ Component のインスタンスを作ります。
 
-```js:title=diff/index.js
+```javascript:title=diff/index.js
 if ("prototype" in newType && newType.prototype.render) {
   newVNode._component = c = new newType(newProps, componentContext)
 } else {
@@ -688,7 +688,7 @@ diff は render 以外からも呼ばれるので、newType にコンポーネ�
 
 もし 新しく Component インスタンスを作った場合は必要な値を初期化します。
 
-```js:title=diff/index.js
+```javascript:title=diff/index.js
 // 作ったコンポーネントに値を詰め込む
 c.props = newProps
 if (!c.state) c.state = {}
@@ -698,7 +698,7 @@ c._renderCallbacks = []
 
 そして、コンポーネントを使いまわした場合 & 新しく作った場合の共通の初期化を行います。
 
-```js:title=diff/index.js
+```javascript:title=diff/index.js
 // この 処理により必ず _nextState はなんらかの値を持つ。c.stateの初期値は {}
 if (c._nextState == null) {
   c._nextState = c.state
@@ -714,7 +714,7 @@ oldState = c.state
 ライフサイクルイベントには componentWillReceiveProps など差分更新のタイミングで実行するものもあります。
 反対に componentDidMount は diff を取った後に実行するのでここでは実行されません。
 
-```js:title=diff/index.js
+```javascript:title=diff/index.js
 if (isNew) {
   // 新しく渡ってきたコンポーネントの場合(VNodeがfunctionでないとき)
   if (
@@ -781,7 +781,7 @@ isNew つまりコンポーネントが新規作成ならば、`componentWillMou
 
 その挙動をまさしく再現しているのが次のコードです。
 
-```js:title=diff/index.js
+```javascript:title=diff/index.js
 // 再レンダリング抑制
 if (
   (!c._force &&
@@ -807,7 +807,7 @@ if (
 
 そして大事な処理が
 
-```js
+```javascript
 diffChildren(
   parentDom,
   Array.isArray(renderResult) ? renderResult : [renderResult],
@@ -838,7 +838,7 @@ diff を取る対象がコンポーネントであれば、必ずその子要素
 
 diff を取る対象が primitive の場合のコードブロックは次の通りです。
 
-```js:title=diff/index.js
+```javascript:title=diff/index.js
 else if (excessDomChildren == null && newVNode._original === oldVNode._original) {
   // 基本的にはこの分岐には入らないから考えない
   newVNode._children = oldVNode._children
@@ -860,7 +860,7 @@ else if (excessDomChildren == null && newVNode._original === oldVNode._original)
 
 この diffElementNodes は一体なんでしょうか。
 
-```js
+```javascript
 newVNode._dom = diffElementNodes(
   oldVNode._dom,
   newVNode,
@@ -893,7 +893,7 @@ newVNode._dom = diffElementNodes(
 `diffElementNodes` は 要素の props を比較して、更新があればそれを DOM に反映する処理の起点となるものです。
 `diffElementNodes` の定義はこうなっています。
 
-```js:title=diff/index.js
+```javascript:title=diff/index.js
 function diffElementNodes(
   dom,
   newVNode,
@@ -1005,7 +1005,7 @@ function diffElementNodes(
 
 比較に使う変数を取り出します。
 
-```js:title=diff/index.js
+```javascript:title=diff/index.js
 let i
 
 // 比較対象の抽出
@@ -1021,7 +1021,7 @@ isSvg = newVNode.type === "svg" || isSvg
 反映させるべき DOM がない場合は作ります。
 これは主に初回レンダリング、もしくは要素追加による再レンダリングのときの分岐です。
 
-```js:title=diff/index.js
+```javascript:title=diff/index.js
 if (dom == null) {
   if (newVNode.type === null) {
     return document.createTextNode(newProps)
@@ -1037,7 +1037,7 @@ if (dom == null) {
 
 面白いのは
 
-```js
+```javascript
 if (newVNode.type === null) {
   return document.createTextNode(newProps)
 }
@@ -1047,13 +1047,13 @@ if (newVNode.type === null) {
 
 VNode.type が null のときは
 
-```js
+```javascript
 h("div", null, [3])
 ```
 
 のようなもので、JSX でいう
 
-```js
+```javascript
 const C = () => {
   return 3
 }
@@ -1068,7 +1068,7 @@ DOM の要素は `Node | Text` で識別ますが、その Text がこれに該�
 
 そして、
 
-```js:title=diff/index.js
+```javascript:title=diff/index.js
 if (newVNode.type === null) {
   if (oldProps !== newProps && (!isHydrating || dom.data !== newProps)) {
     dom.data = newProps
@@ -1085,7 +1085,7 @@ if (newVNode.type === null) {
 
 #### 差分の比較と DOM への反映
 
-```js:title=diff/index.js
+```javascript:title=diff/index.js
 oldProps = oldVNode.props || EMPTY_OBJ
 
 // props の diff を取って DOM に反映する関数. この関数は 実DOM を直接操作する
@@ -1117,7 +1117,7 @@ diffProps で、props の 差分を比較します。
 そして続く `diffChildren` で、props に children があればそれを比較します。
 ちなみに children は createElement 経由で VNode が作られた場合 props に埋め込まれます。
 
-```js:title=create-element.js
+```javascript:title=create-element.js
 if (children != null) {
   normalizedProps.children = children
 }
@@ -1129,7 +1129,7 @@ if (children != null) {
 
 続くコードでは form 要素への対応をします。
 
-```js:title=diff/index.js
+```javascript:title=diff/index.js
 // form周りの扱い. input 要素が value や checked を持っている場合の扱い
 if (
   "value" in newProps &&
@@ -1167,7 +1167,7 @@ setProperty でそれぞれの value, checked をピンポイントで渡すよ�
 
 diffProps は 新旧の props を比較して、差分があればその差分を 後述する setProperty を使って上書く関数です。
 
-```js:title=diff/props.js
+```javascript:title=diff/props.js
 export function diffProps(dom, newProps, oldProps, isSvg, hydrate) {
   let i
 
@@ -1199,7 +1199,7 @@ export function diffProps(dom, newProps, oldProps, isSvg, hydrate) {
 その名の通り、props を要素に埋め込む関数です。
 **差分更新を適用する直接的な関数です**
 
-```js:title=diff/props.js
+```javascript:title=diff/props.js
 export function setProperty(dom, name, value, oldValue, isSvg) {
   let useCapture, nameLower, proxy
 
@@ -1283,7 +1283,7 @@ export function setProperty(dom, name, value, oldValue, isSvg) {
 
 この関数 `setProperty(dom, name, value, oldValue, isSvg)` は、`diffProps` からは
 
-```js:title=diff/props.js
+```javascript:title=diff/props.js
 for (i in newProps) {
   // 新旧propsに差分があるとsetProperty
   if (
@@ -1311,7 +1311,7 @@ DOM を直接書き換えるヘルパーとしても見ていいかもしれま�
 
 この `setStyle` は
 
-```js:title=diff/props.js
+```javascript:title=diff/props.js
 function setStyle(style: CSSStyleDeclaration, key, value) {
   if (key[0] === "-") {
     style.setProperty(key, value)
@@ -1327,7 +1327,7 @@ function setStyle(style: CSSStyleDeclaration, key, value) {
 
 といった関数で、`dom.style` に対して CSS のセット（=DOM の更新）をしています。
 
-```jsx
+```javascriptx
 <div style={{ margin: 16 }}></div>
 ```
 
@@ -1337,7 +1337,7 @@ function setStyle(style: CSSStyleDeclaration, key, value) {
 
 `else if (name[0] === "o" && name[1] === "n") {` では、
 
-```js:title=diff/props.js
+```javascript:title=diff/props.js
 if (value) {
   if (!oldValue) dom.addEventListener(name, proxy, useCapture)
 } else {
@@ -1351,7 +1351,7 @@ if (value) {
 
 #### name への props 適用
 
-```js:title=diff/props.js
+```javascript:title=diff/props.js
 else if (
     name !== "list" &&
     name !== "tagName" &&
@@ -1373,7 +1373,7 @@ else if (
 `else if ( value == null ||` の分岐では、`<a href={false}></a>` などが当たります。
 この場合
 
-```js
+```javascript
 dom.removeAttribute(name)
 ```
 
@@ -1381,7 +1381,7 @@ dom.removeAttribute(name)
 
 これはとても嬉しい機能で、例えば
 
-```js
+```javascript
 <Hoge data={isData && data} />
 ```
 
@@ -1399,7 +1399,7 @@ dom.removeAttribute(name)
 子要素のそれぞれに対して diff を実行して掘っていく役割を持ちます。
 全体を示すとこのような感じになります。
 
-```js:title=diff/children.js
+```javascript:title=diff/children.js
 export function diffChildren(
   parentDom,
   renderResult,
@@ -1571,7 +1571,7 @@ export function diffChildren(
 
 oldDOM が`{}`のときの初期化処理です。
 
-```js:title=diff/children.js
+```javascript:title=diff/children.js
 if (oldDom == EMPTY_OBJ) {
   if (excessDomChildren != null) {
     oldDom = excessDomChildren[0]
@@ -1592,7 +1592,7 @@ if (oldDom == EMPTY_OBJ) {
 
 そして次に子要素の配列から一つずつ子要素を取り出して diff を取る処理をします。
 
-```js:title=diff/children.js
+```javascript:title=diff/children.js
 for (i = 0; i < renderResult.length; i++) {
   // props.children から child を取り出す
   childVNode = renderResult[i]
@@ -1608,7 +1608,7 @@ for (i = 0; i < renderResult.length; i++) {
 もともと childVNode という変数であるものの、これはただの 値(createElement に渡される JSON そのもの)であるためです。
 そのもともと childVNode に入っていた値によって作るべき VNode が異なるのでこのような分岐になっています。
 
-```js:title=diff/children.js
+```javascript:title=diff/children.js
 if (childVNode == null || typeof childVNode == "boolean") {
   // JSXの中に{null}とか{true}を入れてる場合の挙動
   childVNode = newParentVNode._children[i] = null
@@ -1648,7 +1648,7 @@ if (childVNode == null || typeof childVNode == "boolean") {
 
 作り出した VNode にその親コンポーネントを登録します。
 
-```js
+```javascript
 // 作りだしたVNodeの親が何か記録する
 childVNode._parent = newParentVNode
 childVNode._depth = newParentVNode._depth + 1
@@ -1662,7 +1662,7 @@ childVNode._depth = newParentVNode._depth + 1
 このブロック自体は、oldChildren から oldVNode と一致したものを見つけて削除する(undefined を代入)ものです。
 ただそれに加えて、oldVNode と比較されなかったコンポーネントを削除する準備もしています。
 
-```js:title=diff/children.js
+```javascript:title=diff/children.js
 oldVNode = oldChildren[i]
 
 if (
@@ -1697,7 +1697,7 @@ oldVNode = oldVNode || EMPTY_OBJ
 `childVNode.key == oldVNode.key` のときに `oldChildren[i] = undefined` が実行されます。　
 この処理が大事で、この関数の最後に
 
-```js
+```javascript
 for (i = oldChildrenLength; i--; ) {
   if (oldChildren[i] != null) unmount(oldChildren[i], oldChildren[i])
 }
@@ -1711,7 +1711,7 @@ DOM ツリーの操作が発生するためパフォーマンスは悪化しま�
 
 oldVNode に対して childVNode との diff を取り、変更を適用した DOM を入手します。
 
-```js:title=diff/children.js
+```javascript:title=diff/children.js
 // diffElementNodes が適用された DOM がここに入る
 newDom = diff(
   parentDom,
@@ -1728,7 +1728,7 @@ newDom = diff(
 
 そして、DOM があれば `placeChild` でその DOM を DOM ツリーに挿入します。
 
-```js
+```javascript
 if (newDom != null) {
   if (firstChildDom == null) {
     firstChildDom = newDom
@@ -1765,7 +1765,7 @@ if (newDom != null) {
 
 関数の最後では 不要な children を削除します。
 
-```js:title=diff/children.js
+```javascript:title=diff/children.js
 // excessDomChildren はいまのところない想定なので解説しない
 if (excessDomChildren != null && typeof newParentVNode.type != "function") {
   for (i = excessDomChildren.length; i--; ) {
@@ -1793,7 +1793,7 @@ diffChildren や diffElementNode では DOM ツリーの操作を行う関数を
 
 newDOM を DOM ツリーに追加する操作、もしくは newDOM を oldDOM の兄弟として置く操作をします。
 
-```js:title=diff/children.js
+```javascript:title=diff/children.js
 export function placeChild(
   parentDom,
   childVNode,
@@ -1849,7 +1849,7 @@ export function placeChild(
 自分の親の子が持つ DOM を順番にみていき、要素があればそれを返します。
 つまり自分の兄弟要素を取得し返す関数です。
 
-```js:title=component.js
+```javascript:title=component.js
 export function getDomSibling(vnode, childIndex) {
   if (childIndex == null) {
     return vnode._parent
@@ -1873,7 +1873,7 @@ export function getDomSibling(vnode, childIndex) {
 
 自分自身を自分の親 Node から消す処理です。
 
-```js:title=util.js
+```javascript:title=util.js
 export function removeNode(node) {
   let parentNode = node.parentNode
   if (parentNode) parentNode.removeChild(node)
@@ -1887,7 +1887,7 @@ VNode オブジェクトが持つ `_dom: PreactElement | null;` が渡される�
 
 componentWillUnmount があればそれを実行し、removeNode を呼び出して DOM ツリーから vnode.\_dom を消す関数です。
 
-```js:title=diff/index.js
+```javascript:title=diff/index.js
 export function unmount(vnode, parentVNode, skipRemove) {
   let r
   if (options.unmount) options.unmount(vnode)
@@ -1926,7 +1926,7 @@ export function unmount(vnode, parentVNode, skipRemove) {
 
 注目すべきは
 
-```js
+```javascript
 if ((r = vnode._children)) {
   for (let i = 0; i < r.length; i++) {
     if (r[i]) unmount(r[i], parentVNode, skipRemove)
@@ -1956,7 +1956,7 @@ diffChildren が再帰的に diffElementNode を呼び出して差分更新を�
 
 それを実行するのが commitRoot というもので、たとえば render では diff の後に呼ばれています。
 
-```js
+```javascript
 export function commitRoot(commitQueue, root) {
   if (options._commit) options._commit(root, commitQueue)
 
@@ -1977,7 +1977,7 @@ export function commitRoot(commitQueue, root) {
 commitQueue にはコンポーネントが詰め込まれているので、そのコンポーネントが持つ `_renderCallbacks` を実行するのが役目です。
 たとえば diff では componentDidMount をこの \_renderCallbacks に詰め込んでいます。
 
-```js:title=diff/index.js
+```javascript:title=diff/index.js
 if (c.componentDidMount != null) {
   c._renderCallbacks.push(c.componentDidMount)
 }
@@ -2007,7 +2007,7 @@ preact では state や props の値が変わるとそれを表示している�
 
 イベントハンドラからの書き換えは、
 
-```jsx
+```javascriptx
 class Hoge extends Component {
   constructor() {
     this.state = {
@@ -2034,7 +2034,7 @@ class Hoge extends Component {
 
 こういうコードが考えられます。これは、
 
-```js
+```javascript
 class Hoge extends Component {
   constructor() {
     this.state = {
@@ -2063,7 +2063,7 @@ class Hoge extends Component {
 
 のように変換され、
 
-```js
+```javascript
 onClick: () => {
   this.setState(state + 1)
 }
@@ -2073,7 +2073,7 @@ onClick: () => {
 
 そして、 setPropery の
 
-```js
+```javascript
 if (name[0] === "o" && name[1] === "n") {
   useCapture = name !== (name = name.replace(/Capture$/, ""))
   nameLower = name.toLowerCase()
@@ -2097,7 +2097,7 @@ if (name[0] === "o" && name[1] === "n") {
 また、ライフサイクルを通じて書き換えることもできます。
 たとえば、
 
-```jsx
+```javascriptx
 class Hoge extends Component {
   constructor() {
     this.state = {
@@ -2117,7 +2117,7 @@ class Hoge extends Component {
 
 は
 
-```js
+```javascript
 class Hoge extends Component {
   constructor() {
     this.state = {
@@ -2142,7 +2142,7 @@ class Hoge extends Component {
 ライフサイクルイベントは ユーザーが Component に定義した関数を拾ってライブラリ側が実行します。
 たとえば componentDidMount だと
 
-```js
+```javascript
 if (c.componentDidMount != null) {
   // 次のstateをここで詰め込む。
   console.log("<diff> c.componentDidMount", c.componentDidMount)
@@ -2154,7 +2154,7 @@ if (c.componentDidMount != null) {
 この \_renderCallbacks は `commitRoot` にて実行されます。
 commitRoot は render が終わった後に実行されるフェーズなので、componentDidMount からすれば都合が良いためです。
 
-```js:title=diff/index.js
+```javascript:title=diff/index.js
 export function commitRoot(commitQueue, root) {
   if (options._commit) options._commit(root, commitQueue)
 
@@ -2174,7 +2174,7 @@ export function commitRoot(commitQueue, root) {
 
 render の前に実行したいライフサイクルは diff 関数 の中で DOM 反映系の関数を呼び出す前に実行されています。
 
-```js
+```javascript
 // Invoke pre-render lifecycle methods
 if (isNew) {
   if (
@@ -2217,7 +2217,7 @@ if (isNew) {
 `this.setState` は `Component.prototype.setState` です。
 それはこのように定義されています。
 
-```js:title=component.js
+```javascript:title=component.js
 Component.prototype.setState = function (update, callback) {
   let s
   if (this._nextState != null && this._nextState !== this.state) {
@@ -2245,14 +2245,14 @@ Component.prototype.setState = function (update, callback) {
 
 大事なのは
 
-```js
+```javascript
 s = this._nextState = assign({}, this.state)
 ```
 
 です。ここで s と this.\_nextState に`assign({}, this.state)` の結果を代入しています
 この `assign({}, this.state)` は
 
-```js
+```javascript
 export function assign(obj, props) {
   for (let i in props) obj[i] = props[i]
   return /** @type {O & P} */ (obj)
@@ -2263,7 +2263,7 @@ export function assign(obj, props) {
 
 そのためその下にある
 
-```js
+```javascript
 if (update) {
   assign(s, update)
 }
@@ -2273,7 +2273,7 @@ if (update) {
 
 そして破壊（上書き）された this を持ったまま
 
-```js
+```javascript
 if (this._vnode) {
   if (callback) this._renderCallbacks.push(callback)
   enqueueRender(this)
@@ -2287,7 +2287,7 @@ if (this._vnode) {
 この enqueueRender こそが再レンダリングの入り口です。
 引数の c は Compoennt で、\_nextState に次に書き換わる state の値が保持されています。
 
-```js:title=component.js
+```javascript:title=component.js
 export function enqueueRender(c) {
   if (
     (!c._dirty &&
@@ -2320,7 +2320,7 @@ function process() {
 
 この関数は内部で`diff` を呼び出しているので再レンダリングして DOM を書き換えることができます。
 
-```js:title=component.js
+```javascript:title=component.js
 function renderComponent(component) {
   let vnode = component._vnode,
     oldDom = vnode._dom,
@@ -2353,7 +2353,7 @@ function renderComponent(component) {
 
 このとき、\_nextState はその diff を取った時に diff 関数内部の
 
-```js
+```javascript
 c._nextState
 ```
 
@@ -2405,7 +2405,7 @@ export interface VNode<P = {}> {
 
 そして diff のコード内では、
 
-```js
+```javascript
 typeof vnode.type == "function"
 ```
 
@@ -2423,19 +2423,19 @@ string の場合は `"div"` や `"span"` が入ります。
 
 つまり、
 
-```jsx
+```javascriptx
 <div>hello</div>
 ```
 
 や
 
-```js
+```javascript
 h("div", null, "hello")
 ```
 
 などのコードは VNode として扱われた時に
 
-```json
+```javascripton
 {
   "type": "div"
 }
@@ -2464,7 +2464,7 @@ export type ComponentFactory<P> =
 では、`ComponentFactory` を VNode として扱うためにはどのようなコードを書く必要があるのでしょうか。
 それはずばりこのようなコードです。
 
-```jsx
+```javascriptx
 import { h, Fragment, Component } from "preact"
 import { useState } from "preact/compat"
 
@@ -2499,7 +2499,7 @@ const TestComponent = () => {
 
 この `Hoge` がまさしくそうで、これを h 関数で書き直すとこうなります。
 
-```js
+```javascript
 import { h, Fragment, Component } from "preact"
 import { useState } from "preact/compat"
 
@@ -2540,7 +2540,7 @@ const TestComponent = () => {
 
 diff.js における話です。
 
-```js:title=diff/index.js
+```javascript:title=diff/index.js
 if (oldVNode._component) {
   c = newVNode._component = oldVNode._component
   clearProcessingException = c._processingException = c._pendingError
@@ -2566,7 +2566,7 @@ oldState = c.state
 まず oldProps, newProps はこのコードが呼ばれた段階であまり使わなくなります。
 唯一使うのは、
 
-```js:title=diff/index.js
+```javascript:title=diff/index.js
 if (
   newType.getDerivedStateFromProps == null &&
   newProps !== oldProps &&
@@ -2582,7 +2582,7 @@ if (
 そもそも `componentWillReceiveProps` は新規コンポーネント作成に対しては呼ばれないものです。
 ループの親を辿れば次のコードが見つかるはずです。
 
-```js:title=diff/index.js
+```javascript:title=diff/index.js
 if (isNew) {
   // no op
 } else {
@@ -2600,7 +2600,7 @@ if (isNew) {
 そして oldProps = c.props は新規コンポーネント作成でしか呼ばれないためです。
 それは isNew のフラグを追ってみましょう。
 
-```js:title=diff/index.js
+```javascript:title=diff/index.js
 if (oldVNode._component) {
   c = newVNode._component = oldVNode._component
   clearProcessingException = c._processingException = c._pendingError
@@ -2640,7 +2640,7 @@ VNode が null になる場面はどういうときなのでしょうか。
 
 `createVNode` から辿ってみると、diffChildren に該当するコードがあります。
 
-```js:title=children.js
+```javascript:title=children.js
 if (childVNode == null || typeof childVNode == "boolean") {
   childVNode = newParentVNode._children[i] = null
 } else if (typeof childVNode == "string" || typeof childVNode == "number") {
@@ -2660,7 +2660,7 @@ if (childVNode == null || typeof childVNode == "boolean") {
 
 たとえば、
 
-```jsx
+```javascriptx
 <>
   {3}
   {"3"}

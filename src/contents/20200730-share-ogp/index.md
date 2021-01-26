@@ -99,7 +99,7 @@ ex) /\_next/static/json.worker.js
 
 ### MonacoWebpackPlugin
 
-```js
+```javascript
 const withCSS = require("@zeit/next-css")
 const MonacoWebpackPlugin = require("monaco-editor-webpack-plugin")
 

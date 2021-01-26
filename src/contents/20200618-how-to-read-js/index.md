@@ -194,7 +194,7 @@ print debug といえば console.\* です。
 ただし無闇に出力すると、何の log かわからないのでマークを入れています。
 **console.log() は複数の引数を取れる**ので、
 
-```js
+```javascript
 console.log("[class名]<関数名> x: ", x)
 ```
 
@@ -223,7 +223,7 @@ logger を使った print debug の場合、出力したものが長すぎると
 クライアントサイドの開発ならブラウザがオブジェクトを折りたたんでくれるので問題にはなりづらいですが、NodeJS の開発だとそうはいきません。
 そこで logger の出力をファイルに吐き出します。
 
-```js
+```javascript
 const fs = require("fs")
 const log = fs.createWriteStream("result.log")
 const logger = new console.Console(log)
@@ -299,7 +299,7 @@ logger を仕込みすぎてどれがどれかわからないといったとき�
 debugger 文 は break point を作れます。
 break point をセットすればそのポイントまで関数を実行してそこで止めることができます。
 
-```js
+```javascript
 $ node inspect index.js
 ```
 
@@ -390,7 +390,7 @@ tsdoc に準拠して書いていると、（やる意味はないと思いま�
 この annotation は Language Server(tsserver) 的には tag 情報として扱われます。
 その tag 情報は@で始まっていれば何でもいいので正直なんでも入れることができます。
 
-```js
+```javascript
 /**
  * なんかhogeする関数
  * @param input 入力される数
@@ -487,7 +487,7 @@ $ tsserver
 ただ大きい処理だといわゆる in と out がしっかりしている unit テストではなく、mock した値の中をたくさん検査するといったテストで、読んでもよくわからないときもあるので、期待のしすぎはしない方が良いです。
 それでも JavaScript のテストは `test("XXX関数にこういうinputを与えるとこういう挙動になる", ()=>{})` といった [spec](https://ja.javascript.info/testing-mocha#ref-108) が書かれていることが多いので、その関数が何をしているかという雰囲気は掴みやすいです。
 
-```js
+```javascript
 test("get returns the last registration", () => {
   const registration1: Registration = {
     options: { lifecycle: Lifecycle.Singleton },
@@ -523,7 +523,7 @@ test("get returns the last registration", () => {
 ライブラリによっては constructor が private になっていて代わりに `static of(){}` などでインスタンス生成がされています。
 これは static factory method と呼ばれており [こういう](https://maku77.github.io/java/effective/01.html)インスタンス生成のメソッドに具体名を付けれるといったメリットがあります。
 
-```js
+```javascript
 class Coordinate {
   // ...
   private constructor(x: number, y: number) {
@@ -545,7 +545,7 @@ new がなくて static factory method 使ってそうと思ったら、 `of` / 
 
 #### instance を作る専用関数の存在
 
-```js
+```javascript
 class InstantiationService {
   ...
   private _createInstance<T>(ctor: any, args: any[] = [], _trace: Trace): T {
@@ -666,13 +666,13 @@ Found 1 errors.
 
 ちなみに Object.assign の型定義は
 
-```js
+```javascript
 assign<T, U>(target: T, source: U): T & U;
 ```
 
 なので、戻り値を使うと `returnTwo` にもアクセスできます。
 
-```js
+```javascript
 class Base {
   returnOne() {
     return 1
@@ -706,7 +706,7 @@ FYI: https://github.com/babel/babel/blob/master/packages/babel-traverse/src/path
 ちなみに TypeScript を使っていると、クラスを引数でとり、それを extends して return する関数を作ることで実現できます。
 この場合は code jump が可能です。
 
-```js
+```javascript
 function Timestamped<TBase extends Constructor>(Base: TBase) {
   return class extends Base {
     timestamp = Date.now();

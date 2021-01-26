@@ -192,7 +192,7 @@ VSCode のターミナル機能の GUI から変えることができます。
 
 setting.json から切り替えます。
 
-```json
+```javascripton
 {
   "terminal.integrated.shell.osx": "/usr/local/bin/fish"
 }

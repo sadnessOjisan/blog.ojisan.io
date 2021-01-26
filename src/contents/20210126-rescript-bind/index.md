@@ -50,7 +50,7 @@ timerOn(()=>(), 1000)
 
 と書くと、JavaScript の世界で
 
-```js
+```javascript
 setTimeout(() => {}, 1000)
 ```
 
@@ -166,7 +166,7 @@ let el = getElementById(doc, "myId")
 
 は、
 
-```js
+```javascript
 var el = document.getElementById("myId")
 ```
 
@@ -186,7 +186,7 @@ setOnload(window, ()=>())
 
 これは
 
-```js
+```javascript
 window.onload = function (param) {}
 ```
 

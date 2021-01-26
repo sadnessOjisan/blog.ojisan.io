@@ -109,7 +109,7 @@ stream.write(data);
 
 これを読み込んだクライアントは
 
-```js
+```javascript
 new WebSocket("ws://localhost:8080/websocket", ["chat"])
 ```
 
@@ -191,7 +191,7 @@ stream.write(data)
 
 いまクライアントは
 
-```js
+```javascript
 function () {
   const ws = new WebSocket('ws://localhost:8080/websocket', ['chat']);
   ws.onopen = function() {
@@ -205,7 +205,7 @@ function () {
 を実行しました。
 コネクションに成功したので、
 
-```js
+```javascript
 ws.send("test")
 ```
 
@@ -399,7 +399,7 @@ stream.write(&[129, 5, 72, 101, 108, 108, 111]).unwrap();
 
 クライアントコードは
 
-```js
+```javascript
 function () {
   const ws = new WebSocket('ws://localhost:8080/websocket', ['chat']);
   ws.onopen = function() {

@@ -59,7 +59,7 @@ S3 単体にも CloudFront と同じようなリダイレクト機能がある�
 
 ただ注意点としては S3 の KeyPrefixEquals の制約で、Redirect ルールはオブジェクトを指定するか / をつける必要がありそうです。
 
-```js
+```javascript
 This is a Root Page. aboutページは<Link href="about/">こちら〜</Link>
 ```
 

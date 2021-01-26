@@ -45,7 +45,7 @@ isProtect: false
 
 そしてこれを gatsby-node 内から [js-yml](https://www.npmjs.com/package/js-yaml)で読み込みます。
 
-```js:title=gatsby-node.js
+```javascript:title=gatsby-node.js
 const yaml = require("js-yaml")
 
 const ymlDoc = yaml.safeLoad(
@@ -56,7 +56,7 @@ const ymlDoc = yaml.safeLoad(
 これで、ymlDoc としてユーザー情報の配列を入手しました。
 あとはこの配列を回しながら `createPage` を実行すればユーザーページを作成できます。
 
-```js:title=gatsby-node.js
+```javascript:title=gatsby-node.js
 ymlDoc.forEach(element => {
   createPage({
     path: `/users/${element.id}`,
@@ -87,7 +87,7 @@ isProtect: false
 
 ここでの userId は gatsby-node.js を実行するときにビルドシステム側に伝えることができるので、この id を使ってビルド時に user 情報を取得、それを記事に埋め込みます。
 
-```js:title=gatsby-node.js
+```javascript:title=gatsby-node.js
 // 記事ページ生成
 contentsResult.data.posts.edges.forEach(({ node }) => {
   // HINT: もしwriteUserが存在しなければ例外が発生してビルドが落ちるはず => 記事とユーザーが紐づいていない。
@@ -108,7 +108,7 @@ writeUser を作っているところが記事の userId と user yml を突合�
 取得したユーザー情報は記事情報と JOIN します。
 それを行っているのが、
 
-```js:title=gatsby-node.js
+```javascript:title=gatsby-node.js
 createPage({
   path: node.frontmatter.path,
   component: blogPostTemplate,
@@ -130,7 +130,7 @@ context は生成されたページ側で `pageContext` という props 経由�
 
 そのためにユーザーに紐づく記事をクエリで取得しましょう。
 
-```js
+```javascript
 export const pageQuery = graphql`
   query AllPostsByUserId($userId: String!) {
     postsByUserId: allMarkdownRemark(

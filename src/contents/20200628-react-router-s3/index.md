@@ -44,7 +44,7 @@ History API は JavaScript の世界から アドレスバーやページの nav
 
 代表的な SPA routing の実装 では、link は
 
-```js
+```javascript
 const routes = {
   "/": `<p>route直下だよ</p>`,
   "/hoge": `<p>hogePageだよ</p>`,

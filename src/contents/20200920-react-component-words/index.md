@@ -46,7 +46,7 @@ React 内部の話に入る前に[Glossary of React Terms](https://reactjs.org/d
 
 例えば、
 
-```jsx
+```javascriptx
 const A = () => {
   return <div>hello</div>
 }
@@ -54,7 +54,7 @@ const A = () => {
 
 や
 
-```jsx
+```javascriptx
 <div>hello</div>
 ```
 
@@ -95,13 +95,13 @@ Elements は、
 
 たとえば、
 
-```jsx
+```javascriptx
 const el = <div>hello world!</div>
 ```
 
 は Elements ですが、
 
-```jsx
+```javascriptx
 const El = () => <div>hello world!</div>
 ```
 
@@ -210,7 +210,7 @@ declare global {
 
 そしてその ReactElement は
 
-```jsx
+```javascriptx
 interface ReactElement<P = any, T extends string
 | JSXElementConstructor<any> = string | JSXElementConstructor<any>> {
         type: T;
@@ -224,7 +224,7 @@ interface ReactElement<P = any, T extends string
 
 ここで注意したいのは
 
-```jsx
+```javascriptx
 const App = () => <div>hello</div>
 ```
 
@@ -233,7 +233,7 @@ const App = () => <div>hello</div>
 
 そしてこの App を `<App></App>` として記述することで Babel によって
 
-```js
+```javascript
 React.createElement("div", null, "")
 ```
 
@@ -458,7 +458,7 @@ const Component: React.FC = () => {
 
 のようなコードはトランスパイルすると
 
-```js
+```javascript
 const React = __importStar(require("react"))
 class Hello extends React.Component {
   render() {
@@ -507,7 +507,7 @@ type ReactText = string | number
 primitive なものを 2 つ組み合わせただけのものです。
 この定義があるからこそ return の中で
 
-```jsx
+```javascriptx
 class Hoge extends React.Component {
   render() {
     return "1"

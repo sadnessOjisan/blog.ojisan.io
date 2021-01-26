@@ -56,7 +56,7 @@ describe("index.js", () => {
 
 jest の設定. 検証用として preset は undefined にする。
 
-```js:title=jest.config.js
+```javascript:title=jest.config.js
 module.exports = {
   clearMocks: true,
   // Indicates which provider should be used to instrument code for coverage
@@ -72,7 +72,7 @@ module.exports = {
 
 TypeScript の設定
 
-```js:title=tsconfig.js
+```javascript:title=tsconfig.js
 {
   "compilerOptions": {
     "target": "es5",
@@ -147,7 +147,7 @@ Ran all test suites.
 npm i -D ts-jest
 ```
 
-```js:title=jest.config.js
+```javascript:title=jest.config.js
 module.exports = {
   clearMocks: true,
   // Indicates which provider should be used to instrument code for coverage
@@ -186,7 +186,7 @@ Ran all test suites.
 
 ちなみに先ほどのコードは、preset を使わずに transform に `ts-jest` を指定してもうまく行きます。
 
-```js:title=jest.config.js
+```javascript:title=jest.config.js
 module.exports = {
   clearMocks: true,
   coverageProvider: "babel",

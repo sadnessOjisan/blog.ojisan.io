@@ -54,7 +54,7 @@ NextJS で作ったブログを Vercel にデプロイしています。
 
 ISR ではキャッシュ更新のタイミングを指定できます。
 
-```js
+```javascript
 export const getStaticProps: GetStaticProps = async () => {
   const postResponse = await getPosts()
   const { data, error } = postResponse

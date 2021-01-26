@@ -13,14 +13,14 @@ isProtect: false
 
 [firebase-admin](https://www.npmjs.com/package/firebase-admin) を初期化する際、[サーバーに Firebase Admin SDK を追加する](https://firebase.google.com/docs/admin/setup) を見ると、
 
-```js
+```javascript
 var admin = require("firebase-admin")
 var app = admin.initializeApp()
 ```
 
 や、
 
-```js
+```javascript
 admin.initializeApp({
   credential: admin.credential.applicationDefault(),
   databaseURL: "https://<DATABASE_NAME>.firebaseio.com",
@@ -43,7 +43,7 @@ admin.initializeApp({
 
 そして、その Credential は [cert](https://firebase.google.com/docs/reference/admin/node/admin.credential?hl=en#cert)から作れます。
 
-```js
+```javascript
 const cert = {
   projectId: process.env.FIREBASE_PROJECT_ID,
   clientEmail: process.env.FIREBASE_CLIENT_EMAIL,

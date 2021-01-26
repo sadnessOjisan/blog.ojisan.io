@@ -35,7 +35,7 @@ npx mrm lint-staged
 
 package.json は
 
-```json:title=package.json
+```javascripton:title=package.json
 {
   ...,
   "scripts": {
@@ -93,7 +93,7 @@ coverage/*
 
 そして enzyme の設定が test/jestsetup.js にされます。
 
-```js:title=test/jestsetup.js
+```javascript:title=test/jestsetup.js
 import Enzyme from "enzyme"
 import Adapter from "enzyme-adapter-react-16"
 

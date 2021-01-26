@@ -347,7 +347,7 @@ export default () => {
 
 #### [material-ui](https://material-ui.com/components/modal/)
 
-```jsx
+```javascriptx
 <Modal
   open={open}
   onClose={handleClose}
@@ -360,7 +360,7 @@ export default () => {
 
 #### [ant-design](https://ant.design/components/modal/)
 
-```jsx
+```javascriptx
 <Modal
   title="Basic Modal"
   visible={this.state.visible}
@@ -377,7 +377,7 @@ export default () => {
 
 これはアニメーションの要件はないが Modal に flg を渡している
 
-```jsx
+```javascriptx
 <Modal isOpen={isOpen} onClose={onClose}>
   <ModalOverlay />
   <ModalContent>

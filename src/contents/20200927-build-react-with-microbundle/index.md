@@ -23,7 +23,7 @@ preact の内部で使われており、preact を読んでいる最中で見つ
 
 package.json の中身を見てバンドルを生成してくれます。
 
-```json
+```javascripton
 {
   "source": "src/index.js", // input
   "main": "dist/foo.js", // CommonJS bundle
@@ -68,7 +68,7 @@ semantic error TS2304: Cannot find name 'h'.
 
 なので、
 
-```json:title=tsconfig.json
+```javascripton:title=tsconfig.json
 {
   "compilerOptions": {
     ...,

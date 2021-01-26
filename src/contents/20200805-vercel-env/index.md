@@ -97,7 +97,7 @@ preview 用の口に `API_ENDPOINT: dev.ojisan` をセットし、これをク�
 **ただ NextJS はそのまま process.env から環境変数を読めないので、next.config.js から export しておく必要はあります。**
 (もしくは `NEXT_PUBLIC` から始まる環境変数はクライアントサイドのバンドルに含まれることを利用して、`NEXT_PUBLIC` から始まる環境変数を用意しましょう)
 
-```js:title=next.config.js
+```javascript:title=next.config.js
 module.exports = {
   env: {
     // 渡された環境変数かClientで使える環境変数かを識別しやすくするために_FOR_CLIENTをつけています。
@@ -174,7 +174,7 @@ export const genFirebaseConfig = (env: EnvType): FirebaseConfigType => {
 その上で next.config.js でそれをクライアント用のなんらかの環境変数に渡します。
 ここでは DEPLOY_ENV に 'development' と渡していることにします。
 
-```js:title=next.config.js
+```javascript:title=next.config.js
 module.exports = {
   env: {
     DEPLOY_ENV_FOR_CLIENT: process.env.DEPLOY_ENV,
@@ -245,7 +245,7 @@ $ now secrets add <secret-name> <secret-value>
 
 now.json に
 
-```json
+```javascripton
 {
   "env": {
     "VARIABLE_NAME": "@environment-variable-name"

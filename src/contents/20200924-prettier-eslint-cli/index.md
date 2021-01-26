@@ -97,7 +97,7 @@ Prettier が新しいものだった時は plugin を使うのが推奨されて
 
 prettier 本体の prettier の設定もこうなっています。
 
-```json
+```javascripton
 {
   "fix": "run-s fix:eslint fix:prettier",
   "fix:eslint": "yarn lint:eslint --fix",

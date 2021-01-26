@@ -69,7 +69,7 @@ FYI: https://nextjs.org/docs/api-reference/next.config.js/environment-variables
 
 とある通り、env を使えばクライアント側の JS へと環境変数を渡せるようになります。
 
-```js
+```javascript
 module.exports = {
   env: {
     TEST_VAR_FOR_BROWSER: process.env.TEST_VAR,
@@ -77,7 +77,7 @@ module.exports = {
 }
 ```
 
-```jsx:title=index.jsx
+```javascriptx:title=index.jsx
 export default () => {
   console.log(process.env.TEST_VAR_FOR_BROWSER)
   return <div>hello</div>
@@ -94,7 +94,7 @@ export default () => {
 
 NodeJS では dotenv, dotenv-webpack を使えます。
 
-```js
+```javascript
 require("dotenv").config()
 module.exports = {
   env: {
@@ -132,7 +132,7 @@ next start はサーバー自体を立ち上げる機能で起動に環境変数
 
 たとえば、npm scripts には
 
-```js
+```javascript
 "scripts": {
   "build": "NEXT_PUBLIC_ORIGINAL_ENV=hoge next build",
   "start": "NEXT_PUBLIC_ORIGINAL_ENV=piyo next start",
@@ -141,7 +141,7 @@ next start はサーバー自体を立ち上げる機能で起動に環境変数
 
 とビルド時と起動時で hoge, piyo という別の環境変数を渡して、コンポーネントは
 
-```jsx:title=index.jsx
+```javascriptx:title=index.jsx
 export default () => {
   console.log(
     "<component> process.env.NEXT_PUBLIC_ORIGINAL_ENV: ",
@@ -220,7 +220,7 @@ $ npx next start
 
 この仕組みを使うと `config()` から事前設定した値をサーバー・クライアントのランタイムに持ち込めます。
 
-```js:title=next.config.js
+```javascript:title=next.config.js
 module.exports = {
   serverRuntimeConfig: {
     // Will only be available on the server side
@@ -234,7 +234,7 @@ module.exports = {
 }
 ```
 
-```jsx:title=index.jsx
+```javascriptx:title=index.jsx
 import getConfig from "next/config"
 
 // Only holds serverRuntimeConfig and publicRuntimeConfig

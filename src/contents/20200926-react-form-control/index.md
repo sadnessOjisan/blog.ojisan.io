@@ -92,7 +92,7 @@ onBlur は input からフォーカスが外れた時に発火するイベント
 フォーカスが外れるタイミングは入力後なので入力時にパフォーマンスが落ちません。
 フォーカスは input の外をクリックしたとき、つまり送信ボタンを押したときなどでも発火します。
 
-```jsx
+```javascriptx
 import React from "react"
 
 export default function App() {
@@ -120,7 +120,7 @@ onBlur を使った方法は万能な気もするのですが、input が 1 つ�
 
 submit イベントからは name 経由でフォームの内容を取得できます。
 
-```jsx
+```javascriptx
 import React from "react"
 
 export default function App() {
@@ -156,7 +156,7 @@ input 要素に placeholder とは別で value を初期値で埋め込みたい
 それを回避できるのが defaultValue です。
 最初の入力時に有効な value で初期値として使えます。
 
-```jsx
+```javascriptx
 <input name="second" id="second" defaultValue="hey"></input>
 ```
 

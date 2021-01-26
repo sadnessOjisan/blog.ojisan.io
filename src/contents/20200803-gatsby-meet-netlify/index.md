@@ -101,7 +101,7 @@ Netlify ではこのキャッシュヘッダなどをユーザーが自由に設
 しかしそのビルド対象にコツコツとキャッシュ設定を書いていくことは骨が折れるので、それをビルド時に生成する Gatsby プラグインを利用します。
 それが [gatsby-plugin-netlify](https://www.gatsbyjs.org/packages/gatsby-plugin-netlify/)です。
 
-```js:title=gatsby-config.js
+```javascript:title=gatsby-config.js
 plugins: [`gatsby-plugin-netlify`]
 ```
 
@@ -113,7 +113,7 @@ plugins: [`gatsby-plugin-netlify`]
 
 公式に、
 
-```js:title=gatsby-config.js
+```javascript:title=gatsby-config.js
 plugins: [
   {
     resolve: `gatsby-plugin-netlify`,
@@ -174,7 +174,7 @@ Gatsby はビルド時にビルドした時間を含むファイル名を生成�
 
 ### plugin の header 設定に書くべきもの
 
-```js:title=gatsby-config.js
+```javascript:title=gatsby-config.js
 plugins: [
   {
     resolve: `gatsby-plugin-netlify`,

@@ -11,7 +11,7 @@ isProtect: false
 
 一般的に JSX と言えば
 
-```jsx
+```javascriptx
 import React from "react"
 
 export const Hoge = () => {
@@ -30,7 +30,7 @@ JSX は `createElement` の糖衣構文であることは、React 公式の[JSX 
 
 ところで公式の例には
 
-```jsx
+```javascriptx
 class Hello extends React.Component {
   render() {
     return <div>Hello {this.props.toWhat}</div>
@@ -42,7 +42,7 @@ ReactDOM.render(<Hello toWhat="World" />, document.getElementById("root"))
 
 は
 
-```jsx
+```javascriptx
 class Hello extends React.Component {
   render() {
     return React.createElement("div", null, `Hello ${this.props.toWhat}`)
@@ -76,7 +76,7 @@ $ npm i -D @babel/core @babel/cli @babel/plugin-transform-react-jsx
 
 このファイルをトランスパイルしてみましょう。
 
-```jsx
+```javascriptx
 import React from "react"
 
 const Component = () => {
@@ -86,7 +86,7 @@ const Component = () => {
 
 上のプラグインを使うための config を書き、
 
-```js
+```javascript
 {
   "plugins": ["@babel/plugin-transform-react-jsx"]
 }
@@ -100,7 +100,7 @@ $ npx babel src -d dist
 
 そしてこの吐き出したファイルを見ます。
 
-```js:title=dist/index.js
+```javascript:title=dist/index.js
 import React from "react"
 
 const Component = () => {
@@ -129,7 +129,7 @@ $ npm i -D typescript @types/react
 
 このファイルをトランスパイルしてみましょう。
 
-```jsx
+```javascriptx
 import React from "react"
 
 const Component = () => {
@@ -139,7 +139,7 @@ const Component = () => {
 
 上のプラグインを使うための config を書き、
 
-```json:title=tsconfig.json
+```javascripton:title=tsconfig.json
 {
   "compilerOptions": {
     "target": "es6",
@@ -162,7 +162,7 @@ $ npx tsc
 
 そしてこの吐き出したファイルを見ます。
 
-```js:title=dist/index.js
+```javascript:title=dist/index.js
 "use strict";
 var __createBinding =
   (this && this.__createBinding) ||
@@ -216,7 +216,7 @@ PURE__*/ React.createElement("div", null, "hello world")
 
 ところで 関数コンポーネントを使うときに
 
-```jsx
+```javascriptx
 import React from "react"
 
 const Component = () => {

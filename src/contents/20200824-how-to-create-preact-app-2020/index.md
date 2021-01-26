@@ -50,7 +50,7 @@ React + TS で Hello World するとき、
 
 webpack.config.js もいつも通りの感じで書きます。
 
-```js:title=twebpack.config.js
+```javascript:title=twebpack.config.js
 const HtmlWebpackPlugin = require("html-webpack-plugin")
 const path = require("path")
 
@@ -153,7 +153,7 @@ preact の世界では h 関数を import しておけばビルドが通るよ�
 
 ここに h を指定します。
 
-```json:title=tsconfig.json
+```javascripton:title=tsconfig.json
 {
   "compilerOptions": {
     "jsxFactory": "h",
@@ -164,7 +164,7 @@ preact の世界では h 関数を import しておけばビルドが通るよ�
 
 なので tsconfig はこうなります。
 
-```json:title=tsconfig.json
+```javascripton:title=tsconfig.json
 {
   "compilerOptions": {
     "jsxFactory": "h",
@@ -191,7 +191,7 @@ preact の世界では h 関数を import しておけばビルドが通るよ�
 
 公式にある通り、
 
-```jsx
+```javascriptx
 import Router from "preact-router"
 import { h, render } from "preact"
 /** @jsx h */
@@ -218,7 +218,7 @@ type '{ path: string; }' is not assignable to type 'IntrinsicAttributes'.
 
 そこで、ドキュメントにはない API なのですが
 
-```jsx
+```javascriptx
 <Router>
   <Route path="/" component={Home}></Route>
   <Route path="/:id" component={Detail}></Route>
@@ -247,7 +247,7 @@ middleware のような物が欲しくなるとこちらを検討してもいい
 
 preact/compat もしくは preact/hooks に含まれています。
 
-```jsx
+```javascriptx
 import { useReducer } from "preact/compat"
 ```
 
@@ -495,7 +495,7 @@ const Item = styled(_Item)`
 
 ラップ対象に className を渡すと
 
-```jsx
+```javascriptx
 <div className={props.className} />
 ```
 
@@ -524,7 +524,7 @@ const Items = styled("div")`
 glob という機能で実現できます。(global の略っぽい)
 reset.css の実現に使えます。
 
-```jsx
+```javascriptx
 import { glob } from "goober"
 
 glob`

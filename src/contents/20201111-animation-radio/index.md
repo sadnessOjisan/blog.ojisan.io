@@ -48,7 +48,7 @@ box-shadow を transiton にすると良い感じになります。
 スタイルを当てる箱を作ればいいので `div` で作ってもいいかもしれませんが、ラベルをクリックしたときでもラジオボタン本体にフォーカスを当てるためにユーザーにクリックさせる要素は label 要素で作ります。
 昔からラジオボタンを独自に作る例はよく見かけていて、それらが label で実装されていることはずっと疑問に思っていたのですがどうやらこのような背景があるようです。
 
-```jsx
+```javascriptx
 <label className={props.className} onClick={props.handleClick} id={props.value}>
   {props.value}
 </label>

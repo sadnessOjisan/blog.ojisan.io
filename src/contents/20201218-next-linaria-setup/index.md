@@ -34,7 +34,7 @@ NextJS では next.config.js で webpack のビルド設定を上書けます。
 
 NextJS で webpack の設定をカスタマイズするためには next.config.js の webpack 関数を拡張します。
 
-```js:title=webpack.config.js
+```javascript:title=webpack.config.js
 module.exports = {
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
     // Note: we provide webpack above so you should not `require` it
@@ -55,7 +55,7 @@ FYI: https://nextjs.org/docs/api-reference/next.config.js/custom-webpack-config
 
 では linaria/loader の設定をしましょう。
 
-```js:title=webpack.config.js
+```javascript:title=webpack.config.js
 webpack(config, options) {
     config.module.rules.push({
       test: /\.(js|tsx)$/,
@@ -84,7 +84,7 @@ sourcemap の設定以外にもキャッシュファイルの保存先の変更�
 linaria/loader が吐き出した CSS を NextJS の中で読み込むための設定が必要です。
 それが [next-linaria](https://github.com/Mistereo/next-linaria) です。
 
-```js
+```javascript
 const withLinaria = require("next-linaria")
 module.exports = withLinaria({
   linaria: {
@@ -109,7 +109,7 @@ FYI: https://nextjs.org/blog/next-9-2#built-in-css-support-for-global-stylesheet
 そのため独自に CSS を読み込む設定をする必要があり、@zeit/next-css の利用はその解決策となっています。
 そのため next-linaria を使わない場合は古典的な方法ですが @zeit/next-css を使うことで CSS ファイルを読み込めるようになります。
 
-```js
+```javascript
 const withCSS = require("@zeit/next-css")
 
 module.exports = withCSS({})
@@ -119,7 +119,7 @@ module.exports = withCSS({})
 
 ### 完成系
 
-```js:title=webpack.config.js
+```javascript:title=webpack.config.js
 const withLinaria = require("next-linaria")
 require("dotenv").config()
 
@@ -133,7 +133,7 @@ module.exports = withLinaria({
 
 もしくは
 
-```js:title=webpack.config.js
+```javascript:title=webpack.config.js
 const withCSS = require("@zeit/next-css")
 
 module.exports = withCSS({
@@ -198,7 +198,7 @@ FYI: https://github.com/vercel/next.js/blob/9dd5ff2baa716a6b12f681ff09559a3c8dd7
 ここでは linaria/babel を足す必要があります。
 これは linaria が提供している babel preset です。
 
-```js:title=babel.config.js
+```javascript:title=babel.config.js
 module.exports = {
   presets: ["next/babel", "linaria/babel"],
 }
@@ -282,7 +282,7 @@ npm i -D next-linaria @babel/core
 
 next.config.js の設定
 
-```js:title=webpack.config.js
+```javascript:title=webpack.config.js
 const withLinaria = require("next-linaria")
 require("dotenv").config()
 
@@ -296,7 +296,7 @@ module.exports = withLinaria({
 
 babel.config.js の設定
 
-```js:title=babel.config.js
+```javascript:title=babel.config.js
 module.exports = {
   presets: ["next/babel", "linaria/babel"],
 }

@@ -63,7 +63,7 @@ default では styleTag に挿入し、そのまま CSS を展開します。
 一方で linkTag オプションを使えば、file を import するための別の loader が必要になるものの、CSS ファイルへの path を埋め込むことができます。
 （HTML ファイルに CSS を展開しない）
 
-```js
+```javascript
 module.exports = {
   module: {
     rules: [

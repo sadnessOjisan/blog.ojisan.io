@@ -61,7 +61,7 @@ TS, react を JS に変換するので、
 
 設定ファイルは
 
-```js
+```javascript
 module.exports = {
   plugins: [
     ["@babel/plugin-transform-typescript", { isTSX: true }],
@@ -92,7 +92,7 @@ babel-loader を入れて babel の実行、css-loader, style-loader でスタ�
 そして設定ファイルを増やすためにファイルは分割します。
 分割したものを merge するためには webpack-merge を使います。
 
-```js
+```javascript
 const path = require("path")
 const HtmlWebpackPlugin = require("html-webpack-plugin")
 const outputPath = path.resolve(__dirname, "dist")
@@ -128,7 +128,7 @@ module.exports = {
 }
 ```
 
-```js
+```javascript
 const wm = require("webpack-merge")
 const common = require("./webpack.common")
 const outputPath = require("./webpack.common").outputPath
@@ -142,7 +142,7 @@ module.exports = wm.merge(common, {
 })
 ```
 
-```js
+```javascript
 const wm = require("webpack-merge")
 const common = require("./webpack.common")
 
@@ -229,7 +229,7 @@ npx eslint --init
 
 で、TS+React を選択して設定を吐き出します。
 
-```js
+```javascript
 module.exports = {
   env: {
     browser: true,
@@ -256,7 +256,7 @@ module.exports = {
 
 初期設定では入っていないのですが、 eslint-prettier-config の設定も足しています。
 
-```js
+```javascript
 extends: [
   "eslint:recommended",
   "plugin:react/recommended",
@@ -348,7 +348,7 @@ jest-dom は DOM をテストするためのカスタムマッチャです。
 ここから生成した View からは getByText などのメソッドで対象となる要素を取り出すことができ、それをカスタムマッチャに渡すことでテストを行えます。
 また、@testing-library/react はイベントの発火もできるので画面の操作をテストすることが可能になります。
 
-```jsx
+```javascriptx
 import "@testing-library/jest-dom"
 import React from "react"
 import { render, screen } from "@testing-library/react"
@@ -563,7 +563,7 @@ npx firebae init
 
 その結果、firebase.json と .firebaserc が生成されます。
 
-```json:title=.firebaserc
+```javascripton:title=.firebaserc
 {
   "projects": {
     "default": "helloworldenterpriseedition"
@@ -571,7 +571,7 @@ npx firebae init
 }
 ```
 
-```json:title=firebase.json
+```javascripton:title=firebase.json
 {
   "hosting": {
     "public": "dist",
@@ -638,7 +638,7 @@ FYI: [gatsby-plugin-netlify-cache のキャッシュが効かない](https://blo
 これも[Vercel](https://vercel.com/) でブランチ連携をするだけでよいです。
 そして嬉しいことに Vercel も設定ファイルを足せます。
 
-```json:title=vercel.json
+```javascripton:title=vercel.json
 {
   "public": true
 }

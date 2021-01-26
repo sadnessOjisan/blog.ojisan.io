@@ -43,7 +43,7 @@ isProtect: false
 
 Class Component は
 
-```jsx
+```javascriptx
 export Hoge extends React.Component{
   render(){
     // no op
@@ -70,7 +70,7 @@ export Hoge extends React.Component{
 
 そこで [shouldComponentUpdate](https://ja.reactjs.org/docs/react-component.html#shouldcomponentupdate) を使ってこの新旧比較ロジックをオーバーライドして計算コストを節約します。
 
-```jsx
+```javascriptx
 export Hoge extends React.Component{
   shouldComponentUpdate(nextProps, nextState){
     // 再レンダリングさせたいときの条件でtrueを返す
@@ -375,7 +375,7 @@ FYI: https://react-redux.js.org/api/connect#options-object
 
 `memo` は
 
-```jsx
+```javascriptx
 const Button = React.memo(props => {
   return <div>{props.value}</div>
 })
@@ -385,7 +385,7 @@ const Button = React.memo(props => {
 `PureComponent` と同じく、新旧 `props` で浅い比較が行われます。
 また第二引数に比較関数をとることができ、`shouldComponentUpdate` 同等のこともできます。
 
-```jsx
+```javascriptx
 const Button = React.memo(
   props => {
     return <div>{props.value}</div>

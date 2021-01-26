@@ -236,7 +236,7 @@ html, css, ts, test が一つの単位になっていて、必然的に責務が
 --prod というオプションをつけてビルドすると、angular.json に書かれた最適化オプションを使ってビルドしてくれます。
 このとき
 
-```json
+```javascripton
 {
   "budgets": [
     {

@@ -44,7 +44,7 @@ Netlify では `/opt/build/cache/` に置かれたファイルはビルドを跨
 $ yarn add -D gatsby-plugin-netlify-cache
 ```
 
-```js:title=gatsby-config.js
+```javascript:title=gatsby-config.js
 plugins: [
   {
     resolve: "gatsby-plugin-netlify-cache",
