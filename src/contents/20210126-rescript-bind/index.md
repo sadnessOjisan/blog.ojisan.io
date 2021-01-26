@@ -9,8 +9,8 @@ isFavorite: false
 isProtect: false
 ---
 
-ReScript は BuckleScript と ReasonML をベースに作られたプログラミング言語で、それらと同じように OCaml に似たシンタックス、機能、強力な型推論を利用しながら、JavaScript を出力できます。
-ただ、ReScript の世界から JavaScript のモジュール・ライブラリ・オブジェクトを利用するためには型推論を通すために bind が必要となります。
+ReScript は BuckleScript と ReasonML をベースに作られたプログラミング言語で、OCaml になる便利な機能や強力な型推論を利用しつつ、JavaScript を出力できます。
+ただ、ReScript の世界から JavaScript のモジュール・ライブラリ・オブジェクトを利用するためには型推論を通すためにも bind が必要となります。
 その bind の書き方を紹介します。
 
 ## decorator
@@ -197,10 +197,3 @@ window.onload = function (param) {}
 @bs.set の挙動に関しては公式のドキュメントがどこにあるかわからなかったので、BuckleScript の資料を参照しました。
 
 FYI: https://github.com/glennsl/bucklescript-ffi-cheatsheet#bsset
-
-## bind の作り方がよくわからない場合は？
-
-ReScript でのライブラリの bind を調べようとすると全然情報が出てこないことに気づくはずです。
-それもそのはず、 ReScript は最近作られた言語だからです。
-もし bind の情報を調べるのであれば ReasonML や BucleScript で書かれた bind を調べると良いです。
-ただしそのままでは動かないこともあるのでそこは適宜 ReScript で書き直してください。
