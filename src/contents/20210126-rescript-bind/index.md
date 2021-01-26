@@ -9,7 +9,7 @@ isFavorite: false
 isProtect: false
 ---
 
-ReScript は BuckleScript と ReasonML をベースに作られたプログラミング言語で、OCaml になる便利な機能や強力な型推論を利用しつつ、JavaScript を出力できます。
+ReScript は BuckleScript と ReasonML をベースに作られたプログラミング言語で、OCaml にある便利な機能や強力な型推論を利用しつつ、JavaScript を出力できます。
 ただ、ReScript の世界から JavaScript のモジュール・ライブラリ・オブジェクトを利用するためには型推論を通すためにも bind が必要となります。
 その bind の書き方を紹介します。
 
