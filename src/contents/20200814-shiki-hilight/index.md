@@ -38,7 +38,7 @@ GitHub 上のハイライトでは
 
 <pre class="shiki" style="background-color: #2e3440">
 <code>
-<span style="color: #D8DEE9FF">```sh</span>
+<span style="color: #D8DEE9FF">```shellscript</span>
 <span style="color: #D8DEE9FF">$ cp config/env .env</span>
 <span style="color: #D8DEE9FF">```</span>
 </code>
@@ -48,7 +48,7 @@ GitHub 上のハイライトでは
 
 <pre class="shiki" style="background-color: #2e3440">
 <code>
-<span style="color: #D8DEE9FF">```shellscript</span>
+<span style="color: #D8DEE9FF">```shellscriptellscript</span>
 <span style="color: #D8DEE9FF">$ cp config/env .env</span>
 <span style="color: #D8DEE9FF">```</span>
 </code>
@@ -88,7 +88,7 @@ shiki ではこのように[TCommonLangAlias](https://github.com/shikijs/shiki/b
 
 Gatsby の plugin 本体に Prism.js が含まれているので、gatsby-remark-prismjs を remove してしまえば剥がせます。
 
-```sh
+```shellscript
 yarn remove gatsby-remark-prismjs
 ```
 
@@ -208,7 +208,7 @@ shiki のプラグインは Prism.js のプラグインと違って config そ�
 
 ### plugin の導入と設定
 
-```sh
+```shellscript
 $ yarn add gatsby-remark-shiki
 ```
 

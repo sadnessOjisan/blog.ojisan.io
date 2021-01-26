@@ -41,7 +41,7 @@ FYI: [計測したときの PR](https://github.com/sadnessOjisan/blog.ojisan.io/
 
 ヘッダーからサイドバーを出す UI は、Drawer というコンポーネントで対応できます。
 
-```sh
+```shellscript
 $ yarn add yarn add @material-ui/core
 ```
 
@@ -189,6 +189,6 @@ export default Header
 
 このヘッダで使うアイコンは material-icons を使っています。
 
-```sh
+```shellscript
 $ yarn add yarn add @material-ui/icons
 ```

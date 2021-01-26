@@ -483,7 +483,7 @@ console.log(ast)
 
 parse の結果を出力すると
 
-```sh
+```shellscript
 > node index.js
 Node {
   type: 'File',
@@ -780,7 +780,7 @@ const hoge = () => {}
 
 という関数を babel で変換してみましょう。
 
-```sh
+```shellscript
 npm i @babel/core @babel/cli
 ```
 

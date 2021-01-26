@@ -23,7 +23,7 @@ rules でファイルへのアクセスを全て禁止にして、バックエ�
 
 ## rules で全ファイルへのアクセスを禁止する
 
-```sh
+```shellscript
 rules_version = '2';
 service firebase.storage {
   match /b/{bucket}/o {
@@ -43,7 +43,7 @@ service firebase.storage {
 
 firebase にはクライアント用の SDK 以外にもバックエンドから叩ける admin ライブラリがあります。
 
-```sh
+```shellscript
 $ npm i firebase-admin
 ```
 

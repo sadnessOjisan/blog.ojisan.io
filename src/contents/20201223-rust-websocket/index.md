@@ -161,7 +161,7 @@ NodeJS なら crypto で一発だったので少し苦労しました。
 
 先ほど作った Sec-WebSocket-Accept を使ってレスポンスヘッダを作りましょう。
 
-```sh
+```shellscript
 HTTP/1.1 101 Switching Protocols
 Upgrade: websocket
 Connection: Upgrade
@@ -314,7 +314,7 @@ for i in 0..payload_length {
 > octet i of the original data ("original-octet-i") with octet at index
 > i modulo 4 of the masking key ("masking-key-octet-j"):
 
-```sh
+```shellscript
 j                   = i MOD 4
 transformed-octet-i = original-octet-i XOR masking-key-octet-j
 ```

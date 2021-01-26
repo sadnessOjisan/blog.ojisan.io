@@ -566,7 +566,7 @@ div {
 }
 ```
 
-```sh
+```shellscript
 $ npx node-sass index.scss
 {
   "status": 1,
@@ -721,7 +721,7 @@ div {
 console.log(serialize(compile(css), stringify))
 ```
 
-```sh
+```shellscript
 $ node index.js
 div:hover{color:blue;}div :hover{color:blue;}
 ```

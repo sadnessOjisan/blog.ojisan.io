@@ -19,13 +19,13 @@ jest.config.js の transform もしくは preset に ts-jest をセットすれ�
 
 パッケージインストール
 
-```sh
+```shellscript
 npm i -D jest @types/jest typescript
 ```
 
 ツールの設定ファイルを生成
 
-```sh
+```shellscript
 npx jest --init
 
 npx tsc --init
@@ -93,7 +93,7 @@ TypeScript の設定
 上の設定で preset を undefined にしました。
 この状態で TypeScript のテストを実行します。
 
-```sh
+```shellscript
 npm run test
 
  FAIL  src/index.test.ts
@@ -143,7 +143,7 @@ Ran all test suites.
 
 次に preset に ts-jest を指定してみましょう。
 
-```sh
+```shellscript
 npm i -D ts-jest
 ```
 
@@ -161,7 +161,7 @@ module.exports = {
 }
 ```
 
-```sh
+```shellscript
 $ npm run test
 
  PASS  src/index.test.ts

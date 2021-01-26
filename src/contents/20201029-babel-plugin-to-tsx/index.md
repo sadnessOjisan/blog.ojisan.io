@@ -27,7 +27,7 @@ module.exports = {
 }
 ```
 
-```sh
+```shellscript
 # babel-loader でビルドするという前提
 $ npx webpack
 
@@ -54,7 +54,7 @@ module.exports = {
 }
 ```
 
-```sh
+```shellscript
 $ npx webpack
 
 [webpack-cli] Compilation finished

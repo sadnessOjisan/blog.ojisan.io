@@ -214,7 +214,7 @@ plugin をセットする extends の例として、[eslint-plugin-node](https:/
 簡単な実験をしてみましょう。
 まず実験に使うライブラリを入れます。
 
-```sh
+```shellscript
 npm i -D eslint eslint-plugin-node
 ```
 
@@ -238,7 +238,7 @@ exports = {
 
 実際弾かれることを確認してみましょう。
 
-```sh
+```shellscript
 $ npx eslint index.js
 
   1:1  error  Unexpected assignment to 'exports' variable. Use 'module.exports' instead  node/no-exports-assign
@@ -312,7 +312,7 @@ module.exports = {
 
 そして先ほどと同じように eslint コマンドを実行してみよう。
 
-```sh
+```shellscript
 > npx eslint index.js
 
   1:1  error  Definition for rule 'node/no-deprecated-api' was not found                      node/no-deprecated-api

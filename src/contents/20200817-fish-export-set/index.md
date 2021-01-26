@@ -21,7 +21,7 @@ fish(friendly interactive shell)で環境変数をセットする際、[公式](
 
 新 PC を fish で設定していて、cargo の設定で何気に
 
-```sh
+```shellscript
 source ~/.cargo/env
 ```
 
@@ -29,7 +29,7 @@ source ~/.cargo/env
 
 このファイルを覗いてみると
 
-```sh
+```shellscript
 export PATH="$HOME/.cargo/bin:$PATH"
 ```
 
@@ -41,13 +41,13 @@ export PATH="$HOME/.cargo/bin:$PATH"
 
 もしかして cargo 入れる時に裏で魔法のなにかをやってくれたりするのかなと思ったので、普通に手元で export が通るか実験しました。
 
-```sh
+```shellscript
 $ export PATH="$HOME/aaaaaaaaaaa:$PATH"
 ```
 
 そして PATH を出力してみます。
 
-```sh
+```shellscript
 $ echo $PATH
 . /Users/ojisan/aaaaaaaaaaa /usr/bin /bin /usr/sbin /sbin /usr/local/bin
 ```
@@ -59,7 +59,7 @@ export がちゃんと実行されていました。
 というわけで export コマンドが使える理由を探ってみました。
 コマンドが使えるということは fish functions が怪しいので、functions をみてみました。
 
-```sh
+```shellscript
 # 筆者はCLIが使えないのでVSCodeで調査している
 $ code ~/.config/fish
 ```
@@ -67,7 +67,7 @@ $ code ~/.config/fish
 fish 配下を `export` で全文検索で漁ってみました。
 ここで
 
-```sh
+```shellscript
 function export
   # no op
 end
@@ -81,7 +81,7 @@ end
 
 export がコマンドでなく関数なのであれば
 
-```sh
+```shellscript
 which export
 ```
 
@@ -92,7 +92,7 @@ which export
 **fish は嬉しいことに設定をブラウザで行えます。**
 そのブラウザの設定画面に function 一覧があるので、そこで探してみることにしました。
 
-```sh
+```shellscript
 $ fish_config
 ```
 
@@ -101,7 +101,7 @@ $ fish_config
 そしてこの画面で export を探すとありました！
 このような関数として定義されていました。
 
-```sh
+```shellscript
 # Defined in /usr/local/Cellar/fish/3.1.2/share/fish/functions/export.fish @ line 1
 function export --description 'Set env variable. Alias for `set -gx` for bash compatibility.'
     if not set -q argv[1]
@@ -147,7 +147,7 @@ function の読み込みについて調べてみました。
 
 なのでこの\$fish_function_path が何なのかみてみましょう。
 
-```sh
+```shellscript
 $ echo $fish_function_path
 > /Users/ojisan/.config/fish/functions
 /usr/local/Cellar/fish/3.1.2/etc/fish/functions

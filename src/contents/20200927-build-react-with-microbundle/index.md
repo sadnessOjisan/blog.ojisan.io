@@ -38,7 +38,7 @@ package.json の中身を見てバンドルを生成してくれます。
 
 この状態で、
 
-```sh
+```shellscript
 $ npx microbundle
 ```
 
@@ -54,7 +54,7 @@ $ npx microbundle
 
 そのため、jsx の変換は h 関数で行われることが想定されており、そのまま React のコードをビルドすると
 
-```sh
+```shellscript
 $ npx microbundle
 (rpt2 plugin) Error
 semantic error TS2304: Cannot find name 'h'.

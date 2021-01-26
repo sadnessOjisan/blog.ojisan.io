@@ -15,7 +15,7 @@ PATH のことちゃんと理解していなかったのでちょっと勉強し
 
 PATH を消します。
 
-```sh
+```shellscript
 # bash/zsh
 unset PATH
 
@@ -25,14 +25,14 @@ set -e PATH
 
 消えたことを確認しましょう。
 
-```sh
+```shellscript
 $ echo $PATH
 >
 ```
 
 そしてコマンドを叩いてみると、これまで使えていたコマンドが使えなくなっていることも確認できます。
 
-```sh
+```shellscript
 % ls
 zsh: command not found: ls
 
@@ -44,7 +44,7 @@ zsh: command not found: bash
 
 なので、
 
-```sh
+```shellscript
 export PATH="/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin"
 ```
 
@@ -54,7 +54,7 @@ export PATH="/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin"
 
 ところで PATH を消した後、実行ファイルを直接指定して他のシェルを開くと元に戻ります。
 
-```sh
+```shellscript
 % unset PATH
 
 % bash
@@ -99,7 +99,7 @@ etc, なんか UNIX が云々みたいな話で出てくるやつだったなと
 shell を立ち上げるとまずは/etc/profile が読まれるとのことで、このコードを見てみましょう。
 こういった設定の読み込み順序については [A Memorandum](https://blog1.mammb.com/entry/2019/12/01/090000) がわかりやすかったです。
 
-```sh:title=profile
+```shellscript:title=profile
 # System-wide .profile for sh(1)
 
 if [ -x /usr/libexec/path_helper ]; then
@@ -115,7 +115,7 @@ fi
 
 このファイルを見てみると
 
-```sh
+```shellscript
 $ less /usr/libexec/path_helper
 @^@^@^@^@^@^@^@^@^@^@^@^@^A^@^@^
 @^@^P^@^@^@^@^@^@^@^@^@^@^@^@^@^
@@ -128,7 +128,7 @@ $ less /usr/libexec/path_helper
 
 と、バイナリだったのでとりあえず実行してみると、
 
-```sh
+```shellscript
 bash-3.2$ /usr/libexec/path_helper
 PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"; export PATH;
 ```

@@ -27,7 +27,7 @@ NextJS へ環境変数をセットする時、デプロイを考慮した上で.
 
 設定ファイルに環境変数を書いておけば、ビルド時に process.env へと環境変数を登録してくれます。
 
-```sh:title=.env.local
+```shellscript:title=.env.local
 DB_HOST=localhost
 DB_USER=myuser
 DB_PASS=mypassword
@@ -51,7 +51,7 @@ API Route は NextJS に生えている API サーバーの口です。
 一つには環境変数名を `NEXT_PUBLIC_` で始まるものにしておくというものです。
 このようにしておけば、NextJS が勝手にクライアント側の `process.env`配下に入れてくれます。
 
-```sh:title=.env.local
+```shellscript:title=.env.local
 NEXT_PUBLIC_API_ENDOPOINT=http://localhost:3001
 ```
 
@@ -163,13 +163,13 @@ export const getServerSideProps = () => {
 
 ここで、
 
-```sh
+```shellscript
 $ npx next build
 ```
 
 とすると、
 
-```sh
+```shellscript
 $ npx next build
 <getServerSideProps> process.env.NEXT_PUBLIC_ORIGINAL_ENV:  hoge
 ```
@@ -178,13 +178,13 @@ $ npx next build
 
 そして、
 
-```sh
+```shellscript
 $ npx next start
 ```
 
 とすると、
 
-```sh
+```shellscript
 $ npx next start
 <getServerSideProps> process.env.NEXT_PUBLIC_ORIGINAL_ENV:  piyo
 ```
@@ -193,7 +193,7 @@ $ npx next start
 
 しかしこの状態でそのページにアクセスすると、
 
-```sh
+```shellscript
 $ npx next start
 <getServerSideProps> process.env.NEXT_PUBLIC_ORIGINAL_ENV:  hoge
 <component> process.env.NEXT_PUBLIC_ORIGINAL_ENV:  hoge
@@ -203,7 +203,7 @@ $ npx next start
 
 そしてブラウザでは
 
-```sh
+```shellscript
 <component> process.env.NEXT_PUBLIC_ORIGINAL_ENV:  hoge
 ```
 

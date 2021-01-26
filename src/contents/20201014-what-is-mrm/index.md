@@ -11,7 +11,7 @@ isProtect: false
 
 [lint-staged](https://github.com/okonet/lint-staged) の設定をしているとき公式の Installation and setup に
 
-```sh
+```shellscript
 npx mrm lint-staged
 ```
 
@@ -76,7 +76,7 @@ package.json は
 
 .gitignore は
 
-```sh:title=.gitignore
+```shellscript:title=.gitignore
 coverage/
 ```
 
@@ -84,7 +84,7 @@ coverage/
 
 そして新しく .eslintignore が作成され
 
-```sh:title=.eslintignore
+```shellscript:title=.eslintignore
 types/graphql-types.d.ts
 coverage/*
 ```
@@ -143,7 +143,7 @@ FYI: https://mrm.js.org/docs/making-tasks
 
 mrm は いろんな設定ファイルをよしなにしてくれるコマンドラインツールです。
 
-```sh
+```shellscript
 npx mrm lint-staged
 ```
 

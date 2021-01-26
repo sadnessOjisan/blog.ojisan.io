@@ -68,7 +68,7 @@ Babel を使っている場合、それは [@babel/plugin-transform-react-jsx](h
 
 必要なライブラリをインストールします。
 
-```sh
+```shellscript
 $ npm i react
 
 $ npm i -D @babel/core @babel/cli @babel/plugin-transform-react-jsx
@@ -94,7 +94,7 @@ const Component = () => {
 
 ビルドします。
 
-```sh
+```shellscript
 $ npx babel src -d dist
 ```
 
@@ -121,7 +121,7 @@ TypeScript には @babel/plugin-transform-react-jsx のようなプラグイン�
 
 必要なライブラリをインストールします。
 
-```sh
+```shellscript
 $ npm i react
 
 $ npm i -D typescript @types/react
@@ -156,7 +156,7 @@ const Component = () => {
 
 ビルドします。
 
-```sh
+```shellscript
 $ npx tsc
 ```
 

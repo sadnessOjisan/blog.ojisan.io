@@ -377,7 +377,7 @@ console.log(serialize(compile(css), stringify))
 
 の結果は、
 
-```sh
+```shellscript
 $ node index.js
 div .hoge{color:red;}div .hoge{color:blue;}
 ```

@@ -52,7 +52,7 @@ opam を入れると OCaml の環境も手に入ります。
 
 dune プロジェクトは `init` で作ります。
 
-```sh
+```shellscript
 # arithはプロジェクト名
 dune init exe arith
 ```
@@ -63,7 +63,7 @@ exe は実行形式を作るプロジェクトであると言う意味です。
 
 `init` した後に
 
-```sh
+```shellscript
 dune exec -- ./arith.exe
 ```
 
@@ -80,7 +80,7 @@ dune exec -- ./arith.exe
 arith のエントリポイントは main.ml です。
 これをビルドするために dune の設定の name を main に変えて、
 
-```sh
+```shellscript
 dune exec -- ./main.exe
 ```
 
@@ -99,7 +99,7 @@ ocamllex, ocamlyacc を dune から呼び出せるように[マニュアル](htt
 dune は (key property) といった形の設定を stanza という単位で行っていきます。
 ocamllex, ocamlyacc を使うためには rule スタンザを使います。
 
-```sh
+```shellscript
 (rule
  (target[s] <filenames>)
  (action  <action>)
@@ -108,7 +108,7 @@ ocamllex, ocamlyacc を使うためには rule スタンザを使います。
 
 lexer, parser はそれぞれ、 \*.mll, \*.mly から作るので、
 
-```sh
+```shellscript
 (rule
  (target lexer.ml)
  (deps lexer.mll)
@@ -118,7 +118,7 @@ lexer, parser はそれぞれ、 \*.mll, \*.mly から作るので、
    (run %{bin:ocamllex} -q -o %{target} %{deps}))))
 ```
 
-```sh
+```shellscript
 (rule
  (targets parser.ml parser.mli)
  (deps parser.mly)
@@ -138,7 +138,7 @@ targets, deps はそのままの意味なのでどう言う設定かは伝わる
 TaPL は歴史の長い本なのでこのサンプルコードをそのまま現在の OCaml でビルドすると警告がたくさん出るはずです。
 そして dune は初期設定ではその警告を全てエラー扱いするので、それをやめるように設定しましょう。
 
-```sh
+```shellscript
 (env
  (dev
   (flags
@@ -155,13 +155,13 @@ TaPL は歴史の長い本なのでこのサンプルコードをそのまま現
 
 それは 119 行目の
 
-```sh
+```shellscript
 let getStr () = Bytes.sub (!stringBuffer) 0 (!stringEnd)
 ```
 
 にあるので、ここを
 
-```sh
+```shellscript
 let getStr () = Bytes.sub (!stringBuffer) 0 (!stringEnd) |> Bytes.to_string
 ```
 
@@ -173,7 +173,7 @@ let getStr () = Bytes.sub (!stringBuffer) 0 (!stringEnd) |> Bytes.to_string
 これは出来上がるものはコンパイラなのでテストファイルも一緒に渡して実行します。
 それは test.f としてサンプルコードに含まれています。
 
-```sh
+```shellscript
 $ dune exec -- ./main.exe test.f
 true
 false
@@ -188,7 +188,7 @@ false
 
 きっとビルドの過程で .merlin と言うファイルができているはずです。
 
-```sh
+```shellscript
 EXCLUDE_QUERY_DIR
 B _build/default/.main.eobjs/byte
 S .

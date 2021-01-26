@@ -201,7 +201,7 @@ console.log("[class名]<関数名> x: ", x)
 といった **マーク付きの loggaer を仕込めます**。
 こうすると
 
-```sh
+```shellscript
 > [class名]<関数名> x: 10
 ```
 
@@ -238,7 +238,7 @@ NodeJS の [Console](https://nodejs.org/api/console.html#console_class_console) 
 上の例では result.log というファイルに出力する logger を作っています。
 これで x の内容が result.log というファイルに出力されます。
 
-```sh
+```shellscript
 [path.js]<node> node Node {
   type: 'File',
   start: 0,
@@ -309,7 +309,7 @@ inspector の起動 は inspect をつけて実行するだけで、 デバッ�
 repl の中ではそのステップ時の変数にアクセスできます。
 また console.log(), typeof, Object.keys() などのコマンドも使えるので、調べたい変数が複雑で巨大でも掘っていくことができます。
 
-```sh
+```shellscript
 > XXX
 { type: 'Program',
   start: 0,
@@ -404,7 +404,7 @@ const hoge = (input: number): number => {
 }
 ```
 
-```sh
+```shellscript
 $ tsserver
 
 # 標準入力
@@ -599,7 +599,7 @@ registerModule();
 
 このコードの index.ts は処理としては`console.log(instances)`をしているだけですが、出力した instances には値が入っています。
 
-```sh
+```shellscript
 $ npx tsc src/*.ts --outDir dist
 
 $ node dist/index.js
@@ -636,7 +636,7 @@ console.log(base.returnTwo())
 
 これを実行すると、もともと Base クラスになかった `returnTwo` を呼び出すことができ、
 
-```sh
+```shellscript
 $ npx tsc index.ts
 
 $ node index.js
@@ -649,7 +649,7 @@ $ node index.js
 ただし、`console.log(base.returnTwo())`の returnTwo が jump できません。
 というより実は npx の時点でエラーは出ていました。（ビルドはできる）
 
-```sh
+```shellscript
 $ npx tsc index.ts
 index.ts:18:15 - error TS2339: Property 'returnTwo' does not exist on type 'Base'.
 

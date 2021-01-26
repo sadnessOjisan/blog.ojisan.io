@@ -17,7 +17,7 @@ ReScript は BuckleScript と ReasonML をベースに作られたプログラ�
 
 decorator は
 
-```sh
+```shellscript
 @bs.inline
 let mode = "dev"
 ```
@@ -36,7 +36,7 @@ binding には decorator を使います。
 
 例えば、
 
-```sh
+```shellscript
 @bs.val external timerOn: (unit => unit, int) => float = "setTimeout"
 ```
 
@@ -44,7 +44,7 @@ binding には decorator を使います。
 
 これは ReScript の世界で、
 
-```sh
+```shellscript
 timerOn(()=>(), 1000)
 ```
 
@@ -78,7 +78,7 @@ FYI: https://rescript-lang.org/docs/manual/latest/bind-to-global-js-values
 
 公式にある Tips & Tricks では
 
-```sh
+```shellscript
 type timerId
 @bs.val external setTimeout: (unit => unit, int) => timerId = "setTimeout"
 @bs.val external clearTimeout: timerId => unit = "clearTimeout"
@@ -104,7 +104,7 @@ FlowType でいうところの opaque に近いものと捉えると良いかも
 
 FYI: https://rescript-lang.org/docs/manual/latest/bind-to-global-js-values
 
-```sh
+```shellscript
 @bs.val @bs.scope(("window", "location"))
 external url: string = "href"
 ```
@@ -112,7 +112,7 @@ external url: string = "href"
 @bs.val と @bs.scope を駆使すると global オブジェクトが持つどんな値にも bind を書いていけます。
 例えば chrome 拡張の開発などにも使えます。
 
-```sh
+```shellscript
 @bs.val @bs.scope(("chrome", "storage", "local"))
 external get: string => ((dataType)=>())  => () = "get"
 
@@ -136,7 +136,7 @@ FYI: https://rescript-lang.org/docs/manual/latest/bind-to-js-object
 
 module のバインドを作れるということはライブラリそのものに対する bind を作れます。
 
-```sh
+```shellscript
 // Import nodejs' path.dirname
 @bs.module("path") external dirname: string => string = "dirname"
 let root = dirname("/User/github") // returns "User"
@@ -156,7 +156,7 @@ send は関数に特化して bind できるものです。
 
 たとえば、
 
-```sh
+```shellscript
 type document // abstract type for a document object
 @bs.send external getElementById: (document, string) => Dom.element = "getElementById"
 @bs.val external doc: document = "document"
@@ -176,7 +176,7 @@ var el = document.getElementById("myId")
 
 bind されたオブジェクトに直接 bind された値を代入するには setter を利用します。
 
-```sh
+```shellscript
 type window
 @bs.val external window: window = "window"
 @bs.set external setOnload: (window, (() => unit)) => unit = "onload"

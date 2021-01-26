@@ -393,7 +393,7 @@ prettier は各自で入れておきましょう。
 
 そのため、行うべき設定とは
 
-```sh
+```shellscript
 $ npm install -D eslint-plugin-prettier prettier
 ```
 
@@ -460,7 +460,7 @@ module.exports = {
 また extends に prettier が指定されていることは、[eslint-config-prettier](https://github.com/prettier/eslint-config-prettier) における ESLint 標準ルールのスタイル OFF 設定も含まれています。
 そのため
 
-```sh
+```shellscript
 $ npm i -D eslint-plugin-prettier eslint-config-prettier prettier
 ```
 
@@ -497,13 +497,13 @@ module.exports = {
 
 TS, React などを併用するときの設定は、こういった TS, React 用の ESLint plugin が入っているとして、
 
-```sh
+```shellscript
 $ npm i -D @typescript-eslint/eslint-plugin eslint-plugin-react
 ```
 
 prettier 用の plugin, config を install して、
 
-```sh
+```shellscript
 $ npm i -D eslint-plugin-prettier eslint-config-prettier prettier
 ```
 
@@ -560,7 +560,7 @@ module.exports = {
 plugin の設定はされるものの、その plugin 自体は手元に必要なので、config と plugin 双方の install が必要です。
 またその plugin は prettier の実行を担うので、prettier 本体も手元に必要です。
 
-```sh
+```shellscript
 $ npm i -D eslint-plugin-prettier eslint-config-prettier prettier
 ```
 
@@ -602,7 +602,7 @@ prettier/@typescript-eslint も prettier/react もそれ用のライブラリが
 
 必要なパッケージを install します。
 
-```sh
+```shellscript
 npm install -D eslint-plugin-prettier eslint-config-prettier prettier
 ```
 

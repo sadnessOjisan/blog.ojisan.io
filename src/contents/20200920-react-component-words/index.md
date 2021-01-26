@@ -146,7 +146,7 @@ ReactDOM.render(App, document.getElementById("root"))
 
 のようなコードが
 
-```sh
+```shellscript
 No overload matches this call.
   The last overload gave the following error.
     Argument of type '() => JSX.Element' is not assignable

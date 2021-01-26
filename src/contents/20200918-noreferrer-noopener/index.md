@@ -78,7 +78,7 @@ FYI: https://chaika.hatenablog.com/entry/2018/12/06/110000
 
 をそのまま JSX に書いて eslint(+[eslint-plugin-react](https://github.com/yannickcr/eslint-plugin-react)) にかけると、
 
-```sh
+```shellscript
 error  Using target="_blank" without rel="noreferrer" is a security risk:
 see https://html.spec.whatwg.org/multipage/links.html#link-type-noopener
 react/jsx-no-target-blank
@@ -98,7 +98,7 @@ react/jsx-no-target-blank
 
 が、ここの警告が昔は
 
-```sh
+```shellscript
 Using target="_blank" without rel="noopener noreferrer" is a security risk:
 see https://mathiasbynens.github.io/rel-noopener/
 ```
@@ -186,7 +186,7 @@ FYI: https://bugzilla.mozilla.org/show_bug.cgi?id=1031264
 
 と、両方つけるメリットも少しはありそうと書いたのですがそもそも spec には
 
-```sh
+```shellscript
 <a href="..." rel="noreferrer" target="_blank"> has the same behavior as
 <a href="..." rel="noreferrer noopener" target="_blank">.
 ```

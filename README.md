@@ -6,7 +6,7 @@
 
 ### develop
 
-```sh
+```shellscript
 # pkg install
 yarn install
 
@@ -22,7 +22,7 @@ open http://localhost:8000/___graphql
 
 ### deploy
 
-```sh
+```shellscript
 # build
 $ yarn build
 

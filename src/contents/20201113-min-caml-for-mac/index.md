@@ -19,7 +19,7 @@ isProtect: true
 
 このような手順書があるので辿ってみます。
 
-```sh
+```shellscript
 Install OCaml (http://caml.inria.fr/) if you haven't
 
 Download (and expand) MinCaml, e.g. git clone https://github.com/esumii/min-caml.git
@@ -35,7 +35,7 @@ make
 
 ## make のエラーログ
 
-```sh
+```shellscript
 make
 
 File "parser.cmo", line 1:
@@ -109,7 +109,7 @@ min-caml の x_86 用の makefile を読む限り、実行されている gcc �
 32bit 対応している OS を使えば解決できると思ったので試してみました。
 CentOS6 は 32bit 対応なので、このイメージを使ってみます。
 
-```sh
+```shellscript
 docker pull i386/centos:6
 docker run -it --rm i386/centos:6 /bin/bash
 ```
@@ -117,25 +117,25 @@ docker run -it --rm i386/centos:6 /bin/bash
 Docker 環境に入ったら min-caml を実行するための OCaml と min-caml 自体を DL するための git をインストールします。
 ただこのままだと 64bit 版が入る(?)ので、yum のレポジトリを i386 向けに設定します。
 
-```sh
+```shellscript
 sed -i 's/$basearch/i386/g' /etc/yum.repos.d/CentOS-*.repo
 ```
 
 そしてインストールします。
 
-```sh
+```shellscript
 yum install git ocaml
 ```
 
 そして min-caml 自体を DL します。
 
-```sh
+```shellscript
 git clone https://github.com/sadnessOjisan/min-caml.git
 ```
 
 これで実行してみましょう。
 
-```sh
+```shellscript
 cd min-caml/
 
 ./to_x86
@@ -147,13 +147,13 @@ make
 
 本当に動くか試してみましょう。
 
-```sh
+```shellscript
 ./min-caml test/adder
 ```
 
 adder はこのようなコードです。
 
-```sh
+```shellscript
 let rec make_adder x =
   let rec adder y = x + y in
   adder in
@@ -162,14 +162,14 @@ print_int ((make_adder 3) 7)
 
 これをコンパイルすると、
 
-```sh
+```shellscript
 adder      adder.ans  adder.cmp  adder.ml   adder.res  adder.s
 ```
 
 といったファイルが生成されているはずです。
 そして結果を見てみましょう。
 
-```sh
+```shellscript
 less test/adder.res
 10
 ```
@@ -183,7 +183,7 @@ less test/adder.res
 
 先ほどコンテナ内でやったことを Dockerfile に書いておきます。
 
-```sh
+```shellscript
 FROM i386/centos:6
 
 RUN sed -i 's/\$basearch/i386/g' /etc/yum.repos.d/CentOS-\*.repo \
@@ -195,7 +195,7 @@ yum install の -y を付けないとインストールが中断されて止ま�
 
 そしてこのファイルを次のコマンドで実行します。
 
-```sh
+```shellscript
 docker run --rm -v \$PWD:/min-caml -w /min-caml mincaml-builder make
 ```
 

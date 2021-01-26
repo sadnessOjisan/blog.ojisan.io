@@ -86,7 +86,7 @@ module.exports = {
 
 そして次に TypeScript の設定をします。
 
-```sh
+```shellscript
 $ npx tsc --init
 ```
 
@@ -108,14 +108,14 @@ render(<Main></Main>, document.body)
 
 先ほどのビルドエラーは
 
-```sh
+```shellscript
 TS17004: Cannot use JSX unless the '--jsx' flag is provided.
 ```
 
 とでるはずなので、jsx オプションに react をつけて実行します。
 すると、
 
-```sh
+```shellscript
 TS2686: 'React' refers to a UMD global, but the current file is a module.
 Consider adding an import instead.
 ```
@@ -124,7 +124,7 @@ Consider adding an import instead.
 
 これはつまり、
 
-```sh
+```shellscript
 import React from 'react'
 ```
 
@@ -211,7 +211,7 @@ render(<Main />, document.body)
 として使え、よく見る Router という感じがします。
 ただし、この書き方だと path は型定義が合いません。
 
-```sh
+```shellscript
 type '{ path: string; }' is not assignable to type 'IntrinsicAttributes'.
   Property 'path' does not exist on type 'IntrinsicAttributes'.ts(2322)
 ```

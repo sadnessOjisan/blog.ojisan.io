@@ -235,7 +235,7 @@ now secrets という仕組みを使ってユーザーに見えてはいけな�
 
 これは
 
-```sh
+```shellscript
 $ now secrets add <secret-name> <secret-value>
 ```
 
@@ -283,7 +283,7 @@ FYI: https://github.com/vercel/vercel/discussions/4065
 
 now では環境変数として-から始まるものは登録できないという制約がありました。
 
-```sh
+```shellscript
 $ now secrets add thing "-wtf"
 > Error! Invalid number of arguments. Usage: `now secret add <name> <value>`
 ```
@@ -314,7 +314,7 @@ Firebase の Admin API を使うとき、GCP の private_key が必要になり�
 しかしこれは -- から始まるので base64 にする必要があります。
 そして base64 エンコードした結果 4kb 制限に引っかかります。
 
-```sh
+```shellscript
 Environment variables must not be greater than 4kb when JSON-stringified (got 4.21KB)
 ```
 

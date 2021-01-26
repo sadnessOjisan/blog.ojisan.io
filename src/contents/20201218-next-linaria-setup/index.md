@@ -179,7 +179,7 @@ export default () => {
 
 そしてビルドします。
 
-```sh
+```shellscript
 $ npx next build
 
 Error: Using the "css" tag in runtime is not supported. Make sure you have set up the Babel plugin correctly.
@@ -215,7 +215,7 @@ FYI: https://github.com/callstack/linaria/blob/master/packages/webpack4-loader/s
 
 さて、これで動きそうなのでビルドしてみましょう。
 
-```sh
+```shellscript
 $ npx next build
 info  - Creating an optimized production build
 Failed to compile.
@@ -237,13 +237,13 @@ FYI: https://github.com/callstack/linaria/blob/master/packages/webpack5-loader/p
 
 そのためあらかじめユーザー側で@babel/core を持っておく必要があります。
 
-```sh
+```shellscript
 npm i -D @babel/core
 ```
 
 この状態でビルドすると、
 
-```sh
+```shellscript
 $ npx next build
 info  - Creating an optimized production build
 info  - Compiled successfully
@@ -274,7 +274,7 @@ Page                                                           Size     First Lo
 
 必要なライブラリの install
 
-```sh
+```shellscript
 npm i react react-dom next linaria
 
 npm i -D next-linaria @babel/core

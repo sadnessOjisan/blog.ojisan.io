@@ -23,7 +23,7 @@ isProtect: false
 
 インストール方法は公式である[How to install opam](https://opam.ocaml.org/doc/Install.html)にあるので、参照します。
 
-```sh
+```shellscript
 $ brew install gpatch
 $ brew install opam
 ```
@@ -33,7 +33,7 @@ $ brew install opam
 
 上記のコマンドを実行すれば、opam を実行できるようになります。
 
-```sh
+```shellscript
 > opam
 usage: opam [--version]
             [--help]
@@ -58,7 +58,7 @@ See 'opam help <command>' for more information on a specific command.
 
 次に`opam`コマンドで OCaml の環境を作っていきます。
 
-```sh
+```shellscript
 opam init
 
 # パスを通す
@@ -68,7 +68,7 @@ eval $(opam env)
 これで OCaml の環境が使えるようになりました。
 試しに`ocaml`と打つと REPL が起動するはずです。
 
-```sh
+```shellscript
 > ocaml
         OCaml version 4.09.1
 ```
@@ -79,7 +79,7 @@ eval $(opam env)
 そこで VSCode を LSP Client にするので、それに対応する Launguage Server をインストールします。
 それは[ocaml-lsp](https://github.com/ocaml/ocaml-lsp)というもので opam 経由でインストールできます。
 
-```sh
+```shellscript
 $ opam pin add ocaml-lsp-server https://github.com/ocaml/ocaml-lsp.git
 $ opam install ocaml-lsp-server
 ```
@@ -120,7 +120,7 @@ Extension の disaple や設定の修正を行った後は VSCode の再起動�
 
 `opam init` するとこのような表示がされます。
 
-```sh
+```shellscript
 > opam init
 ...
 
@@ -166,7 +166,7 @@ in sync with the opam environment when they are loaded. Set that up? [y/N] y
 
 で、ここで
 
-```sh
+```shellscript
 your fish configuration by adding the following line to ~/.config/fish/config.fish:
 
 source /Users/ojisan/.opam/opam-init/init.fish > /dev/null 2> /dev/null; or true

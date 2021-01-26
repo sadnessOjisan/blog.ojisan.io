@@ -119,7 +119,7 @@ const getVal = () => [1, 2, 3, 4]
 const [_, second] = getVal()
 ```
 
-```sh
+```shellscript
 > second
 2
 ```

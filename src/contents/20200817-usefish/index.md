@@ -44,13 +44,13 @@ isProtect: false
 
 Homebrew から手に入れることができます。
 
-```sh
+```shellscript
 brew install fish
 ```
 
 インストール後 `fish` と打てば fish が立ち上がります。
 
-```sh
+```shellscript
 > fish
 Welcome to fish, the friendly interactive shell
 Type help for instructions on how to use fish
@@ -104,7 +104,7 @@ FYI: https://stackoverflow.com/questions/48749443/fish-shell-import-config-into-
 
 zsh/bash などでは
 
-```sh:title=.bashrc
+```shellscript:title=.bashrc
 #!/bin/bash -eu
 
 bash_conf=~/.config/bash
@@ -117,7 +117,7 @@ bash_conf=~/.config/bash
 
 や
 
-```sh:title=.zshrc
+```shellscript:title=.zshrc
 function loadlib(){
     lib=${1:?"You have to specify a library file"}
     if [ -f "$lib" ];then #ファイルの存在を確認
@@ -139,7 +139,7 @@ PC の移行を考え、どんなプラグインを使っているかを dotfile
 ただ dotfiles として管理しないのであれば、`fisher add` で直接プラグインを入れてもいいとは思います。
 仮に fishfile を使ってなくても、パッケージ管理用のコマンドで自分がどんなファイルを持っているか調べられるので、忘れてもリカバリは容易です。
 
-```sh
+```shellscript
 # package一覧を取得
 fisher ls
 
@@ -158,7 +158,7 @@ fisher rm XXX
 
 bash/zsh などで nvm を使っていると、
 
-```sh
+```shellscript
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
@@ -177,7 +177,7 @@ FYI: https://medium.com/@joshuacrass/nvm-on-mac-for-fish-users-e00af124c540
 
 alias, env, keybind として設定を分けています。
 
-```sh:title=.config/fish/conf.d/alias.fish
+```shellscript:title=.config/fish/conf.d/alias.fish
 # vim -> nvim
 alias vim='nvim'
 
@@ -204,7 +204,7 @@ Git のエイリアスは昔から使っていた prezto の Git モジュール
 
 fishfile には
 
-```sh:title=.config/fish/fishfile
+```shellscript:title=.config/fish/fishfile
 rafaelrinaldi/pure
 oh-my-fish/plugin-peco
 ```
@@ -223,7 +223,7 @@ oh-my-fish/plugin-peco
 plugin-peco はこの peco を使ってコマンド履歴をフィルタリングする関数を提供します。
 そのため**peco は別途自分でインストールしておく必要**があります。
 
-```sh
+```shellscript
 brew install peco
 ```
 
@@ -232,7 +232,7 @@ plugin-peco によって peco_select_history が使えるようになってい�
 私は ctrl + r で履歴を絞り込めるようにここに peco_select_history を書いておきます。
 (bash/zsh だと このバインドで履歴を検索できたはずなので。)
 
-```sh
+```shellscript
 function fish_user_key_bindings
   bind \cr 'peco_select_history (commandline -b)'
 end

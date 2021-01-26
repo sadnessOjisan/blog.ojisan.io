@@ -77,7 +77,7 @@ FYI: [Babel の Plugin で .tsx をビルドする](https://blog.ojisan.io/babel
 
 また preset-env はビルドターゲットを .browserslictrc で制御できるのでその設定ファイルも足します。
 
-```sh:title=.browserslictrc
+```shellscript:title=.browserslictrc
 defaults
 not IE 11
 not IE_Mob 11
@@ -207,13 +207,13 @@ export const App: React.FC<Props> = props => <p>{props.message}</p>
 
 Prettier を入れます。
 
-```sh
+```shellscript
 npm i -D prettier
 ```
 
 設定ファイルも生成します。（標準に乗りたいから書かないけど）
 
-```sh
+```shellscript
 touch .prettierrc .prettierignore
 ```
 
@@ -223,7 +223,7 @@ prettierignore には md ファイルなどを指定しておくと、英数字�
 
 ではここから静的に縛っていきましょう。
 
-```sh
+```shellscript
 npx eslint --init
 ```
 
@@ -267,7 +267,7 @@ extends: [
 
 設定ファイル系は lint 対象から外したいので ignore します。
 
-```sh
+```shellscript
 dist
 babel.config.js
 webpack.*.js
@@ -301,7 +301,7 @@ jest の設定をしていきます。
 
 jest をいれます。
 
-```sh
+```shellscript
 npm i -D jest
 ```
 
@@ -309,7 +309,7 @@ npm i -D jest
 
 設定は
 
-```sh
+```shellscript
 npx jest --init
 ```
 
@@ -321,7 +321,7 @@ FYI: [preset: ts-jest とは](https://blog.ojisan.io/ts-jest)
 
 テストファイルを \_\_tests\_\_ の中に書くとテストを実行できます。
 
-```sh
+```shellscript
 jest
 ```
 
@@ -336,7 +336,7 @@ https://sadnessojisan.github.io/HelloWorldEnterpriseEdition/
 
 DOM に対してもテストを書きたいので react-testing-library を導入します。
 
-```sh
+```shellscript
 npm i -D @testing-library/jest-dom @testing-library/react
 ```
 
@@ -367,7 +367,7 @@ test("shows the children when the checkbox is checked", () => {
 
 いまは、
 
-```sh
+```shellscript
 npx sb init
 ```
 
@@ -549,13 +549,13 @@ FYI: [GitHub Actions と GitHub Pages で yml をフォルダに入れておく�
 デプロイトークンを取得するために firebase コマンドが必要になります。
 依存が増えて嬉しいですね。
 
-```sh
+```shellscript
 npm i -D firebase-tools
 ```
 
 これで
 
-```sh
+```shellscript
 npx firebae init
 ```
 
@@ -588,7 +588,7 @@ npx firebae init
 
 そして Github Actions からデプロイするためのトークンを払い出します。
 
-```sh
+```shellscript
 npx firebase login:ci
 ```
 
@@ -608,7 +608,7 @@ npx firebase login:ci
 [Netlify](https://www.netlify.com/) でブランチ連携をするだけでよいです。
 ただこれも設定を複雑にしようと思えばできて、\_headers ファイルでキャッシュをレスポンスヘッダをコントロールできます。
 
-```sh:title=_headers
+```shellscript:title=_headers
 /*
   X-Frame-Options: DENY
   X-XSS-Protection: 1; mode=block
