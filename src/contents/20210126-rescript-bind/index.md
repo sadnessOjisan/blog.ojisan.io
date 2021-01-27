@@ -9,6 +9,8 @@ isFavorite: false
 isProtect: false
 ---
 
+English version is [here](https://dev.to/sadnessojisan/storybook-with-preact-ts-goober-4ghk)
+
 preact + TS + goober 環境下に storybook を入れることに苦労したのでその時のメモです。
 
 ## storybook の作成に失敗する
@@ -28,7 +30,7 @@ export const Button = () => {
 }
 ```
 
-次にこのコンポーネントの storybook を作りましょう。
+次にこのコンポーネントの storybook を作ります。
 
 ```sh
 npx sb init
@@ -164,7 +166,7 @@ Button.defaultProps = {
 
 ## jsx の設定が必要
 
-### /\*_ @jsx h _/ とは何か
+### /\*\* @jsx h \*/ とは何か
 
 `/** @jsx h */` は jsx pragma と呼ばれている記法です。
 これは コンパイラ に jsx を作り出す関数(jsx factory)が何かを伝えることができます。
