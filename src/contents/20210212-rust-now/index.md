@@ -1,9 +1,9 @@
 ---
 path: /rust-now
-created: "2021-01-26"
+created: "2021-02-12"
 title: yew上で現在時間を取得する
 visual: "./visual.png"
-tags: ["Rust"]
+tags: ["Rust", "WebAssembly"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false
@@ -33,7 +33,7 @@ Rust で時間を扱うとなれば chrono クレートだと思うのですが�
 さきほど定義した関数を Rust 側から呼べるようにバインドを書きます。
 ここで `-> String` という型指定を忘れると想定通りに動かないので注意しましょう。
 
-```
+```rust
 #[wasm_bindgen]
 extern "C" {
     fn getISOString() -> String;
@@ -43,7 +43,7 @@ extern "C" {
 あとは yew の中から使うだけです。
 ここでは create のタイミングで呼び出しています。
 
-```
+```rust
 impl Component for Model {
     ...
     fn create(_: Self::Properties, link: ComponentLink<Self>) -> Self {
