@@ -1,7 +1,7 @@
 ---
-path: /preact-storybook
-created: "2021-01-27"
-title: preact プロジェクトにstorybookを導入する
+path: /rescript-bind
+created: "2021-01-26"
+title: ReScript から JavaScript への bind を書く
 visual: "./visual.png"
 tags: ["ReScript"]
 userId: sadnessOjisan
@@ -9,257 +9,190 @@ isFavorite: false
 isProtect: false
 ---
 
-English version is [here](https://dev.to/sadnessojisan/storybook-with-preact-ts-goober-4ghk)
+ReScript は BuckleScript と ReasonML をベースに作られたプログラミング言語で、OCaml にある便利な機能や強力な型推論を利用しつつ、JavaScript を出力できます。
+ただ、ReScript の世界から JavaScript のモジュール・ライブラリ・オブジェクトを利用するためには型推論を通すためにも bind が必要となります。その bind の書き方を紹介します。
 
-preact + TS + goober 環境下に storybook を入れることに苦労したのでその時のメモです。
+## decorator
 
-## storybook の作成に失敗する
-
-preact + TS + goober で何かしらのコンポーネントを作ります。
-
-```tsx:title=button.tsx
-import { h } from "preact"
-import { styled } from "goober"
-
-const _Button = styled("button")`
-  background-color: red;
-`
-
-export const Button = () => {
-  return <_Button>ok</_Button>
-}
-```
-
-次にこのコンポーネントの storybook を作ります。
+decorator は
 
 ```sh
-npx sb init
+@bs.inline
+let mode = "dev"
 ```
 
-```tsx:title=button.stories.tsx
-import { h } from "preact"
-import { Button } from "./button"
+のような記法で、ソースコードを修飾することで何かしらの機能を持たせることができます。
 
-export default {
-  title: "custom/Button",
-  component: Button,
-  argTypes: {
-    backgroundColor: { control: "color" },
-    onClick: { action: "onClick" },
-  },
-}
+ReScript では、主に変数宣言、関数宣言、フィールド宣言などの前に登場します。
 
-const Template = (args: any) => <Button {...args} />
+詳しくはこちらをご覧ください。
 
-export const Primary = Template.bind({})
-```
+FYI: https://rescript-lang.org/docs/manual/latest/attribute
 
-起動させます。
+## bind
 
-```
-npm run storybook
-```
+binding には decorator を使います。
 
-そして該当のボタンを開くと
+例えば、
 
 ```sh
-h is not defined
-ReferenceError: h is not defined
-    at Object.Template (http://192.168.0.3:6006/main.4bde6a78d76d85c8a393.bundle.js:353:3)
-    at finalStoryFn (http://192.168.0.3:6006/vendors~main.4bde6a78d76d85c8a393.bundle.js:16622:32)
-    at http://192.168.0.3:6006/vendors~main.4bde6a78d76d85c8a393.bundle.js:13062:21
-    at http://192.168.0.3:6006/vendors~main.4bde6a78d76d85c8a393.bundle.js:14861:14
-    at wrapper (http://192.168.0.3:6006/vendors~main.4bde6a78d76d85c8a393.bundle.js:12801:12)
-    at http://192.168.0.3:6006/vendors~main.4bde6a78d76d85c8a393.bundle.js:13580:14
-    at http://192.168.0.3:6006/vendors~main.4bde6a78d76d85c8a393.bundle.js:13594:26
-    at http://192.168.0.3:6006/vendors~main.4bde6a78d76d85c8a393.bundle.js:13062:21
-    at http://192.168.0.3:6006/vendors~main.4bde6a78d76d85c8a393.bundle.js:14854:12
-    at http://192.168.0.3:6006/vendors~main.4bde6a78d76d85c8a393.bundle.js:14861:14
+@bs.val external timerOn: (unit => unit, int) => float = "setTimeout"
 ```
 
-![エラー画面](./error.png)
+のようなコードです。
 
-といったエラーが表示されるはずです。
-
-一方で、 `npx sb init` が生成した examle story は表示されています。
-
-![成功画面](./sampleStory.png)
-
-一体どうしてでしょうか。
-
-## 成功する例とはどのようなものか
-
-まずそもそも preact は storybook 公式でもサポートされています。
-
-FYI: https://www.npmjs.com/package/@storybook/preact
-
-これにより `sb init` 時に自動生成させることができ、それは問題なく使えます。
-
-そこで自動生成されたファイルを見てみましょう。
-
-```js:title=button.stories.js
-/** @jsx h */
-import { h } from "preact"
-import PropTypes from "prop-types"
-import "./button.css"
-
-/**
- * Primary UI component for user interaction
- */
-export const Button = ({ primary, backgroundColor, size, label, ...props }) => {
-  const mode = primary
-    ? "storybook-button--primary"
-    : "storybook-button--secondary"
-  return (
-    <button
-      type="button"
-      className={["storybook-button", `storybook-button--${size}`, mode].join(
-        " "
-      )}
-      style={backgroundColor && { backgroundColor }}
-      {...props}
-    >
-      {label}
-    </button>
-  )
-}
-
-Button.propTypes = {
-  /**
-   * Is this the principal call to action on the page?
-   */
-  primary: PropTypes.bool,
-  /**
-   * What background color to use
-   */
-  backgroundColor: PropTypes.string,
-  /**
-   * How large should the button be?
-   */
-  size: PropTypes.oneOf(["small", "medium", "large"]),
-  /**
-   * Button contents
-   */
-  label: PropTypes.string.isRequired,
-  /**
-   * Optional click handler
-   */
-  onClick: PropTypes.func,
-}
-
-Button.defaultProps = {
-  backgroundColor: null,
-  primary: false,
-  size: "medium",
-  onClick: undefined,
-}
-```
-
-生成されたファイルと自分の実装とで大きな差異があるとすれば、
-
-- TS ではなく JS である
-- jsx pragma がついている
-- CSS in JS を使っていない
-
-という点です。
-そしてこれらがまさしく、自分の手元で動かない原因でした。
-
-## jsx の設定が必要
-
-### /\*\* @jsx h \*/ とは何か
-
-`/** @jsx h */` は jsx pragma と呼ばれている記法です。
-これは コンパイラ に jsx を作り出す関数(jsx factory)が何かを伝えることができます。
-たとえば react では jsx factory は `createElement` ですが、それが preact では `h` であることはコンパイラは知らず、開発者がコンパイラに伝える必要があります。
-
-### storybook は babel でビルドする
-
-そして アプリケーション開発時は TS を使っていたとしても、storybook は babel でビルドするため、babel の設定ファイルに jsxFactory が h であることを伝える必要がうあります。
-これを実現する方法の一つが jsx pragma ですが、直接 babel の設定ファイルに書くこともできます。
-ただし storybook の設定にそれは書かないといけません。
-
-```js:title=main.js
-module.exports = {
-  stories: ["../src/**/*.stories.mdx", "../src/**/*.stories.@(js|jsx|ts|tsx)"],
-  addons: ["@storybook/addon-links", "@storybook/addon-essentials"],
-  babel: async options => ({
-    ...options,
-    presets: [["@babel/typescript", { jsxPragma: "h" }]],
-  }),
-}
-```
-
-ちなみにアプリを開発しているということはすでに TS 側で jsxFacroty の設定はしているはずです。
-
-```json:title=tsconfig.json
-{
-  "compilerOptions": {
-    ...
-    "jsxFactory": "h"
-  }
-}
-```
-
-しかし storybook は babel でコンパイルするのでこの設定は読まれません。
-storybook 側の設定に書く jsxFactory の指定をする必要があったという訳ですね。
-
-## goober 　はそもそも setup が必要
-
-いまで使っている goober はアプリケーションのエントリポイントで初期化が必要です。
-
-```ts:title=index.tsx
-import { setup } from "goober"
-import { h, render } from "preact"
-import { Button } from "./button"
-
-setup(h)
-
-const App = () => {
-  return (
-    <div>
-      <Button></Button>
-    </div>
-  )
-}
-
-render(<App></App>, document.body)
-```
-
-storybook ではその初期化フェーズのコードは呼ばれないので、各 story ファイルで初期化(`setup(h)`)が必要です。
-
-```js:title=button.stories.js
-import { setup } from "goober"
-import { h } from "preact"
-import { Button } from "./button"
-
-setup(h)
-
-export default {
-  title: "custom/Button",
-  component: Button,
-  argTypes: {
-    backgroundColor: { control: "color" },
-    onClick: { action: "onClick" },
-  },
-}
-
-const Template = (args: any) => <Button {...args} />
-
-export const Primary = Template.bind({})
-```
-
-## storybook ができた
-
-これで
+これは ReScript の世界で、
 
 ```sh
-npm run storybook
+timerOn(()=>(), 1000)
 ```
 
-とすると無事に storybook が表示されます。
+と書くと、JavaScript の世界で
 
-![成功画面](./success.png)
+```js
+setTimeout(() => {}, 1000)
+```
 
-ソースコードはこちらです。
+として動くコードです。
 
-https://github.com/ojisan-toybox/preact-storybook
+このように JavaScript の世界にしかないもの(ライブラリ、グローバル空間、組み込み関数など)を ReScript 側から操作するために必要なものです。
+
+この binding で特に大きな意味を持つものが `external` です。
+
+external とは、
+
+> external is like a let binding, but: The right side of = isn't a value; it's the name of the JS value you're referring to.The type for the binding is mandatory, since we need to know what the type of that JS value is.Can only exist at the top level of a file or module.
+
+とある通り、 binding そのものの機能を提供してくれるキーワードです。
+
+FYI: https://rescript-lang.org/docs/manual/latest/external
+
+そしてこの external はそれを修飾する decorator によって挙動が異なります。
+
+### @bs.val external
+
+@bs.val external は Global な JS のオブジェクト、値への bind ができます。
+
+FYI: https://rescript-lang.org/docs/manual/latest/bind-to-global-js-values
+
+公式にある Tips & Tricks では
+
+```sh
+type timerId
+@bs.val external setTimeout: (unit => unit, int) => timerId = "setTimeout"
+@bs.val external clearTimeout: timerId => unit = "clearTimeout"
+
+let id = setTimeout(() => Js.log("hello"), 100)
+clearTimeout(id)
+```
+
+という例が提供されています。
+
+ここでは、setTimeout で作った id でしか clearTimeout できないような制約を作っています。
+それを実現しているのは `type timeId` です。
+これは 型エイリアスを作る機能です。
+setTimeout は timerId を返し、clearTimeout は timerId を受け取るように宣言することでこのような制約を作れます。
+FlowType でいうところの opaque に近いものと捉えると良いかもしれません。
+
+### @bs.scope
+
+さて、JS への bind を作りたいメソッドがグローバルに生えていない場合はどうすればいいでしょうか。
+例えば、 `window.location.href` に bind を作りたい場合です。
+このときは bind する対象を掘っていくことで bind を作ります。
+そのためのキーワードが scope です。
+
+FYI: https://rescript-lang.org/docs/manual/latest/bind-to-global-js-values
+
+```sh
+@bs.val @bs.scope(("window", "location"))
+external url: string = "href"
+```
+
+@bs.val と @bs.scope を駆使すると global オブジェクトが持つどんな値にも bind を書いていけます。
+例えば chrome 拡張の開発などにも使えます。
+
+```sh
+@bs.val @bs.scope(("chrome", "storage", "local"))
+external get: string => ((dataType)=>())  => () = "get"
+
+@bs.val @bs.scope(("chrome", "runtime"))
+external sendMessage: msg => ((string)=>())  => () = "sendMessage"
+```
+
+### @bs.module external
+
+module は val に比べてもっと広い範囲で bind を作れるものです。
+具体的には
+
+- As a "record" or "struct" in other languages (like ReScript and C).
+- As a hash map.
+- As a class.
+- As a module to import/export.
+
+とあるように、HashMap, Class, module に対して bind を作れます。
+
+FYI: https://rescript-lang.org/docs/manual/latest/bind-to-js-object
+
+module のバインドを作れるということはライブラリそのものに対する bind を作れます。
+
+```sh
+// Import nodejs' path.dirname
+@bs.module("path") external dirname: string => string = "dirname"
+let root = dirname("/User/github") // returns "User"
+```
+
+FYI: https://rescript-lang.org/docs/manual/latest/import-from-export-to-js#import-a-javascript-modules-content
+
+このように ライブラリの bind を作っていけます。
+ただし毎度このように bind を書くのは骨が折れますが、genType という仕組みで TS や Flow の型定義から出力もできます。
+
+FYI: https://github.com/reason-association/genType
+
+### @bs.send external
+
+send は関数に特化して bind できるものです。
+これは既存の bind されたオブジェクトにメソッドを生やせます。
+
+たとえば、
+
+```sh
+type document // abstract type for a document object
+@bs.send external getElementById: (document, string) => Dom.element = "getElementById"
+@bs.val external doc: document = "document"
+
+let el = getElementById(doc, "myId")
+```
+
+は、
+
+```js
+var el = document.getElementById("myId")
+```
+
+となります。
+
+### @bs.set external
+
+bind されたオブジェクトに直接 bind された値を代入するには setter を利用します。
+
+```sh
+type window
+@bs.val external window: window = "window"
+@bs.set external setOnload: (window, (() => unit)) => unit = "onload"
+
+setOnload(window, ()=>())
+```
+
+これは
+
+```js
+window.onload = function (param) {}
+```
+
+のように変換されます。
+
+@bs.set で指定された型 `(window, (() => unit)) => unit` は 第一引数が set で生やしたい対象、第二引数に生やす関数の型を書きます。
+
+@bs.set の挙動に関しては公式のドキュメントがどこにあるかわからなかったので、BuckleScript の資料を参照しました。
+
+FYI: https://github.com/glennsl/bucklescript-ffi-cheatsheet#bsset
