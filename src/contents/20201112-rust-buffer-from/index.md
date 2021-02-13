@@ -98,7 +98,7 @@ cargo add rust-crypto
 
 まずは普通に sha1 をとります。
 
-```sh
+```rust
 let key = "this_is_key".as_bytes();
 let mut hasher = Sha1::new();
 hasher.input(key);
@@ -121,7 +121,7 @@ Buffer.from(
 
 つまりここで愚直に sha1 取った後に base64 化するということで、
 
-```sh
+```rust
 // String に as_bytes はできないけど疑似コードということで。
 let sha1_bytes = hasher.result_str().as_bytes();
 let sha1_base64 = base64::encode(sha1_bytes);
@@ -139,7 +139,7 @@ Buffer.from() で hex を指定しなかった時と同じ挙動になります�
 cargo add hex
 ```
 
-```sh
+```rust
 extern crate hex;
 
 hex::decode(sha1_string)
@@ -147,7 +147,7 @@ hex::decode(sha1_string)
 
 そうしたらあとはこのバイト列を base64 すれば完了です。
 
-```sh
+```rust
 let sha1_base64 = base64::encode(bytes);
 println!("{:?}", sha1_base64);
 ```
@@ -156,7 +156,7 @@ println!("{:?}", sha1_base64);
 
 というわけでこういう実装になります。
 
-```sh
+```rust
 extern crate base64;
 extern crate hex;
 
