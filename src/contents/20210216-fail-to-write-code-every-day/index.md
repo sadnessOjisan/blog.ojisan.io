@@ -105,7 +105,7 @@ $ git rebase HEAD~100 --committer-date-is-author-date
 
 ## おわりに
 
-Write Code Every Day を改竄して自分の身にどういう変化があったかについてですが、形だけの Write Code Every Day に意味はないことにようやく気づけました。
+Write Code Every Day を改竄して自分の身にどういう変化があったかについてですが、手段が目的化してレギュレーションを破っている形だけの Write Code Every Day に意味はないことにようやく気づけました。
 
 ## おまけ（先行研究）
 
