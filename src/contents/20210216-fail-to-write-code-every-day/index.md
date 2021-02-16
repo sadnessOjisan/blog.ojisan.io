@@ -1,7 +1,7 @@
 ---
 path: /fail-to-write-code-every-day
 created: "2021-02-16"
-title: write code every day に失敗したから commit log を改竄した
+title: Write Code Every Day に失敗したから commit log を改竄した
 visual: "./visual.png"
 tags: ["Git"]
 userId: sadnessOjisan
