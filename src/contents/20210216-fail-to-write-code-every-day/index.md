@@ -35,7 +35,7 @@ FYI: https://johnresig.com/blog/write-code-every-day/
 
 commit log には Commit Date と Author Date があります。これらは、
 
-- コミットにはコミットの著者である author による commit 日付
+- コミットの著者である author による commit 日付
 - コミットを取り込んだ人を表す committer による commit 日付
 
 という違いがあります。
