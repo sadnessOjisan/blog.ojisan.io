@@ -85,7 +85,7 @@ $ git rebase HEAD~1 --committer-date-is-author-date
 もし過去の Write Code Every Day 逃しを直したいときは、複数 commit に跨って歴史を改竄しなければいけません。
 その場合は --amend 時点から rebase してやると良いです。
 
-```
+```sh
 $ git rebase -i HEAD~100
 
 #pick を edit に修正
