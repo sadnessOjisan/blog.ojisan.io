@@ -13,19 +13,23 @@ isProtect: false
 
 ## Write Code Every Day とは
 
-jQuery の作者でもある [Joh Resig](https://johnresig.com/blog/write-code-every-day/) が始めた習慣のようなものです。
+Write Code Every Day は jQuery の作者でもある John Resig が始めた習慣のようなものです。
+続けると色々と良いことがあったらしいです。（※どのような良いことがあったかは、この人の置かれていた前提の説明からボカします。）
 
-続けると自分自身の時間の使い方などに良い影響があったらしいです。
+FYI: https://johnresig.com/blog/write-code-every-day/
 
 ## 人は愚か
 
-そしてつい先日、うっかり push し忘れていて草を欠いてしまいまいた。
+僕も「毎日コード書くぞ〜」と思っていたのですが、つい先日うっかり push し忘れていて草を欠いてしまいまいた。
 実際にはその日の commit log があるのでそれが master に merge されると草は生えるはずなのですが、生える確証がないので偽装工作をしました。
 いつの間にか草を生やすことが目的化していますね。
 
+ちなみに Write Code Every Day の前提としては、「意味のあるコードを書く、ブログは含まない」といった制約があるのですが、そもそもの時点でそれすらも守れていなかった気はします。
+俺がこの活動を続ける意味はあるのか？
+
 ## commit log の改竄
 
-やり方は調べると幾らでも出てくると思いますが、自分の知識の整理のためにも書きます。
+やり方は調べると幾らでも出てくると思いますが、自分の知識の整理のためにも書こうと思います。
 
 ### Commit Date と Author Date
 
@@ -50,7 +54,7 @@ Date:   Sun Feb 14 04:53:39 2021 +0900
 これは `git ammend` で編集できます。
 
 しかし、GitHub が見ているのは、Commit Date の方です。
-どうやって書き換えたら良いでしょうか。
+こちらはどうやって書き換えたら良いでしょうか。
 
 ### Commit Date を書き換える
 
@@ -101,8 +105,7 @@ $ git rebase HEAD~100 --committer-date-is-author-date
 
 ## おわりに
 
-Write Code Every Day を改竄して自分の身にどういう変化があったかについてですが、形だけの Write Code Every Day に意味はないことにようやく気づいて、commit しなければというプレッシャーから解放されました。
-代わりに Joh Resig のように意味のある commit をしようと心機一転できました。
+Write Code Every Day を改竄して自分の身にどういう変化があったかについてですが、形だけの Write Code Every Day に意味はないことにようやく気づけました。
 
 ## おまけ（先行研究）
 
@@ -114,6 +117,24 @@ https://chrome.google.com/webstore/detail/%E4%BA%BA%E5%B7%A5%E8%8A%9D/ilnlbllkdg
 
 ### kusa
 
-毎日はやしたり偽装したりするわけではなく、毎日それっぽく草を生やせるツール
+改竄するわけではなく、毎日それっぽく草を生やせるツール。
 
 https://github.com/YuG1224/kusa
+
+乱数をちょっと入れて、人間が commit してるぽさを出そうとしているところがズルい。
+
+```js
+function commit(n) {
+  // 1/n判定
+  const r = n => {
+    return n ? Math.floor(Math.random() * n) === 0 : false
+  }
+
+  if (!r(n)) {
+    return
+  }
+  const string = `git commit --allow-empty --date='${date.format()}' -m 'update'`
+  const result = execSync(string).toString()
+  console.log(result || string)
+}
+```
