@@ -14,7 +14,7 @@ isProtect: false
 ## Write Code Every Day とは
 
 Write Code Every Day は jQuery の作者でもある John Resig が始めた習慣のようなものです。
-続けると色々と良いことがあったらしいです。（※どのような良いことがあったかは、この人の置かれていた前提の説明からボカします。）
+続けると色々と良いことがあったらしいです。（※どのような良いことがあったかは、この人の置かれていた前提の説明が必要で面倒なのでボカします。）
 
 FYI: https://johnresig.com/blog/write-code-every-day/
 
