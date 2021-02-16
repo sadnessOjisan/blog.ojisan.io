@@ -31,12 +31,12 @@ FYI: https://johnresig.com/blog/write-code-every-day/
 
 やり方は調べると幾らでも出てくると思いますが、自分の知識の整理のためにも書こうと思います。
 
-### Commit Date と Author Date
+### Author Date と Commit Date
 
-commit log には Commit Date と Author Date があります。これらは、
+commit log には Author Date と Commit Date があります。これらは、
 
-- コミットの著者である author による commit 日付
-- コミットを取り込んだ人を表す committer による commit 日付
+- Author Date: コミットの著者である author による commit 日付
+- Commit Date: コミットを取り込んだ人を表す committer による commit 日付
 
 という違いがあります。
 
