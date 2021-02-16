@@ -117,7 +117,8 @@ https://chrome.google.com/webstore/detail/%E4%BA%BA%E5%B7%A5%E8%8A%9D/ilnlbllkdg
 
 ### kusa
 
-毎日それっぽく草を生やせるツール。
+改竄するわけではなく、毎日それっぽく草を生やせるツール。
+ただ改竄はしていないものの、日付指定して新規で commit を作っておりズルい。
 
 https://github.com/YuG1224/kusa
 
