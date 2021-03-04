@@ -198,8 +198,35 @@ export default meta
 const Template = (props: Props) => <Component {...props} />
 
 export const Initial = Template.bind({})
-Default.args = {
+Initial.args = {
   pageState: undefined,
+}
+
+export const Loading = Template.bind({})
+Loading.args = {
+  pageState: {
+      isLoading: true;
+      data: undefined;
+      error: undefined
+  },
+}
+
+export const Success = Template.bind({})
+Success.args = {
+  pageState: {
+      isLoading: false;
+      data: [{id: 1, title: 'hoge'}];
+      error: undefined
+  },
+}
+
+export const Fail = Template.bind({})
+Fail.args = {
+  pageState: {
+      isLoading: false;
+      data: undefined;
+      error: 'network error'
+  },
 }
 ```
 
