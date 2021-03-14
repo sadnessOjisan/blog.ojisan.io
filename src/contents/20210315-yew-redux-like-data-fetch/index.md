@@ -9,13 +9,13 @@ isFavorite: false
 isProtect: false
 ---
 
-[yew の next バージョンの公式チュートリアルに data fetch に関する記述がある](https://yew.rs/docs/en/next/concepts/services/fetch)のですが、React ユーザとしては Not for me だったので別のやり方を試してみました。
+yew の [next バージョンの公式チュートリアルに data fetch に関する記述がある](https://yew.rs/docs/en/next/concepts/services/fetch)のですが、React ユーザとしては Not for me だったので別のやり方を試してみました。
 
 もちろん 「yew に 別 FW での考え方を持ち込んで勝手に Not for Me とか言ってんじゃねぇ」とも思わなくもないのですが、yew の html マクロは JSX のように目に映るので、開発効率のためにも なるべく React で普段やっていることを取り入れていきたいなとも思ってのことです。
 
 Not for me なのはこの箇所です。
 
-```rs
+```rust
 match msg {
     GetLocation => {
         // 1. build the request
@@ -64,7 +64,7 @@ match msg {
 もちろんそのやり方も React like な方法で僕もよく使いますが、状態管理が複雑になってくるとリファクタリングしたくなるのも事実です。
 なので、そうしなくていいようにしましょう。
 
-yew は Msg と それを enum で表現しその各 Msg をパターンマッチに食わせることで、処理を分類できます。
+yew は Msg を enum で管理し、その各 Msg をパターンマッチに食わせることで、処理を分類できます。
 これをみた時僕は、「あっ、React や Redux でみる reducer だ！」と思いました。
 だとしたら、msg は action として見たくなり、だとしたら各 action は start, success, fail であって欲しいと思いました。
 
@@ -89,9 +89,9 @@ yew は Msg と それを enum で表現しその各 Msg をパターンマッ�
 
 です。
 
-ただ簡単なデモをすだけなので、そのうち title しか使わず、受け取ったデータに型をつける serde の定義は、
+ただ簡単なデモをすだけなので、そのうち title しか使わず、受け取った JSON を Deserialize する serde の定義は、
 
-```rs
+```rust
 #[derive(Deserialize, Debug, Clone)]
 pub struct ResponseData {
     title: String,
@@ -106,7 +106,7 @@ pub struct ResponseData {
 
 次のようなモデルを用意します。
 
-```rs
+```rust
 #[derive(Debug)]
 pub struct Model {
     ft: Option<FetchTask>,
@@ -123,7 +123,7 @@ pub struct Model {
 
 そして Msg はこう定義します。
 
-```rs
+```rust
 #[derive(Debug)]
 pub enum Msg {
     StartFetch,
@@ -140,7 +140,7 @@ pub enum Msg {
 
 その書き換える処理を担うのが、update 関数です。
 
-```rs
+```rust
 fn update(&mut self, msg: Self::Message) -> bool {
     match msg {
         Msg::StartFetch => {
@@ -159,7 +159,7 @@ fn update(&mut self, msg: Self::Message) -> bool {
 
 では、それぞれのメッセージを受けたときの処理を書いていきましょう。
 
-```rs
+```rust
 fn update(&mut self, msg: Self::Message) -> bool {
     match msg {
         Msg::StartFetch => {
@@ -206,7 +206,7 @@ fn update(&mut self, msg: Self::Message) -> bool {
 
 fetch 中には一点注意点があり、それは fetch の時に
 
-```rs
+```rust
 self.ft = Some(task)
 ```
 
@@ -220,7 +220,7 @@ fetchTask は model の中に持たせておかないと、data fetch に失敗�
 これで状態が書き換わるようになりました。
 その状態が書き換わった画面を作成します。
 
-```rs
+```rust
 fn view(&self) -> Html {
     html! {
         <div class="container">
@@ -250,7 +250,7 @@ fn view(&self) -> Html {
 
 これらはそれぞれ
 
-```rs
+```rust
 impl Model {
     fn success(&self) -> Html {
         match self.data {
