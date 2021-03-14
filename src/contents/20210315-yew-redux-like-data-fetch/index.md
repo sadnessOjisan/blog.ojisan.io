@@ -9,9 +9,9 @@ isFavorite: false
 isProtect: false
 ---
 
-[yew の next バージョンの公式チュートリアルに data fetch に関する記述がある](https://yew.rs/docs/en/next/concepts/services/fetch)のですが、 Not for meだったので別のやり方を試してみました。
+[yew の next バージョンの公式チュートリアルに data fetch に関する記述がある](https://yew.rs/docs/en/next/concepts/services/fetch)のですが、React ユーザとしては Not for me だったので別のやり方を試してみました。
 
-Not for meなのはこの箇所です。
+Not for me なのはこの箇所です。
 
 ```rs
 match msg {
@@ -54,8 +54,8 @@ match msg {
 
 このうち、
 
-* msg が GetLocation と ReceiveResponse しかない
-* GetLocation を実行したコールバックを ReceiveResponse で処理する
+- msg が GetLocation と ReceiveResponse しかない
+- GetLocation を実行したコールバックを ReceiveResponse で処理する
 
 という部分が Not for me です。
 これはいわば fetch の Promise のメソッドチェーンの中で setState() して状態管理しているようなものです。
@@ -73,15 +73,17 @@ yew は Msg と それを enum で表現しその各 Msg をパターンマッ�
 
 ```json
 {
-  "by" : "dhouston",
-  "descendants" : 71,
-  "id" : 8863,
-  "kids" : [ 9224, 8917, 8952, 8958, 8884, 8887, 8869, 8940, 8908, 9005, 8873, 9671, 9067, 9055, 8865, 8881, 8872, 8955, 10403, 8903, 8928, 9125, 8998, 8901, 8902, 8907, 8894, 8870, 8878, 8980, 8934, 8943, 8876 ],
-  "score" : 104,
-  "time" : 1175714200,
-  "title" : "My YC app: Dropbox - Throw away your USB drive",
-  "type" : "story",
-  "url" : "http://www.getdropbox.com/u/2/screencast.html"
+  "by": "dhouston",
+  "descendants": 71,
+  "id": 8863,
+  "kids": [
+    9224,
+  ],
+  "score": 104,
+  "time": 1175714200,
+  "title": "My YC app: Dropbox - Throw away your USB drive",
+  "type": "story",
+  "url": "http://www.getdropbox.com/u/2/screencast.html"
 }
 ```
 
@@ -117,7 +119,7 @@ pub struct Model {
 
 これは React でいうと state に該当します。
 
-### Msgの準備
+### Msg の準備
 
 そして Msg はこう定義します。
 
@@ -132,7 +134,7 @@ pub enum Msg {
 
 これは Redux でいうと Action Type の集まりに該当します。
 
-### Msgの実装
+### Msg の実装
 
 この Msg を使って、上の Model を書き換えていきます。
 
@@ -152,7 +154,7 @@ fn update(&mut self, msg: Self::Message) -> bool {
 }
 ```
 
-この関数がComponent トレイトとして実装されると、メッセージごとに呼び出されます。
+この関数が Component トレイトとして実装されると、メッセージごとに呼び出されます。
 これは Yew に実装されているライフサイクルメソッドの一つです。
 
 では、それぞれのメッセージを受けたときの処理を書いていきましょう。
@@ -201,6 +203,17 @@ fn update(&mut self, msg: Self::Message) -> bool {
 まるで redux-saga で STSRT_FETCH action を take して、SUCCESS_FETCH や FAIL_FETCH を呼び出しているような感じですね。
 
 そうすればあとは `SuccessFetch` `FailFetch` それぞれのメッセージを受け取った時に state を更新してくれます。
+
+fetch 中には一点注意点があり、それは fetch の時に
+
+```rs
+self.ft = Some(task)
+```
+
+を忘れないようにするということです。
+
+fetchTask は model の中に持たせておかないと、data fetch に失敗します。
+この fetchTask を見ていれば、これがないときは data loading とも判断できるので、loading フラグで loading を表現するのはモヤモヤもするのですが、それはいわば 「react の世界で data がないときは loading 中」といっているようにも取れるので、明示的に loading/error というフラグを使っていこうと思います。
 
 ### View の作成
 
@@ -274,10 +287,13 @@ impl Model {
 
 これらの関数はパターンマッチで出し分けられています。
 そのためどういう状態の時にどういう画面を出すかという分岐が書きやすく、これは僕が yew を気に入っている箇所でもあります。
-TypeScript のように 
+TypeScript のように
 
 ```ts
-type PageState = {loading: true} | {loading: false, data: any} | {loading:false, error: string}
+type PageState =
+  | { loading: true }
+  | { loading: false; data: any }
+  | { loading: false; error: string }
 ```
 
 のような型定義を書かなくても、ページがとりうる状態に対する実装の抜け漏れを防ぎやすいです。
