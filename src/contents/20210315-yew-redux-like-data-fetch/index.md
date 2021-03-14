@@ -11,6 +11,8 @@ isProtect: false
 
 [yew の next バージョンの公式チュートリアルに data fetch に関する記述がある](https://yew.rs/docs/en/next/concepts/services/fetch)のですが、React ユーザとしては Not for me だったので別のやり方を試してみました。
 
+もちろん 「yew に 別 FW での考え方を持ち込んで勝手に Not for Me とか言ってんじゃねぇ」とも思わなくもないのですが、yew の html マクロは JSX のように目に映るので、開発効率のためにも なるべく React で普段やっていることを取り入れていきたいなとも思ってのことです。
+
 Not for me なのはこの箇所です。
 
 ```rs
