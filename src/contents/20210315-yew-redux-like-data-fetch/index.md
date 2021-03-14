@@ -66,7 +66,8 @@ match msg {
 
 yew は Msg を enum で管理し、その各 Msg をパターンマッチに食わせることで、処理を分類できます。
 これをみた時僕は、「あっ、React や Redux でみる reducer だ！」と思いました。
-だとしたら、msg は action として見たくなり、だとしたら各 action は start, success, fail であって欲しいと思いました。
+だとしたら、msg は action として見たくなり、各 action は start, success, fail であって欲しいと思いました。
+action は小さくちぎっておくと、将来的に複数の action をまとめて監視したり呼び出せたりできるので、なるべく小さく作っておきたいと考えています。
 
 なので、そう書き換えます。
 
