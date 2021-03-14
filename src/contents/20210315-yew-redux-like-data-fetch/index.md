@@ -201,7 +201,7 @@ fn update(&mut self, msg: Self::Message) -> bool {
 ```
 
 ここでは注目したいのは StartFetch メッセージを受けたときの処理が最終的に実行するコールバック関数の中で Success と Fail を呼び出しています。
-まるで redux-saga で STSRT_FETCH action を take して、SUCCESS_FETCH や FAIL_FETCH を呼び出しているような感じですね。
+まるで redux-saga で `STSRT_FETCH` action を take して、`SUCCESS_FETCH` や `FAIL_FETCH` を呼び出しているような感じですね。
 
 そうすればあとは `SuccessFetch` `FailFetch` それぞれのメッセージを受け取った時に state を更新してくれます。
 
