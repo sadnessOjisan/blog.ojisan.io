@@ -1,5 +1,5 @@
 ---
-path: /storybook-first-develop
+path: /yew-redux-like-data-fetch
 created: "2021-03-15"
 title: yew での data fetch を redux っぽくやる
 visual: "./visual.png"
@@ -76,9 +76,7 @@ yew は Msg と それを enum で表現しその各 Msg をパターンマッ�
   "by": "dhouston",
   "descendants": 71,
   "id": 8863,
-  "kids": [
-    9224,
-  ],
+  "kids": [9224],
   "score": 104,
   "time": 1175714200,
   "title": "My YC app: Dropbox - Throw away your USB drive",
