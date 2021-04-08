@@ -17,7 +17,7 @@ BRAVELY DEFAULT II やったりモンハンに忙しくてブログの存在を�
 欲しかった要件としては、
 
 - 無料
-- slack に通知できる
+- Slack に通知できる
 - Web API ベース
 
 といったものです。
@@ -53,13 +53,13 @@ Slack は管理画面から Webhook URL を発行でき、特定のスペース�
 
 詳しくは [こちら](https://github.com/sadnessOjisan/datacat) にまとめてありますので概略だけ解説します。
 
-1. Slack の 管理画面から Webhook url を取得
+Slack の 管理画面から Webhook url を取得
 
-2. Vercel にレポジトリを登録
+Vercel にレポジトリを登録
 
-3. Webhook url を環境変数にする
+Webhook url を環境変数にする
 
-4. エンドポイントにメッセージを送る
+エンドポイントにメッセージを送る
 
 たとえば、
 
