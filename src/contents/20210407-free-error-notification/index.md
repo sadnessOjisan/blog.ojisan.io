@@ -24,13 +24,16 @@ BRAVELY DEFAULT II やったりモンハンに忙しくてブログの存在を�
 
 その方法として、Vercel にエンドポイントを生やしてそれを Slack 連携しました。
 この方式のいいところは その方法として、Vercel は GitHub のレポジトリを指定してプロジェクトを作れる点で、管理画面でレポジトリの URL を打つだけで通知サーバーを建てられる点です。
+
+![Vercelの3rd party import の設定画面](import.png)
+
 そのため、皆さんも Vercel の管理画面からこのレポジトリを指定すれば同様の仕組みを作れます。
 
 これがそのレポジトリです。
 
 https://github.com/sadnessOjisan/datacat
 
-DataDog ぽい名前で良いですね。ただ Data を cat しているだけです。
+DataDog ぽい名前で良いですね。datacat はただ Data を cat しているだけです。
 
 ## 要素技術
 
