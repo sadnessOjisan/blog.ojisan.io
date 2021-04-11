@@ -1,9 +1,9 @@
 ---
 path: /monorepo-cloud-functions
 created: "2021-04-11"
-title: 型安全にしたくて Cloud Functions をモノレポに切り出す
+title: 型を共有したくて Cloud Functions をモノレポで切り出す
 visual: "./visual.png"
-tags: ["Firebase"]
+tags: ["Firebase", "Yarn"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false
@@ -11,7 +11,7 @@ isProtect: false
 
 にゃーん workspace ってなｗ
 
-Cloud Functions で作った API のレスポンスの型と、それを受け取る Client に定義するレスポンスの型を統一したいです。
+やりたいこと; Cloud Functions で作った API のレスポンスの型と、それを受け取る Client に定義するレスポンスの型を統一したい
 
 ## 型を共有しようとしてどういう問題が起きたか
 
@@ -46,7 +46,7 @@ myproject
 
 となります。
 
-しかし Client と Function でレポジトリを分けていないのなら、
+そして実際は Client と Function でレポジトリを分けずに開発してると、
 
 ```sh
 myproject
@@ -78,7 +78,7 @@ myproject
 となるのではないでしょうか。（root に client application code を格納している src + その app の依存を管理する package.json を追加しました）
 
 このとき、src にある client アプリケーションと functions で型を共有したいというのが要望です。
-ちなみにこのような構成になるのは、Firebase に限らず Vercel などでもこうなります。
+ちなみにこのような構成になるのは、Firebase に限らず Vercel も該当します。
 
 ## そのまま import すればいいじゃん
 
@@ -86,7 +86,7 @@ myproject
 つまり、`src/repository/user.ts` 的なのがあるとして、そのファイルから
 
 ```ts
-import UserResponse from "../../functions/types/user-response"
+import type { UserResponse } from "../../functions/types/user-response"
 ```
 
 とするということです。
@@ -112,7 +112,7 @@ firebase deploy --only functions
 というコマンドでデプロイします。
 
 このコマンドだけでデプロイできるということは serverless function がどこにあるか CLI は知っているということです。
-つまり、このコマンドは functions というフォルダに serverless function が入っていることを知っているためうまく動くわけです。
+つまり、このコマンドは functions というフォルダに serverless function が入っていることを知っています。
 その場合モノレポにするとその規約を破ることになります。
 どうすればいいでしょうか。
 
@@ -160,7 +160,7 @@ firebase deploy --only functions
 yarn workspace を使います。
 なので、cli が生成した package.lock は消しておきます。
 
-yarn workspcae では root の package.json を
+yarn workspace では root の package.json を
 
 ```json:title=package.json
 {
