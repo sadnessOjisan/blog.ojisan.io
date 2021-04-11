@@ -122,7 +122,6 @@ firebase deploy --only functions
 ```json:title=firebase.json
 {
   "functions": {
-    "predeploy": "yarn workspace api run build:function",
     "source": "packages/api"
   }
 }
@@ -137,7 +136,6 @@ firebase deploy --only functions
 ```json:title=firebase.json
 {
   "functions": {
-    "predeploy": "yarn workspace api run build:function",
     "source": "packages/api"
   },
   "hosting": {
@@ -162,7 +160,7 @@ yarn workspace を使います。
 
 yarn workspcae では root の package.json を
 
-```json:title=のpackage.json
+```json:title=package.json
 {
   "name": "hoge",
   "private": "true",
@@ -171,3 +169,123 @@ yarn workspcae では root の package.json を
 ```
 
 とします。
+
+こうすると、`packages/**` を各 module として使えます。
+ここでは `packages/api` の中に これまで functions フォルダにあった内容を展開します。
+そしてクライアントとして `packages/client` と その中に package.json を作ります。
+
+これらのフォルダ間で型を共有させます。
+そのために双方で TypeScript が使えるようにします。
+双方が使うモノなので root の依存に含めましょう。
+
+```sh
+yarn add -D typescript -W
+```
+
+`-W` は root で使うことの表明です。
+root で使わないなら各フォルダで`yarn add hoge`すればいいです。
+
+こうすれば、`packages/client` から `packages/api/src/types/response` にある型を
+
+```ts
+import type { UserResponse } from "api/src/types/response"
+```
+
+として import できます。
+
+## 注意点
+
+Cloud Functions をモノレポ化するにあたって、やっておいた方が良い設定があります。
+
+### predeploy のコマンド修正
+
+初期状態では firebase.json の predeploy 設定は
+
+```json
+{
+  "functions": {
+    "predeploy": "npm --prefix \"$RESOURCE_DIR\" run build:function"
+  }
+}
+```
+
+となっています。
+
+これは npm を想定しています。
+これを yarn workspace 想定のものに書き換えましょう。
+
+```json:title=firebase.json
+{
+  "functions": {
+    "predeploy": "yarn workspace api run build",
+    "source": "packages/api"
+  }
+}
+```
+
+yarn workspace では `yarn workspace ${workspace名}` とすればそのフォルダにあるコマンドを叩けますので使いましょう。
+
+### Node.js v12 を使うようにする
+
+cloud functions では runtime が NodeJS の v10, v12 を使います。
+そのため functions の pakcage.json では
+
+```json
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "lib/index.js",
+  "engines": {
+    "node": "12"
+  },
+  "dependencies": {
+    "firebase-admin": "^9.2.0",
+    "firebase-functions": "^3.11.0"
+  }
+}
+```
+
+といったように engines が 12 で固定されています。
+
+そのためこのレポジトリそのものを v14 の環境で動く CI に入れると CI がこけます。
+それを回避するためには
+
+- engine を消す
+- functions をテストする環境以外では engine を無視する(`--ignore-engines` を使う)
+- v12 で CI を回す
+
+という手があります。
+
+ここでは v12 で CI を回してみましょう。
+
+```yml
+name: Deploy to Firebase Functions on merge
+"on":
+  push:
+    branches:
+      - main
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: "12.x"
+      - name: Install npm packages
+        working-directory: ./packages/api
+        run: |
+          yarn install
+      - name: Deploy to Firebase
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only functions --project=default
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+```
+
+## さいごに
+
+monorepo にしなくても型を使いまわせる方法があればそれを使いたい
