@@ -9,6 +9,8 @@ isFavorite: false
 isProtect: false
 ---
 
+にゃーん workspace ってなｗ
+
 Cloud Functions で作った API のレスポンスの型と、それを受け取る Client に定義するレスポンスの型を統一したいです。
 
 ## 型を共有しようとしてどういう問題が起きたか
