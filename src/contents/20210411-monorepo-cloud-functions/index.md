@@ -11,7 +11,7 @@ isProtect: false
 
 にゃーん workspace ってなｗ
 
-やりたいこと; Cloud Functions で作った API のレスポンスの型と、それを受け取る Client に定義するレスポンスの型を統一したい
+やりたいこと: Cloud Functions で作った API のレスポンスの型と、それを受け取る Client に定義するレスポンスの型を統一したい
 
 ## 型を共有しようとしてどういう問題が起きたか
 
@@ -45,6 +45,8 @@ myproject
 ```
 
 となります。
+
+FYI: https://firebase.google.com/docs/functions/get-started?hl=ja
 
 そして実際は Client と Function でレポジトリを分けずに開発してると、
 
@@ -99,7 +101,28 @@ import type { UserResponse } from "../../functions/types/user-response"
 
 これにより、型検査が正しくされる保証がなかったり、補完が効かないという問題が発生します。
 
-tsconfig や package.json の field を修正すれば解決できる問題かもしれませんが、試行錯誤するのもめんどくさかったので monorepo にしました。
+```sh
+myproject
+ +- firebase.json  # Describes properties for your project
+ |
+ +- src/
+ |
+ +- package.json
+ |
+ +- tsconfig.json
+ |
+ +- functions/     # Directory containing all your functions code
+      |
+      +- tsconfig.json
+      |
+      +- package.json  # npm package file describing your Cloud Functions code
+      |
+      +- index.js      # main source file for your Cloud Functions code
+```
+
+をみると、functions はそれ自体が pakcage.json や tsconfig.json を持っていて別プロジェクトであるためです。
+
+そこで、tsconfig や package.json の field を適切に修正すれば解決できる問題かもしれませんが、試行錯誤するのもめんどくさかったので monorepo にしました。
 
 ## firebase stack のものは monorepo にできるのか
 
