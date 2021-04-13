@@ -3,7 +3,7 @@ path: /polyfill-trouble-on-babel
 created: "2021-04-13"
 title: babel/preset-env で polyfill すると トランスパイルに失敗する問題の解決
 visual: "./visual.png"
-tags: ["Firebase", "Yarn"]
+tags: ["Babel"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false
