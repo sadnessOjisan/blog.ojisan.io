@@ -1,7 +1,7 @@
 ---
 path: /polyfill-trouble-on-babel
 created: "2021-04-13"
-title: \@babel/preset-env で polyfill すると トランスパイルに失敗する問題の解決
+title: babel/preset-env で polyfill すると トランスパイルに失敗する問題の解決
 visual: "./visual.png"
 tags: ["Firebase", "Yarn"]
 userId: sadnessOjisan
@@ -15,9 +15,9 @@ isProtect: false
 
 少し前に Zenn にこういう質問を立てました。（こいつ質問サービスとして使ってやがる・・・）
 
-https://zenn.dev/sadness_ojisan/scraps/450370d8d8cba5
+[https://zenn.dev/sadness_ojisan/scraps/450370d8d8cba5](preset-env経由でpolyfillを入れるとreactがimportされなくなる)
 
-この質問は、IE 対応をするために @babel/preset-env と useBuiltin を使うと、ビルド時に react, react-dom が import できなくなってしまうという問題が発生して途方に暮れていたときのものです。
+この質問は、IE 対応をするために @babel/preset-env と useBuiltin を使うと、ビルド時に react, react-dom の依存解決ができなくなってしまうものです。
 
 IE 対応のための polyfill は babel を使うと簡単に導入できそうですが、
 
@@ -46,7 +46,7 @@ module.exports = {
 
 https://github.com/ojisan-toybox/react-ie11/tree/%E5%8B%95%E3%81%8B%E3%81%AA%E3%81%84
 
-結局このときは解決できずにビルドを TypeScript で行い、手動で polyfill をしていまして、babel を使った IE 対応に苦戦していました。
+結局このときは解決できずにビルドを TypeScript で行い、手動で polyfill をしていまして、babel を使った IE 対応は諦めました。
 
 この投稿はその解決策を最近知ったという話です。
 
@@ -94,4 +94,4 @@ https://babeljs.io/docs/en/options#sourcetype によると、
 
 とのことです。
 
-要約すると、@babel/plugin-transform-runtime や useBuiltin はトランスパイル対象のファイルに応じて依存の読み込み設定(import, require)を挿入しますが、このときデフォルトの設定では import を挿入する一方で、`sourceType: "unambiguous"` を設定しておけば ESModule と決めつけずにファイルを見てから import ,require を挿入するように決めます。これによって適切に依存を import する文を差し込め、react, react-dom を import できます。
+要約すると、@babel/plugin-transform-runtime や useBuiltin はトランスパイル対象のファイルに応じて依存の読み込み設定(import, require)を挿入しますが、このときデフォルトの設定では import を挿入する一方で、`sourceType: "unambiguous"` を設定しておけば ESModule と決めつけずにファイルを見てから import ,require を挿入するように決めます。これによって適切に依存を import する文を差し込め、react, react-dom の依存解決ができます。
