@@ -19,7 +19,7 @@ https://zenn.dev/sadness_ojisan/scraps/450370d8d8cba5
 
 この質問は、IE 対応をするために @babel/preset-env と useBuiltin を使うと、ビルド時に react, react-dom が import できなくなってしまうという問題が発生して途方に暮れていたときのものです。
 
-babel を使うと簡単に解決できる問題に見えますが、
+IE 対応のための polyfill は babel を使うと簡単に導入できそうですが、
 
 ```js
 module.exports = {
@@ -42,8 +42,7 @@ module.exports = {
 ```
 
 というシンプルな設定でビルドに失敗します。
-
-この構成だと動きませんでした。
+気になる方は以下のレポジトリで試してみてください。
 
 https://github.com/ojisan-toybox/react-ie11/tree/%E5%8B%95%E3%81%8B%E3%81%AA%E3%81%84
 
@@ -95,4 +94,4 @@ https://babeljs.io/docs/en/options#sourcetype によると、
 
 とのことです。
 
-要約すると、@babel/plugin-transform-runtime や useBuiltin はトランスパイル対象のファイルに応じて依存の読み込み設定(import, require)を挿入します。このときデフォルトの設定では import を挿入します。 このとき `sourceType: "unambiguous"` は ESModule と決めつけずにファイルを見てから import ,require を挿入するように決めます。これによって適切に依存を取り込む文を定義できます。
+要約すると、@babel/plugin-transform-runtime や useBuiltin はトランスパイル対象のファイルに応じて依存の読み込み設定(import, require)を挿入しますが、このときデフォルトの設定では import を挿入する一方で、`sourceType: "unambiguous"` を設定しておけば ESModule と決めつけずにファイルを見てから import ,require を挿入するように決めます。これによって適切に依存を import する文を差し込め、react, react-dom を import できます。
