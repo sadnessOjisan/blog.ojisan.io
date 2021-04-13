@@ -15,7 +15,7 @@ isProtect: false
 
 少し前に Zenn にこういう質問を立てました。（こいつ質問サービスとして使ってやがる・・・）
 
-[https://zenn.dev/sadness_ojisan/scraps/450370d8d8cba5](preset-env経由でpolyfillを入れるとreactがimportされなくなる)
+[preset-env 経由で polyfill を入れると react が import されなくなる](https://zenn.dev/sadness_ojisan/scraps/450370d8d8cba5)
 
 この質問は、IE 対応をするために @babel/preset-env と useBuiltin を使うと、ビルド時に react, react-dom の依存解決ができなくなってしまうものです。
 
