@@ -1,9 +1,9 @@
 ---
 path: /fish-node
 created: "2021-04-18"
-title: fish で node.js を使う
+title: fish で Node.js を使う
 visual: "./visual.png"
-tags: ["fish", "nodejs"]
+tags: ["fish", "Node.js"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false
@@ -114,7 +114,7 @@ nvm には `nvm alias` というサブコマンドがあり、nvm コマンド�
 set --universal nvm_default_version v12
 ```
 
-これで毎回 nmv use コマンドを叩かなくても node.js v12 が使えます。
+これで毎回 nmv use コマンドを叩かなくても Node.js v12 が使えます。
 
 ## 余談
 
