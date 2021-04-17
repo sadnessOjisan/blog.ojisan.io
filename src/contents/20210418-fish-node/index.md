@@ -10,22 +10,24 @@ isProtect: false
 ---
 
 Node.js で複数プロジェクトを掛け持ちすると、いろいろなバーションに切り替えたいというニーズがあると思います。
-そのとき nvm のような versioning tool の出番となりますが、 fish 環境ではうまく動かないということもあります。
-そこで fish 環境でも nvm のようなものを動かす方法を取るわけですが、いろいろなやり方があって迷った思い出があるので整理してみようと思います。
+そのとき nvm のような version manager の出番となりますが、 fish 環境ではうまく動かないケースもあります。
+そこで nvm を動かすためには何個か方法があるので、方法を整理します。
 
-## なぜ動かないか
+## なぜ fish で nvm が動かないか
 
-それは fish は POSIX 非準拠だからです。
+fish が POSIX 非準拠だからです。
 
 nvm の公式には、
 
 > nvm is a version manager for node.js, designed to be installed per-user, and invoked per-shell. nvm works on any POSIX-compliant shell (sh, dash, ksh, zsh, bash), in particular on these platforms: unix, macOS, and windows WSL.
 
-と書かれていることから nvm を fish でそのまま使うことはできません。
+と書かれていることから nvm は fish 上では not works です。
 
-そこで nvm とは別のツールを使っていきます。
+そこで、それらを解決するプラグインを導入します。
 
 ## 方法の比較
+
+ざっと調べた限り、3 つの方法があるようなので試してみます。
 
 ### nvm + bass
 
@@ -53,9 +55,13 @@ nvm というコマンドで nvm を実行できます。
 
 ### fish-nvm
 
+fish-nvm は、
+
 > NVM wrapper for fish-shell.
 
 とある通り nvm のラッパーで、 bass + nvm の構成を隠蔽するようなものです。
+
+FYI: https://github.com/jorgebucaran/nvm.fish
 
 事実、
 
@@ -94,7 +100,7 @@ nvm.fish が他 2 つ大きく違うところは Node.js のバージョンマ�
 ## おすすめのやり方は nvm.fish
 
 ここまで 3 つのやり方を紹介しましたが、オススメは nvm.fish です。
-nvm 本体や bass のような依存を不要とするためです。
+nvm 本体や bass のような依存が不要なためです。
 fisher などの plugin manager を使うだけで install できるので管理も楽です。
 
 ## nvm.fish を使う上での注意点
@@ -108,18 +114,20 @@ nvm には `nvm alias` というサブコマンドがあり、nvm コマンド�
 set --universal nvm_default_version v12
 ```
 
+これで毎回 nmv use コマンドを叩かなくても node.js v12 が使えます。
+
 ## 余談
 
 Node.js のバージョンを管理したいだけなら何も nvm にこだわる必要はないです。
 
 - volta
-  - Rust 製の version manger. Rust 製ということは single binary で動作するため bash だろうが fish 上だろうが動く
-  - ただし .nvmrc のようなファイルで設定せず package.json で version 管理するため、チーム開発しているときに package.json に余計な設定を足す可能性はある。
+  - Rust 製の version manger です。 Rust 製ということは single binary で動作するため bash だろうが fish 上だろうが動きます。
+  - ただし .nvmrc のようなファイルで設定せず package.json で version 管理するため、チーム開発しているときに package.json に余計な設定を足す可能性はあります。
   - https://volta.sh/
 - asdf
-  - いろいろな言語やツールのバージョンをまとめて管理できるツール
-  - 公式が fish もサポートしている
+  - いろいろな言語やツールのバージョンをまとめて管理できるツールです。
+  - 公式が fish もサポートしています。
   - https://github.com/asdf-vm/asdf/blob/master/asdf.fish
 
-これらを使うと何も nvm を使う必要はありません。
-ただ私は Node.js しか書かないというのと、nvm に慣れているので nvm に近いツールを使うようにしています。
+これらを使うと何も nvm like なツールを使う必要はありません。
+ただ私は Node.js しか書かないというのと、nvm に慣れているので nvm like なツールを使うようにしています。
