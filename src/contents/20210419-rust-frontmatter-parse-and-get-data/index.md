@@ -81,12 +81,12 @@ Array([String("Rust"), String("frontmatter")])
 
 frontmatter は `---` で覆われた yaml や json です。
 そのため frontmatter の parser は yaml の parser を持っています。
-この hash は Yaml parser が返していた値です。
+この hash は yaml-rust というクレートが返していた値です。
 rust-frontmatter は yaml-rust への依存を持っています。
 
 FYI: https://github.com/chyh1990/yaml-rust
 
-hash として見えていた値は yaml-rust が持つ Yaml enum が持つ Variant です。
+hash として見えていた値は yaml-rust の Yaml Enum が持つ Variant です。
 
 FYI: https://docs.rs/yaml-rust/0.4.5/yaml_rust/yaml/enum.Yaml.html
 
