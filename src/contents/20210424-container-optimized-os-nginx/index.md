@@ -1,5 +1,5 @@
 ---
-path: container-optimized-os-nginx
+path: /container-optimized-os-nginx
 created: "2021-04-24"
 title: Container Optimized OS に nginx を入れるだけの記事
 visual: "./visual.png"
@@ -64,6 +64,8 @@ FYI: [https://www.shigemk2.com/entry/docker_run_order](https://www.shigemk2.com/
 これで port80 で見えるようになりました。(-p ホスト側ポート:コンテナ側ポート なので)
 
 あとは GCP の管理画面にある外部 IP をブラウザに打ち込むと見えるはずです。
+
+![nginxのトップ](./nginx.png)
 
 ## あとは好きにデバッグを
 
