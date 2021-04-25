@@ -1,7 +1,7 @@
 ---
 path: container-optimized-os-nginx
 created: "2021-04-24"
-title: Container Optimized OS に nginx を入れるだけ
+title: Container Optimized OS に nginx を入れるだけの記事
 visual: "./visual.png"
 tags: ["GCP", "Docker"]
 userId: sadnessOjisan
@@ -65,7 +65,7 @@ FYI: [https://www.shigemk2.com/entry/docker_run_order](https://www.shigemk2.com/
 
 あとは GCP の管理画面にある外部 IP をブラウザに打ち込むと見えるはずです。
 
-![nginxのトップ](./nginx.png)
+![nginxのトップ](nginx.png)
 
 ## あとは好きにデバッグを
 
