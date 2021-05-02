@@ -17,12 +17,12 @@ Cloud Run は GCP が提供するサービスで、コンテナを動かせま�
 
 [Getting Started](https://actix.rs/docs/getting-started/) 通りのファイルを作る。
 
-```sh:Cargo.toml
+```toml:title=Cargo.toml
 [dependencies]
 actix-web = "3"
 ```
 
-```rust:src/main.rs
+```rust:title=src/main.rs
 use actix_web::{get, post, web, App, HttpResponse, HttpServer, Responder};
 
 #[get("/")]
@@ -119,7 +119,7 @@ ENTRYPOINT ["target/release/syntax-hilight-battle-api"]
 Cloud Build はデフォルトでは 10 分を超えたらビルドができません。
 そこでこの上限を突破する設定を書きましょう。
 
-```yaml:cloudbuild.yaml
+```yaml:title=cloudbuild.yaml
 steps:
   - name: "gcr.io/cloud-builders/docker"
     args: ["build", "-t", "gcr.io/$PROJECT_ID/hogehoge:$COMMIT_SHA", "."]
