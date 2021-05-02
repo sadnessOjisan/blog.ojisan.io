@@ -17,7 +17,7 @@ Cloud Run は GCP が提供するサービスで、コンテナを動かせま�
 
 [Getting Started](https://actix.rs/docs/getting-started/) 通りのファイルを作る。
 
-```toml:Cargo.toml
+```sh:Cargo.toml
 [dependencies]
 actix-web = "3"
 ```
@@ -78,11 +78,11 @@ Cloud Run はコンテナをデプロイするため、その前にソースコ�
 サービスの作成をクリックするとフォームが出てくるのでそれを埋めていきます。
 ここで GitHub にあるソースコードから GCR へイメージを上げたいので、GitHub を使うように構成を選びます。
 
-![cloud run の設定画面](cloudrun.png)
+![cloud run の設定画面](./cloudrun.png)
 
 次に連携するレポジトリを選びます。
 
-![リポジトリ の設定画面](repo.png)
+![リポジトリ の設定画面](./repo.png)
 
 そしてビルドの構成が書かれたファイルを指定します。
 ここでは Docker でビルドするので Dockerfile を指定します。
@@ -108,7 +108,7 @@ EXPOSE 8080
 ENTRYPOINT ["target/release/syntax-hilight-battle-api"]
 ```
 
-![docker の設定画面](docker.png)
+![docker の設定画面](./docker.png)
 
 構成が決まったらそのままフォームを進めていきサービスを作ってください。
 
@@ -154,7 +154,7 @@ timeout: 2400s を指定します。各 STEP ごとの上限と、全体での�
 それを選んだら構成セクションで Cloud Build ファイルとリポジトリを選択してください。
 これで該当の yaml が読み込まれます。
 
-![cloud build の設定画面](cloudbuild.png)
+![cloud build の設定画面](./cloudbuild.png)
 
 これでもう一度 GitHub になにか push してトリガーを動かすと、正常にデプロイされます。
 
