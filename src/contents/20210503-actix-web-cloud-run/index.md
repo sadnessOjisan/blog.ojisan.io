@@ -15,7 +15,7 @@ Cloud Run は GCP が提供するサービスで、コンテナを動かせま�
 
 ## ローカルで動く状態に持っていく
 
-[Getting Started](https://actix.rs/docs/getting-started/) 通りのファイルを作る。
+[Getting Started](https://actix.rs/docs/getting-started/) 通りのファイルを作ります。
 
 ```toml:title=Cargo.toml
 [dependencies]
@@ -63,11 +63,11 @@ cargo run
 
 ## Cloud Run と Cloud Build
 
-Cloud Run へのデプロイの前に Cloud Run 周りのエコシステムについて説明をします。
+[Cloud Run](https://cloud.google.com/run/?hl=ja) へのデプロイの前に Cloud Run 周りのエコシステムについて説明をします。
 Cloud Run はコンテナをデプロイするため、その前にソースコードをイメージにする必要があります。
-そのため Cloud Run を使ったワークフローでは GCR という Container Registry に登録します。
-ここへは 手元でイメージを作ってそのまま push することもできますが、CI/CD のワークフローを考えて、GCP 上でビルドしたいです。
-そのようなビルド環境が Cloud Build です。
+そのため Cloud Run を使ったワークフローでは [GCR](https://cloud.google.com/container-registry/docs/overview?hl=ja) という Container Registry に登録します。
+ここへは 手元でイメージを作ってそのまま push することもできますが、CI/CD のワークフローを考えて、GitHub をトリガーに GCP 上でビルドしたいです。
+そのようなビルド環境が [Cloud Build](https://cloud.google.com/build?hl=ja) です。
 
 そのため Cloud Run へデプロイするために GitHub => Cloud Build => GCR => Cloud Run という手順を踏んでデプロイします。
 
@@ -105,7 +105,7 @@ EXPOSE 8080
 
 # Run the web service on container startup.
 
-ENTRYPOINT ["target/release/syntax-hilight-battle-api"]
+ENTRYPOINT ["target/release/hogehoge"]
 ```
 
 ![docker の設定画面](./docker.png)
@@ -114,9 +114,9 @@ ENTRYPOINT ["target/release/syntax-hilight-battle-api"]
 
 # ビルドに失敗するはず
 
-いまもし actix-web を使っていなければビルドに成功するかもしれませんが、おそらく失敗しているはずです。
-それは timeout error が出ているはずです。
-Cloud Build はデフォルトでは 10 分を超えたらビルドができません。
+もしここで actix-web を使っていなければビルドに成功するかもしれませんが、おそらく失敗しているはずです。
+原因は timeout error です。
+Cloud Build はデフォルトでは 10 分を超えたらビルドが止まります。
 そこでこの上限を突破する設定を書きましょう。
 
 ```yaml:title=cloudbuild.yaml
@@ -147,15 +147,20 @@ timeout: 2400s
 
 timeout: 2400s を指定します。各 STEP ごとの上限と、全体での上限を決めます。
 
-そして次に **この設定を読み込むように修正**します。
-なぜ太字で書いてるかと言うとデフォルトではこのファイルが入っていても読み込んでくれないからです。
+そして次に **この設定を読み込むように Cloud Build の設定を編集**します。
+なぜ太字で書いてるかと言うとデフォルトではこのファイルが入っていても Cloud Build は読み込んでくれないからです。
 
 コンソールのメニューから Cloud Build を選択し、トリガーメニューを選ぶと、GitHub と連携したトリガーがあるはずです。
 それを選んだら構成セクションで Cloud Build ファイルとリポジトリを選択してください。
-これで該当の yaml が読み込まれます。
+インラインが設定されていると、この設定画面で設定したビルド手順でビルドがされてしまい、timeout の編集が適用されません。
 
 ![cloud build の設定画面](./cloudbuild.png)
 
-これでもう一度 GitHub になにか push してトリガーを動かすと、正常にデプロイされます。
+cloudbuild.yaml を使うように設定した後にもう一度 GitHub になにか push してトリガーを動かすと、正常にデプロイされます。
 
 ちなみに Docker の Multi Stage Build を使いつつ、Cloud Build の step ごとにビルドし、明示的に cache を指定すればビルド時間を削れますが、どっちにしろ初回ビルドでは全 step を舐めることになるので、timeout を誤魔化すワークフローは必要です。
+
+## 何が言いたかったか
+
+actix-web を使うと Cloud Build のビルド時間を超えてしまうから、それを上書くための設定ファイルを入れよう。
+そして Cloud Build の設定画面でその設定を読み込むように構成を変更しよう。
