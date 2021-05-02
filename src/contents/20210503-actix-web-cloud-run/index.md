@@ -89,7 +89,7 @@ Cloud Run はコンテナをデプロイするため、その前にソースコ�
 
 ここではあらかじめこのような Dockerfile をレポジトリに入れておきます。
 
-```docker
+```sh
 # Use the official Rust image.
 # https://hub.docker.com/_/rust
 FROM rust
