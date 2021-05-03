@@ -19,14 +19,15 @@ isProtect: false
 ちょっとした個人開発でデータストレージが必要になり、そういうときはいつも Firestore を使うのですが、流石に最近は飽きてきたと言うか芸が無いというかという気持ちになってきたので RDB ベースなストレージを使いたくなりました。
 
 ところで、GCP には CloudSQL というフルマネージドな素晴らしい Database があります。
-しかし、どうして GCE で自分で MySQL サーバーを立てたいと思ったのでしょうか。
-答えは簡単、高いからです。
+では、どうして GCE で自分で MySQL サーバーを立てたいと思ったのでしょうか。
+答えは簡単、**高いから**です。
 ちょっとした個人開発のために月 6000 円は少し厳しいので、別な方法を考えていました。
 
-きっと一番安いのは 1000 円くらいで VPS 借りてそこで MySQL サーバー立てるのが良さそうとも思ったのですが、SSH で入って必要な資材を自分で入れて面倒を見ると言うのは時間がかかりそうなので見送りました。
-それに Linux でごにょごにょするのは苦手というのもあります。
+きっと一番安いのは 1000 円くらいで VPS 借りてそこで MySQL サーバー立てる方法です。
+しかし VPS といえば SSH でサーバーに入って必要な資材を自分で入れて面倒を見るというワークが必要だと思い、時間がかかりそうなので今回は見送りました。
 
-そこで GCE の Container Optimized OS です。「Docker で mysql を pull してきたら終わり」ってワケです。
+そこで GCE の Container Optimized OS です。
+Container Optimized OS を使えば「Docker で mysql を pull してきたら終わり」ってワケです。
 ただ実際にやってみるといろいろハマったところがあったので、そういうハマりポイントを紹介します。
 
 ちなみに余談なのですが、最近 Zenn で本を書きました。 1 冊 500 円です。売り上げがあると CloudSQL 代を捻出できるので是非ご購入ください。
@@ -39,7 +40,6 @@ isProtect: false
 
 では早速作っていきましょう。
 まずは GCE のセットアップです。
-
 コンソールをぽちぽちすればいいのですが、気を付けるポイントが何箇所かあります。
 
 ### OS は Container Optimized OS
@@ -101,9 +101,17 @@ echo alias docker-compose="'"'docker run --rm \
 source ~/.bashrc
 ```
 
+これで
+
+```sh
+docker-compose
+```
+
+としてコマンドが使えます。
+
 ## MySQL サーバーを立てる
 
-docker-compose で MySQL サーバーを立てましょう。
+それでは docker-compose コマンドが使えるようになったので、docker-compose で MySQL サーバーを立てましょう。
 こんな docker-compose.yaml を用意します。
 
 ```yaml:title=docker-compose.yaml
@@ -126,7 +134,7 @@ volumes:
 ```
 
 コンテナを落としてもデータを永続化したいので volumes の指定を忘れないようにしましょう。
-また将来の使い勝手も考慮して データは データボリュームとして管理します。
+また将来の使い勝手も考慮して データは data volume として管理します。
 `hoge` はその設定です。
 data volume を作ると何が嬉しいかは公式を参照ください。
 
@@ -158,7 +166,14 @@ GCE のインスタンスの内部からは メタデータサーバーにアク
 curl http://metadata.google.internal/computeMetadata/v1/instance/attributes/mysql_password
 ```
 
-秘匿情報を環境変数として使いたいので .env に書き出します。
+attributes の後に key 名を指定すればそれに紐づいた meta data を取得できます。
+
+```sh
+$ curl http://metadata.google.internal/computeMetadata/v1/instance/attributes/mysql_password
+fugaaaaaaa
+```
+
+秘匿情報は環境変数として使いたいので .env に書き出しておきましょう。
 
 ```sh
 touch .env
@@ -199,6 +214,8 @@ services:
 volumes:
   hoge:
 ```
+
+これで全ての準備が整いました。
 
 ## MySQL を立ち上げる
 
