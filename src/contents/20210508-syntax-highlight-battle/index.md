@@ -83,6 +83,8 @@ SPA として作ったので静的ホスティングができます。
 デプロイ先には Cloudflare pages を使ってみました。
 analytics まで付いてきて良かったです。
 
+![アナリティクス](./ana.png)
+
 ### Server は Rust
 
 [https://github.com/sadnessOjisan/syntax-hilight-battle-api](https://github.com/sadnessOjisan/syntax-hilight-battle-api)
