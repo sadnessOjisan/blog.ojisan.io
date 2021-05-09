@@ -17,6 +17,8 @@ highlight.js を使っているのですが、たくさん例があってどれ�
 
 [https://syntax-hilight-battle-client.pages.dev/](https://syntax-hilight-battle-client.pages.dev/)
 
+![バトル](./battle.png)
+
 どんな色にするかはここから決めようと思います。
 
 ## 集計結果
@@ -49,7 +51,7 @@ highlight.js を使っているのですが、たくさん例があってどれ�
 
 ![結果](result.png)
 
-久々の SQL でめちゃくちゃ苦労しました。
+集計には SQL を久々に書いたのでめちゃくちゃ苦労しました。
 
 ```sql
 select id, name, cnt from hilights left outer join (select winner_id, count(*) as cnt from results group by results.winner_id) as res on id = res.winner_id order by cnt desc;
@@ -57,18 +59,33 @@ select id, name, cnt from hilights left outer join (select winner_id, count(*) a
 
 いかがでしたか！？
 
-## おまけ: 実装について
+## 総評
+
+みんな暗いテーマが好きなんですね。
+僕は明るい方が好きなので以外です。（このブログの syntax highlight が暗いのは大人の事情です 😈）
+
+## 実装について
 
 要件的に小さいアプリなので普段使っていない技術で作ってみました。
 
 ### Client は svelte
+
+[https://github.com/sadnessOjisan/syntax-hilight-battle-client](https://github.com/sadnessOjisan/syntax-hilight-battle-client)
 
 #### ハマったところ
 
 svelte はビルド時にスタイリング用のクラスを割り振ってそうで、highlight.js でランタイムで DOM を書き換えると、そこにはスタイルが当たらなくて泣きました。
 なのであらかじめ highlight.js の関数を実行して吐き出した DOM を svelte にハードコーディングしています。
 
+#### Cloudflare pages にデプロイ
+
+SPA として作ったので静的ホスティングができます。
+デプロイ先には Cloudflare pages を使ってみました。
+analytics まで付いてきて良かったです。
+
 ### Server は Rust
+
+[https://github.com/sadnessOjisan/syntax-hilight-battle-api](https://github.com/sadnessOjisan/syntax-hilight-battle-api)
 
 #### actix-web
 
@@ -88,3 +105,8 @@ Cloud Run で actix-web を動かし、GCE 上の MySQL にアクセスしてい
 
 - [GCE & Container Optimized OS で MySQL サーバーを楽に安価に作る](https://blog.ojisan.io/gce-mysql)
 - [actix-web を Cloud Run で動かす](https://blog.ojisan.io/actix-web-cloud-run)
+
+## 作り直すよ〜
+
+個人だけで集計できる機能が欲しいという声があったので作ります。
+ちゃんと作り込むので 0 から作り直そうと思います。
