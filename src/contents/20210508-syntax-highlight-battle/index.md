@@ -11,7 +11,7 @@ isProtect: false
 
 ## 背景
 
-いまこのブログを作り直しているのですが、新しいブログの syntax highlight をどうするかを悩んでいました。
+いまこのブログを作り直しているのですが、新しいブログの syntax highlight をどうするかを悩んでいます。
 highlight.js を使っているのですが、たくさん例があってどれにしたらいいかが分かりませんでした。
 そこで 2 つの syntax highlight を並べて戦わせるサイトを作りました。
 
@@ -50,12 +50,6 @@ highlight.js を使っているのですが、たくさん例があってどれ�
 こんな感じでした。
 
 ![結果](result.png)
-
-集計には SQL を久々に書いたのでめちゃくちゃ苦労しました。
-
-```sql
-select id, name, cnt from hilights left outer join (select winner_id, count(*) as cnt from results group by results.winner_id) as res on id = res.winner_id order by cnt desc;
-```
 
 いかがでしたか！？
 
@@ -103,7 +97,7 @@ Result 型で持ちまわっておけば異常系を FW がよしなにしてく
 ### Infra は GCP
 
 Cloud Run で actix-web を動かし、GCE 上の MySQL にアクセスしています。
-最近書いたブログのこれらの記事は、このサイトを作るためのものです。
+最近書いたブログのこれらの記事は、このサイトを作るためのものでした。
 
 - [GCE & Container Optimized OS で MySQL サーバーを楽に安価に作る](https://blog.ojisan.io/gce-mysql)
 - [actix-web を Cloud Run で動かす](https://blog.ojisan.io/actix-web-cloud-run)
