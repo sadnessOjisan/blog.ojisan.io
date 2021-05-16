@@ -9,7 +9,7 @@ isFavorite: false
 isProtect: false
 ---
 
-GitHub のマイページのトップに生えている草のデザインで、いろいろなものを可視化できる Web Components を作りました。
+GitHub のマイページのトップに生えている草のデザインで、いろいろなものを可視化できる Web Components, [weed365](https://github.com/sadnessOjisan/weed365) を作りました。
 
 例えば、東京における Covid-19 の感染者数はこのように表示できます。
 
