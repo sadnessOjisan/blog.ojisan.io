@@ -126,18 +126,20 @@ consoel.log(layout)
 
 GitHub の草は、その測定日の曜日によっては途中で欠けています。
 その欠けを再現するために日付以外に undefined を返すようにしています。
-またこの配列は Week の配列で、その Weed は Date | undefined を要素として持ちます。
-さらにその Date | undefined は日付順に並ぶため、この配列を並べるだけで GitHub スタイルのカレンダーレイアウトが出来上がります。
+またこの配列は Week の配列で、その Weed は `Date | undefined` を要素として持ちます。
+さらにその `Date | undefined` は日付順に並ぶため、この配列を並べるだけで GitHub スタイルのカレンダーレイアウトが出来上がります。
 
 これはカレンダーを作るためのライブラリである [calendarize](https://www.npmjs.com/package/calendarize) から影響を受けた考え方です。
 
 ちなみに 私は [calendarize](https://crates.io/crates/calendarize) を Rust で再実装もしています。
-Rust で再実装することで WebAssembly 上でも使えるようにすることが目的です。
-そして WebAssembly 上でソシャゲのガチャカレンダーも作りました。
+WebAssembly 上でも使えるようにすることが目的です。
+その結果、WebAssembly 上でソシャゲのガチャカレンダーも作りました。
 
 [http://birthstone.web.app/](http://birthstone.web.app/)
 
-このようにカレンダーを作るときは layout を配列として返すライブラリを用意しておけば、その後の UI は自由に改変できるので便利です。
+リリース日をカレンダーで記録すれば、周年記念が分かってその日にソシャゲを始めるとガチャを引き放題っていうコンセプトです。
+
+このようにカレンダーを作るときは layout を配列として返すライブラリを用意しておけば、その後の UI や機能 は自由に改変できるので便利です。
 
 ### Web Components
 
@@ -274,9 +276,9 @@ class Weed365 extends HTMLElement {
 
 といった定義です。
 
-やっていることは、weedize した草レイアウトと、Custom Elements に与えられた日付と値の組み突合し、草の濃度を計算しスタイリングしています。
+やっていることは、weedize した草レイアウトと、Custom Elements に与えられた日付と値の組を突合し、草の濃度を計算しスタイリングに反映しています。
 
-innerHTML に食わせる HTML を template literal で気合で作ったおかげでライブラリ非依存で作れました。
+そのスタイルや HTML は innerHTML に食わせることで実現しており、 HTML 要素 を template literal + 気合で作ったおかげでライブラリ非依存で作れました。
 しかし開発体験としては format が効かなかったり、呼び出し側の型推論が効かなかったりで辛いところが多かったので、何か支援系のライブラリを入れるべきだったかなと思っています。
 リファクタリングする時があればついでに入れたいです。
 
