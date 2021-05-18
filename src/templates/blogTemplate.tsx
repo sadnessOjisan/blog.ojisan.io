@@ -237,7 +237,7 @@ const StyledComponent = styled(Component)`
   & .content > ul,
   & .content > blockquote {
     margin-bottom: 20px;
-    word-break: break-all;
+    overflow-wrap: break-word;
   }
 
   & .content > h1,
@@ -245,7 +245,7 @@ const StyledComponent = styled(Component)`
   & .content > h3,
   & .content > h4 {
     margin-bottom: 12px;
-    word-break: break-all;
+    overflow-wrap: break-word;
   }
 
   & .content li {
