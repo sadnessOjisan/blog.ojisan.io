@@ -1,37 +1,54 @@
-# blog.ojisan.io
+<p align="center">
+  <a href="https://www.gatsbyjs.com/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter">
+    <img alt="Gatsby" src="https://www.gatsbyjs.com/Gatsby-Monogram.svg" width="60" />
+  </a>
+</p>
+<h1 align="center">
+  Gatsby minimal starter
+</h1>
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/00c9f479-1c04-40eb-8ae6-2a15b372398b/deploy-status)](https://app.netlify.com/sites/amazing-goodall-59e3b0/deploys)
+## 🚀 Quick start
 
-## For Developper
+1.  **Create a Gatsby site.**
 
-### develop
+    Use the Gatsby CLI to create a new site, specifying the minimal starter.
 
-```sh
-# pkg install
-yarn install
+    ```shell
+    # create a new Gatsby site using the minimal starter
+    npm init gatsby
+    ```
 
-# start dev server
-yarn develop
+2.  **Start developing.**
 
-# open page
-open http://localhost:8000
+    Navigate into your new site’s directory and start it up.
 
-# gql
-open http://localhost:8000/___graphql
-```
+    ```shell
+    cd my-gatsby-site/
+    npm run develop
+    ```
 
-### deploy
+3.  **Open the code and start customizing!**
 
-```sh
-# build
-$ yarn build
+    Your site is now running at http://localhost:8000!
 
-# serve
-$ yarn start
-```
+    Edit `src/pages/index.js` to see your site update in real-time!
 
-deploy 自体は master に merge されると自動でデプロイされる on [Netfliy](https://www.netlify.com/)
+4.  **Learn more**
 
-## How To Contribute
+    - [Documentation](https://www.gatsbyjs.com/docs/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
 
-[CONTRIBUTING](https://github.com/sadnessOjisan/blog.ojisan.io/blob/master/.github/CONTRIBUTING.md)
+    - [Tutorials](https://www.gatsbyjs.com/tutorial/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
+
+    - [Guides](https://www.gatsbyjs.com/tutorial/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
+
+    - [API Reference](https://www.gatsbyjs.com/docs/api-reference/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
+
+    - [Plugin Library](https://www.gatsbyjs.com/plugins?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
+
+    - [Cheat Sheet](https://www.gatsbyjs.com/docs/cheat-sheet/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
+
+## 🚀 Quick start (Gatsby Cloud)
+
+Deploy this starter with one click on [Gatsby Cloud](https://www.gatsbyjs.com/cloud/):
+
+[<img src="https://www.gatsbyjs.com/deploynow.svg" alt="Deploy to Gatsby Cloud">](https://www.gatsbyjs.com/dashboard/deploynow?url=https://github.com/gatsbyjs/gatsby-starter-minimal)
