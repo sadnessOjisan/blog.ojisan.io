@@ -9,6 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Install npm packages
+        run: yarn install
       - name: build app
         run: yarn build
       - uses: FirebaseExtended/action-hosting-deploy@v0
