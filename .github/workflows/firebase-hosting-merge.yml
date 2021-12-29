@@ -8,7 +8,6 @@ name: Deploy to Firebase Hosting on merge
       - master
 jobs:
   build_and_preview:
-    if: "${{ github.event.pull_request.head.repo.full_name == github.repository }}"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
