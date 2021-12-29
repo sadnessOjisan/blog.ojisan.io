@@ -30,9 +30,8 @@ signInWithPopup(auth, provider).then((result) => {
 FYI: https://firebase.google.com/docs/auth/web/github-auth
 
 この user の中身を見てみます。
-そのままこの変数の型定義情報を見てみます。
-そうすると UserInfo 型を継承していることがわかります。
-そのフィールドを見てみます。
+この変数の型定義情報を見てみますと UserInfo 型を継承していることがわかります。
+そのフィールドには
 
 ```ts
 /**
@@ -72,8 +71,7 @@ export declare interface UserInfo {
 }
 ```
 
-ありました、displayName です。
-なので、ここを見れば良いと良さそうです。
+とあり、displayName があります。
 
 が、実はこれは GitHub ID ではありません。
 
