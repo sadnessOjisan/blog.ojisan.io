@@ -32,4 +32,5 @@ jobs:
         with:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
           firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_BLOG_OJISAN_IO }}"
+          channelId: live
           projectId: blog-ojisan-io
