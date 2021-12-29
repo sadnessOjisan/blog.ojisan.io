@@ -1,106 +1,66 @@
-import * as React from "react"
-import { graphql } from "gatsby"
-import Layout from "../components/common/layout"
-import SEO from "../components/common/seo"
-import { AllBlogsQuery } from "../../types/graphql-types"
-import styled from "styled-components"
-import { Card } from "../components/indices/card"
+// If you don't want to use TypeScript you can delete this file!
+import { graphql, Link, PageProps } from "gatsby";
+import * as React from "react";
 
-interface IContainerProps {
-  data: AllBlogsQuery
-}
+import Layout from "../components/layout";
+import Seo from "../components/seo";
 
-interface IProps extends IContainerProps {
-  /** 呼び出し元から書き換えるためのclassName */
-  className?: string
-}
-
-const Component: React.FC<IProps> = ({ data, className }) => {
+const UsingTypescript: React.FC<PageProps<any>> = (props) => {
+  const nodes = props.data.blogs.nodes;
   return (
-    <div className={className}>
-      <Layout>
-        <SEO title={data.site?.siteMetadata?.title || "HOME"} />
-        <div className="cards">
-          {data.blogs.nodes.map(node =>
-            node.frontmatter?.path ? (
-              <Card
-                className="card"
-                key={node.frontmatter.path}
-                excerpt={node.excerpt?.slice(0, 100)}
-                data={node.frontmatter}
-              ></Card>
-            ) : (
-              <div>invalid data</div>
-            )
-          )}
-        </div>
-      </Layout>
-    </div>
-  )
-}
+    <Layout>
+      <Seo title="blog.ojisan.io" />
+      <h1>
+        This is <Link to="/taihi-kankyo-tsukuru">本番が壊れた</Link>
+        時用の退避環境
+      </h1>
+      {nodes.map((node: any) => {
+        const { path, title } = node.frontmatter || {};
+        if (
+          path === null ||
+          path === undefined ||
+          title === null ||
+          title === undefined
+        ) {
+          throw new Error("should be");
+        }
+        return (
+          <Link key={path} to={path}>
+            <div style={{ margin: "10px 0px" }}>{title}</div>
+          </Link>
+        );
+      })}
+      <Link to="/">Go back to the homepage</Link>
+    </Layout>
+  );
+};
 
-const StyledComponent = styled(Component)`
-  & .cards {
-    margin: 24px auto;
-    padding: 5px;
-    width: 90%;
-    column-count: 3;
-    column-gap: 0;
-    max-width: 1024px;
-    @media (max-width: 768px) {
-      display: flex;
-      flex-direction: column;
-      width: 100%;
-    }
+export default UsingTypescript;
 
-    & .card {
-      margin: 16px;
-      margin-top: 0;
-      -webkit-column-break-inside: avoid;
-      page-break-inside: avoid;
-      break-inside: avoid;
-      box-shadow: 8px 12px 10px -6px rgba(0, 0, 0, 0.3);
-      display: inline-block;
-      @media (max-width: 1024px) {
-        margin-bottom: 16px;
-      }
-    }
-  }
-`
-
-const ContainerComponent: React.FC<IProps> = ({ children, data }) => {
-  return <StyledComponent data={data}>{children}</StyledComponent>
-}
-
-export const pageQuery = graphql`
-  query AllBlogs {
-    blogs: allMarkdownRemark(filter: {fileAbsolutePath: {regex: "/(/src/contents)/.*\\.md$/"}}, sort: {order: DESC, fields: frontmatter___created}) {
+export const query = graphql`
+  query BlogPosts {
+    blogs: allMarkdownRemark(
+      sort: { order: DESC, fields: frontmatter___created }
+    ) {
       nodes {
-        excerpt(format: PLAIN, truncate: true)
         frontmatter {
           title
           path
+          created
           visual {
             childImageSharp {
-              fluid(maxWidth: 800) {
-                ...GatsbyImageSharpFluid
+              fluid {
+                base64
+                tracedSVG
+                srcWebp
+                srcSetWebp
+                originalImg
+                originalName
               }
             }
           }
-          created(formatString: "YYYY-MM-DD")
-          tags
         }
       }
     }
-
-    site {
-      siteMetadata {
-        title
-        description
-        author
-      }
-    }
   }
-`
-
-export default ContainerComponent
+`;

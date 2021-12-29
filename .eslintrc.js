@@ -2,7 +2,6 @@ module.exports = {
   env: {
     browser: true,
     es2021: true,
-    node: true,
   },
   extends: [
     "eslint:recommended",
@@ -17,9 +16,11 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: "module",
   },
-  plugins: ["react", "@typescript-eslint"],
+  plugins: ["react", "@typescript-eslint", "simple-import-sort"],
   rules: {
-    // TSの型で守るのでprop-types使わない
-    "react/prop-types": 0,
+    // Q: 明示的にoffにする必要しなくてもいい方法はないか？いまどき import React なくても動くじゃんという。
+    "react/react-in-jsx-scope": "off",
+    "react/prop-types": "off",
+    "simple-import-sort/imports": "error",
   },
-}
+};
