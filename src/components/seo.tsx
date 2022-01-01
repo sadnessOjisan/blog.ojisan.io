@@ -10,7 +10,7 @@ type Props = {
 };
 
 const Seo: React.VFC<Props> = ({ image, description, title, hatebuHeader }) => {
-  const { site } = useStaticQuery<any>(
+  const { site } = useStaticQuery<GatsbyTypes.SeoSiteQuery>(
     graphql`
       query SeoSite {
         site {

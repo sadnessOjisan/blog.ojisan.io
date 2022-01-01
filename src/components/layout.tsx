@@ -15,7 +15,7 @@ import { FC } from "react";
 import Header from "./header";
 
 const Layout: FC = ({ children }) => {
-  const data = useStaticQuery<any>(graphql`
+  const data = useStaticQuery<GatsbyTypes.SiteTitleQuery>(graphql`
     query SiteTitle {
       site {
         siteMetadata {

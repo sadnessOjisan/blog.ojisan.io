@@ -5,7 +5,9 @@ import * as React from "react";
 import Layout from "../components/layout";
 import Seo from "../components/seo";
 
-const UsingTypescript: React.FC<PageProps<any>> = (props) => {
+const UsingTypescript: React.FC<PageProps<GatsbyTypes.BlogPostsQuery>> = (
+  props
+) => {
   const nodes = props.data.blogs.nodes;
   return (
     <Layout>
@@ -14,14 +16,9 @@ const UsingTypescript: React.FC<PageProps<any>> = (props) => {
         This is <Link to="/taihi-kankyo-tsukuru">本番が壊れた</Link>
         時用の退避環境
       </h1>
-      {nodes.map((node: any) => {
+      {nodes.map((node) => {
         const { path, title } = node.frontmatter || {};
-        if (
-          path === null ||
-          path === undefined ||
-          title === null ||
-          title === undefined
-        ) {
+        if (path === undefined || title === undefined) {
           throw new Error("should be");
         }
         return (

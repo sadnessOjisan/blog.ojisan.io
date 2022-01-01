@@ -2,4 +2,4 @@
 package.json
 package-lock.json
 public
-src/types/graphql-type.ts
+src/__generated__/gatsby-types.ts
