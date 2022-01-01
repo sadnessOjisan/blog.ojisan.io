@@ -5,14 +5,20 @@ import React, { VFC } from "react";
 import Layout from "../components/layout";
 import Seo from "../components/seo";
 
-const Template: VFC<PageProps<any>> = (props) => {
+const Template: VFC<PageProps<GatsbyTypes.BlogPostQuery>> = (props) => {
   const { markdownRemark } = props.data; // data.markdownRemark holds your post data
   const { frontmatter, html, excerpt } = markdownRemark || {};
 
-  const { title, visual, isProtect } = frontmatter;
+  const { title, visual, isProtect } = frontmatter || {};
 
-  const { fluid } = visual.childImageSharp || {};
-  if (fluid === null || fluid === undefined) throw new Error("should be");
+  const { fluid } = visual?.childImageSharp || {};
+  if (
+    title === undefined ||
+    fluid === undefined ||
+    fluid === undefined ||
+    html === undefined
+  )
+    throw new Error("should be");
 
   return (
     <Layout>
@@ -23,11 +29,8 @@ const Template: VFC<PageProps<any>> = (props) => {
         hatebuHeader={isProtect}
       />
       <div className="blog-post">
-        <h1>{frontmatter.title}</h1>
-        <Img
-          fluid={fluid as FluidObject}
-          style={{ maxHeight: 500, marginBottom: 32 }}
-        />
+        <h1>{title}</h1>
+        <Img fluid={fluid} style={{ maxHeight: 500, marginBottom: 32 }} />
         <div
           className="blog-post-content"
           dangerouslySetInnerHTML={{ __html: html }}
