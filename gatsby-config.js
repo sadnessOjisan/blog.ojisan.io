@@ -6,6 +6,7 @@ module.exports = {
     siteUrl: `https://blog.ojisan.io`,
   },
   plugins: [
+    "gatsby-plugin-typegen",
     "gatsby-plugin-sass",
     "gatsby-plugin-image",
     {
