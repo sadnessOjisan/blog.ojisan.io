@@ -5,14 +5,13 @@
  * See: https://www.gatsbyjs.com/docs/use-static-query/
  */
 
-import "./layout.css";
-
 import { graphql, useStaticQuery } from "gatsby";
 import PropTypes from "prop-types";
 import * as React from "react";
 import { FC } from "react";
 
 import Header from "./header";
+import { wrapper, footer } from "./layout.module.scss";
 
 const Layout: FC = ({ children }) => {
   const data = useStaticQuery<GatsbyTypes.SiteTitleQuery>(graphql`
@@ -34,24 +33,14 @@ const Layout: FC = ({ children }) => {
   return (
     <>
       <Header siteTitle={title} />
-      <div
-        style={{
-          margin: `0 auto`,
-          maxWidth: 960,
-          padding: `0 1.0875rem 1.45rem`,
-        }}
-      >
+      <div className={wrapper}>
         <main>{children}</main>
-        <footer
-          style={{
-            marginTop: `2rem`,
-          }}
-        >
+        <footer className={footer}>
           <div>
             please HELP ME!!{" "}
             <a href="https://patron.ojisan.io">patron.ojisan.io</a>
           </div>
-          <div style={{ marginTop: 12 }}>
+          <div>
             © {new Date().getFullYear()}, Built with
             {` `}
             <a href="https://www.gatsbyjs.com">Gatsby</a>
