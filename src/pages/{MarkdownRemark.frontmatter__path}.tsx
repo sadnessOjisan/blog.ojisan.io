@@ -4,7 +4,12 @@ import React, { VFC } from "react";
 
 import Layout from "../components/layout";
 import Seo from "../components/seo";
-import { image } from "./{MarkdownRemark.frontmatter__path}.module.scss";
+import {
+  image,
+  imageContainer,
+  metaContainer,
+  imageWrapper,
+} from "./{MarkdownRemark.frontmatter__path}.module.scss";
 
 const Template: VFC<PageProps<GatsbyTypes.BlogPostQuery>> = (props) => {
   const { markdownRemark } = props.data; // data.markdownRemark holds your post data
@@ -29,9 +34,18 @@ const Template: VFC<PageProps<GatsbyTypes.BlogPostQuery>> = (props) => {
         image={fluid.src}
         hatebuHeader={isProtect}
       />
-      <div className="blog-post">
-        <h1>{title}</h1>
-        <Img fluid={fluid} className={image} />
+      <div>
+        <div className={imageContainer}>
+          <div className={imageWrapper}>
+            <Img fluid={fluid} className={image} />
+          </div>
+          <div className={metaContainer}>
+            <div>
+              <h1>{title}</h1>
+            </div>
+          </div>
+        </div>
+
         <div
           className="blog-post-content"
           dangerouslySetInnerHTML={{ __html: html }}
