@@ -11,7 +11,7 @@ import * as React from "react";
 import { FC } from "react";
 
 import Header from "./header";
-import { wrapper, footer } from "./layout.module.scss";
+import { footer,wrapper } from "./layout.module.scss";
 
 const Layout: FC = ({ children }) => {
   const data = useStaticQuery<GatsbyTypes.SiteTitleQuery>(graphql`
