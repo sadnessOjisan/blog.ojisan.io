@@ -4,6 +4,7 @@ import * as React from "react";
 
 import Layout from "../components/layout";
 import Seo from "../components/seo";
+import { item } from "./index.module.scss";
 
 const UsingTypescript: React.FC<PageProps<GatsbyTypes.BlogPostsQuery>> = (
   props
@@ -23,7 +24,7 @@ const UsingTypescript: React.FC<PageProps<GatsbyTypes.BlogPostsQuery>> = (
         }
         return (
           <Link key={path} to={path}>
-            <div style={{ margin: "10px 0px" }}>{title}</div>
+            <div className={item}>{title}</div>
           </Link>
         );
       })}

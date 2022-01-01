@@ -4,6 +4,7 @@ import React, { VFC } from "react";
 
 import Layout from "../components/layout";
 import Seo from "../components/seo";
+import { image } from "./{MarkdownRemark.frontmatter__path}.module.scss";
 
 const Template: VFC<PageProps<GatsbyTypes.BlogPostQuery>> = (props) => {
   const { markdownRemark } = props.data; // data.markdownRemark holds your post data
@@ -30,7 +31,7 @@ const Template: VFC<PageProps<GatsbyTypes.BlogPostQuery>> = (props) => {
       />
       <div className="blog-post">
         <h1>{title}</h1>
-        <Img fluid={fluid} style={{ maxHeight: 500, marginBottom: 32 }} />
+        <Img fluid={fluid} className={image} />
         <div
           className="blog-post-content"
           dangerouslySetInnerHTML={{ __html: html }}
