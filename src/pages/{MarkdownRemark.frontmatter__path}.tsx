@@ -42,6 +42,9 @@ const Template: VFC<PageProps<GatsbyTypes.BlogPostQuery>> = (props) => {
           </div>
           <div className={metaContainer}>
             <div>
+              {tags.map((tag) => (
+                <span>#{tag}</span>
+              ))}
               <h1>{title}</h1>
               <time>{created}</time>
             </div>
