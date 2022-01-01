@@ -15,14 +15,15 @@ const Template: VFC<PageProps<GatsbyTypes.BlogPostQuery>> = (props) => {
   const { markdownRemark } = props.data; // data.markdownRemark holds your post data
   const { frontmatter, html, excerpt } = markdownRemark || {};
 
-  const { title, visual, isProtect } = frontmatter || {};
+  const { title, visual, isProtect, created, tags } = frontmatter || {};
 
   const { fluid } = visual?.childImageSharp || {};
   if (
     title === undefined ||
     fluid === undefined ||
-    fluid === undefined ||
-    html === undefined
+    html === undefined ||
+    created === undefined ||
+    tags === undefined
   )
     throw new Error("should be");
 
@@ -42,6 +43,7 @@ const Template: VFC<PageProps<GatsbyTypes.BlogPostQuery>> = (props) => {
           <div className={metaContainer}>
             <div>
               <h1>{title}</h1>
+              <time>{created}</time>
             </div>
           </div>
         </div>
@@ -76,6 +78,8 @@ export const pageQuery = graphql`
           }
         }
         isProtect
+        created
+        tags
       }
       excerpt(pruneLength: 140)
     }
