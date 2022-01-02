@@ -2,3 +2,10 @@
   width: 100%;
   height: 200px;
 }
+
+.link {
+  text-decoration: none;
+  &:visited {
+    color: initial;
+  }
+}

@@ -3615,19 +3615,19 @@ type BlogPostQuery = { readonly markdownRemark: Maybe<(
     Pick<MarkdownRemark, 'html' | 'excerpt'>
     & { readonly frontmatter: Maybe<(
       Pick<MarkdownRemarkFrontmatter, 'title' | 'path' | 'isProtect' | 'created' | 'tags'>
-      & { readonly visual: Maybe<{ readonly childImageSharp: Maybe<{ readonly fluid: Maybe<Pick<ImageSharpFluid, 'base64' | 'aspectRatio' | 'src' | 'srcSet' | 'sizes'>> }> }> }
+      & { readonly visual: Maybe<{ readonly childImageSharp: Maybe<Pick<ImageSharp, 'gatsbyImageData'>> }> }
     )> }
   )> };
-
-type SeoSiteQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type SeoSiteQuery = { readonly site: Maybe<{ readonly siteMetadata: Maybe<Pick<SiteSiteMetadata, 'title' | 'description' | 'author'>> }> };
 
 type SiteTitleQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 type SiteTitleQuery = { readonly site: Maybe<{ readonly siteMetadata: Maybe<Pick<SiteSiteMetadata, 'title'>> }> };
+
+type SeoSiteQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type SeoSiteQuery = { readonly site: Maybe<{ readonly siteMetadata: Maybe<Pick<SiteSiteMetadata, 'title' | 'description' | 'author'>> }> };
 
 type GatsbyImageSharpFixedFragment = Pick<ImageSharpFixed, 'base64' | 'width' | 'height' | 'src' | 'srcSet'>;
 

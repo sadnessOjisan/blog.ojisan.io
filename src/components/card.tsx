@@ -4,7 +4,7 @@ import { GatsbyImage, getImage, ImageDataLike } from "gatsby-plugin-image";
 import * as React from "react";
 import { VFC } from "react";
 
-import { imageWrapper } from "./card.module.scss";
+import { imageWrapper, link } from "./card.module.scss";
 
 type Props = {
   data: GatsbyTypes.BlogPostsQuery["blogs"]["nodes"][0]["frontmatter"];
@@ -25,13 +25,12 @@ export const Card: VFC<Props> = ({ data }) => {
   ) {
     throw new Error("should be");
   }
-  visual.childImageSharp;
   const image = getImage(visual);
   if (image === undefined) {
     throw new Error("aa");
   }
   return (
-    <Link key={path} to={path}>
+    <Link key={path} to={path} className={link}>
       <div className="card">
         <GatsbyImage image={image} alt="thumbnail" className={imageWrapper} />
         <p>{created}</p>
