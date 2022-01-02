@@ -1,7 +1,8 @@
 import { graphql, PageProps } from "gatsby";
 import { getImage, ImageDataLike } from "gatsby-plugin-image";
 import React, { VFC } from "react";
-
+import { defineCustomElements as deckDeckGoHighlightElement } from "@deckdeckgo/highlight-code/dist/loader";
+deckDeckGoHighlightElement();
 import { ArticleBody } from "../components/article-body";
 import Layout from "../components/layout";
 import { MetaInfo } from "../components/meta-info";
