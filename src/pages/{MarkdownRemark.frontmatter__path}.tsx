@@ -1,16 +1,10 @@
 import { graphql, PageProps } from "gatsby";
-import Img, { FluidObject } from "gatsby-image";
 import React, { VFC } from "react";
 import { GatsbyImage, getImage, ImageDataLike } from "gatsby-plugin-image";
 import Layout from "../components/layout";
 import Seo from "../components/seo";
-import {
-  image,
-  imageContainer,
-  imageWrapper,
-  metaContainer,
-} from "./{MarkdownRemark.frontmatter__path}.module.scss";
 import { MetaInfo } from "../components/meta-info";
+import { ArticleBody } from "../components/article-body";
 
 const Template: VFC<PageProps<GatsbyTypes.BlogPostQuery>> = (props) => {
   const { markdownRemark } = props.data; // data.markdownRemark holds your po
@@ -51,10 +45,7 @@ const Template: VFC<PageProps<GatsbyTypes.BlogPostQuery>> = (props) => {
       <div>
         <MetaInfo image={image} tags={tagss} title={title} created={created} />
 
-        <div
-          className="blog-post-content"
-          dangerouslySetInnerHTML={{ __html: html }}
-        />
+        <ArticleBody html={html} />
       </div>
     </Layout>
   );
