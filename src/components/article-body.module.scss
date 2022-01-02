@@ -46,11 +46,11 @@
       content: "##### ";
     }
   }
-}
 
-a {
-  color: magenta;
-  &:visited {
-    color: maroon;
+  a {
+    color: magenta;
+    &:visited {
+      color: maroon;
+    }
   }
 }

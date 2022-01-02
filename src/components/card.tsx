@@ -3,7 +3,7 @@ import { GatsbyImage, getImage, ImageDataLike } from "gatsby-plugin-image";
 import * as React from "react";
 import { VFC } from "react";
 
-import { imageWrapper, link } from "./card.module.scss";
+import { card, imageWrapper, link } from "./card.module.scss";
 
 type Props = {
   data: GatsbyTypes.BlogPostsQuery["blogs"]["nodes"][0]["frontmatter"];
@@ -30,9 +30,11 @@ export const Card: VFC<Props> = ({ data }) => {
   }
   return (
     <Link key={path} to={path} className={link}>
-      <div className="card">
+      <div className={card}>
         <GatsbyImage image={image} alt="thumbnail" className={imageWrapper} />
-        <p>{created}</p>
+        <p>
+          <time dateTime={created}>{created}</time>
+        </p>
         <p>{title}</p>
       </div>
     </Link>
