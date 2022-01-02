@@ -1,13 +1,7 @@
-import {
-  GatsbyImage,
-  getImage,
-  IGatsbyImageData,
-  ImageDataLike,
-} from "gatsby-plugin-image";
+import { GatsbyImage, IGatsbyImageData } from "gatsby-plugin-image";
 import React, { VFC } from "react";
 
 import {
-  image,
   imageContainer,
   imageWrapper,
   metaContainer,
@@ -27,7 +21,7 @@ export const MetaInfo: VFC<Props> = ({ image, tags, title, created }) => {
       <div className={metaContainer}>
         <div>
           {tags.map((tag) => (
-            <span>#{tag}</span>
+            <span key={tag}>#{tag}</span>
           ))}
           <h1>{title}</h1>
           <time>{created}</time>
