@@ -44,7 +44,7 @@ export const query = graphql`
           tags
           visual {
             childImageSharp {
-              gatsbyImageData
+              gatsbyImageData(placeholder: BLURRED)
             }
           }
         }
