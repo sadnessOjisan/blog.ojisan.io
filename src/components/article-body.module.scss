@@ -1,5 +1,6 @@
 .body {
   margin-top: 32px;
+  word-break: break-all;
   h1,
   h2,
   h3,
@@ -44,13 +45,6 @@
     font-weight: bold;
     &::before {
       content: "##### ";
-    }
-  }
-
-  a {
-    color: magenta;
-    &:visited {
-      color: maroon;
     }
   }
 }

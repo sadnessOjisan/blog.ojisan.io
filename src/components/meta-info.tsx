@@ -4,6 +4,8 @@ import React, { VFC } from "react";
 import {
   imageContainer,
   imageWrapper,
+  img,
+  innerWrapper,
   metaContainer,
 } from "./meta-info.module.scss";
 type Props = {
@@ -16,15 +18,19 @@ export const MetaInfo: VFC<Props> = ({ image, tags, title, created }) => {
   return (
     <div className={imageContainer}>
       <div className={imageWrapper}>
-        <GatsbyImage image={image} alt="thumbnail" />
+        <GatsbyImage image={image} alt="thumbnail" className={img} />
       </div>
       <div className={metaContainer}>
-        <div>
-          {tags.map((tag) => (
-            <span key={tag}>#{tag}</span>
-          ))}
+        <div className={innerWrapper}>
+          <div>
+            {tags.map((tag) => (
+              <span key={tag}>#{tag}</span>
+            ))}
+          </div>
           <h1>{title}</h1>
-          <time>{created}</time>
+          <p>
+            <time dateTime={created}>{created}</time>
+          </p>
         </div>
       </div>
     </div>
