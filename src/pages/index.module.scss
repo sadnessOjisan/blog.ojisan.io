@@ -5,8 +5,17 @@
 .cards {
   display: flex;
   flex-wrap: wrap;
-  > * {
-    width: calc(33% - 16px);
-    margin: 16px 8px;
+  width: 100%;
+  @media screen and (min-width: 500px) {
+    > * {
+      width: calc(50% - 16px);
+      margin: 16px 8px;
+    }
+  }
+  @media screen and (min-width: 768px) {
+    > * {
+      width: calc(33% - 16px);
+      margin: 16px 8px;
+    }
   }
 }
