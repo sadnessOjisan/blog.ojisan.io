@@ -1,4 +1,3 @@
 import _ from "./src/styles/reset.css";
 import __ from "./src/styles/global.css";
-
-require("prismjs/themes/prism-solarizedlight.css");
+import ___ from "./src/styles/prism-node.css";
