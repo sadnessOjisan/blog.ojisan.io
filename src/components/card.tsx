@@ -3,7 +3,7 @@ import { GatsbyImage, getImage, ImageDataLike } from "gatsby-plugin-image";
 import * as React from "react";
 import { VFC } from "react";
 
-import { imageWrapper, link, card } from "./card.module.scss";
+import { card, imageWrapper, link } from "./card.module.scss";
 
 type Props = {
   data: GatsbyTypes.BlogPostsQuery["blogs"]["nodes"][0]["frontmatter"];
