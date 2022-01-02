@@ -29,7 +29,7 @@ FYI: https://store.steampowered.com/app/881100/Noita/?l=japanese
 
 このトレイラーにビビっと来たら買いましょう。
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/0cDkmQ0F0Jw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;"><iframe src="https://www.youtube.com/embed/0cDkmQ0F0Jw?rel=0" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen scrolling="no" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"></iframe></div>
 
 FYI: https://store.steampowered.com/app/881100/Noita/?l=japanese
 
