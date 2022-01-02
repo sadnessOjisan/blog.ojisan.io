@@ -18,6 +18,7 @@ const Seo: React.VFC<Props> = ({ image, description, title, hatebuHeader }) => {
             title
             description
             author
+            siteUrl
           }
         }
       }
@@ -27,6 +28,7 @@ const Seo: React.VFC<Props> = ({ image, description, title, hatebuHeader }) => {
     title: gqlTitle,
     description: gqlDescription,
     author: gqlAuthor,
+    siteUrl,
   } = site?.siteMetadata || {};
 
   const metaDescription = description || gqlDescription;
@@ -74,7 +76,7 @@ const Seo: React.VFC<Props> = ({ image, description, title, hatebuHeader }) => {
         },
         {
           name: `twitter:image`,
-          content: `${image}`,
+          content: `${siteUrl}${image}`,
         },
         {
           name: `twitter:card`,

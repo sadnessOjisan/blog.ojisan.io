@@ -42,7 +42,7 @@ const Template: VFC<PageProps<GatsbyTypes.BlogPostQuery>> = (props) => {
       <Seo
         title={title}
         description={excerpt}
-        image={visual.absolutePath}
+        image={visual.publicURL}
         hatebuHeader={isProtect}
       />
       <div>
@@ -64,7 +64,7 @@ export const pageQuery = graphql`
         title
         path
         visual {
-          absolutePath
+          publicURL
           childImageSharp {
             gatsbyImageData(layout: FULL_WIDTH)
           }

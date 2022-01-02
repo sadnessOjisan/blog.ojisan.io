@@ -1,6 +1,5 @@
 module.exports = {
   siteMetadata: {
-    siteUrl: "https://www.yourdomain.tld",
     title: "blog.ojisan.io",
     author: `@sadnessOjisan`,
     siteUrl: `https://blog.ojisan.io`,
