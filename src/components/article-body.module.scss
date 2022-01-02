@@ -1,5 +1,6 @@
 .body {
   margin-top: 32px;
+  word-break: break-all;
   h1,
   h2,
   h3,
@@ -46,11 +47,10 @@
       content: "##### ";
     }
   }
-
-  a {
-    color: magenta;
-    &:visited {
-      color: maroon;
+  ul {
+    margin: 12px 0px;
+    li {
+      list-style: inside;
     }
   }
 }

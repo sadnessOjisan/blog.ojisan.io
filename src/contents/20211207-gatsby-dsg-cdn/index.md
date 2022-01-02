@@ -24,7 +24,7 @@ Gatsby などの SSG の弱点の一つに、コンテンツがあまりにも�
 
 余談ですが、SSG や Gatsby には一家言があるので JSConfJP に申し込みました。これがその時のスライドです。
 
-<iframe class="speakerdeck-iframe" frameborder="0" src="https://speakerdeck.com/player/a098fcd04ea94eaca743cd1779b60087" title="SSG is a compiler" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true" style="border: 0px; background: padding-box padding-box rgba(0, 0, 0, 0.1); margin: 0px; padding: 0px; border-radius: 6px; box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 40px; width: 560px; height: 314px;" data-ratio="1.78343949044586"></iframe>
+<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.1972%;"><iframe src="https://speakerdeck.com/player/a098fcd04ea94eaca743cd1779b60087" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen scrolling="no" allow="encrypted-media;"></iframe></div>
 
 宣伝おわり
 
