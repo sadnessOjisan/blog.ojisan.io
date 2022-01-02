@@ -7,8 +7,8 @@ import Seo from "../components/seo";
 import {
   image,
   imageContainer,
-  metaContainer,
   imageWrapper,
+  metaContainer,
 } from "./{MarkdownRemark.frontmatter__path}.module.scss";
 
 const Template: VFC<PageProps<GatsbyTypes.BlogPostQuery>> = (props) => {

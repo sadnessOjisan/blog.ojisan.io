@@ -1,3 +1,12 @@
 .item {
   margin: 10px 0px;
 }
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  > * {
+    width: calc(33% - 16px);
+    margin: 16px 8px;
+  }
+}

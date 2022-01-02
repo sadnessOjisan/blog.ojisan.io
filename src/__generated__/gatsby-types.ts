@@ -3602,8 +3602,8 @@ type BlogPostsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 type BlogPostsQuery = { readonly blogs: { readonly nodes: ReadonlyArray<{ readonly frontmatter: Maybe<(
-        Pick<MarkdownRemarkFrontmatter, 'title' | 'path' | 'created'>
-        & { readonly visual: Maybe<{ readonly childImageSharp: Maybe<{ readonly fluid: Maybe<Pick<ImageSharpFluid, 'base64' | 'tracedSVG' | 'srcWebp' | 'srcSetWebp' | 'originalImg' | 'originalName'>> }> }> }
+        Pick<MarkdownRemarkFrontmatter, 'title' | 'path' | 'created' | 'tags'>
+        & { readonly visual: Maybe<{ readonly childImageSharp: Maybe<Pick<ImageSharp, 'gatsbyImageData'>> }> }
       )> }> } };
 
 type BlogPostQueryVariables = Exact<{
@@ -3619,15 +3619,15 @@ type BlogPostQuery = { readonly markdownRemark: Maybe<(
     )> }
   )> };
 
-type SiteTitleQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type SiteTitleQuery = { readonly site: Maybe<{ readonly siteMetadata: Maybe<Pick<SiteSiteMetadata, 'title'>> }> };
-
 type SeoSiteQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 type SeoSiteQuery = { readonly site: Maybe<{ readonly siteMetadata: Maybe<Pick<SiteSiteMetadata, 'title' | 'description' | 'author'>> }> };
+
+type SiteTitleQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type SiteTitleQuery = { readonly site: Maybe<{ readonly siteMetadata: Maybe<Pick<SiteSiteMetadata, 'title'>> }> };
 
 type GatsbyImageSharpFixedFragment = Pick<ImageSharpFixed, 'base64' | 'width' | 'height' | 'src' | 'srcSet'>;
 
