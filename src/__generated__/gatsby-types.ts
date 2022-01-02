@@ -3602,8 +3602,8 @@ type BlogPostsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 type BlogPostsQuery = { readonly blogs: { readonly nodes: ReadonlyArray<{ readonly frontmatter: Maybe<(
-        Pick<MarkdownRemarkFrontmatter, 'title' | 'path' | 'created'>
-        & { readonly visual: Maybe<{ readonly childImageSharp: Maybe<{ readonly fluid: Maybe<Pick<ImageSharpFluid, 'base64' | 'tracedSVG' | 'srcWebp' | 'srcSetWebp' | 'originalImg' | 'originalName'>> }> }> }
+        Pick<MarkdownRemarkFrontmatter, 'title' | 'path' | 'created' | 'tags'>
+        & { readonly visual: Maybe<{ readonly childImageSharp: Maybe<Pick<ImageSharp, 'gatsbyImageData'>> }> }
       )> }> } };
 
 type BlogPostQueryVariables = Exact<{
@@ -3614,8 +3614,11 @@ type BlogPostQueryVariables = Exact<{
 type BlogPostQuery = { readonly markdownRemark: Maybe<(
     Pick<MarkdownRemark, 'html' | 'excerpt'>
     & { readonly frontmatter: Maybe<(
-      Pick<MarkdownRemarkFrontmatter, 'title' | 'path' | 'isProtect'>
-      & { readonly visual: Maybe<{ readonly childImageSharp: Maybe<{ readonly fluid: Maybe<Pick<ImageSharpFluid, 'base64' | 'aspectRatio' | 'src' | 'srcSet' | 'sizes'>> }> }> }
+      Pick<MarkdownRemarkFrontmatter, 'title' | 'path' | 'isProtect' | 'created' | 'tags'>
+      & { readonly visual: Maybe<(
+        Pick<File, 'absolutePath'>
+        & { readonly childImageSharp: Maybe<Pick<ImageSharp, 'gatsbyImageData'>> }
+      )> }
     )> }
   )> };
 

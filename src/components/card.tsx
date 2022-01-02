@@ -1,21 +1,40 @@
-import "./card.css";
-
-import Img, { FluidObject } from "gatsby-image";
+import { Link } from "gatsby";
+import { GatsbyImage, getImage, ImageDataLike } from "gatsby-plugin-image";
 import * as React from "react";
 import { VFC } from "react";
 
+import { imageWrapper, link } from "./card.module.scss";
+
 type Props = {
-  title: string;
-  createdAt: Date;
-  image: FluidObject;
+  data: GatsbyTypes.BlogPostsQuery["blogs"]["nodes"][0]["frontmatter"];
 };
 
-export const Card: VFC<Props> = (props) => {
+export const Card: VFC<Props> = ({ data }) => {
+  if (data === undefined) {
+    throw new Error("should be");
+  }
+  const { title, tags, visual, path, created } = data;
+  if (
+    path === undefined ||
+    tags === undefined ||
+    title === undefined ||
+    visual === undefined ||
+    created === undefined
+  ) {
+    throw new Error("should be");
+  }
+  // TODO: as 消したい
+  const image = getImage(visual as ImageDataLike);
+  if (image === undefined) {
+    throw new Error("aa");
+  }
   return (
-    <div className="card">
-      <Img fluid={props.image} style={{ maxHeight: 500, marginBottom: 32 }} />
-      <p>{props.title}</p>
-      <p>{props.createdAt}</p>
-    </div>
+    <Link key={path} to={path} className={link}>
+      <div className="card">
+        <GatsbyImage image={image} alt="thumbnail" className={imageWrapper} />
+        <p>{created}</p>
+        <p>{title}</p>
+      </div>
+    </Link>
   );
 };

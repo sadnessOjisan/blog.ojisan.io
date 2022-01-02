@@ -2,32 +2,28 @@
 import { graphql, Link, PageProps } from "gatsby";
 import * as React from "react";
 
+import { Card } from "../components/card";
 import Layout from "../components/layout";
 import Seo from "../components/seo";
-import { item } from "./index.module.scss";
+import { cards } from "./index.module.scss";
 
 const UsingTypescript: React.FC<PageProps<GatsbyTypes.BlogPostsQuery>> = (
   props
 ) => {
   const nodes = props.data.blogs.nodes;
+  const frontmatters = nodes.map((node) => node.frontmatter);
+  if (frontmatters.some((f) => f === undefined)) {
+    throw new Error();
+  }
+  frontmatters;
   return (
     <Layout>
       <Seo title="blog.ojisan.io" />
-      <h1>
-        This is <Link to="/taihi-kankyo-tsukuru">本番が壊れた</Link>
-        時用の退避環境
-      </h1>
-      {nodes.map((node) => {
-        const { path, title } = node.frontmatter || {};
-        if (path === undefined || title === undefined) {
-          throw new Error("should be");
-        }
-        return (
-          <Link key={path} to={path}>
-            <div className={item}>{title}</div>
-          </Link>
-        );
-      })}
+      <div className={cards}>
+        {frontmatters.map((f) => {
+          return <Card data={f} key={f?.path} />;
+        })}
+      </div>
       <Link to="/">Go back to the homepage</Link>
     </Layout>
   );
@@ -45,16 +41,10 @@ export const query = graphql`
           title
           path
           created
+          tags
           visual {
             childImageSharp {
-              fluid {
-                base64
-                tracedSVG
-                srcWebp
-                srcSetWebp
-                originalImg
-                originalName
-              }
+              gatsbyImageData
             }
           }
         }
