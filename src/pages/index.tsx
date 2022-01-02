@@ -1,12 +1,11 @@
 // If you don't want to use TypeScript you can delete this file!
 import { graphql, Link, PageProps } from "gatsby";
-import { GatsbyImage, getImage, ImageDataLike } from "gatsby-plugin-image";
 import * as React from "react";
 
 import { Card } from "../components/card";
 import Layout from "../components/layout";
 import Seo from "../components/seo";
-import { cards,item } from "./index.module.scss";
+import { cards } from "./index.module.scss";
 
 const UsingTypescript: React.FC<PageProps<GatsbyTypes.BlogPostsQuery>> = (
   props
@@ -22,7 +21,7 @@ const UsingTypescript: React.FC<PageProps<GatsbyTypes.BlogPostsQuery>> = (
       <Seo title="blog.ojisan.io" />
       <div className={cards}>
         {frontmatters.map((f) => {
-          return <Card data={f} />;
+          return <Card data={f} key={f?.path} />;
         })}
       </div>
       <Link to="/">Go back to the homepage</Link>

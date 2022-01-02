@@ -1,4 +1,5 @@
 import React, { VFC } from "react";
+
 import { body } from "./article-body.module.scss";
 
 type Props = {

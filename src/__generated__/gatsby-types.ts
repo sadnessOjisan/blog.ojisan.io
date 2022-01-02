@@ -3615,7 +3615,10 @@ type BlogPostQuery = { readonly markdownRemark: Maybe<(
     Pick<MarkdownRemark, 'html' | 'excerpt'>
     & { readonly frontmatter: Maybe<(
       Pick<MarkdownRemarkFrontmatter, 'title' | 'path' | 'isProtect' | 'created' | 'tags'>
-      & { readonly visual: Maybe<{ readonly childImageSharp: Maybe<Pick<ImageSharp, 'gatsbyImageData'>> }> }
+      & { readonly visual: Maybe<(
+        Pick<File, 'absolutePath'>
+        & { readonly childImageSharp: Maybe<Pick<ImageSharp, 'gatsbyImageData'>> }
+      )> }
     )> }
   )> };
 

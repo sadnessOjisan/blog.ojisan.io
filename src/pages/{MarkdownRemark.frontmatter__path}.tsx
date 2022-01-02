@@ -1,10 +1,11 @@
 import { graphql, PageProps } from "gatsby";
+import { getImage, ImageDataLike } from "gatsby-plugin-image";
 import React, { VFC } from "react";
-import { GatsbyImage, getImage, ImageDataLike } from "gatsby-plugin-image";
-import Layout from "../components/layout";
-import Seo from "../components/seo";
-import { MetaInfo } from "../components/meta-info";
+
 import { ArticleBody } from "../components/article-body";
+import Layout from "../components/layout";
+import { MetaInfo } from "../components/meta-info";
+import Seo from "../components/seo";
 
 const Template: VFC<PageProps<GatsbyTypes.BlogPostQuery>> = (props) => {
   const { markdownRemark } = props.data; // data.markdownRemark holds your po
@@ -25,7 +26,9 @@ const Template: VFC<PageProps<GatsbyTypes.BlogPostQuery>> = (props) => {
     tags === undefined
   )
     throw new Error("should be");
-  const image = getImage(visual);
+
+  // HACK: absolutePath があると型変換できないので。
+  const image = getImage({ ...visual.childImageSharp } as ImageDataLike);
   if (image === undefined) {
     throw new Error("aa");
   }
@@ -39,7 +42,7 @@ const Template: VFC<PageProps<GatsbyTypes.BlogPostQuery>> = (props) => {
       <Seo
         title={title}
         description={excerpt}
-        image={visual.childImageSharp?.fluid?.src}
+        image={visual.absolutePath}
         hatebuHeader={isProtect}
       />
       <div>
@@ -61,6 +64,7 @@ export const pageQuery = graphql`
         title
         path
         visual {
+          absolutePath
           childImageSharp {
             gatsbyImageData(layout: FULL_WIDTH)
           }

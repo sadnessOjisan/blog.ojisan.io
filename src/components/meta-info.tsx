@@ -1,16 +1,17 @@
 import {
-  image,
-  imageContainer,
-  imageWrapper,
-  metaContainer,
-} from "./meta-info.module.scss";
-import {
   GatsbyImage,
   getImage,
   IGatsbyImageData,
   ImageDataLike,
 } from "gatsby-plugin-image";
 import React, { VFC } from "react";
+
+import {
+  image,
+  imageContainer,
+  imageWrapper,
+  metaContainer,
+} from "./meta-info.module.scss";
 type Props = {
   image: IGatsbyImageData;
   tags: string[];

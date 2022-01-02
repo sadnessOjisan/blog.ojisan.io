@@ -1,5 +1,4 @@
 import { Link } from "gatsby";
-import Img, { FluidObject } from "gatsby-image";
 import { GatsbyImage, getImage, ImageDataLike } from "gatsby-plugin-image";
 import * as React from "react";
 import { VFC } from "react";
@@ -20,12 +19,12 @@ export const Card: VFC<Props> = ({ data }) => {
     tags === undefined ||
     title === undefined ||
     visual === undefined ||
-    visual.childImageSharp === undefined ||
     created === undefined
   ) {
     throw new Error("should be");
   }
-  const image = getImage(visual);
+  // TODO: as 消したい
+  const image = getImage(visual as ImageDataLike);
   if (image === undefined) {
     throw new Error("aa");
   }

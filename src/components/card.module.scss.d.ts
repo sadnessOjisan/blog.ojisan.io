@@ -1,6 +1,5 @@
 declare const styles: {
-  readonly "imageWrapper": string;
-  readonly "link": string;
+  readonly imageWrapper: string;
+  readonly link: string;
 };
 export = styles;
-
