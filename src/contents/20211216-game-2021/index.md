@@ -11,10 +11,12 @@ isProtect: false
 
 今年は就職しちゃったからあまりゲームできていないや。
 
+この記事は [sadnessOjisan Advent Calendar 2021](https://adventar.org/calendars/7015) 16 日目の記事です。書かれた日付は 1/4 です。
+
 ## Bravely Default
 
 2021 年に最初に買ったゲームな気がします。
-実は前作は未プレイなのですが、スクエニの RPG はなるべくやるようにしているので買いました。
+前作は未プレイなのですが、スクエニの RPG はなるべくやるようにしているので買いました。
 
 <div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;"><iframe src="https://www.youtube.com/embed/2l8Lr-h1wm0?rel=0" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen scrolling="no" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"></iframe></div>
 
@@ -112,3 +114,12 @@ https://music.apple.com/jp/album/believer/1580904295?i=1580904300
 初クリアするまでに 100 時間、150 回の死を経験しており、とてつもなく難しかったです。
 
 <div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;"><iframe src="https://www.youtube.com/embed/0cDkmQ0F0Jw?rel=0&start=1" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen scrolling="no" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"></iframe></div>
+
+## パーティーゲーム
+
+桃鉄、マリオパーティー、OverCook などを買いました。
+オンラインでできるのでたまに遊んでいます。
+
+## 2022 年にやること
+
+スマブラが弱すぎるのをいろんな人に指摘されているので頑張ります。
