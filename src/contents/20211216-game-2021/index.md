@@ -23,6 +23,8 @@ isProtect: false
 
 ネタバレになるのであまり詳しくはかけないのですがラスボス戦の BGM の転調が本当にすばらしくて、是非ともプレイして聴いて欲しいです。
 
+https://music.apple.com/jp/album/eyes-that-gaze-into-the-nexus-the-ones-who-gather/1559534055?i=1559534300
+
 ## 月姫 -A piece of blue glass moon-
 
 原作が 2 分割、もしくは 3 分割されるのを知っていたので、それが全部出てから完全版で買おうと思っていたのですが、続編の開発が始まったのが最近と知って「こりゃ３年以上は待つな」と思ったというのと、
