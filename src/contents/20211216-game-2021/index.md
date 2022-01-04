@@ -13,7 +13,7 @@ isProtect: false
 
 この記事は [sadnessOjisan Advent Calendar 2021](https://adventar.org/calendars/7015) 16 日目の記事です。書かれた日付は 1/4 です。
 
-## Bravely Default
+## BRAVELY DEFAULT
 
 2021 年に最初に買ったゲームな気がします。
 前作は未プレイなのですが、スクエニの RPG はなるべくやるようにしているので買いました。
