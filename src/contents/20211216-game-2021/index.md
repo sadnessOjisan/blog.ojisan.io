@@ -9,6 +9,8 @@ isFavorite: false
 isProtect: false
 ---
 
+今年は就職しちゃったからあまりゲームできていないや。
+
 ## Bravely Default
 
 2021 年に最初に買ったゲームな気がします。
