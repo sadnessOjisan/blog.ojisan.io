@@ -27,7 +27,7 @@ isProtect: false
 ```
 git commit --fixup HEAD
 
-git rebase -i --autosquash HEAD~1
+git rebase -i --autosquash HEAD~2
 ```
 
 のようなコマンドでそれが実現できます。
@@ -87,10 +87,10 @@ pick は rebase の command でそれ以外にも次の command があります�
 
 なのでこれを付け忘れると、fixup! とついた commit が pick として扱われてしまうということです。
 
-### HEAD~1 とはなんだったか
+### HEAD~2 とはなんだったか
 
 どの範囲を rebase するかの指定です。
-このコマンドを一番使う時は直前の commit に対してなので、HEAD~1 を手癖にしています。
+このコマンドを一番使う時は直前の commit に対してなので、HEAD~2 を手癖にしています。
 なお commit hash を指定した場合は、HEAD からその commit までの全てが対象になるようです。
 
 ## 結論
@@ -100,7 +100,7 @@ pick は rebase の command でそれ以外にも次の command があります�
 ```
 git commit --fixup HEAD
 
-git rebase -i --autosquash HEAD~1
+git rebase -i --autosquash HEAD~2
 ```
 
 を手癖にしておくと良いと思います。
