@@ -29,7 +29,7 @@ export const Card: VFC<Props> = ({ data }) => {
     throw new Error("aa");
   }
   return (
-    <Link key={path} to={path} className={link}>
+    <Link key={path} to={`${path}/`} className={link}>
       <div className={card}>
         <GatsbyImage image={image} alt="thumbnail" className={imageWrapper} />
         <p>
