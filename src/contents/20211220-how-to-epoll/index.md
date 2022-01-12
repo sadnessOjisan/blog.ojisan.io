@@ -9,7 +9,7 @@ isFavorite: false
 isProtect: false
 ---
 
-この記事は [sadnessOjisan Advent Calendar 2021](https://adventar.org/calendars/7015) 20 日目の記事です。書かれた日付は 1/12 です。
+この記事は [sadnessOjisan Advent Calendar 2021](https://adventar.org/calendars/7015) 20 日目の記事です。書かれた日付は 1/13 です。
 フロントエンドエンジニアとして JS を JS のレイヤーでしか扱ったことがなかった僕が NodeJS の非同期ランタイムを調べていたときについでで epoll を勉強したときのメモをまとめたものです。
 コンピュータサイエンスの専門的な教育を受けたわけでもないし、趣味でしか勉強したことがない範囲なので、もしかしたら間違いがあるかもしれません。
 そのため間違いを発見しましたらご指摘してくれると助かります。（<https://github.com/sadnessOjisan/blog.ojisan.io> に PR/Issue を投げてくれると一番助かります。）
