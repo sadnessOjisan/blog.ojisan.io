@@ -3612,7 +3612,7 @@ type BlogPostQueryVariables = Exact<{
 
 
 type BlogPostQuery = { readonly markdownRemark: Maybe<(
-    Pick<MarkdownRemark, 'html' | 'excerpt'>
+    Pick<MarkdownRemark, 'html' | 'tableOfContents' | 'excerpt'>
     & { readonly frontmatter: Maybe<(
       Pick<MarkdownRemarkFrontmatter, 'title' | 'path' | 'isProtect' | 'created' | 'tags'>
       & { readonly visual: Maybe<(

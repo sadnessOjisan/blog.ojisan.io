@@ -1,6 +1,6 @@
 declare const styles: {
   readonly "wrapper": string;
-  readonly "footer": string;
+  readonly "lists": string;
 };
 export = styles;
 

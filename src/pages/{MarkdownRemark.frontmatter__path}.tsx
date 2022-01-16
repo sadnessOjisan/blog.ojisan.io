@@ -6,14 +6,16 @@ import { ArticleBody } from "../components/article-body";
 import Layout from "../components/layout";
 import { MetaInfo } from "../components/meta-info";
 import Seo from "../components/seo";
+import { Toc } from "../components/toc";
+import { toc } from "./{MarkdownRemark.frontmatter__path}.module.scss";
 
 const Template: VFC<PageProps<GatsbyTypes.BlogPostQuery>> = (props) => {
   const { markdownRemark } = props.data; // data.markdownRemark holds your po
   if (markdownRemark === undefined) {
     throw new Error("");
   }
-  const { frontmatter, html, excerpt } = markdownRemark;
-  if (frontmatter === undefined) {
+  const { frontmatter, html, excerpt, tableOfContents } = markdownRemark;
+  if (frontmatter === undefined || tableOfContents === undefined) {
     throw new Error("");
   }
   const { title, visual, isProtect, created, tags } = frontmatter;
@@ -47,7 +49,9 @@ const Template: VFC<PageProps<GatsbyTypes.BlogPostQuery>> = (props) => {
       />
       <div>
         <MetaInfo image={image} tags={tagss} title={title} created={created} />
-
+        <div className={toc}>
+          <Toc toc={tableOfContents} />
+        </div>
         <ArticleBody html={html} />
       </div>
     </Layout>
@@ -73,6 +77,7 @@ export const pageQuery = graphql`
         created
         tags
       }
+      tableOfContents
       excerpt(pruneLength: 140)
     }
   }
