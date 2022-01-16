@@ -1,5 +1,4 @@
 declare const styles: {
-  readonly "body": string;
+  readonly body: string;
 };
 export = styles;
-
