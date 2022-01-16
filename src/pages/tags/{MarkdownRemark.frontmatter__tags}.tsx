@@ -1,17 +1,18 @@
-// If you don't want to use TypeScript you can delete this file!
 import { graphql, Link, PageProps } from "gatsby";
 import * as React from "react";
 
-import { Card } from "../components/card";
-import Layout from "../components/layout";
-import Seo from "../components/seo";
-import { cards } from "./index.module.scss";
+import { Card } from "../../components/card";
+import Layout from "../../components/layout";
+import Seo from "../../components/seo";
+import { cards } from "./{MarkdownRemark.frontmatter__tags}.module.scss";
 
-const UsingTypescript: React.FC<PageProps<GatsbyTypes.BlogPostsQuery>> = (
-  props
-) => {
-  const nodes = props.data.blogs.nodes;
+const Template: React.AttributesVFC<
+  PageProps<GatsbyTypes.BlogPostByTagQuery>
+> = (props) => {
+  const { allMarkdownRemark } = props.data;
+  const { nodes } = allMarkdownRemark;
   const frontmatters = nodes.map((node) => node.frontmatter);
+  console.log("frontmatters", frontmatters);
   if (frontmatters.some((f) => f === undefined)) {
     throw new Error();
   }
@@ -28,12 +29,12 @@ const UsingTypescript: React.FC<PageProps<GatsbyTypes.BlogPostsQuery>> = (
   );
 };
 
-export default UsingTypescript;
+export default Template;
 
 export const query = graphql`
-  query BlogPosts {
-    blogs: allMarkdownRemark(
-      sort: { order: DESC, fields: frontmatter___created }
+  query BlogPostByTag($frontmatter__tags: [String]) {
+    allMarkdownRemark(
+      filter: { frontmatter: { tags: { in: $frontmatter__tags } } }
     ) {
       nodes {
         frontmatter {

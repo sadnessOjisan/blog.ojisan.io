@@ -3622,15 +3622,25 @@ type BlogPostQuery = { readonly markdownRemark: Maybe<(
     )> }
   )> };
 
-type SeoSiteQueryVariables = Exact<{ [key: string]: never; }>;
+type BlogPostByTagQueryVariables = Exact<{
+  frontmatter__tags: Maybe<ReadonlyArray<Maybe<Scalars['String']>> | Maybe<Scalars['String']>>;
+}>;
 
 
-type SeoSiteQuery = { readonly site: Maybe<{ readonly siteMetadata: Maybe<Pick<SiteSiteMetadata, 'title' | 'description' | 'author' | 'siteUrl'>> }> };
+type BlogPostByTagQuery = { readonly allMarkdownRemark: { readonly nodes: ReadonlyArray<{ readonly frontmatter: Maybe<(
+        Pick<MarkdownRemarkFrontmatter, 'title' | 'path' | 'created' | 'tags'>
+        & { readonly visual: Maybe<{ readonly childImageSharp: Maybe<Pick<ImageSharp, 'gatsbyImageData'>> }> }
+      )> }> } };
 
 type SiteTitleQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 type SiteTitleQuery = { readonly site: Maybe<{ readonly siteMetadata: Maybe<Pick<SiteSiteMetadata, 'title'>> }> };
+
+type SeoSiteQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type SeoSiteQuery = { readonly site: Maybe<{ readonly siteMetadata: Maybe<Pick<SiteSiteMetadata, 'title' | 'description' | 'author' | 'siteUrl'>> }> };
 
 type GatsbyImageSharpFixedFragment = Pick<ImageSharpFixed, 'base64' | 'width' | 'height' | 'src' | 'srcSet'>;
 

@@ -21,6 +21,7 @@ export const Card: VFC<Props> = ({ data }) => {
     visual === undefined ||
     created === undefined
   ) {
+    console.error("data", data);
     throw new Error("should be");
   }
   // TODO: as 消したい
