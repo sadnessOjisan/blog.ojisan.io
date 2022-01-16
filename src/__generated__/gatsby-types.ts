@@ -3606,6 +3606,16 @@ type BlogPostsQuery = { readonly blogs: { readonly nodes: ReadonlyArray<{ readon
         & { readonly visual: Maybe<{ readonly childImageSharp: Maybe<Pick<ImageSharp, 'gatsbyImageData'>> }> }
       )> }> } };
 
+type BlogPostByTagQueryVariables = Exact<{
+  frontmatter__tags: Maybe<ReadonlyArray<Maybe<Scalars['String']>> | Maybe<Scalars['String']>>;
+}>;
+
+
+type BlogPostByTagQuery = { readonly allMarkdownRemark: { readonly nodes: ReadonlyArray<{ readonly frontmatter: Maybe<(
+        Pick<MarkdownRemarkFrontmatter, 'title' | 'path' | 'created' | 'tags'>
+        & { readonly visual: Maybe<{ readonly childImageSharp: Maybe<Pick<ImageSharp, 'gatsbyImageData'>> }> }
+      )> }> } };
+
 type BlogPostQueryVariables = Exact<{
   id: Scalars['String'];
 }>;
@@ -3621,16 +3631,6 @@ type BlogPostQuery = { readonly markdownRemark: Maybe<(
       )> }
     )> }
   )> };
-
-type BlogPostByTagQueryVariables = Exact<{
-  frontmatter__tags: Maybe<ReadonlyArray<Maybe<Scalars['String']>> | Maybe<Scalars['String']>>;
-}>;
-
-
-type BlogPostByTagQuery = { readonly allMarkdownRemark: { readonly nodes: ReadonlyArray<{ readonly frontmatter: Maybe<(
-        Pick<MarkdownRemarkFrontmatter, 'title' | 'path' | 'created' | 'tags'>
-        & { readonly visual: Maybe<{ readonly childImageSharp: Maybe<Pick<ImageSharp, 'gatsbyImageData'>> }> }
-      )> }> } };
 
 type SiteTitleQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -3667,5 +3667,10 @@ type GatsbyImageSharpFluid_withWebp_tracedSVGFragment = Pick<ImageSharpFluid, 't
 type GatsbyImageSharpFluid_noBase64Fragment = Pick<ImageSharpFluid, 'aspectRatio' | 'src' | 'srcSet' | 'sizes'>;
 
 type GatsbyImageSharpFluid_withWebp_noBase64Fragment = Pick<ImageSharpFluid, 'aspectRatio' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp' | 'sizes'>;
+
+type TagsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type TagsQuery = { readonly allMarkdownRemark: { readonly group: ReadonlyArray<Pick<MarkdownRemarkGroupConnection, 'fieldValue' | 'totalCount'>> } };
 
 }
