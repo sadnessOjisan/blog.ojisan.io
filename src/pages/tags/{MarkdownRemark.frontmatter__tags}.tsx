@@ -6,9 +6,9 @@ import Layout from "../../components/layout";
 import Seo from "../../components/seo";
 import { cards } from "./{MarkdownRemark.frontmatter__tags}.module.scss";
 
-const Template: React.AttributesVFC<
-  PageProps<GatsbyTypes.BlogPostByTagQuery>
-> = (props) => {
+const Template: React.VFC<PageProps<GatsbyTypes.BlogPostByTagQuery>> = (
+  props
+) => {
   const { allMarkdownRemark } = props.data;
   const { nodes } = allMarkdownRemark;
   const frontmatters = nodes.map((node) => node.frontmatter);
