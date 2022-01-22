@@ -3619,6 +3619,11 @@ type BlogPostsQuery = { readonly blogs: { readonly nodes: ReadonlyArray<{ readon
         & { readonly visual: Maybe<{ readonly childImageSharp: Maybe<Pick<ImageSharp, 'gatsbyImageData'>> }> }
       )> }> } };
 
+type TagsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type TagsQuery = { readonly allMarkdownRemark: { readonly group: ReadonlyArray<Pick<MarkdownRemarkGroupConnection, 'fieldValue' | 'totalCount'>> } };
+
 type BlogPostQueryVariables = Exact<{
   id: Scalars['String'];
 }>;

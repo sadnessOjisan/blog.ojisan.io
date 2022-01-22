@@ -23,7 +23,6 @@ const UsingTypescript: React.FC<PageProps<GatsbyTypes.BlogPostsQuery>> = (
           return <Card data={f} key={f?.path} />;
         })}
       </div>
-      <Link to="/">Go back to the homepage</Link>
     </Layout>
   );
 };

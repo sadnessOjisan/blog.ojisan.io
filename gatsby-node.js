@@ -1,27 +1,20 @@
-const path = require(`path`);
+"use strict";
 
-exports.createPages = async ({ actions, graphql, reporter }) => {
-  const { createPage } = actions;
-  const tagTemplate = path.resolve(`./src/templates/tags-template.tsx`);
+require("ts-node").register({
+  compilerOptions: {
+    module: "commonjs",
+    target: "esnext",
+  },
+});
 
-  const contentsResult = await graphql(`
-    {
-      tags: allMarkdownRemark {
-        group(field: frontmatter___tags) {
-          tag: fieldValue
-          totalCount
-        }
-      }
-    }
-  `);
+require("./src/__generated__/gatsby-types");
 
-  contentsResult.data.tags.group.forEach((data) => {
-    createPage({
-      path: `/tags/${data.tag}`,
-      component: tagTemplate,
-      context: {
-        tag: data.tag,
-      },
-    });
-  });
-};
+const {
+  createPages,
+  onCreateNode,
+  createSchemaCustomization,
+} = require("./src/gatsby/gatsby-node");
+
+exports.createPages = createPages;
+exports.onCreateNode = onCreateNode;
+exports.createSchemaCustomization = createSchemaCustomization;
