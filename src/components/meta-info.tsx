@@ -1,7 +1,7 @@
 import { Link } from "gatsby";
 import { GatsbyImage, IGatsbyImageData } from "gatsby-plugin-image";
 import React, { VFC } from "react";
-import { toKebab } from "../util/kebab";
+import { toLower } from "../util/kebab";
 
 import {
   imageContainer,
@@ -18,7 +18,7 @@ type Props = {
   created: string;
 };
 export const MetaInfo: VFC<Props> = ({ image, tags, title, created }) => {
-  const kebabTags = tags.map((t) => toKebab(t));
+  const kebabTags = tags.map((t) => toLower(t));
   return (
     <div className={imageContainer}>
       <div className={imageWrapper}>

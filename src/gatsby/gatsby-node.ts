@@ -1,6 +1,6 @@
 import { GatsbyNode } from "gatsby";
 import path from "path";
-import { toKebab } from "../util/kebab";
+import { toLower } from "../util/kebab";
 
 export const createPages: GatsbyNode["createPages"] = async ({
   actions,
@@ -23,7 +23,7 @@ export const createPages: GatsbyNode["createPages"] = async ({
   // @ts-ignore
   tagsResult.data.tags.group.forEach((data) => {
     createPage({
-      path: `/tags/${toKebab(data.tag)}`,
+      path: `/tags/${toLower(data.tag)}`,
       component: tagTemplate,
       context: {
         tag: data.tag,

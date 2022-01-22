@@ -4,7 +4,7 @@ import * as React from "react";
 
 import Layout from "../components/layout";
 import Seo from "../components/seo";
-import { toKebab } from "../util/kebab";
+import { toLower } from "../util/kebab";
 import { cards } from "./index.module.scss";
 
 const TagsPage: React.FC<PageProps<GatsbyTypes.TagsQuery>> = (props) => {
@@ -12,7 +12,7 @@ const TagsPage: React.FC<PageProps<GatsbyTypes.TagsQuery>> = (props) => {
   if (tags.some((tag) => tag === undefined)) throw new Error("invalid tag");
   const kebabTags = tags.map((tag) => ({
     ...tag,
-    fieldValue: toKebab(tag.fieldValue || ""),
+    fieldValue: toLower(tag.fieldValue || ""),
   }));
   return (
     <Layout>
@@ -26,7 +26,6 @@ const TagsPage: React.FC<PageProps<GatsbyTypes.TagsQuery>> = (props) => {
           </Link>
         ))}
       </div>
-      <Link to="/">Go back to the homepage</Link>
     </Layout>
   );
 };
