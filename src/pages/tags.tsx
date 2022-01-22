@@ -4,15 +4,21 @@ import * as React from "react";
 
 import Layout from "../components/layout";
 import Seo from "../components/seo";
+import { toKebab } from "../util/kebab";
 import { cards } from "./index.module.scss";
 
 const TagsPage: React.FC<PageProps<GatsbyTypes.TagsQuery>> = (props) => {
-  const nodes = props.data.allMarkdownRemark.group;
+  const tags = props.data.allMarkdownRemark.group;
+  if (tags.some((tag) => tag === undefined)) throw new Error("invalid tag");
+  const kebabTags = tags.map((tag) => ({
+    ...tag,
+    fieldValue: toKebab(tag.fieldValue || ""),
+  }));
   return (
     <Layout>
       <Seo title="blog.ojisan.io" />
       <div className={cards}>
-        {nodes.map((node) => (
+        {kebabTags.map((node) => (
           <Link key={node.fieldValue} to={`/tags/${node.fieldValue}`}>
             <a>
               {node.fieldValue}({node.totalCount})
