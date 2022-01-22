@@ -4,5 +4,6 @@ declare const styles: {
   readonly metaContainer: string;
   readonly innerWrapper: string;
   readonly img: string;
+  readonly tagLink: string;
 };
 export = styles;

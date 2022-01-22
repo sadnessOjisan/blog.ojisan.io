@@ -8,6 +8,7 @@ import {
   img,
   innerWrapper,
   metaContainer,
+  tagLink,
 } from "./meta-info.module.scss";
 type Props = {
   image: IGatsbyImageData;
@@ -26,7 +27,7 @@ export const MetaInfo: VFC<Props> = ({ image, tags, title, created }) => {
           <div>
             {tags.map((tag) => (
               <Link key={tag} to={`/tags/${tag}`}>
-                <a>
+                <a className={tagLink}>
                   <span>#{tag}</span>
                 </a>
               </Link>
