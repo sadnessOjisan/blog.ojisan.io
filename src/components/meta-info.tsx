@@ -1,8 +1,8 @@
 import { Link } from "gatsby";
 import { GatsbyImage, IGatsbyImageData } from "gatsby-plugin-image";
 import React, { VFC } from "react";
-import { toLower } from "../util/kebab";
 
+import { toLower } from "../util/kebab";
 import {
   imageContainer,
   imageWrapper,

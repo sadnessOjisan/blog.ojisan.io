@@ -1,5 +1,6 @@
 import { GatsbyNode } from "gatsby";
 import path from "path";
+
 import { toLower } from "../util/kebab";
 
 export const createPages: GatsbyNode["createPages"] = async ({
@@ -20,6 +21,7 @@ export const createPages: GatsbyNode["createPages"] = async ({
     }
   `);
   if (tagsResult.data === undefined) throw new Error("invalid query");
+  // eslint-disable-next-line
   // @ts-ignore
   tagsResult.data.tags.group.forEach((data) => {
     createPage({
