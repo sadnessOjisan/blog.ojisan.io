@@ -7,10 +7,10 @@ import Layout from "../components/layout";
 import Seo from "../components/seo";
 import { cards } from "./index.module.scss";
 
-const UsingTypescript: React.FC<PageProps<GatsbyTypes.BlogPostsQuery>> = (
+const UsingTypescript: React.FC<PageProps<GatsbyTypes.TagTemplateQuery>> = (
   props
 ) => {
-  const nodes = props.data.blogs.nodes;
+  const nodes = props.data.allMarkdownRemark.nodes;
   const frontmatters = nodes.map((node) => node.frontmatter);
   if (frontmatters.some((f) => f === undefined)) {
     throw new Error();
@@ -31,11 +31,13 @@ const UsingTypescript: React.FC<PageProps<GatsbyTypes.BlogPostsQuery>> = (
 export default UsingTypescript;
 
 export const query = graphql`
-  query BlogPosts {
-    blogs: allMarkdownRemark(
-      sort: { order: DESC, fields: frontmatter___created }
+  query TagTemplate($tag: String!) {
+    allMarkdownRemark(
+      limit: 2000
+      filter: { frontmatter: { tags: { in: [$tag] } } }
     ) {
       nodes {
+        excerpt
         frontmatter {
           title
           path
