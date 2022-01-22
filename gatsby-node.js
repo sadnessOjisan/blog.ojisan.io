@@ -1,10 +1,10 @@
 const path = require(`path`);
 
-exports.createPages = async ({ actions, graphql, reporter }) => {
+exports.createPages = async ({ actions, graphql }) => {
   const { createPage } = actions;
   const tagTemplate = path.resolve(`./src/templates/tags-template.tsx`);
 
-  const contentsResult = await graphql(`
+  const tagsResult = await graphql(`
     {
       tags: allMarkdownRemark {
         group(field: frontmatter___tags) {
@@ -15,7 +15,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     }
   `);
 
-  contentsResult.data.tags.group.forEach((data) => {
+  tagsResult.data.tags.group.forEach((data) => {
     createPage({
       path: `/tags/${data.tag}`,
       component: tagTemplate,
