@@ -5,7 +5,7 @@ import * as React from "react";
 import { Card } from "../components/card";
 import Layout from "../components/layout";
 import Seo from "../components/seo";
-import { cards } from "./tags-templae.module.scss";
+import { cards } from "./tags-template.module.scss";
 
 const UsingTypescript: React.FC<PageProps<GatsbyTypes.TagTemplateQuery>> = (
   props
