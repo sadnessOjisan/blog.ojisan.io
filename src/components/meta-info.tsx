@@ -1,3 +1,4 @@
+import { Link } from "gatsby";
 import { GatsbyImage, IGatsbyImageData } from "gatsby-plugin-image";
 import React, { VFC } from "react";
 
@@ -7,6 +8,7 @@ import {
   img,
   innerWrapper,
   metaContainer,
+  tagLink,
 } from "./meta-info.module.scss";
 type Props = {
   image: IGatsbyImageData;
@@ -24,7 +26,11 @@ export const MetaInfo: VFC<Props> = ({ image, tags, title, created }) => {
         <div className={innerWrapper}>
           <div>
             {tags.map((tag) => (
-              <span key={tag}>#{tag}</span>
+              <Link key={tag} to={`/tags/${tag}`}>
+                <a className={tagLink}>
+                  <span>#{tag}</span>
+                </a>
+              </Link>
             ))}
           </div>
           <h1>{title}</h1>
