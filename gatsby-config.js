@@ -5,6 +5,12 @@ module.exports = {
     siteUrl: `https://blog.ojisan.io`,
   },
   plugins: [
+    {
+      resolve: `gatsby-plugin-canonical-urls`,
+      options: {
+        siteUrl: `https://blog.ojisan.io`,
+      },
+    },
     "gatsby-plugin-typegen",
     "gatsby-plugin-sass",
     "gatsby-plugin-image",
