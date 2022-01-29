@@ -25,7 +25,7 @@ export const createPages: GatsbyNode["createPages"] = async ({
   // @ts-ignore
   tagsResult.data.tags.group.forEach((data) => {
     createPage({
-      path: `/tags/${toLower(data.tag)}`,
+      path: `/tags/${toLower(data.tag)}/`,
       component: tagTemplate,
       context: {
         tag: data.tag,
