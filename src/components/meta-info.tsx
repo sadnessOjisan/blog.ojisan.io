@@ -28,7 +28,7 @@ export const MetaInfo: VFC<Props> = ({ image, tags, title, created }) => {
         <div className={innerWrapper}>
           <div>
             {kebabTags.map((tag) => (
-              <Link key={tag} to={`/tags/${tag}`}>
+              <Link key={tag} to={`/tags/${tag}/`}>
                 <a className={tagLink}>
                   <span>#{tag}</span>
                 </a>

@@ -30,15 +30,13 @@ export const Card: VFC<Props> = ({ data }) => {
   }
   return (
     <Link key={path} to={`${path}/`} className={link}>
-      <a>
-        <div className={card}>
-          <GatsbyImage image={image} alt="thumbnail" className={imageWrapper} />
-          <p>
-            <time dateTime={created}>{created}</time>
-          </p>
-          <p>{title}</p>
-        </div>
-      </a>
+      <div className={card}>
+        <GatsbyImage image={image} alt="thumbnail" className={imageWrapper} />
+        <p>
+          <time dateTime={created}>{created}</time>
+        </p>
+        <p>{title}</p>
+      </div>
     </Link>
   );
 };
