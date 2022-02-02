@@ -3640,15 +3640,15 @@ type BlogPostQuery = { readonly markdownRemark: Maybe<(
     )> }
   )> };
 
-type SeoSiteQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type SeoSiteQuery = { readonly site: Maybe<{ readonly siteMetadata: Maybe<Pick<SiteSiteMetadata, 'title' | 'description' | 'author' | 'siteUrl'>> }> };
-
 type SiteTitleQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 type SiteTitleQuery = { readonly site: Maybe<{ readonly siteMetadata: Maybe<Pick<SiteSiteMetadata, 'title'>> }> };
+
+type SeoSiteQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type SeoSiteQuery = { readonly site: Maybe<{ readonly siteMetadata: Maybe<Pick<SiteSiteMetadata, 'title' | 'description' | 'author' | 'siteUrl'>> }> };
 
 type GatsbyImageSharpFixedFragment = Pick<ImageSharpFixed, 'base64' | 'width' | 'height' | 'src' | 'srcSet'>;
 
