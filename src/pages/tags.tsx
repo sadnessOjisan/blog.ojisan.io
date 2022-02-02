@@ -20,9 +20,7 @@ const TagsPage: React.FC<PageProps<GatsbyTypes.TagsQuery>> = (props) => {
       <div className={cards}>
         {kebabTags.map((node) => (
           <Link key={node.fieldValue} to={`/tags/${node.fieldValue}`}>
-            <a>
-              {node.fieldValue}({node.totalCount})
-            </a>
+            {node.fieldValue}({node.totalCount})
           </Link>
         ))}
       </div>
