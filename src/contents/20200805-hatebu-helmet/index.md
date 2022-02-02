@@ -3,7 +3,7 @@ path: /hatebu-helmet
 created: "2020-08-05 18:00"
 title: はてブのネガティブなコメントからreact-helmetで守る
 visual: "./visual.png"
-tags: [React]
+tags: [react]
 userId: sadnessOjisan
 isProtect: true
 ---
@@ -52,8 +52,8 @@ JSX の中に書くので JS の変数を展開できます。
 使い方はシンプルで
 
 ```jsx
-import React from "react"
-import { Helmet } from "react-helmet"
+import React from "react";
+import { Helmet } from "react-helmet";
 
 class Application extends React.Component {
   render() {
@@ -66,7 +66,7 @@ class Application extends React.Component {
         </Helmet>
         ...
       </div>
-    )
+    );
   }
 }
 ```
@@ -92,7 +92,6 @@ tags: [React]
 userId: sadnessOjisan
 isProtect: true
 ---
-
 ```
 
 という風に isProtect というフラグを渡しておき、
@@ -109,7 +108,7 @@ export const pageQuery = graphql`
       }
     }
   }
-`
+`;
 ```
 
 として isProtect のフラグを取得し、記事コンポーネントで
@@ -124,7 +123,7 @@ post.frontmatter.isProtect && (
       },
     ]}
   />
-)
+);
 ```
 
 としてフラグが true のものだけ Helmet を被せると完了です。

@@ -3,7 +3,7 @@ path: /user-in-ssg-blog
 created: "2020-08-09 09:00"
 title: Gastsby製の静的ブログにユーザー概念を作った
 visual: "./visual.png"
-tags: [Gatsby]
+tags: [gatsby]
 userId: sadnessOjisan
 isProtect: false
 ---
@@ -154,7 +154,7 @@ export const pageQuery = graphql`
       }
     }
   }
-`
+`;
 ```
 
 `$userId` をキーに検索をしています。

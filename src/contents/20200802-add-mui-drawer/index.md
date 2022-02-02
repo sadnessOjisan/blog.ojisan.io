@@ -3,7 +3,7 @@ path: /add-mui-drawer
 created: "2020-08-02"
 title: ブログにmaterial-uiのDrawerを入れた
 visual: "./visual.png"
-tags: [React]
+tags: [react]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false

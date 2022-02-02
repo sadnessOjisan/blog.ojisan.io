@@ -3,7 +3,7 @@ path: /use-shiki
 created: "2020-08-14 12:00"
 title: syntax highlighter を shiki に切り替えた
 visual: "./visual.png"
-tags: [Gatsby]
+tags: [gatsby]
 userId: sadnessOjisan
 isProtect: false
 ---

@@ -3,7 +3,7 @@ path: /react-rn-style-overwrite
 created: "2020-08-13 19:00"
 title: React (Native)でinline styleを上書く方法を調べた
 visual: "./visual.png"
-tags: ["React Native", React]
+tags: ["react-native", react]
 userId: sadnessOjisan
 isProtect: false
 ---
@@ -70,7 +70,7 @@ export type StyleProp<T> =
   | T
   | RegisteredStyle<T>
   | RecursiveArray<T | RegisteredStyle<T> | Falsy>
-  | Falsy
+  | Falsy;
 ```
 
 となっており、ジェネリクスとして渡されている ViewStyle は

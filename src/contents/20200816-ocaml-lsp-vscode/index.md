@@ -3,7 +3,7 @@ path: /ocaml-lsp-vscode
 created: "2020-08-16 15:00"
 title: OCaml の補完とフォーマットをVSCode上で実現するための試行錯誤
 visual: "./visual.png"
-tags: [OCaml, VSCode]
+tags: [ocaml, vscode]
 userId: sadnessOjisan
 isProtect: false
 ---

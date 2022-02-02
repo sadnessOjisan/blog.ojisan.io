@@ -3,7 +3,7 @@ path: /rn-expo-none-header
 created: "2020-08-12 09:00"
 title: Expoから生成したアプリのヘッダーを消す
 visual: "./visual.png"
-tags: ["React Native", expo]
+tags: ["react-native", expo]
 userId: sadnessOjisan
 isProtect: false
 ---
@@ -34,7 +34,7 @@ const MainNavigation = StackNavigator(
       headerVisible: false,
     },
   }
-)
+);
 ```
 
 しかし [Hide header in stack navigator React navigation](https://stackoverflow.com/questions/44701245/hide-header-in-stack-navigator-react-navigation)を読む限り、 version 2.0.0-alpha.36 (2019-11-07) 以前の書き方らしく今は使いません。

@@ -3,7 +3,7 @@ path: /share-ogp
 created: "2020-07-31"
 title: ソースコードからOGPを生成しシェアするOgp as a Serviceを作った(そして飽きたのでコードを公開する)
 visual: "./visual.png"
-tags: [NextJS, Firebase, Vercel, PR]
+tags: [nextjs, firebase, vercel, pr]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false
@@ -50,28 +50,28 @@ VSCode のコアになっているエディタです。
   // theme="vs"
   value={text}
   options={{ minimap: { enabled: false } }}
-  onChange={str => {
-    edit(str)
+  onChange={(str) => {
+    edit(str);
     if (mode === "HTML") {
-      setHTML(str)
+      setHTML(str);
     } else if (mode === "JSX") {
       try {
-        setHTML(convert(str))
+        setHTML(convert(str));
       } catch {
-        setHTML(str)
+        setHTML(str);
       }
     }
   }}
   editorDidMount={() => {
     // @ts-ignore
     window.MonacoEnvironment.getWorkerUrl = (moduleId, label) => {
-      if (label === "json") return "/_next/static/json.worker.js"
-      if (label === "css") return "/_next/static/css.worker.js"
-      if (label === "html") return "/_next/static/html.worker.js"
+      if (label === "json") return "/_next/static/json.worker.js";
+      if (label === "css") return "/_next/static/css.worker.js";
+      if (label === "html") return "/_next/static/html.worker.js";
       if (label === "typescript" || label === "javascript")
-        return "/_next/static/ts.worker.js"
-      return "/_next/static/editor.worker.js"
-    }
+        return "/_next/static/ts.worker.js";
+      return "/_next/static/editor.worker.js";
+    };
   }}
 />
 ```
@@ -100,11 +100,11 @@ ex) /\_next/static/json.worker.js
 ### MonacoWebpackPlugin
 
 ```js
-const withCSS = require("@zeit/next-css")
-const MonacoWebpackPlugin = require("monaco-editor-webpack-plugin")
+const withCSS = require("@zeit/next-css");
+const MonacoWebpackPlugin = require("monaco-editor-webpack-plugin");
 
 module.exports = withCSS({
-  webpack: config => {
+  webpack: (config) => {
     config.module.rules.push({
       test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
       use: {
@@ -113,7 +113,7 @@ module.exports = withCSS({
           limit: 100000,
         },
       },
-    })
+    });
 
     config.plugins.push(
       new MonacoWebpackPlugin({
@@ -121,11 +121,11 @@ module.exports = withCSS({
         languages: ["javascript", "typescript", "html"],
         filename: "static/[name].worker.js",
       })
-    )
-    return config
+    );
+    return config;
   },
   env: { NEXT_PUBLIC_DEPLOY_ENV: process.env.DEPLOY_ENV },
-})
+});
 ```
 
 #### [MonacoWebpackPlugin](https://github.com/microsoft/monaco-editor-webpack-plugin)
@@ -151,31 +151,31 @@ storage だけ使っています。
 #### 画像保存
 
 ```ts
-import Firebase from "../infrastructure/Firebase"
-import CLOUD_STORAGE_KEYS from "../constatns/cloudStorageKeys"
+import Firebase from "../infrastructure/Firebase";
+import CLOUD_STORAGE_KEYS from "../constatns/cloudStorageKeys";
 
 export const saveOgp = (imageId: string, image: any): Promise<{ e: any }> => {
-  const storage = Firebase.instance.storage
-  const storageRef = storage.ref()
-  const ogpRef = storageRef.child(`${CLOUD_STORAGE_KEYS.OGP}/${imageId}`)
+  const storage = Firebase.instance.storage;
+  const storageRef = storage.ref();
+  const ogpRef = storageRef.child(`${CLOUD_STORAGE_KEYS.OGP}/${imageId}`);
   return ogpRef
     .put(image)
-    .then(snapshot => {
-      console.log("snapshot", snapshot)
+    .then((snapshot) => {
+      console.log("snapshot", snapshot);
     })
-    .catch(e => {
-      console.log("ERROR", e)
-      return { e }
-    })
-}
+    .catch((e) => {
+      console.log("ERROR", e);
+      return { e };
+    });
+};
 ```
 
 この imageId は適当な変数です。
 
 ```ts
 export const generateRandomId = () => {
-  return Math.random().toString(36).slice(-8)
-}
+  return Math.random().toString(36).slice(-8);
+};
 ```
 
 といったような関数で生成されています。
@@ -185,13 +185,13 @@ export const generateRandomId = () => {
 
 ```ts
 export const getOgpUrl = (imageId: string) => {
-  const storage = Firebase.instance.storage
-  const pathReferenceRef = storage.ref(`${CLOUD_STORAGE_KEYS.OGP}/${imageId}`)
+  const storage = Firebase.instance.storage;
+  const pathReferenceRef = storage.ref(`${CLOUD_STORAGE_KEYS.OGP}/${imageId}`);
   return pathReferenceRef
     .getDownloadURL()
     .then((url: string) => url)
-    .catch(e => console.log("ERROR", e))
-}
+    .catch((e) => console.log("ERROR", e));
+};
 ```
 
 `generateRandomId` で作った ID を指定すると画像を取得できます。
@@ -202,21 +202,21 @@ export const getOgpUrl = (imageId: string) => {
 NextJS の Dynamic Routing を使って各種詳細ページを作っています。
 
 ```tsx
-import * as React from "react"
-import Head from "next/head"
-import Link from "next/link"
-import createHostingURL from "../helper/createHostingURL"
-import cloudStorageKeys from "../constatns/cloudStorageKeys"
-import env from "../helper/env"
-import createGcsURL from "../helper/createGcsURL"
-import { GetServerSideProps, NextPage } from "next"
+import * as React from "react";
+import Head from "next/head";
+import Link from "next/link";
+import createHostingURL from "../helper/createHostingURL";
+import cloudStorageKeys from "../constatns/cloudStorageKeys";
+import env from "../helper/env";
+import createGcsURL from "../helper/createGcsURL";
+import { GetServerSideProps, NextPage } from "next";
 
 export default function Result(props: NextPage & { pid: string }) {
-  const [url, setURL] = React.useState("")
+  const [url, setURL] = React.useState("");
   React.useEffect(() => {
-    setURL(window.location.href)
-  }, [])
-  const appEnv = env()
+    setURL(window.location.href);
+  }, []);
+  const appEnv = env();
   return (
     <div className="wrapper">
       <Head>
@@ -263,22 +263,22 @@ export default function Result(props: NextPage & { pid: string }) {
         <button>←TOPに戻る</button>
       </Link>
     </div>
-  )
+  );
 }
 
-export const getServerSideProps: GetServerSideProps = async context => {
-  const { pid } = context.query
-  return { props: { pid } }
-}
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { pid } = context.query;
+  return { props: { pid } };
+};
 ```
 
 #### 記事 ID 取得
 
 ```ts
-export const getServerSideProps: GetServerSideProps = async context => {
-  const { pid } = context.query
-  return { props: { pid } }
-}
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { pid } = context.query;
+  return { props: { pid } };
+};
 ```
 
 ### 取得した ID を元に meta タグで OGP 展開
@@ -326,7 +326,7 @@ new MonacoWebpackPlugin({
   // Add languages as needed...
   languages: ["javascript", "typescript", "html"],
   filename: "static/[name].worker.js",
-})
+});
 ```
 
 において JSX のサポートを見つけられませんでした。

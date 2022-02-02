@@ -3,7 +3,7 @@ path: /vercel-env
 created: "2020-08-05 09:00"
 title: vercelでの環境変数の扱いが便利になった
 visual: "./visual.png"
-tags: [React, NextJS, Vercel]
+tags: [react, nextjs, vercel]
 userId: sadnessOjisan
 isProtect: false
 ---
@@ -32,13 +32,13 @@ Vercel は プレビュー環境と本番環境が存在しています。
 ```ts
 export const getEndpoint = () => {
   if (process.env.NODE_ENV === "development") {
-    return "https://dev.ojisan.com"
+    return "https://dev.ojisan.com";
   } else if (process.env.NODE_ENV === "production") {
-    return "https://ojisan.com"
+    return "https://ojisan.com";
   } else {
-    throw new Error("unexpected env")
+    throw new Error("unexpected env");
   }
-}
+};
 ```
 
 として叩き分けることを考えましょう。
@@ -108,12 +108,12 @@ module.exports = {
 
 ```ts
 export const getEndpoint = () => {
-  const url = process.env.API_ENDPOINT_FOR_CLIENT
+  const url = process.env.API_ENDPOINT_FOR_CLIENT;
   if (!url) {
-    throw new Error("URLが環境変数からセットされていません")
+    throw new Error("URLが環境変数からセットされていません");
   }
-  return url
-}
+  return url;
+};
 ```
 
 ## 数が多い時どうするか
@@ -137,7 +137,7 @@ export const genFirebaseConfig = (env: EnvType): FirebaseConfigType => {
         messagingSenderId: "XXXXXXXXXX",
         appId: "XXXXXXXXXX",
         measurementId: "XXXXXXXXXX",
-      }
+      };
     case "production":
       return {
         apiKey: "YYYYYYYYY",
@@ -148,11 +148,11 @@ export const genFirebaseConfig = (env: EnvType): FirebaseConfigType => {
         messagingSenderId: "YYYYYYYYY",
         appId: "YYYYYYYYY",
         measurementId: "YYYYYYYYY",
-      }
+      };
     default:
-      throw new Error("unexpected env")
+      throw new Error("unexpected env");
   }
-}
+};
 ```
 
 とまあセットするのが大変という問題もあるのであらかじめ埋め込んでおいた設定を環境変数で切り替える方法も紹介します。
@@ -187,13 +187,13 @@ module.exports = {
 ```ts
 export const getEndpoint = () => {
   if (process.env.DEPLOY_ENV_FOR_CLIENT === "development") {
-    return "https://dev.ojisan.com"
+    return "https://dev.ojisan.com";
   } else if (process.env.DEPLOY_ENV_FOR_CLIENT === "production") {
-    return "https://ojisan.com"
+    return "https://ojisan.com";
   } else {
-    throw new Error("unexpected env")
+    throw new Error("unexpected env");
   }
-}
+};
 ```
 
 として出しわけられます。

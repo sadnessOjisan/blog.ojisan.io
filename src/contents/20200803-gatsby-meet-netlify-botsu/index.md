@@ -3,7 +3,7 @@ path: /gatsby-meet-netlify-botsu
 created: "2020-08-03 18:00"
 title: gatsby-plugin-netlify-cacheのキャッシュが効かない
 visual: "./visual.png"
-tags: [Gatsby, Netlify]
+tags: [gatsby, netlify]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false
