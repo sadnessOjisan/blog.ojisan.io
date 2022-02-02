@@ -3,7 +3,7 @@ path: /firebase-admin-init
 created: "2020-11-25"
 title: 柔軟に firebase admin を初期化する
 visual: "./visual.png"
-tags: ["Firebaase"]
+tags: ["firebase"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false
@@ -14,8 +14,8 @@ isProtect: false
 [firebase-admin](https://www.npmjs.com/package/firebase-admin) を初期化する際、[サーバーに Firebase Admin SDK を追加する](https://firebase.google.com/docs/admin/setup) を見ると、
 
 ```js
-var admin = require("firebase-admin")
-var app = admin.initializeApp()
+var admin = require("firebase-admin");
+var app = admin.initializeApp();
 ```
 
 や、
@@ -24,7 +24,7 @@ var app = admin.initializeApp()
 admin.initializeApp({
   credential: admin.credential.applicationDefault(),
   databaseURL: "https://<DATABASE_NAME>.firebaseio.com",
-})
+});
 ```
 
 として初期化されています。
@@ -48,10 +48,10 @@ const cert = {
   projectId: process.env.FIREBASE_PROJECT_ID,
   clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
   privateKey: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, "\n"),
-}
+};
 admin.initializeApp({
   credential: admin.credential.cert(cert),
-})
+});
 ```
 
 firebase のサービスアカウントの認証情報は projectId, clientEmail, privateKey 以外にもたくさんありますが、 cert が受け取る [ServiceAccount](https://firebase.google.com/docs/reference/admin/node/admin.ServiceAccount)は、projectId, clientEmail, privateKey で構成されているのでこの 3 つだけ渡してください。

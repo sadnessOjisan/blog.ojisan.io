@@ -3,7 +3,7 @@ path: /next-linaria-setup
 created: "2020-12-18"
 title: NextJS で linaria を動かすために知っておくと良いこと
 visual: "./visual.png"
-tags: ["NextJS"]
+tags: ["nextjs", "linaria"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false
@@ -85,12 +85,12 @@ linaria/loader が吐き出した CSS を NextJS の中で読み込むための�
 それが [next-linaria](https://github.com/Mistereo/next-linaria) です。
 
 ```js
-const withLinaria = require("next-linaria")
+const withLinaria = require("next-linaria");
 module.exports = withLinaria({
   linaria: {
     /* linaria options here */
   },
-})
+});
 ```
 
 やっていることは単純で css-loader を使って CSS を解決できるようにしてくれます。
@@ -110,9 +110,9 @@ FYI: https://nextjs.org/blog/next-9-2#built-in-css-support-for-global-stylesheet
 そのため next-linaria を使わない場合は古典的な方法ですが @zeit/next-css を使うことで CSS ファイルを読み込めるようになります。
 
 ```js
-const withCSS = require("@zeit/next-css")
+const withCSS = require("@zeit/next-css");
 
-module.exports = withCSS({})
+module.exports = withCSS({});
 ```
 
 が、@zeit/next-css は deprecated されているライブラリなので、どうせライブラリを入れるなら next-linaria を使った方が良いのではないだろうかと個人的には思っています。
@@ -164,17 +164,17 @@ module.exports = withCSS({
 クライアント側のコードで linaria を呼び出します。
 
 ```tsx
-import { css } from "linaria"
+import { css } from "linaria";
 
 const styles = {
   title: css`
     color: red;
   `,
-}
+};
 
 export default () => {
-  return <div className={styles.title}>hello world!!</div>
-}
+  return <div className={styles.title}>hello world!!</div>;
+};
 ```
 
 そしてビルドします。

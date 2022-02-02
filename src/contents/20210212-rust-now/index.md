@@ -3,7 +3,7 @@ path: /rust-now
 created: "2021-02-12"
 title: yew上で現在時間を取得する
 visual: "./visual.png"
-tags: ["Rust", "WebAssembly"]
+tags: ["rust", "webassembly"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false
@@ -20,13 +20,13 @@ Rust で時間を扱うとなれば chrono クレートだと思うのですが�
 ```html
 <script>
   function getISOString() {
-    const date = new Date()
-    return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
+    const date = new Date();
+    return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
   }
 </script>
 <script type="module">
-  import init from "./wasm.js"
-  init()
+  import init from "./wasm.js";
+  init();
 </script>
 ```
 

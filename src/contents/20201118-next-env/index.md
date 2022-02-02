@@ -3,7 +3,7 @@ path: /next-env
 created: "2020-11-18"
 title: NextJS における環境変数まわりの挙動まとめ
 visual: "./visual.png"
-tags: ["NextJS"]
+tags: ["nextjs", "vercel"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false
@@ -74,7 +74,7 @@ module.exports = {
   env: {
     TEST_VAR_FOR_BROWSER: process.env.TEST_VAR,
   },
-}
+};
 ```
 
 ```jsx:title=index.jsx
@@ -95,13 +95,13 @@ export default () => {
 NodeJS では dotenv, dotenv-webpack を使えます。
 
 ```js
-require("dotenv").config()
+require("dotenv").config();
 module.exports = {
   env: {
     // Reference a variable that was defined in the .env file and make it available at Build Time
     TEST_VAR: process.env.TEST_VAR,
   },
-}
+};
 ```
 
 こうすることで、.env から環境変数を読み取って、クライアント側に引き回せます。

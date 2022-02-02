@@ -3,7 +3,7 @@ path: /yew-redux-like-data-fetch
 created: "2021-03-15"
 title: yew での data fetch を redux っぽくやる
 visual: "./visual.png"
-tags: ["Rust", "yew"]
+tags: ["rust", "yew"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false
@@ -294,7 +294,7 @@ TypeScript のように
 type PageState =
   | { loading: true }
   | { loading: false; data: any }
-  | { loading: false; error: string }
+  | { loading: false; error: string };
 ```
 
 のような型定義を書かなくても、ページがとりうる状態に対する実装の抜け漏れを防ぎやすいです。

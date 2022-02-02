@@ -3,7 +3,7 @@ path: /polyfill-trouble-on-babel
 created: "2021-04-13"
 title: babel/preset-env で polyfill するとビルドに失敗する問題の解決
 visual: "./visual.png"
-tags: ["Babel"]
+tags: ["babel"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false
@@ -38,7 +38,7 @@ module.exports = {
       },
     ],
   ],
-}
+};
 ```
 
 というシンプルな設定でビルドに失敗します。
@@ -72,7 +72,7 @@ module.exports = {
     ],
   ],
   sourceType: "unambiguous",
-}
+};
 ```
 
 です。

@@ -3,7 +3,7 @@ path: /why-hooks-need-array
 created: "2020-12-09"
 title: custom hookの返り値は配列であるべきか
 visual: "./visual.png"
-tags: ["React"]
+tags: ["react"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false
@@ -21,20 +21,20 @@ isProtect: false
 
 ```tsx
 export default () => {
-  const [state, setState] = useState()
-  const [store, dispatch] = useReducer(reducer, initalState)
-  return <div>ほげ</div>
-}
+  const [state, setState] = useState();
+  const [store, dispatch] = useReducer(reducer, initalState);
+  return <div>ほげ</div>;
+};
 ```
 
 これを、
 
 ```tsx
 export default () => {
-  const { state, setState } = useState()
-  const { store, dispatch } = useReducer(reducer, initalState)
-  return <div>ほげ</div>
-}
+  const { state, setState } = useState();
+  const { store, dispatch } = useReducer(reducer, initalState);
+  return <div>ほげ</div>;
+};
 ```
 
 と返さない理由って何でしょうか。
@@ -42,7 +42,7 @@ export default () => {
 
 ```tsx
 export default () => {
-  const value = useContext(MyContext)
+  const value = useContext(MyContext);
   const { loading, error, data } = useQuery(
     gql`
       query GetGreeting($language: String!) {
@@ -54,13 +54,13 @@ export default () => {
     {
       variables: { language: "english" },
     }
-  )
+  );
   const { data, error } = useSWR<User, Error>(`/users/${id}`, () =>
     fetchUser(id)
-  )
+  );
 
-  return <div>ほげ</div>
-}
+  return <div>ほげ</div>;
+};
 ```
 
 hooks の返り値は何でもいいのですが、なぜわざわざ配列で返すような API が存在しているのでしょうか。
@@ -73,20 +73,20 @@ hooks の返り値は何でもいいのですが、なぜわざわざ配列で�
 
 ```tsx
 export default () => {
-  const [state, setState] = useState()
-  const [store, dispatch] = useReducer(reducer, initalState)
-  return <div>ほげ</div>
-}
+  const [state, setState] = useState();
+  const [store, dispatch] = useReducer(reducer, initalState);
+  return <div>ほげ</div>;
+};
 ```
 
 は、
 
 ```tsx
 export default () => {
-  const [user, setUser] = useState()
-  const [posts, postDispatch] = useReducer(reducer, initalState)
-  return <div>ほげ</div>
-}
+  const [user, setUser] = useState();
+  const [posts, postDispatch] = useReducer(reducer, initalState);
+  return <div>ほげ</div>;
+};
 ```
 
 などとして、そのコンポーネントを使う文脈に合わせた名前を割り当てられます。
@@ -102,8 +102,8 @@ swr, applo, react-query などはデータ取得の hooks で基盤のような�
 ```tsx
 export const useHoge = () => {
   // something
-  return [loading, data, error, refetch]
-}
+  return [loading, data, error, refetch];
+};
 ```
 
 のように返したとして、呼び出し側が data だけ欲しい場合などはどうすればいいでしょうか。
@@ -114,9 +114,9 @@ export const useHoge = () => {
 配列はラベルでアクセスできませんが、\_などの placeholder を用意してピンポイントで必要な要素を取り出せます。
 
 ```ts
-const getVal = () => [1, 2, 3, 4]
+const getVal = () => [1, 2, 3, 4];
 
-const [_, second] = getVal()
+const [_, second] = getVal();
 ```
 
 ```sh
@@ -129,9 +129,9 @@ const [_, second] = getVal()
 `_` を使わなくても、
 
 ```ts
-const getVal = () => [1, 2, 3, 4]
+const getVal = () => [1, 2, 3, 4];
 
-const [, second] = getVal()
+const [, second] = getVal();
 ```
 
 とすれば取得できます。

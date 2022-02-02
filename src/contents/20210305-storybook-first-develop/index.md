@@ -3,7 +3,7 @@ path: /storybook-first-develop
 created: "2021-03-05"
 title: Storybook First な開発のススメ
 visual: "./visual.png"
-tags: ["React", "storybook"]
+tags: ["react", "storybook"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false
@@ -54,62 +54,62 @@ const Container: React.FC<ContainerProps> = props => {
 Storybook 上は独立したコンポーネントとして扱えます。
 
 ```tsx
-import styled from "styled-components"
+import styled from "styled-components";
 
-type ContainerProps = { handleClickTitle: () => void }
-type Props = { className?: string } & ContainerProps
+type ContainerProps = { handleClickTitle: () => void };
+type Props = { className?: string } & ContainerProps;
 
-const Component: React.FC<Props> = props => {
+const Component: React.FC<Props> = (props) => {
   return (
     <div className={props.className}>
       <h1 onClick={props.className}>hello</h1>
     </div>
-  )
-}
+  );
+};
 
 export const StyledComponent = styled(Component)`
   > h1 {
     font-size: 24px;
   }
-`
+`;
 
 const useClickTitle = () => {
   const handleClickTitle = () => {
     fetch("/check-posted").then(() => {
-      alert("clicked title")
-    })
-  }
-  return handleClickTitle
-}
+      alert("clicked title");
+    });
+  };
+  return handleClickTitle;
+};
 
-const Container: React.FC<ContainerProps> = props => {
-  const handleClickTitle = useClickTitle()
+const Container: React.FC<ContainerProps> = (props) => {
+  const handleClickTitle = useClickTitle();
 
   const containerProps = {
     handleClickTitle,
-  }
-  return <StyledComponent {...{ ...containerProps }} />
-}
+  };
+  return <StyledComponent {...{ ...containerProps }} />;
+};
 ```
 
 ```tsx
-import { StyledComponent as Component } from "./hello"
-import { ComponentProps } from "react"
+import { StyledComponent as Component } from "./hello";
+import { ComponentProps } from "react";
 
-type Props = ComponentProps<typeof Component>
+type Props = ComponentProps<typeof Component>;
 
-const meta = { title: "hello/hello", component: Component }
+const meta = { title: "hello/hello", component: Component };
 
-export default meta
+export default meta;
 
-const Template = (props: Props) => <Component {...props} />
+const Template = (props: Props) => <Component {...props} />;
 
-export const Default = Template.bind({})
+export const Default = Template.bind({});
 Default.args = {
   handleClickTitle: () => {
-    alert("click from storybook")
+    alert("click from storybook");
   },
-}
+};
 ```
 
 このようにすることで Container が呼び出していた custom hooks を使わなくても Storybook でイベントを呼び出すことができます。
@@ -146,7 +146,7 @@ type PageState =
   | undefined // 初期化時
   | { isLoading: true; data: undefined; error: undefined } // ローディング中
   | { isLoading: false; data: Posts[]; error: undefined } // ロード成功
-  | { isLoading: false; data: undefined; error: string } // ロード失敗
+  | { isLoading: false; data: undefined; error: string }; // ロード失敗
 ```
 
 のように定義します。
@@ -158,25 +158,25 @@ type PageState =
   | undefined // 初期化時
   | { isLoading: true; data: undefined; error: undefined } // ローディング中
   | { isLoading: false; data: Posts[]; error: undefined } // ロード成功
-  | { isLoading: false; data: undefined; error: string } // ロード失敗
+  | { isLoading: false; data: undefined; error: string }; // ロード失敗
 
 export const Posts = (props: { pageState: PageState }) => {
   if (props.pageState === undefined || props.pageState.isLoading) {
-    return <div>loading</div>
+    return <div>loading</div>;
   }
 
   if (props.pageState.error !== undefined) {
-    return <div>{error}</div>
+    return <div>{error}</div>;
   }
 
   return (
     <div>
-      {props.pageState.data.map(post => (
+      {props.pageState.data.map((post) => (
         <Post key={post.id} data={post} />
       ))}
     </div>
-  )
-}
+  );
+};
 ```
 
 ```tsx

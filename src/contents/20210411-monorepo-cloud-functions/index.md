@@ -3,7 +3,7 @@ path: /monorepo-cloud-functions
 created: "2021-04-11"
 title: 型を共有したくて Cloud Functions をモノレポで切り出す
 visual: "./visual.png"
-tags: ["Firebase", "Yarn"]
+tags: ["firebase", "yarn"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false
@@ -88,7 +88,7 @@ myproject
 つまり、`src/repository/user.ts` 的なのがあるとして、そのファイルから
 
 ```ts
-import type { UserResponse } from "../../functions/types/user-response"
+import type { UserResponse } from "../../functions/types/user-response";
 ```
 
 とするということです。
@@ -213,7 +213,7 @@ root で使わないなら各フォルダで`yarn add hoge`すればいいです
 こうすれば、`packages/client` から `packages/api/src/types/response` にある型を
 
 ```ts
-import type { UserResponse } from "api/src/types/response"
+import type { UserResponse } from "api/src/types/response";
 ```
 
 として import できます。

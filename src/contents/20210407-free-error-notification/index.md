@@ -3,7 +3,7 @@ path: /free-error-notification
 created: "2021-04-07"
 title: Vercelで無料のError通知サーバーを作ったら便利だった
 visual: "./visual.png"
-tags: ["Vercel"]
+tags: ["vercel"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false
@@ -69,7 +69,7 @@ axios
     message: "Hello from vercel!!",
   })
   .then(() => res.status(204))
-  .catch(() => res.status(500).send("slack api error"))
+  .catch(() => res.status(500).send("slack api error"));
 ```
 
 のようにして使えます。

@@ -3,7 +3,7 @@ path: /rescript-bind
 created: "2021-01-26"
 title: ReScript から JavaScript への bind を書く
 visual: "./visual.png"
-tags: ["ReScript"]
+tags: ["rescript"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false
@@ -50,7 +50,7 @@ timerOn(()=>(), 1000)
 と書くと、JavaScript の世界で
 
 ```js
-setTimeout(() => {}, 1000)
+setTimeout(() => {}, 1000);
 ```
 
 として動くコードです。
@@ -166,7 +166,7 @@ let el = getElementById(doc, "myId")
 は、
 
 ```js
-var el = document.getElementById("myId")
+var el = document.getElementById("myId");
 ```
 
 となります。
@@ -186,7 +186,7 @@ setOnload(window, ()=>())
 これは
 
 ```js
-window.onload = function (param) {}
+window.onload = function (param) {};
 ```
 
 のように変換されます。

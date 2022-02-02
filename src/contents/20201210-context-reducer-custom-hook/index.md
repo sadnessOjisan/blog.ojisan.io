@@ -3,7 +3,7 @@ path: /context-reducer-custom-hook
 created: "2020-12-10"
 title: Context API と useReducer で custom hook を作る時のテンプレート
 visual: "./visual.png"
-tags: ["React"]
+tags: ["react"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false
@@ -21,15 +21,15 @@ context, reducer, hooks で分けています。ただこだわりはなく、�
 Context の作成と Provider でラップできる関数を作ります。
 
 ```ts
-import { createContext, Dispatch, ReactChild, useReducer } from "react"
-import { inialState, reducer, State, ActionType } from "../reducer/user"
+import { createContext, Dispatch, ReactChild, useReducer } from "react";
+import { inialState, reducer, State, ActionType } from "../reducer/user";
 
-export const UserContext = createContext<State | undefined>(undefined)
+export const UserContext = createContext<State | undefined>(undefined);
 
-export const UserUpdateContext = createContext<Dispatch<ActionType>>(null)
+export const UserUpdateContext = createContext<Dispatch<ActionType>>(null);
 
 export function UserContextProvider({ children }: { children: ReactChild }) {
-  const [user, dispatch] = useReducer(reducer, inialState)
+  const [user, dispatch] = useReducer(reducer, inialState);
 
   return (
     <UserContext.Provider value={user}>
@@ -37,7 +37,7 @@ export function UserContextProvider({ children }: { children: ReactChild }) {
         {children}
       </UserUpdateContext.Provider>
     </UserContext.Provider>
-  )
+  );
 }
 ```
 
@@ -54,8 +54,8 @@ Context のラッパーでは reducer から state を取得し埋め込んで�
 View ではこのようにして Provider を呼び出します。
 
 ```ts
-import { AppProps } from "next/app"
-import { UserContextProvider } from "../context/userContext"
+import { AppProps } from "next/app";
+import { UserContextProvider } from "../context/userContext";
 
 const App = ({ Component, pageProps }: AppProps) => (
   <>
@@ -63,9 +63,9 @@ const App = ({ Component, pageProps }: AppProps) => (
       <Component {...pageProps} />
     </UserContextProvider>
   </>
-)
+);
 
-export default App
+export default App;
 ```
 
 ### reducer
@@ -73,42 +73,42 @@ export default App
 reducer は 普通の reducer です。
 
 ```ts
-import { User } from "../type/User"
+import { User } from "../type/User";
 
-const START_FETCH_USER = "START_FETCH_USER" as const
-const SUCCESS_FETCH_USER = "SUCCESS_FETCH_USER" as const
-const FAIL_FETCH_USER = "FAIL_FETCH_USER" as const
+const START_FETCH_USER = "START_FETCH_USER" as const;
+const SUCCESS_FETCH_USER = "SUCCESS_FETCH_USER" as const;
+const FAIL_FETCH_USER = "FAIL_FETCH_USER" as const;
 
 const startFetchUserAction = () => {
-  return { type: START_FETCH_USER }
-}
+  return { type: START_FETCH_USER };
+};
 
 const successFetchUserAction = (user: User) => {
-  return { type: SUCCESS_FETCH_USER, payload: user }
-}
+  return { type: SUCCESS_FETCH_USER, payload: user };
+};
 
 const failFetchUserAction = () => {
-  return { type: FAIL_FETCH_USER }
-}
+  return { type: FAIL_FETCH_USER };
+};
 
 export const actions = {
   startFetchUserAction,
   successFetchUserAction,
   failFetchUserAction,
-}
+};
 
 export type ActionType =
   | ReturnType<typeof startFetchUserAction>
   | ReturnType<typeof successFetchUserAction>
-  | ReturnType<typeof failFetchUserAction>
+  | ReturnType<typeof failFetchUserAction>;
 
 export type State =
   | undefined // before init
   | { isLoading: true; data: undefined } // loading
   | { isLoading: false; data: User } // success
-  | { isLoading: false; data: undefined } // fail
+  | { isLoading: false; data: undefined }; // fail
 
-export const inialState: State = undefined
+export const inialState: State = undefined;
 
 export const reducer = (state: State, action: ActionType): State => {
   switch (action.type) {
@@ -117,23 +117,23 @@ export const reducer = (state: State, action: ActionType): State => {
         ...state,
         isLoading: true,
         data: undefined,
-      }
+      };
     case SUCCESS_FETCH_USER:
       return {
         ...state,
         isLoading: false,
         data: action.payload,
-      }
+      };
     case FAIL_FETCH_USER:
       return {
         ...state,
         isLoading: false,
         data: undefined,
-      }
+      };
     default:
-      return state
+      return state;
   }
-}
+};
 ```
 
 Cotext を関心ごとに作る以上は各 state は膨らまないはずで、useReducer を使わなくても useState で完結できるケースがほとんどだとは思います。
@@ -148,33 +148,33 @@ hooks は View から渡されるイベントを dispatch に伝えたり、disp
 そのため View と Reducer にとってのクッションとなります。
 
 ```ts
-import { useContext, useEffect, useState } from "react"
-import { UserContext, UserUpdateContext } from "../context/userContext"
-import { actions, State } from "../reducer/user"
+import { useContext, useEffect, useState } from "react";
+import { UserContext, UserUpdateContext } from "../context/userContext";
+import { actions, State } from "../reducer/user";
 
 export const useUserFetch = (): [State, () => void] => {
-  const user = useContext(UserContext)
-  const dispatch = useContext(UserUpdateContext)
-  const [refetchIndex, setRefetchIndex] = useState(0)
+  const user = useContext(UserContext);
+  const dispatch = useContext(UserUpdateContext);
+  const [refetchIndex, setRefetchIndex] = useState(0);
 
   const refetch = () =>
-    setRefetchIndex(prevRefetchIndex => prevRefetchIndex + 1)
+    setRefetchIndex((prevRefetchIndex) => prevRefetchIndex + 1);
 
   useEffect(() => {
     const fetchData = async () => {
-      if (!dispatch) return
-      dispatch(actions.startFetchUserAction())
+      if (!dispatch) return;
+      dispatch(actions.startFetchUserAction());
       fetch("/api/user")
-        .then(res => res.json())
-        .then(data => dispatch(actions.successFetchUserAction(data)))
-        .catch(() => dispatch(actions.failFetchUserAction()))
-    }
+        .then((res) => res.json())
+        .then((data) => dispatch(actions.successFetchUserAction(data)))
+        .catch(() => dispatch(actions.failFetchUserAction()));
+    };
 
-    fetchData()
-  }, [refetchIndex])
+    fetchData();
+  }, [refetchIndex]);
 
-  return [user, refetch]
-}
+  return [user, refetch];
+};
 ```
 
 View で直接 dispatch が出てくると、その dispach にどんな action を渡せばいいか迷子になりやすいですが、dispach を View に渡さず hooks の中だけで完結させることで迷子になりやすい問題の解決を図ります。
@@ -186,10 +186,10 @@ View は hooks にしか依存しないようにしています。
 refetch を実行すると hooks 内から action を発行し、それを reducer が state に反映して View を書き換えています。
 
 ```ts
-import { useUserFetch } from "../hooks/useUserFetch"
+import { useUserFetch } from "../hooks/useUserFetch";
 
 export default () => {
-  const [userState, refetch] = useUserFetch()
+  const [userState, refetch] = useUserFetch();
   return (
     <div>
       {!userState ? (
@@ -201,8 +201,8 @@ export default () => {
       )}
       <button onClick={() => refetch()}>random fetch</button>
     </div>
-  )
-}
+  );
+};
 ```
 
 ## おまけ

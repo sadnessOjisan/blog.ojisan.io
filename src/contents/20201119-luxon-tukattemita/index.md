@@ -3,7 +3,7 @@ path: /luxon-tukattemita
 created: "2020-11-20"
 title: luxon 使ってみた
 visual: "./visual.png"
-tags: ["JavaScript"]
+tags: ["javascript", "luxuon"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false
@@ -17,10 +17,10 @@ isProtect: false
 moment では、
 
 ```js
-const now = moment()
-console.log("now", now)
-const addNow = now.add(1, "days") // これをやるとnowそのものが書き換わるから注意！
-console.log("addNow", addNow)
+const now = moment();
+console.log("now", now);
+const addNow = now.add(1, "days"); // これをやるとnowそのものが書き換わるから注意！
+console.log("addNow", addNow);
 
 // now Moment<2020-11-20T17:02:09+09:00>
 // addNow Moment<2020-11-21T17:02:09+09:00>
@@ -31,10 +31,10 @@ console.log("addNow", addNow)
 console.log の位置を変えると、
 
 ```js
-const now = moment()
-const addNow = now.add(1, "days") // これをやるとnowそのものが書き換わるから注意！
-console.log("now", now)
-console.log("addNow", addNow)
+const now = moment();
+const addNow = now.add(1, "days"); // これをやるとnowそのものが書き換わるから注意！
+console.log("now", now);
+console.log("addNow", addNow);
 
 // now Moment<2020-11-21T17:00:54+09:00>
 // addNow Moment<2020-11-21T17:00:54+09:00>
@@ -45,12 +45,12 @@ console.log("addNow", addNow)
 一方で luxon だと
 
 ```js
-const luxon = require("luxon")
+const luxon = require("luxon");
 
-const now = luxon.DateTime.local()
-console.log("now", now)
-const addNow = now.plus(1, "days")
-console.log("addNow", addNow)
+const now = luxon.DateTime.local();
+console.log("now", now);
+const addNow = now.plus(1, "days");
+console.log("addNow", addNow);
 ```
 
 としても now は変更されません。
@@ -62,17 +62,17 @@ moment の後継ライブラリは基本的に immutable になっています�
 moment や dayjs は日付オブジェクトを作成するとき、
 
 ```js
-const now = moment()
-console.log("now", now)
+const now = moment();
+console.log("now", now);
 ```
 
 などとできますが、luxon では DateTime というクラス（と呼んでいいかは知らないけど）を使って作る必要があります。
 
 ```js
-const luxon = require("luxon")
+const luxon = require("luxon");
 
-const now = luxon.DateTime.local()
-console.log("now", now)
+const now = luxon.DateTime.local();
+console.log("now", now);
 ```
 
 dayjs も moment も inport したモジュールから直接オブジェクトを作れていたのでこの挙動は最初はハマりました。
@@ -85,7 +85,7 @@ DateTime にはいわゆる isAfter や isBefore のような関数が存在し�
 それはただ
 
 ```js
-d1 < d2
+d1 < d2;
 ```
 
 とするだけです。(d1, d2 は DateTime 型)
@@ -102,16 +102,16 @@ YYYY-MM-DD 形式で取得するとき、moment だと
 
 ```js
 // 日付までを表記
-const formatDate = moment().format("YYYY-MM-DD")
-console.log("formatDate", formatDate)
+const formatDate = moment().format("YYYY-MM-DD");
+console.log("formatDate", formatDate);
 ```
 
 としていたものが、
 
 ```js
 // 日付までを表記
-const formatDate = now.toISODate()
-console.log("formatDate", formatDate)
+const formatDate = now.toISODate();
+console.log("formatDate", formatDate);
 ```
 
 として取得できて便利でした。
@@ -122,15 +122,15 @@ console.log("formatDate", formatDate)
 moment だと`require("moment-timezone");` とすることで、`.tz`を生やしていました。
 
 ```js
-const samoa = utc.tz("Pacific/Apia")
-console.log("samoa", samoa)
+const samoa = utc.tz("Pacific/Apia");
+console.log("samoa", samoa);
 ```
 
 それが luxon では setZone として標準で使えます。
 
 ```js
-const samoa = now.setZone("Pacific/Apia")
-console.log("samoa", samoa)
+const samoa = now.setZone("Pacific/Apia");
+console.log("samoa", samoa);
 ```
 
 便利。

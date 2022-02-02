@@ -3,7 +3,7 @@ path: /delete-discohouse
 created: "2021-03-04"
 title: 招待制SNSを作った話
 visual: "./visual.png"
-tags: ["preact", "Firebase", "クソアプリ"]
+tags: ["preact", "firebase", "クソアプリ"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false

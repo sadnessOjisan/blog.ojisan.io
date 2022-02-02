@@ -3,7 +3,7 @@ path: /til-ojisan-io
 created: "2020-12-02"
 title: ISRでブログを作ってみて気づいたこと・ハマったこと
 visual: "./visual.png"
-tags: ["NextJS"]
+tags: ["nextjs"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false
@@ -56,14 +56,14 @@ ISR ではキャッシュ更新のタイミングを指定できます。
 
 ```js
 export const getStaticProps: GetStaticProps = async () => {
-  const postResponse = await getPosts()
-  const { data, error } = postResponse
+  const postResponse = await getPosts();
+  const { data, error } = postResponse;
 
   return {
     props: !error ? { posts: data } : { error },
     revalidate: 600,
-  }
-}
+  };
+};
 ```
 
 今回はタイムアウトは 10 分にしたのですが、firestore のアクセスログをみてみるとその 10 分の間はアクセスが減ったのを確認できました。

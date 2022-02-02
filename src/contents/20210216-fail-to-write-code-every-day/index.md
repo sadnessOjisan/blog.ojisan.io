@@ -3,7 +3,7 @@ path: /fail-to-write-code-every-day
 created: "2021-02-16"
 title: Write Code Every Day に失敗したから commit log を改竄した
 visual: "./visual.png"
-tags: ["Git"]
+tags: ["git"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false
@@ -127,15 +127,15 @@ https://github.com/YuG1224/kusa
 ```js
 function commit(n) {
   // 1/n判定
-  const r = n => {
-    return n ? Math.floor(Math.random() * n) === 0 : false
-  }
+  const r = (n) => {
+    return n ? Math.floor(Math.random() * n) === 0 : false;
+  };
 
   if (!r(n)) {
-    return
+    return;
   }
-  const string = `git commit --allow-empty --date='${date.format()}' -m 'update'`
-  const result = execSync(string).toString()
-  console.log(result || string)
+  const string = `git commit --allow-empty --date='${date.format()}' -m 'update'`;
+  const result = execSync(string).toString();
+  console.log(result || string);
 }
 ```
