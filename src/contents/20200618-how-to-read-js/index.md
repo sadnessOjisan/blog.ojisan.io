@@ -3,7 +3,7 @@ path: /how-to-read-js
 created: "2020-06-18"
 title: JavaScriptライブラリを読むときのコツ
 visual: "./visual.png"
-tags: [JavaScript, NodeJS]
+tags: [javaScript, nodejs]
 userId: sadnessOjisan
 isFavorite: true
 isProtect: false
@@ -195,7 +195,7 @@ print debug といえば console.\* です。
 **console.log() は複数の引数を取れる**ので、
 
 ```js
-console.log("[class名]<関数名> x: ", x)
+console.log("[class名]<関数名> x: ", x);
 ```
 
 といった **マーク付きの loggaer を仕込めます**。
@@ -224,11 +224,11 @@ logger を使った print debug の場合、出力したものが長すぎると
 そこで logger の出力をファイルに吐き出します。
 
 ```js
-const fs = require("fs")
-const log = fs.createWriteStream("result.log")
-const logger = new console.Console(log)
+const fs = require("fs");
+const log = fs.createWriteStream("result.log");
+const logger = new console.Console(log);
 
-logger.log(x)
+logger.log(x);
 ```
 
 普段何気なく使っている `console.log()` も [Console](https://nodejs.org/api/console.html#console_class_console) クラスの instance method です。
@@ -400,8 +400,8 @@ tsdoc に準拠して書いていると、（やる意味はないと思いま�
  * @returns number
  */
 const hoge = (input: number): number => {
-  return input
-}
+  return input;
+};
 ```
 
 ```sh
@@ -492,18 +492,18 @@ test("get returns the last registration", () => {
   const registration1: Registration = {
     options: { lifecycle: Lifecycle.Singleton },
     provider: { useValue: "provider" },
-  }
+  };
   const registration2: Registration = {
     options: { lifecycle: Lifecycle.Singleton },
     provider: { useValue: "provider" },
-  }
+  };
 
-  registry.set("Bar", registration1)
-  registry.set("Bar", registration2)
+  registry.set("Bar", registration1);
+  registry.set("Bar", registration2);
 
-  expect(registry.has("Bar")).toBeTruthy()
-  expect(registry.get("Bar")).toStrictEqual(registration2)
-})
+  expect(registry.has("Bar")).toBeTruthy();
+  expect(registry.get("Bar")).toStrictEqual(registration2);
+});
 ```
 
 経験上、OSS はコメントがほとんど書かれていないので、コードを読むしかないのですが、テストには自然言語があるので、コードを読めなくてもそこからヒントを掴めたりします。
@@ -675,26 +675,26 @@ assign<T, U>(target: T, source: U): T & U;
 ```js
 class Base {
   returnOne() {
-    return 1
+    return 1;
   }
 }
 
 const mixin = {
   returnTwo() {
-    return 2
+    return 2;
   },
-}
+};
 
-const mixed = Object.assign(Base.prototype, mixin)
-const base = new Base()
+const mixed = Object.assign(Base.prototype, mixin);
+const base = new Base();
 
 // NG
-console.log(base.returnOne())
-console.log(base.returnTwo())
+console.log(base.returnOne());
+console.log(base.returnTwo());
 
 // OK
-console.log(mixed.returnOne())
-console.log(mixed.returnTwo())
+console.log(mixed.returnOne());
+console.log(mixed.returnTwo());
 ```
 
 ただ クラスに対する mixin だと 戻り値は使わないので、そのようなコードだと Jump できないインスタンスに出会う可能性はあります。

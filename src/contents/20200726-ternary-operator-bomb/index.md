@@ -3,7 +3,7 @@ path: /ternary-operator-bomb
 created: "2020-07-26"
 title: 三項演算子でstateを吹っ飛ばした
 visual: "./visual.png"
-tags: [JavaScript]
+tags: [javascript]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false

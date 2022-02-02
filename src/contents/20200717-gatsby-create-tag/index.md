@@ -3,7 +3,7 @@ path: /gatsby-create-tag
 created: "2020-07-17"
 title: Gatsby製のブログにタグ機能を追加するための方法を見直してみよう
 visual: "./visual.png"
-tags: [Gatsby]
+tags: [gatsby]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false
@@ -93,12 +93,12 @@ query BlogTemplate($path: String!) {
 例えばこの Blog では、
 
 ```js
-const path = require(`path`)
+const path = require(`path`);
 
 exports.createPages = async ({ actions, graphql, reporter }) => {
-  const { createPage } = actions
-  const blogPostTemplate = path.resolve(`src/templates/blogTemplate.tsx`)
-  const tagTemplate = path.resolve(`./src/templates/tagTemplate.tsx`)
+  const { createPage } = actions;
+  const blogPostTemplate = path.resolve(`src/templates/blogTemplate.tsx`);
+  const tagTemplate = path.resolve(`./src/templates/tagTemplate.tsx`);
 
   const contentsResult = await graphql(`
     {
@@ -122,26 +122,26 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
         }
       }
     }
-  `)
+  `);
 
-  contentsResult.data.tags.group.forEach(data => {
+  contentsResult.data.tags.group.forEach((data) => {
     createPage({
       path: `/tags/${data.tag}`,
       component: tagTemplate,
       context: {
         tag: data.tag,
       },
-    })
-  })
+    });
+  });
 
   contentsResult.data.posts.edges.forEach(({ node }) => {
     createPage({
       path: node.frontmatter.path,
       component: blogPostTemplate,
       context: {},
-    })
-  })
-}
+    });
+  });
+};
 ```
 
 といった JS を書いています。
@@ -171,15 +171,15 @@ allMarkdownRemark(limit: 1000) {
 仮にクエリの結果が data という変数に入っているなら、
 
 ```js
-data.tags.group.forEach(d => {
+data.tags.group.forEach((d) => {
   createPage({
     path: `/tags/${d.tag}`,
     component: tagTemplate,
     context: {
       tag: d.tag,
     },
-  })
-})
+  });
+});
 ```
 
 と書くことでページを作成できます。
@@ -233,7 +233,7 @@ export const pageQuery = graphql`
       }
     }
   }
-`
+`;
 ```
 
 そうすれば、Page コンポーネントであれば、data 変数からアクセスできるクエリ結果に tags が含まれています。
@@ -243,7 +243,7 @@ export const pageQuery = graphql`
 ```jsx
 <div className={styles.tags}>
   {markdownRemark.frontmatter.tags.map(
-    tag =>
+    (tag) =>
       tag && (
         <Link to={`/tags/${tag}`}>
           <a>
@@ -275,7 +275,7 @@ export const pageQuery = graphql`
       }
     }
   }
-`
+`;
 ```
 
 先ほどの例と違って、markdownRemark ではなく allMarkdownRemark を使っていることに注目しておきましょう。
@@ -306,7 +306,7 @@ export const pageQuery = graphql`
       }
     }
   }
-`
+`;
 ```
 
 ここでは tag が該当のタグかどうかで filter をかけています。
@@ -326,8 +326,8 @@ result.data.allMarkdownRemark.edges.forEach(({ node }) => {
       // in page queries as GraphQL variables.
       slug: node.fields.slug,
     },
-  })
-})
+  });
+});
 ```
 
 として変数を埋め込むことができます。
@@ -342,10 +342,10 @@ result.data.allMarkdownRemark.edges.forEach(({ node }) => {
 タグの一覧ページも作りましょう。もちろん一覧ページとしてではなく一覧コンポーネントとして提供したい場合もあると思いますが、基本的には同じように考えてくれると大丈夫です。（いまはページコンポーネント以外からも GraphQL を叩ける [useStaticQuery](https://www.gatsbyjs.org/blog/2019-02-20-introducing-use-static-query/) というのがあるのでそれも覚えておこう！）
 
 ```jsx
-import * as React from "react"
-import { graphql, Link } from "gatsby"
-import Layout from "../components/layout"
-import { TagsQuery } from "../../types/graphql-types"
+import * as React from "react";
+import { graphql, Link } from "gatsby";
+import Layout from "../components/layout";
+import { TagsQuery } from "../../types/graphql-types";
 
 interface IProps {
   data: TagsQuery;
@@ -366,7 +366,7 @@ const IndexPage: React.FC<IProps> = ({ data }) => {
         >
           タグ一覧
         </h2>
-        {data.allMarkdownRemark.group.map(tag => (
+        {data.allMarkdownRemark.group.map((tag) => (
           <Link to={tag.fieldValue ? `/tags/${tag.fieldValue}` : "/"}>
             <div style={{ marginTop: "12px" }}>
               <a>
@@ -377,8 +377,8 @@ const IndexPage: React.FC<IProps> = ({ data }) => {
         ))}
       </div>
     </Layout>
-  )
-}
+  );
+};
 
 export const pageQuery = graphql`
   query Tags {
@@ -389,9 +389,9 @@ export const pageQuery = graphql`
       }
     }
   }
-`
+`;
 
-export default IndexPage
+export default IndexPage;
 ```
 
 このようにタグの集約クエリを投げて(上の例だと frontmatter の tags で集約している)、その結果でタグ一覧をタグ名と集約した数で表示させてあげれば良いです。

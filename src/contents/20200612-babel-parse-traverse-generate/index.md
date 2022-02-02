@@ -3,7 +3,7 @@ path: /babel-parse-traverse-generate
 created: "2020-06-12"
 title: Babelの変換処理と向き合う
 visual: "./visual.png"
-tags: [Babel]
+tags: [babel]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false
@@ -383,28 +383,28 @@ Babel は各パッケージに分けてそれらの処理を行っているよ�
 このようなコードを用意します。
 
 ```js
-const parser = require("@babel/parser")
-const traverse = require("@babel/traverse")
-const generate = require("@babel/generator")
+const parser = require("@babel/parser");
+const traverse = require("@babel/traverse");
+const generate = require("@babel/generator");
 
-const code = "const n = 1"
+const code = "const n = 1";
 
 // parse the code -> ast
-const ast = parser.parse(code)
+const ast = parser.parse(code);
 
 // transform the ast
 traverse.default(ast, {
   enter(path) {
     // in this example change all the variable `n` to `x`
     if (path.isIdentifier({ name: "n" })) {
-      path.node.name = "x"
+      path.node.name = "x";
     }
   },
-})
+});
 
 // generate code <- ast
-const output = generate.default(ast, code)
-console.log(output.code) // 'const x = 1;'
+const output = generate.default(ast, code);
+console.log(output.code); // 'const x = 1;'
 ```
 
 このコードは序盤で紹介した [Step-by-step guide for writing a custom babel transformation](https://lihautan.com/step-by-step-guide-for-writing-a-babel-transformation/) にあるものです。
@@ -477,8 +477,8 @@ parseBlockOrModuleBlockBody(body, directives, topLevel, end, afterBlockParse) {
 実際 このように logger をしかけて
 
 ```js
-const ast = parser.parse(code)
-console.log(ast)
+const ast = parser.parse(code);
+console.log(ast);
 ```
 
 parse の結果を出力すると
@@ -597,7 +597,7 @@ Object.assign(
   NodePath_modification,
   NodePath_family,
   NodePath_comments
-)
+);
 ```
 
 さあゴールは近づいてきました。

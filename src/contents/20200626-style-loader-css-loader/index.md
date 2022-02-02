@@ -3,7 +3,7 @@ path: /css-loader-style-loader
 created: "2020-06-26"
 title: css-loader と style-loaderを間違えない ~css-loaderを使わずにcssを使ってみる~
 visual: "./visual.png"
-tags: [Webpack, css-loader, style-loader]
+tags: [webpack, css-loader, style-loader]
 userId: sadnessOjisan
 isFavorite: true
 isProtect: false
@@ -76,7 +76,7 @@ module.exports = {
       },
     ],
   },
-}
+};
 ```
 
 ## なぜ取り違えるのか

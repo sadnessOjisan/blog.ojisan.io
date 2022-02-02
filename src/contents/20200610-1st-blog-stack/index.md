@@ -4,7 +4,7 @@ created: "2020-06-10"
 updated: "2020-06-10"
 title: Gatsby + TypeScript で技術ブログを書くための知見
 visual: "./visual.png"
-tags: [Gatsby]
+tags: [gatsby]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false

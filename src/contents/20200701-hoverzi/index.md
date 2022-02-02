@@ -3,7 +3,7 @@ path: /hover-next-style
 created: "2020-07-01"
 title: Hover時に他の要素にスタイルを当てたい
 visual: "./visual.png"
-tags: [CSS]
+tags: [css]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false

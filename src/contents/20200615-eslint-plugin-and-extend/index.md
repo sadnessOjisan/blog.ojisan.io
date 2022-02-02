@@ -4,7 +4,7 @@ created: "2020-06-15"
 updated: "2020-06-24"
 title: ESLint の Plugin と Extend の違い
 visual: "./visual.png"
-tags: [ESLint]
+tags: [eslint]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false
@@ -146,7 +146,7 @@ module.exports = {
   rules: {
     semi: [2, "always"],
   },
-}
+};
 ```
 
 と言うのが出てきます。
@@ -167,7 +167,7 @@ module.exports = {
       },
     },
   },
-}
+};
 ```
 
 どうやら、plugin は shareable config に含めることができるようです。

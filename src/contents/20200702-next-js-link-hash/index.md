@@ -3,7 +3,7 @@ path: /react-next-anchor-link-scroll
 created: "2020-07-02"
 title: Ajaxでコンテンツ取得するとページ内スクロールされなかった話（全面的に俺が悪かった編）
 visual: "./visual.png"
-tags: [HTML, NextJS]
+tags: [html, nextjs]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false
@@ -281,10 +281,10 @@ export default () => {
 
 ```js
 export default (req, res) => {
-  res.statusCode = 200
-  res.setHeader("Content-Type", "application/json")
-  res.end(JSON.stringify([1, 2, 3, 4, 5, 6, 7, 8]))
-}
+  res.statusCode = 200;
+  res.setHeader("Content-Type", "application/json");
+  res.end(JSON.stringify([1, 2, 3, 4, 5, 6, 7, 8]));
+};
 ```
 
 失敗しました。
@@ -317,15 +317,15 @@ http://hogehoge.com#99999 のような URL から 99999 を取り出すために
 
 ```js
 useEffect(() => {
-  setId(window.location.hash.replace("#", ""))
-}, [])
+  setId(window.location.hash.replace("#", ""));
+}, []);
 ```
 
 そして各コンポーネントに
 
 ```js
 <div>
-  {cards.map(id => (
+  {cards.map((id) => (
     <Child id={id} isScroll={id === hashId}></Child>
   ))}
 </div>
@@ -344,14 +344,14 @@ MDN の説明を借りると、[scrollIntoView](https://developer.mozilla.org/ja
 
 ```js
 const Child = ({ id, isScroll }) => {
-  const ref = useRef()
+  const ref = useRef();
   useEffect(() => {
     if (isScroll) {
-      ref.current.scrollIntoView()
+      ref.current.scrollIntoView();
     }
-  }, [])
-  return <div ref={ref} id={id}></div>
-}
+  }, []);
+  return <div ref={ref} id={id}></div>;
+};
 ```
 
 各カードコンポーネントに、もし自分がスクロール対象であれば `scrollIntoView()`を呼び出すようにしています。
@@ -363,27 +363,27 @@ const Child = ({ id, isScroll }) => {
 遷移後のページのコードはこうなります。
 
 ```jsx
-import React, { useState, useEffect, useRef } from "react"
+import React, { useState, useEffect, useRef } from "react";
 
 export default () => {
-  const [cards, setCards] = useState([])
+  const [cards, setCards] = useState([]);
 
   // useEffectの中でhashIdがわかるのでそれを保存しておく変数を作る
-  const [hashId, setId] = useState(null)
+  const [hashId, setId] = useState(null);
 
   useEffect(() => {
     // NextJSだと/apiにバックエンドを生やせ、同じホストからアクセスできる
     fetch("/api")
-      .then(res => res.json())
-      .then(d => setCards(d))
+      .then((res) => res.json())
+      .then((d) => setCards(d));
 
     // URLの#hogeを取り出す
-    setId(window.location.hash.replace("#", ""))
-  }, [])
+    setId(window.location.hash.replace("#", ""));
+  }, []);
 
   return cards ? (
     <div>
-      {cards.map(id => (
+      {cards.map((id) => (
         // componentがスクロール対象かどうかを子コンポーネントは知る必要がある
         // また各子コンポーネントがrefを持つ必要があるので別コンポーネントに切り出している
         <Child id={id} isScroll={id === hashId}></Child>
@@ -391,17 +391,17 @@ export default () => {
     </div>
   ) : (
     "loading"
-  )
-}
+  );
+};
 
 const Child = ({ id, isScroll }) => {
-  const ref = useRef()
+  const ref = useRef();
   useEffect(() => {
     if (isScroll) {
       // 自分がスクロール対象であればスクロールする
-      ref.current.scrollIntoView()
+      ref.current.scrollIntoView();
     }
-  }, [])
+  }, []);
   return (
     <div
       ref={ref}
@@ -413,8 +413,8 @@ const Child = ({ id, isScroll }) => {
         margin: "12px",
       }}
     ></div>
-  )
-}
+  );
+};
 ```
 
 これで遷移することができました。

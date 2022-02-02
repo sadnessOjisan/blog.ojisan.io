@@ -3,7 +3,7 @@ path: /eslint-prettier
 created: "2020-06-24"
 title: ESLint と Prettier の共存設定とその根拠について
 visual: "./visual.png"
-tags: [ESLint, Prettier]
+tags: [eslint, prettier]
 userId: sadnessOjisan
 isFavorite: true
 isProtect: false
