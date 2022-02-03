@@ -15,7 +15,6 @@ FYI: <https://github.com/hashicorp/terraform-cdk>
 
 つまり HCL を書かずに Terraform を使えるものです。
 HCL を書いているときは「型が欲しい」「補完されたい」と思ったりもするものですが、TS で書くことでそれが解消できるという素晴らしいツールです。
-（※型があって嬉しいと感じる場面が多いかは要議論）
 
 さて、この CDKTF にはドキュメントがありますが、実は TS + GCP を実現する方法が書かれていません。
 
@@ -104,7 +103,7 @@ Options:
 
 特に見つかるわけでもありません。
 
-ドキュメントを見てみましょう。
+次にドキュメントを見てみましょう。
 
 ![ドキュメント](./doc.png)
 
@@ -147,7 +146,7 @@ app.synth();
 
 つまり `import { AwsProvider, ec2 } from "@cdktf/provider-aws";` の GCP 版があればいけそうです。
 
-そのパッケージ名は `@cdktf/provider-google` です。
+そして cdktf 配下の npm レジストリを探すと、 `@cdktf/provider-google` が見つかります。
 
 なので、`npm i @cdktf/provider-google` とすれば GCP リソースを持ってこれるようになります。
 
@@ -196,7 +195,7 @@ new MyStack(app, "iac");
 app.synth();
 ```
 
-あとは、plan して apply すればリソースができます。
+あとは apply すればリソースができます。
 
 ## ./.gen/providers/google というやり方がある
 
