@@ -7,7 +7,6 @@ interface Props {
 }
 
 export const Toc: VFC<Props> = ({ toc }) => {
-  console.log(toc);
   return (
     <div className={wrapper}>
       <p>目次</p>
