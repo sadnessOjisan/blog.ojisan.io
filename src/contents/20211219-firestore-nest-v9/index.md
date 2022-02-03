@@ -3,7 +3,7 @@ path: /firestore-nest-v9
 created: "2021-12-19"
 title: firestore v9 における subcollection へのクエリ
 visual: "./visual.png"
-tags: ["Firebase", "firestore"]
+tags: ["firebase", "firestore"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false

@@ -3,7 +3,7 @@ path: /git-commit-fixup-nigate
 created: "2021-12-17"
 title: git commit --fixup 苦手
 visual: "./visual.png"
-tags: ["Git"]
+tags: ["git"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false

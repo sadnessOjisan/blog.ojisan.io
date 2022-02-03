@@ -3,7 +3,7 @@ path: /firebase-v9-storage
 created: "2021-12-08"
 title: Firebase v9 + cloud storage チュートリアル
 visual: "./visual.png"
-tags: ["Firebase"]
+tags: ["firebase"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false

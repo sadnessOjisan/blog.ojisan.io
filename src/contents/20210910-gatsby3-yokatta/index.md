@@ -3,7 +3,7 @@ path: /gatsby3-yokatta
 created: "2021-09-10"
 title: Gatsby3 はいいぞ
 visual: "./visual.png"
-tags: ["Gatsby"]
+tags: ["gatsby"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false

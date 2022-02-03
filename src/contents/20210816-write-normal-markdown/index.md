@@ -3,7 +3,7 @@ path: /write-normal-markdown
 created: "2021-08-16"
 title: 正しく Markdown を書こうと思った
 visual: "./visual.png"
-tags: ["Markdown"]
+tags: ["markdown"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false

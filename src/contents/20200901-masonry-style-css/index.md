@@ -3,7 +3,7 @@ path: /masonry-style-css
 created: "2020-09-02 09:00"
 title: ピンタレストっぽいMasonryレイアウトをCSSだけで簡易的に実現する
 visual: "./visual.png"
-tags: [CSS]
+tags: [css]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false

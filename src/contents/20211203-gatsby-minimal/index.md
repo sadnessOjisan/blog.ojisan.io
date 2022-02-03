@@ -3,7 +3,7 @@ path: /gatsby-minimumconfiguration
 created: "2021-12-03"
 title: Gatsby の最小構成
 visual: "./visual.png"
-tags: ["Gatsby"]
+tags: ["gatsby"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false

@@ -3,7 +3,7 @@ path: /mui-select
 created: "2020-09-07"
 title: material-ui の Select の挙動まとめ
 visual: "./visual.png"
-tags: [React, "material-ui"]
+tags: [react, "material-ui"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false
@@ -164,7 +164,7 @@ FormControl の配下にあれば、その状態に応じて挙動が変わり�
       key={option}
       disabled={index === 0}
       selected={index === selectedIndex}
-      onClick={event => handleMenuItemClick(event, index)}
+      onClick={(event) => handleMenuItemClick(event, index)}
     >
       {option}
     </MenuItem>

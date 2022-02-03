@@ -3,7 +3,7 @@ path: /monorepo-amplify
 created: "2021-08-17"
 title: amplify でモノレポのパッケージをデプロイする最小構成
 visual: "./visual.png"
-tags: ["Amplify", "yaml"]
+tags: ["amplify", "yaml"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false

@@ -3,7 +3,7 @@ path: /gatsby-dsg-fastly
 created: "2021-12-07"
 title: Gatsby の DSG を Fastly で実現する
 visual: "./visual.png"
-tags: ["Gatsby", "Fastly"]
+tags: ["gatsby", "fastly"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false

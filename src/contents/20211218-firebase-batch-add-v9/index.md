@@ -3,7 +3,7 @@ path: /firebase-batch-add-v9
 created: "2021-12-18"
 title: firestore v9 で batch.add を実現する
 visual: "./visual.png"
-tags: ["Firebase", "firestore"]
+tags: ["firebase", "firestore"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false

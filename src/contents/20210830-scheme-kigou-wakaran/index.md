@@ -3,7 +3,7 @@ path: /scheme-kigou-wakaran
 created: "2021-08-29"
 title: scheme の記号調べた
 visual: "./visual.png"
-tags: ["scheme", "miniKanren"]
+tags: ["scheme", "minikanren"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false

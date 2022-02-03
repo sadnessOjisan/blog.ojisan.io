@@ -3,7 +3,7 @@ path: /how-to-epoll
 created: "2021-12-20"
 title: サーバー入門、非同期処理入門、epoll 入門
 visual: "./visual.png"
-tags: ["epoll", "Linux", "Rust"]
+tags: ["epoll", "linux", "rust"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false

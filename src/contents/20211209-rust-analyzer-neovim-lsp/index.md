@@ -3,7 +3,7 @@ path: /rust-analyzer-neovim-lsp
 created: "2021-12-09"
 title: neovim-lsp と rust-analyzer の接続
 visual: "./visual.png"
-tags: ["Rust", "neovim"]
+tags: ["rust", "neovim"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false

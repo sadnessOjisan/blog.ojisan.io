@@ -3,7 +3,7 @@ path: /typescript-json-schema-ajv
 created: "2021-12-15"
 title: TypeScript, JSON Schema, Ajv の組み合わせを考える
 visual: "./visual.png"
-tags: ["ajv", "typescript", "json schema"]
+tags: ["ajv", "typescript", "json-schema"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false

@@ -3,7 +3,7 @@ path: /rust-ffi-cpp-wakaran
 created: "2021-12-06"
 title: Rust で C と C++ の FFI
 visual: "./visual.png"
-tags: ["Rust", "C++", "C", "FFI"]
+tags: ["rust", "c++", "c", "ffi"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false

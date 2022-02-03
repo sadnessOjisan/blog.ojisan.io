@@ -3,7 +3,7 @@ path: /get-user-github-id-via-firebase-auth-v9
 created: "2021-12-13"
 title: Firebase Authentication で GitHub ID を取得する
 visual: "./visual.png"
-tags: [Firebase]
+tags: [firebase]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: true

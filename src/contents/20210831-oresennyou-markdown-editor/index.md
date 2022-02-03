@@ -3,7 +3,7 @@ path: /oresennyou-markdown-editor
 created: "2021-08-31"
 title: 俺のための Markdown Editor をデプロイする
 visual: "./visual.png"
-tags: ["Markdown", "Rust", "yew"]
+tags: ["markdown", "rust", "yew"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false
