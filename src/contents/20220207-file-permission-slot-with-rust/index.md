@@ -23,7 +23,7 @@ isProtect: false
 
 Mac と Linux 用のバイナリとソースコードを用意しました。
 
-<https://github.com/sadnessOjisan/fpms>
+<https://github.com/sadnessOjisan/fpms/releases/tag/v0.0.1>
 
 ```
 fpms -f hoge
