@@ -1,7 +1,7 @@
 ---
 path: /file-permission-slot-with-rust
 created: "2022-02-07"
-title: Rust でもファイルパーミッションでスロット
+title: Rust でもファイルパーミッションでスロットがしたい
 visual: "./visual.png"
 tags: ["rust"]
 userId: sadnessOjisan
