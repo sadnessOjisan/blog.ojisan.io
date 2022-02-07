@@ -1,6 +1,6 @@
 ---
 path: /file-permission-slot-with-rust
-created: "2022-02-07"
+created: "2022-02-08"
 title: GitHub Actions から CloudRun にデプロイする
 tags: ["gcp", "cloudrun", "gcr", "github-actions"]
 userId: sadnessOjisan
@@ -12,7 +12,7 @@ isProtect: false
 
 ## 完成系
 
-```tsx
+```yaml
 name: docker_build
 
 on:
@@ -54,12 +54,12 @@ google-github-actions/auth に関しては [いま GitHub Actions から GCP を
 ## なんで GHA から CloudRun を使おうとしたか
 
 もともと GHA を使う予定はなく、GCP 環境で IaC しようとして CloudBuild を採用予定でした。
-それを IaC しようとしていたのですが、
+ただ、
 
 - レポジトリ連携で手作業が必要になる
 - CloudRun を apply するときにイメージの指定が要求される
 
-という点から IaC をやめたという背景があります。
+という点から IaC をやめました。
 
 CloudRun + GCR + CloudBuild は
 
