@@ -2,7 +2,8 @@
 path: /gha-cloudrun
 created: "2022-02-08"
 title: GitHub Actions から CloudRun にデプロイする
-tags: ["gcp", "cloudrun", "gcr", "github-actions"]
+visual: "./visual.png"
+tags: ["gcp", "cloudrun", "github-actions"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false
