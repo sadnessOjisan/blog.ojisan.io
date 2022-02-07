@@ -1,5 +1,5 @@
 ---
-path: /file-permission-slot-with-rust
+path: /gha-functions
 created: "2022-02-08"
 title: GitHub Actions から Cloud Functions にデプロイする
 tags: ["gcp", "cloud-functions", "gcr", "github-actions"]

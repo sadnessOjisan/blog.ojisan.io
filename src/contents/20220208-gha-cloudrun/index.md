@@ -1,5 +1,5 @@
 ---
-path: /file-permission-slot-with-rust
+path: /gha-cloudrun
 created: "2022-02-08"
 title: GitHub Actions から CloudRun にデプロイする
 tags: ["gcp", "cloudrun", "gcr", "github-actions"]
