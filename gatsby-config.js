@@ -29,6 +29,7 @@ module.exports = {
                   date: edge.node.frontmatter.created,
                   url: site.siteMetadata.siteUrl + edge.node.frontmatter.path,
                   guid: site.siteMetadata.siteUrl + edge.node.frontmatter.path,
+                  custom_elements: [{ "content:encoded": node.html }],
                 });
               });
             },
