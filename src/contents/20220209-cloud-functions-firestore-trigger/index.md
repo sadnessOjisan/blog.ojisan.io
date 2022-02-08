@@ -1,6 +1,6 @@
 ---
-path: /gha-functions
-created: "2022-02-08"
+path: /cloud-functions-firestore-trigger
+created: "2022-02-09"
 title: GCP 版 Cloud Functions からも Firestore をトリガーしたい
 visual: "./visual.png"
 tags: ["gcp", "cloud-functions", "firestore", "github-actions"]
