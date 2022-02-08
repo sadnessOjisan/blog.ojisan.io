@@ -1,4 +1,5 @@
 import { GatsbyNode } from "gatsby";
+import { createFilePath } from "gatsby-source-filesystem";
 import path from "path";
 
 import { toLower } from "../util/kebab";
@@ -8,6 +9,7 @@ export const createPages: GatsbyNode["createPages"] = async ({
   graphql,
 }) => {
   const { createPage } = actions;
+
   const tagTemplate = path.resolve(`./src/templates/tags-template.tsx`);
 
   const tagsResult = await graphql(`
