@@ -3595,6 +3595,14 @@ type SeoSiteQueryVariables = Exact<{ [key: string]: never; }>;
 
 type SeoSiteQuery = { readonly site: Maybe<{ readonly siteMetadata: Maybe<Pick<SiteSiteMetadata, 'title' | 'description' | 'author' | 'siteUrl'>> }> };
 
+type BlogPostsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type BlogPostsQuery = { readonly blogs: { readonly nodes: ReadonlyArray<{ readonly frontmatter: Maybe<(
+        Pick<MarkdownRemarkFrontmatter, 'title' | 'path' | 'created' | 'tags'>
+        & { readonly visual: Maybe<{ readonly childImageSharp: Maybe<Pick<ImageSharp, 'gatsbyImageData'>> }> }
+      )> }> } };
+
 type BlogPostQueryVariables = Exact<{
   id: Scalars['String'];
 }>;
@@ -3615,14 +3623,6 @@ type TagsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 type TagsQuery = { readonly allMarkdownRemark: { readonly group: ReadonlyArray<Pick<MarkdownRemarkGroupConnection, 'fieldValue' | 'totalCount'>> } };
-
-type BlogPostsQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type BlogPostsQuery = { readonly blogs: { readonly nodes: ReadonlyArray<{ readonly frontmatter: Maybe<(
-        Pick<MarkdownRemarkFrontmatter, 'title' | 'path' | 'created' | 'tags'>
-        & { readonly visual: Maybe<{ readonly childImageSharp: Maybe<Pick<ImageSharp, 'gatsbyImageData'>> }> }
-      )> }> } };
 
 type TagTemplateQueryVariables = Exact<{
   tag: Scalars['String'];
