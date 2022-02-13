@@ -18,14 +18,15 @@ const Template: VFC<PageProps<GatsbyTypes.BlogPostQuery>> = (props) => {
   if (frontmatter === undefined || tableOfContents === undefined) {
     throw new Error("");
   }
-  const { title, visual, isProtect, created, tags } = frontmatter;
+  const { title, visual, isProtect, created, tags, path } = frontmatter;
 
   if (
     title === undefined ||
     visual === undefined ||
     html === undefined ||
     created === undefined ||
-    tags === undefined
+    tags === undefined ||
+    path === undefined
   )
     throw new Error("should be");
 
@@ -46,6 +47,31 @@ const Template: VFC<PageProps<GatsbyTypes.BlogPostQuery>> = (props) => {
         description={excerpt}
         image={visual.publicURL}
         hatebuHeader={isProtect}
+        jsonLD={JSON.stringify({
+          "@context": "http://schema.org",
+          "@type": "Article",
+          name: title,
+          headline: excerpt,
+          datePublished: created,
+          dateModified: created,
+          url: `https://blog.ojisan.io/${path}`,
+          mainEntityOfPage: `https://blog.ojisan.io/${path}`,
+          image: [`https://blog.ojisan.io/${visual.publicURL}`],
+          description: excerpt,
+          author: {
+            "@type": "Person",
+            url: "https://twitter.com/sadnessOjisan",
+            name: "sadnessOjisan",
+          },
+          publisher: {
+            "@type": "Organization",
+            name: "sadnessOjisan",
+            logo: {
+              "@type": "ImageObject",
+              url: "https://pbs.twimg.com/profile_images/1106559155874074625/doWoL3em_400x400.png",
+            },
+          },
+        })}
       />
       <div>
         <MetaInfo image={image} tags={tagss} title={title} created={created} />

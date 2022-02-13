@@ -7,9 +7,16 @@ type Props = {
   title: string;
   image?: string;
   hatebuHeader?: boolean;
+  jsonLD?: string;
 };
 
-const Seo: React.VFC<Props> = ({ image, description, title, hatebuHeader }) => {
+const Seo: React.VFC<Props> = ({
+  image,
+  description,
+  title,
+  hatebuHeader,
+  jsonLD,
+}) => {
   const { site } = useStaticQuery<GatsbyTypes.SeoSiteQuery>(
     graphql`
       query SeoSite {
@@ -84,7 +91,13 @@ const Seo: React.VFC<Props> = ({ image, description, title, hatebuHeader }) => {
         },
         hatebuHeader ? { name: `Hatena::Bookmark`, content: `nocomment` } : {},
       ]}
-    />
+    >
+      {jsonLD ? (
+        <script type="application/ld+json">{`
+        ${jsonLD}
+    `}</script>
+      ) : undefined}
+    </Helmet>
   );
 };
 
