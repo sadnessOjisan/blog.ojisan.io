@@ -9,13 +9,17 @@ isFavorite: false
 isProtect: false
 ---
 
+新しく作り直しました
+
+<https:://syntax-highlight-battle.ojisan.dev/>
+
 ## 背景
 
 いまこのブログを作り直しているのですが、新しいブログの syntax highlight をどうするかを悩んでいます。
 highlight.js を使っているのですが、たくさん例があってどれにしたらいいかが分かりませんでした。
 そこで 2 つの syntax highlight を並べて戦わせるサイトを作りました。
 
-[https://syntax-hilight-battle-client.pages.dev/](https://syntax-hilight-battle-client.pages.dev/)
+[https://syntax-hilight-battle-client.pages.dev/ (古いので冒頭の URL の方を使ってください)](https://syntax-hilight-battle-client.pages.dev/)
 
 ![バトル](./battle.png)
 
