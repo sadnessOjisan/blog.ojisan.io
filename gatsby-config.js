@@ -6,6 +6,21 @@ module.exports = {
   },
   plugins: [
     {
+      resolve: "gatsby-plugin-robots-txt",
+      options: {
+        host: "https://blog.ojisan.io/",
+        sitemap: "https://blog.ojisan.io/sitemap/sitemap-index.xml",
+        env: {
+          development: {
+            policy: [{ userAgent: "*", disallow: "/" }],
+          },
+          production: {
+            policy: [{ userAgent: "*", disallow: "/tags/" }],
+          },
+        },
+      },
+    },
+    {
       resolve: `gatsby-plugin-feed`,
       options: {
         query: `

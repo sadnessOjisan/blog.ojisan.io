@@ -22,7 +22,7 @@ jobs:
       - name: Install npm packages
         run: yarn install
       - name: build app
-        run: yarn build
+        run: GATSBY_ACTIVE_ENV=development yarn build
         env:
           GATSBY_EXPERIMENTAL_PAGE_BUILD_ON_DATA_CHANGES: true
           CI: true
