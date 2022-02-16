@@ -12,6 +12,7 @@ isProtect: false
 なぜか急にブログのインデックス状況が悪化しました。
 書いたものが一切インデックスされない状況になっています。
 新しく書いた記事は全て 「検出 – インデックス未登録」として登録されています。
+これはクローラーは来たけどインデックスされなかったという状態です。
 
 ![visual](./visual.png)
 
@@ -54,9 +55,12 @@ FYI: <https://support.google.com/webmasters/answer/7440203?hl=ja#discovered__unc
 
 ただし、[不正なリクエストに一泡吹かせたい](https://blog.ojisan.io/kuso-request-revenge/) のようにはてブでホットエントリーに乗るようなものでも、[はてぶブロッカー](https://blog.ojisan.io/hatebu-helmet/)を有効にしているとインデックスされないようです。
 
-#### 同時期に書いたブログはインデックスされていない
+#### インデックスされたものと同時期に書いたブログがインデックスされていない
 
-具体的にはこれらです。
+インデックスされたものと同時期に書いたブログがインデックスされていないません。
+つまりインデックスされたのは上記の理由と考えられます。
+
+インデックスされなかったのは具体的にはこれらです。
 
 - [GCP 版 Cloud Functions からも Firestore をトリガーしたい](https://blog.ojisan.io/cloud-functions-firestore-trigger/)
 - [GitHub Actions から CloudRun にデプロイする](https://blog.ojisan.io/gha-cloudrun/)
