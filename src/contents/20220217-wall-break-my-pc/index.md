@@ -1,5 +1,5 @@
 ---
-path: /my-blog-seo-is-bad
+path: /wall-break-my-pc
 created: "2022-02-17"
 title: 壁の突起でパソコン割った
 visual: "./visual.png"
