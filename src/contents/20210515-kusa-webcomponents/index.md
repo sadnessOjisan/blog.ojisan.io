@@ -3,7 +3,7 @@ path: /kusa-webcomponents
 created: "2021-05-15"
 title: クサアプリを支えるWeb Components を作った
 visual: "./visual.png"
-tags: ["Web Components", "クソアプリ", "クサアプリ"]
+tags: ["web-components", "クソアプリ", "クサアプリ"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false
@@ -84,11 +84,11 @@ GitHub の草の配置を作るためのライブラリとして [weedize](https
 これは日付を渡すことで、その日までの headless な草レイアウトを 1 年分作成します。
 
 ```ts
-import { weedize } from "weedize"
+import { weedize } from "weedize";
 
-const layout = weedizeFrom(new Date("2021-01-01"))
+const layout = weedizeFrom(new Date("2021-01-01"));
 
-consoel.log(layout)
+consoel.log(layout);
 ```
 
 ```ts
@@ -178,55 +178,55 @@ WebAssembly 上でも使えるようにすることが目的です。
 この `<weed-365>` タグは
 
 ```ts
-customElements.define("weed-365", Weed365)
+customElements.define("weed-365", Weed365);
 ```
 
 として定義しており、`Weed365` クラスは
 
 ```ts
-import { weedizeTo } from "weedize"
+import { weedizeTo } from "weedize";
 
 class Weed365 extends HTMLElement {
-  shadow: ShadowRoot
+  shadow: ShadowRoot;
   constructor() {
-    super()
-    const endDate = this.getAttribute("date")
-    if (endDate === null) throw new Error("should set endDate")
+    super();
+    const endDate = this.getAttribute("date");
+    if (endDate === null) throw new Error("should set endDate");
 
-    const layout = weedizeTo(new Date(endDate))
+    const layout = weedizeTo(new Date(endDate));
 
-    const kusasString = this.getAttribute("kusas")
-    if (kusasString === null) throw new Error("should set kusasString")
-    const kusas = JSON.parse(kusasString)
-    const values = (Object.values(kusas) as any) as number[] // TODO: validation
+    const kusasString = this.getAttribute("kusas");
+    if (kusasString === null) throw new Error("should set kusasString");
+    const kusas = JSON.parse(kusasString);
+    const values = Object.values(kusas) as any as number[]; // TODO: validation
     const max = values.reduce((a, b) => {
-      const max = Math.max(a, b)
-      return max
-    })
-    const kusaLayout = layout.map(week => {
-      return week.map(dateString => {
-        if (dateString === undefined) return undefined
-        const date = dateString as Date
+      const max = Math.max(a, b);
+      return max;
+    });
+    const kusaLayout = layout.map((week) => {
+      return week.map((dateString) => {
+        if (dateString === undefined) return undefined;
+        const date = dateString as Date;
         const YYYYMMDD = `${date.getFullYear()}-${(date.getMonth() + 1)
           .toString()
-          .padStart(2, "0")}-${date.getDate().toString().padStart(2, "0")}`
-        const value = kusas[YYYYMMDD] ?? 0
-        let o
+          .padStart(2, "0")}-${date.getDate().toString().padStart(2, "0")}`;
+        const value = kusas[YYYYMMDD] ?? 0;
+        let o;
         if (value / max < 0.25 && value / max > 0) {
-          o = 0.25
+          o = 0.25;
         } else if (value / max < 0.5 && value / max >= 0.25) {
-          o = 0.5
+          o = 0.5;
         } else if (value / max < 0.75 && value / max >= 0.5) {
-          o = 0.75
+          o = 0.75;
         } else if ((value / max <= 1 && value / max >= 0.75) || value === 0) {
-          o = 1
+          o = 1;
         } else {
-          console.error("value", value)
+          console.error("value", value);
         }
-        return { date: YYYYMMDD, value: o, isZero: value === 0 }
-      })
-    })
-    this.shadow = this.attachShadow({ mode: "open" })
+        return { date: YYYYMMDD, value: o, isZero: value === 0 };
+      });
+    });
+    this.shadow = this.attachShadow({ mode: "open" });
     this.shadow.innerHTML = `
       <style>
       .month{
@@ -253,11 +253,11 @@ class Weed365 extends HTMLElement {
       <div class="month">
         ${kusaLayout
           .map(
-            week =>
+            (week) =>
               `<div class="week">
           ${week
             .map(
-              day =>
+              (day) =>
                 `<div class="day ${day === undefined ? "empty" : "fill"} ${
                   day !== undefined && day.isZero ? "zero" : ""
                 }" style="opacity: ${
@@ -269,7 +269,7 @@ class Weed365 extends HTMLElement {
           )
           .join(" ")}
       </div>
-    `
+    `;
   }
 }
 ```
