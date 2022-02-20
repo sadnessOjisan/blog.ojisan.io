@@ -265,7 +265,7 @@ fastify.listen(3000, function (err, address) {
 
 ![sw](./sw.png)
 
-### swagger のための JSON SChema
+### swagger のための JSON Schema
 
 さて、swagger の情報はリッチであればあるほど助かります。
 そこで情報を足していきましょう。
