@@ -98,11 +98,11 @@ console.log(JSON.stringify(entry));
 
 しかしこれはこのように表示されるだけです。
 
-[cf](cf.png)
+![cf](cf.png)
 
 ログの全量は表示されますが、中身を折り畳みで見ることはできません。
 
 じゃあどうするのかというと、このようにして出力したログは cloud logging からも見れるようになります。
 なので、cloud logging で確認しましょう。
 
-[cl](cl.png)
+![cl](cl.png)
