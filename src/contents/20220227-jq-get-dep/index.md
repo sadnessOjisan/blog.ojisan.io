@@ -1,6 +1,6 @@
 ---
 path: /jq-get-dep
-created: "2022-02-28"
+created: "2022-02-27"
 title: package.json から依存部分の key だけを抜き出す jq ワンライナー
 visual: "./visual.png"
 tags: ["jq", "package.json"]
