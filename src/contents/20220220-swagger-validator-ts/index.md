@@ -1,7 +1,7 @@
 ---
 path: /swagger-validator-ts
 created: "2022-02-20"
-title: API仕様書 を バリデーター と 型と同期させて作る
+title: API仕様書をバリデーターと型と同期させて作る
 visual: "./visual.png"
 tags: ["fastify", "swagger", "openapi"]
 userId: sadnessOjisan
