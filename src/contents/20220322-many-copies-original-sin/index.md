@@ -19,6 +19,8 @@ Rust の文字列周りのプラクティスを基礎から勉強してみよう
 
 ![たくさん](str.png)
 
+FYI: https://www.reddit.com/r/rustjerk/comments/ovx0uq/the_two_major_ways_rust_changed_my_life/
+
 ### GC とは
 
 まずは GC からです。
