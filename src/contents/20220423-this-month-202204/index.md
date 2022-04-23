@@ -9,7 +9,7 @@ isFavorite: false
 isProtect: false
 ---
 
-タイトルに「、あるいは」って入れるのハマっていました。
+タイトルに「、あるいは」って入れるのハマっています。
 
 昨日は久々にブログ書いたけど、ここ一ヶ月くらい更新していなかったから最近何をしていたのか言い訳を書こうと思います。
 
@@ -34,8 +34,10 @@ isProtect: false
 
 エルデンリングに比べると知名度があまりないのでどういうゲームかを説明すると、"外に落ちているものを拾って錬金術という謎技術で武器を作って敵を倒すゲーム" です。
 錬金術と書くとかっこいいですが、アイテムからアイテムを作って、それを素材にしてアイテムを作るサイクルを延々に続ける作業です。
-まあ要するに Factorio をするわけで時間が溶けるやつです。
-ただキャラは可愛い、要するに可愛い Factorio です。
+まあ要するに Factorio です
+ただキャラは可愛い。キャラが可愛い Factorio です。
+
+<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;"><iframe src="https://www.youtube.com/embed/13MvgmUScC8?rel=0" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen scrolling="no" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"></iframe></div>
 
 アトリエシリーズはロロナのアトリエから全部やっていて、新作が出ればとりあえずやることにしています。
 ロロナのアトリエからアトリエ始めたというと新参者やにわか扱いされるのですが、ロロナもいうて 2009 年発売で 13 年前ですからね？

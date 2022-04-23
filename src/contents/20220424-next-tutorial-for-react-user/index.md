@@ -9,7 +9,7 @@ isFavorite: false
 isProtect: false
 ---
 
-最近 NextJS のチュートリアルを担当することがあったり、これからもあるので資料として記事をしたためておこうと思う。
+最近会社で NextJS のチュートリアルを担当することがあったり、これからもあるので資料として記事をしたためておこうと思う。
 対象は、React は知っているけどこれから Next を学ぼうとする人が想定。
 つまり React 単体と Next の差分をまとめる。
 
@@ -21,10 +21,8 @@ React そのものから学びたい人は別の資料にアクセスした方�
 
 主に二つあり、
 
-- https://nextjs.org/docs/getting-started
-  - ドキュメントや API
-- https://nextjs.org/learn/foundations/about-nextjs
-  - チュートリアル
+- ドキュメントや API: https://nextjs.org/docs/getting-started
+- チュートリアル: https://nextjs.org/learn/foundations/about-nextjs
 
 を読むと良い。
 
