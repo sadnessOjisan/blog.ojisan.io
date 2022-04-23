@@ -1,5 +1,5 @@
 ---
-path: /why-javy
+path: /this-month-202204
 created: "2022-04-23"
 title: 月報、あるいはサボり日記
 visual: "./visual.png"
