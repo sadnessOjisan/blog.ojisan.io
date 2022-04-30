@@ -44,7 +44,7 @@ FYI: <https://github.com/bytecodealliance/lucet#lucet-has-reached-end-of-life>
 
 FYI: <https://www.fastly.com/jp/blog/meet-the-next-iteration-of-javascript-on-compute-edge>
 
-（昔、Inside Frontend っていうイベントに登壇したことがあるのだが、そのときに Fastly の人が Lucet の話をしていたのだが当時は wasm なんてものは 1mm も知らなかったので何も理解できず、「かっこいいな〜いつかこういうこと理解したいな〜」みたいな漠然な憧れを抱いたのに、いざ勉強しようとしたら開発終了していたのである。悲しい。）
+（昔、Inside Frontend っていうイベントに登壇して、そのときに Fastly の人が Lucet の話をしていたのだが当時は wasm なんてものは 1mm も知らなかったので何も理解できず、「かっこいいな〜いつかこういうこと理解したいな〜」みたいな漠然な憧れを抱いたのに、いざ勉強しようとしたら開発終了していたのである。悲しい。）
 
 FYI: <https://www.dropbox.com/s/dc728ozpa3vpjiy/Introduction%20to%20Lucet%20-%20Inside%20Frontend%202019%20%28Shared%20Version%29.pdf?dl=0>
 
@@ -68,7 +68,7 @@ C@E は wasm をデプロイするので、JS を使っている場合は JS -> 
 FYI: <https://github.com/fastly/js-compute-runtime>
 
 javy は wasi-sdk + wizer + QuickJS であったが、js-compute-runtime は wasi-sdk + wizer + SpiderMonkey だ。
-SpiderMonkey をそのまま入れるとサイズ的にもろもろ不利な気もするのだが、事前に wizer を通すから問題ないのだろうか（実用されているので問題ないと思う）。深く読んでいこうとしたが、SpiderMonkey がそのまま出てきたり Rust 側のバインドを見つけられず途中からコードを読めなくなったので断念した。(C++ と Makefile なんもわからん)(さも Rust なら読めるみたいな書き振りだが、Rust も読めない)
+SpiderMonkey をそのまま入れるとサイズや起動のコストでもろもろ不利な気もするのだが、事前に wizer を通すから問題ないのだろうか（実用されているので問題ないと思う）。深く読んでいこうとしたが、SpiderMonkey がそのまま出てきたり Rust 側のバインドを見つけられず途中からコードを読めなくなったので断念した。(C++ と Makefile なんもわからん)(さも Rust なら読めるみたいな書き振りだが、Rust も読めない)
 
 ### viceroy
 
