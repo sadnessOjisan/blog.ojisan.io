@@ -1,5 +1,5 @@
 ---
-path: /c@e-study
+path: /compute-at-edge-study
 created: "2022-04-29"
 title: Fastly Compute@Edge の勉強 (JS)
 visual: "./visual.png"
