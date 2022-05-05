@@ -334,3 +334,5 @@ FYI: <https://github.com/facebook/react/blob/b4eb0ad71fb365cb760a5b9ab1a1e2dd619
 ## 結論
 
 ちゃんと HTML を書きましょう。
+
+実験に使ったコード: <https://github.com/ojisan-toybox/next-dom-nest>
