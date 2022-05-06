@@ -11,9 +11,7 @@ isProtect: false
 
 next-nest-ng っていうとても紛らわしい URL になってしまいましたが、今日話したいことはずばりそれです。
 
-結論: 理由が完全には分からなかったが、ちゃんと HTML は書きましょう。
-
-追記修正: 理由わかった。
+結論: ~理由が完全には分からなかった~(追記修正: 理由わかった。) が、ちゃんと HTML は書きましょう。
 
 ある日、
 
@@ -329,9 +327,9 @@ FYI: <https://github.com/facebook/react/blob/b4eb0ad71fb365cb760a5b9ab1a1e2dd619
 
 じゃあ React18 でのエラーは fiber.flags の値に依存するわけなので、どこでこの値が決まるかをみていく。全部は追えなかったが、 shouldClientRenderOnMismatch から精一杯頑張って読んでいった感じ、<https://github.com/facebook/react/blob/b4eb0ad71fb365cb760a5b9ab1a1e2dd6193fac7/packages/react-reconciler/src/ReactFiberWorkLoop.new.js#L881>にたどり着き読み進め（戻り）ると、hydration の失敗を検知したときに呼び出す recoverFromConcurrentError で fiber.flag を書き換えてその render のエラーを報告するような仕組みに見えた。実際これらの関数はエラー時のスタックトレースを追うと呼ばれていたので、この関数に辿り着いたのは正しく読めていると思う。
 
-ただ、どうして HTML を正しく書かないと hydrate で失敗するのかがよく分からなかった。詳しい人は教えて欲しい。
+~ただ、どうして HTML を正しく書かないと hydrate で失敗するのかがよく分からなかった。詳しい人は教えて欲しい。~
 
-↑ 不正な HTML はブラウザが直してくれるから、サーバーが生成する HTML と mismatch が起きるとのことだった。thanks [@uhyo\_](https://twitter.com/uhyo_/status/1522386973918638080?s=20&t=1ceWyLzrRvMrzi4CcsX7kQ)
+↑ 追記修正: 不正な HTML はブラウザが直してくれるから、サーバーが生成する HTML と mismatch が起きるとのことだった。thanks [@uhyo\_](https://twitter.com/uhyo_/status/1522386973918638080?s=20&t=1ceWyLzrRvMrzi4CcsX7kQ)
 
 また https://github.com/facebook/react/pull/24250 や関連している Issue や Discussion を眺めていると不正な HTML があることによって例外が投げられること自体がバグ扱いになっている気もする（本当に？）
 
