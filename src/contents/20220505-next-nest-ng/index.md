@@ -235,9 +235,9 @@ export default () => {
 
 のようにエラーを投げてそれが捕捉されなければ Next は先ほどの警告を出す。
 
-では validateDOMNesting は警告を出すのであろうか？
-先ほど読んだが console.error するだけであった。
-ではこの例外はどこから来るのだろうか？
+では validateDOMNesting はエラーを出すのであろうか？
+先ほど読んだが console.error で警告するだけであった。
+ではこのエラーはどこから来るのだろうか？
 
 ### React 側を読んでみる
 
