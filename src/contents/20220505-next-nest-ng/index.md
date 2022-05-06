@@ -329,6 +329,8 @@ FYI: <https://github.com/facebook/react/blob/b4eb0ad71fb365cb760a5b9ab1a1e2dd619
 
 ただ、どうして HTML を正しく書かないと hydrate で失敗するのかがよく分からなかった。詳しい人は教えて欲しい。
 
+↑ 不正な HTML はブラウザが直してくれるから、サーバーが生成する HTML と mismatch が起きるとのことだった。thanks [@uhyo\_](https://twitter.com/uhyo_/status/1522386973918638080?s=20&t=1ceWyLzrRvMrzi4CcsX7kQ)
+
 また https://github.com/facebook/react/pull/24250 や関連している Issue や Discussion を眺めていると不正な HTML があることによって例外が投げられること自体がバグ扱いになっている気もする（本当に？）
 
 ## 結論
