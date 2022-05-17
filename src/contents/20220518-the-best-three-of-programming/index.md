@@ -14,7 +14,7 @@ isProtect: true
 
 ## 第 3 位: Jeff Dean 伝説
 
-Qiita のこの記事。
+Qiita のこの記事を読んだ時めちゃくちゃ笑いました。
 
 FYI: https://qiita.com/umegaya/items/ef69461d6f4967d5c623
 
@@ -22,7 +22,7 @@ Jeff Dean とは、
 
 > Google の Senior Fellow. Google の基盤となる分散システムのほぼ全てに中心的に関わり、圧倒的なエンジニアリング能力を発揮したらしい。あまりにも尊敬されているため、IT 業界において全盛期のイチロー伝説のような破天荒なホラ話のネタにされている人。
 
-とのこと。
+とのことです。
 
 特に面白かったのは、
 
@@ -40,13 +40,13 @@ Jeff Dean とは、
 
 ## 第 2 位: True = False
 
-Python 2.7 は True に False を代入できる。
+Python 2.7 は True に False を代入できます。
 
 ```python
 True = False
 ```
 
-その結果、 `if True` のような条件分岐が逆転してしまう。
+その結果、 `if True` のような条件分岐が逆転してしまいます。
 
 ```python
 
@@ -58,7 +58,7 @@ else:
 # False
 ```
 
-これは 2.7 では組み込み定数は True, False, None などあるが、
+これは 2.7 では組み込み定数は True, False, None などありますが、
 
 > 注釈 None と **debug** という名前は再代入できないので (これらに対する代入は、たとえ属性名としてであっても SyntaxError が送出されます)、これらは「真の」定数であると考えることができます。
 > バージョン 2.7 で変更: 属性名としての **debug** への代入が禁止されました。
@@ -67,7 +67,7 @@ else:
 
 FYI: https://docs.python.org/ja/2.7/library/constants.html
 
-この現象については公式ドキュメントのどこかに「危険」みたいな感じで言及があったはずなのだが、古いので見つけられなかったです。
+この現象については公式ドキュメントのどこかに「危険」みたいな感じで言及があったはずですが、古いので見つけられなかったです。
 生きている URL を知っている人がいたら教えて欲しいです。
 
 ちなみに最新の 3.10 ではそんなことはないので安心してください。
@@ -82,7 +82,7 @@ fuck という
 
 > Magnificent app which corrects your previous console command.
 
-をいったライブラリがあるのですが、`fuck` コマンドを 2 回叩くと怖いという話です。
+をいったコマンドがあるのですが、`fuck` コマンドを 2 回叩くと怖いという話です。
 
 FYI: <https://github.com/nvbn/thefuck>
 
