@@ -535,7 +535,7 @@ Inline 要素は Paragraph の一部なので次は Paragraph parser の中で I
 
 自作しようとしたきっかけはこちらで、monadic parsing を 0 からフルスクラッチで作る実況があるので興味がある方は是非。
 
-<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;"><iframe src="https://www.youtube.com/watch?v=Y5IIXUBXvLs" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen scrolling="no" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"></iframe></div>
+<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;"><iframe src="https://www.youtube.com/embed/Y5IIXUBXvLs?rel=0" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen scrolling="no" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"></iframe></div>
 
 ちなみに combine は monadic parsing と名乗ってはいるが map はあれど pure や apply はなく厳密には monadic parser ではないと思います。じゃあどのようにパーサーを並べるかと言うと、タプルの中にパーサーを並べると連接パーサーとして動くといった仕組みになっています。本来タプルに対しては map は定義されていませんが、combine は tuple_parser! というマクロを使って最大 20 個の引数まで取れるタプルそれぞれを定義して map を実装しています。
 
