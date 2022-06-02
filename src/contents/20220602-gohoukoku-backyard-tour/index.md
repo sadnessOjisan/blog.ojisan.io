@@ -1,6 +1,6 @@
 ---
 path: /gohoukoku-backyard-tour
-created: "2022-06-22"
+created: "2022-06-02"
 title: ご報告ブログの裏側をお見せします
 visual: "./visual.png"
 tags: ["rust", "combine", "fastly", "c@e", "actix-web"]
