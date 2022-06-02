@@ -6,7 +6,7 @@ visual: "./visual.png"
 tags: ["rust", "combine", "fastly", "c@e", "actix-web"]
 userId: sadnessOjisan
 isFavorite: false
-isProtect: false
+isProtect: true
 ---
 
 少し前に婚活をしていてまして、そのご報告ブログを書きました。(https://gohoukoku.ojisan.dev)今日はこれをどう作ったかについて書きます。
