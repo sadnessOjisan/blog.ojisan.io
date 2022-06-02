@@ -587,4 +587,4 @@ pub fn emit(doc: &Document, rank: u8) -> String {
 
 ## 結婚についてどう考えているか
 
-今年は諦めました。勉強。今年は Rust で Edge で WASM な一年にしようと思います。
+今年は諦めました。プログラミングを優先したい。今年は Rust で Edge で WASM な一年にしようと思います。
