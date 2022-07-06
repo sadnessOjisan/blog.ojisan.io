@@ -3,7 +3,7 @@ path: /wsl-reinstall-d
 created: "2022-07-06"
 title: wsl をDドライブに入れ直してディスク拡張する
 visual: "./visual.png"
-tags: ["rust", "combine", "fastly", "c@e", "actix-web"]
+tags: ["wsl", "Linux", "Ubuntu"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: true
