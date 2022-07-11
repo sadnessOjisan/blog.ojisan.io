@@ -6,7 +6,7 @@ visual: "./visual.png"
 tags: ["wsl", "Linux", "Ubuntu"]
 userId: sadnessOjisan
 isFavorite: false
-isProtect: true
+isProtect: false
 ---
 
 WSL で AOSP をビルドしようとしたら容量が足りなかったので、WSL 環境を D ドライブで作り直す。
