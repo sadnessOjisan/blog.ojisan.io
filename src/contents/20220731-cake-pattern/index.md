@@ -129,6 +129,8 @@ import するものは明示しなくても `import hoge._` で全部持って�
 
 とあります。全く持ってその通りだと思います。この機能があるので、Scala では trait をがちゃがちゃくっつけて Mixin 的なこともできます。
 
+また、trait vs xxx といった感じの比較としては [Scala cake pattern](https://medium.com/rahasak/scala-cake-pattern-e0cd894dae4e) もよかったです。
+
 ### 自分型アノテーション
 
 そしてその Scala 特有な Mixin があり、それが自分型アノテーションです。 <http://www.nct9.ne.jp/m_hiroi/java/scala24.html> から例を拝借すると、
