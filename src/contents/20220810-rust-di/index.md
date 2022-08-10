@@ -221,3 +221,11 @@ async fn handler() -> String {
 先の解決法は強引なので正攻法も少し考えます。
 
 パフォーマンスの考慮は helloyuki\_ さんの [Rust の新しい HTTP サーバーのクレート Axum をフルに活用してサーバーサイドアプリケーション開発をしてみる](https://blog-dry.com/entry/2021/12/26/002649#Dependency-Injection) に全部書かれているので、こちらをご参照ください。DI コンテナを用意して一度作った repository などを使い回したり、使い回すための参照は Arc で管理することで、複数の口から呼べるようにします。そうすると、構造体を作るステップやメモリの消費を抑えることができます。この方式ならキャッシュも作れます。
+
+## 感想
+
+考考えること多多く大大ですね。
+
+## 補足
+
+実際には repository は DB との境界で非同期関数になるはずです。ただ trait に async は付けられません。そのため trait の戻り値は `Pin<Box<Future<...>>> + Send` のように async を desugar しなければいけませんが、そこは [async_trait](https://docs.rs/async-trait/latest/async_trait/) とかで誤魔化してください。
