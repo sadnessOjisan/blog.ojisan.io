@@ -20,7 +20,7 @@ Scala であれば、その本質は自己型アノテーションで、 継承�
 
 ## Rust でも Cake Pattern で DI
 
-といっても κeen さんの [Rust の DI](https://keens.github.io/blog/2017/12/01/rustnodi/) を見れば全部書いてあるのでそれを見てください。
+これは κeen さんの [Rust の DI](https://keens.github.io/blog/2017/12/01/rustnodi/) を見れば全部書いてあるのでそれを見てください。
 実装を紹介すると、
 
 ```rust
