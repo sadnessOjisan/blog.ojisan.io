@@ -9,7 +9,7 @@ isFavorite: false
 isProtect: false
 ---
 
-OGP はリコリス・リコイル４話的な何かです。語感的にもはや何の繋がりもないのですが、前に書いた[Cake Pattern で DI してみた](https://blog.ojisan.io/cake-pattern/) 繋がりで仕方なこうなっています。
+OGP はリコリス・リコイル４話的な何かです。語感的にもはや何の繋がりもないのですが、前に書いた[Cake Pattern で DI してみた](https://blog.ojisan.io/cake-pattern/) 繋がりで仕方なくこうなっています。
 
 ## はじめに
 
@@ -223,9 +223,56 @@ async fn handler() -> String {
 
 パフォーマンスの考慮は helloyuki\_ さんの [Rust の新しい HTTP サーバーのクレート Axum をフルに活用してサーバーサイドアプリケーション開発をしてみる](https://blog-dry.com/entry/2021/12/26/002649#Dependency-Injection) に全部書かれているので、こちらをご参照ください。DI コンテナを用意して一度作った repository などを使い回したり、使い回すための参照は Arc で管理することで、複数の口から呼べるようにします。そうすると、構造体を作るステップやメモリの消費を抑えることができます。この方式ならキャッシュも作れます。
 
+例えばこのようにレジストリを定義し、
+
+```rust
+pub struct Registry {
+    user_usecase: UserUsecaseImpl<UserServiceImpl<RepositoryImpl>>,
+}
+
+impl Registry {
+    fn new() -> Self {
+        let repo = RepositoryImpl {};
+        let service = UserServiceImpl {
+            user_repository: repo,
+        };
+        let usecase = UserUsecaseImpl {
+            user_service: service,
+        };
+        Self {
+            user_usecase: usecase,
+        }
+    }
+}
+```
+
+router のトップで呼び出し、
+
+```rust
+let state = Arc::new(Registry::new());
+```
+
+handler で共有するように渡します。
+
+```rust
+let app = Router::new()
+        .route("/", get(handler))
+        .layer(Extension(state));
+```
+
+これは、handler から自由に呼び出せます。
+
+```rust
+async fn handler(state: Extension<Arc<Registry>>) -> String {
+    let usecase = &state.0.user_usecase;
+    let actual = usecase.get_user_by_id(1).await;
+    format!("<h1>Hello, World! {}</h1>", actual.id)
+}
+```
+
 ## 感想
 
-考考えること多多く大大ですね。
+考えること多くて大変ですね。
 
 ## 補足
 
