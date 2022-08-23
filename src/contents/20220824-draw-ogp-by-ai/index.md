@@ -46,7 +46,7 @@ isProtect: false
 
 で、用途がいろいろと議論されているが、そのうちの一つとして OGP 作成の簡略化に使えることに気づいた。
 
-[はじめての胃カメラ、感想](https://blog.ojisan.io/ikamera2022/)の OGP を作ると、 "I experienced gastroscope." ![gastroscope](./gastroscope.png)になった。
+<https://beta.dreamstudio.ai/dream> で[はじめての胃カメラ、感想](https://blog.ojisan.io/ikamera2022/)の OGP を作ると、 "I experienced gastroscope." ![gastroscope](./gastroscope.png)になった。
 
 これは便利...？
 
