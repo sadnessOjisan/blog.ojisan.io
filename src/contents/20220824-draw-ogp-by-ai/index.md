@@ -40,11 +40,15 @@ isProtect: false
 
 ## AI で生成できることに気づいた
 
-ところで最近、いろいろと AI で画像生成できるサービスが流行りつつある。
+ところで最近、いろいろと AI で画像生成できるサービスが流行りつつある。テキストを与えるとそれ通りの画像を生成してくれるサービスだ。
 
 で、用途がいろいろと議論されているが、そのうちの一つとして OGP 作成の簡略化に使えることに気づいた。
 
-試しに<https://beta.dreamstudio.ai/dream> で [はじめての胃カメラ、感想](https://blog.ojisan.io/ikamera2022/)の OGP を作ると、 "I experienced gastroscope." ![gastroscope](./gastroscope.png)になった。[mp3 を fastify から返す](https://blog.ojisan.io/fastify-mp3/) も AI で生成した。mp3 からターンテーブルを想定していそうだ。
+試しに<https://beta.dreamstudio.ai/dream> で [はじめての胃カメラ、感想](https://blog.ojisan.io/ikamera2022/)の OGP を "I experienced gastroscope." で作ると、 ![gastroscope](./gastroscope.png)になった。もとのいらすとやの画像とは全然違う感じになった。
+
+![ikamera](./ikamera.png)
+
+[mp3 を fastify から返す](https://blog.ojisan.io/fastify-mp3/) も AI で生成した。mp3 からターンテーブルを想定していそうだ。
 
 ![mp3](./mp3.png)
 
