@@ -46,6 +46,8 @@ isProtect: false
 
 試しに<https://beta.dreamstudio.ai/dream> で [はじめての胃カメラ、感想](https://blog.ojisan.io/ikamera2022/)の OGP を作ると、 "I experienced gastroscope." ![gastroscope](./gastroscope.png)になった。[mp3 を fastify から返す](https://blog.ojisan.io/fastify-mp3/) も AI で生成した。mp3 からターンテーブルを想定していそうだ。
 
+![mp3](./mp3.png)
+
 これは便利なのか...？
 
 ## 結局は俺が手で作る OGP が一番では？
@@ -55,3 +57,7 @@ isProtect: false
 [多コピーの原罪](https://blog.ojisan.io/many-copies-original-sin/)
 
 ![takopi](./takopi.png)
+
+[Cake Pattern で DI してみた](https://blog.ojisan.io/cake-pattern/)
+
+![cake](./cake.png)
