@@ -9,9 +9,7 @@ isFavorite: false
 isProtect: false
 ---
 
-Draw open graph protocol by AI.
-
-っていう言葉で作った OGP です。
+この OGP は "Draw open graph protocol by AI." っていう言葉で作った OGP だ。graph に引っ張られすぎだろ...
 
 ## ブログの OGP
 
@@ -32,27 +30,27 @@ isProtect: false
 
 の visual でパスを visual.png に指定すれば適用できるようになっている。
 
-なのでユーモアある画像を入稿するようにしている。
+なので日頃は **ユーモア** ある画像を入稿するようにしている。
 
 が、最近はそれがめんどくさく感じているときもないこともない。
 
-その結果、変な画像を入稿せざるをえなくなる。
+その結果、[正しく Markdown を書こうと思った](https://blog.ojisan.io/write-normal-markdown/) のように変な画像を入稿せざるをえなくなる。
 
 ![md](./md.png)
 
 ## AI で生成できることに気づいた
 
-最近、いろいろと AI で画像生成できるものができていて、流行りつつある。
+ところで最近、いろいろと AI で画像生成できるサービスが流行りつつある。
 
 で、用途がいろいろと議論されているが、そのうちの一つとして OGP 作成の簡略化に使えることに気づいた。
 
-<https://beta.dreamstudio.ai/dream> で[はじめての胃カメラ、感想](https://blog.ojisan.io/ikamera2022/)の OGP を作ると、 "I experienced gastroscope." ![gastroscope](./gastroscope.png)になった。
+試しに<https://beta.dreamstudio.ai/dream> で [はじめての胃カメラ、感想](https://blog.ojisan.io/ikamera2022/)の OGP を作ると、 "I experienced gastroscope." ![gastroscope](./gastroscope.png)になった。[mp3 を fastify から返す](https://blog.ojisan.io/fastify-mp3/) も AI で生成した。mp3 からターンテーブルを想定していそうだ。
 
-これは便利...？
+これは便利なのか...？
 
 ## 結局は俺が手で作る OGP が一番では？
 
-正直、このタイトルと OGP を超えられるものは AI は作れないと思っている。知らんけど。
+それっぽい OGP がすぐできるのは便利だと思った。でも正直なところ、この OGP を超えられるものは AI は作れないと思っている。知らんけど。
 
 [多コピーの原罪](https://blog.ojisan.io/many-copies-original-sin/)
 
