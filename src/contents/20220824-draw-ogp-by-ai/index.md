@@ -71,3 +71,5 @@ isProtect: false
 [Cake Pattern で DI してみた](https://blog.ojisan.io/cake-pattern/)
 
 ![cake](./cake.png)
+
+とはいえそれなりのクオリティのものを爆速で作るにはとても便利なので、これから愛用していくと思う。
