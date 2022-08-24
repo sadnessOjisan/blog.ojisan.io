@@ -44,6 +44,8 @@ isProtect: false
 
 で、用途がいろいろと議論されているが、そのうちの一つとして OGP 作成の簡略化に使えることに気づいた。
 
+いま OGP の素材サイトとして canva に月 1000 円払っているので、これは解約できるかもしれない。毎月のラーメン代になるぞ、やったね。
+
 試しに<https://beta.dreamstudio.ai/dream> で [はじめての胃カメラ、感想](https://blog.ojisan.io/ikamera2022/)の OGP を "I experienced gastroscope." で作ると、
 
 ![gastroscope](./gastroscope.png)
