@@ -9,6 +9,8 @@ isFavorite: false
 isProtect: false
 ---
 
+実験 URL: https://github.com/ojisan-toybox/fastify-binary-api
+
 ## 実験のセットアップ
 
 とりあえずサーバーが立つようにする
