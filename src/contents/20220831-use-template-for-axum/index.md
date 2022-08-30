@@ -1,9 +1,9 @@
 ---
-path: /moka-express-kills-you
-created: "2022-08-29"
-title: 殺人マキネッタ
+path: /use-template-for-axum
+created: "2022-08-31"
+title: axum で template engine
 visual: "./visual.png"
-tags: ["雑記"]
+tags: ["rust", "axum"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false
