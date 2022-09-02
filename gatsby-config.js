@@ -68,7 +68,7 @@ module.exports = {
               }
             `,
             output: "/rss.xml",
-            title: "Your Site's RSS Feed",
+            title: "blog.ojisan.io's RSS Feed",
           },
         ],
       },
