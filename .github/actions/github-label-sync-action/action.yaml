@@ -10,7 +10,7 @@ inputs:
     description: GitHub access token to sync labels (`repo` scope required).
     required: false
   source_path:
-    default: .github/labels.yml
+    default: .github/labels.yaml
     description: File path to find labels definition file.
     required: false
   source_repository:
