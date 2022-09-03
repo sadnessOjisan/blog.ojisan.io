@@ -1,9 +1,10 @@
 import { graphql, HeadFC, type PageProps } from "gatsby";
 import * as React from "react";
+import * as styles from './index.module.css'
 
 const IndexPage = ({ data }: PageProps) => {
   return (
-    <main>
+    <main className={styles.container}>
       NODE_ENV: {process.env["NODE_ENV"]} / GATSBY_ACTIVE_ENV:{" "}
       {process.env["GATSBY_ACTIVE_ENV"]}
       {/* eslint-disable-next-line */}
