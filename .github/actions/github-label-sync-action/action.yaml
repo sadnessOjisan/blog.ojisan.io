@@ -1,0 +1,45 @@
+name: github-label-sync-action
+description: Sync GitHub Labels with labels definition file.
+inputs:
+  allow_added_labels:
+    default: "false"
+    description: Allow additional labels in the repository, and don't delete them.
+    required: false
+  github_token:
+    default: ${{ github.token }}
+    description: GitHub access token to sync labels (`repo` scope required).
+    required: false
+  source_path:
+    default: .github/labels.yml
+    description: File path to find labels definition file.
+    required: false
+  source_repository:
+    default: ${{ github.repository }}
+    description: GitHub repository to find labels definition file.
+    required: false
+  target_repository:
+    default: ${{ github.repository }}
+    description: GitHub repository where labels are synced.
+    required: false
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 18.x
+    - run: npm install -g github-label-sync
+      shell: bash
+    - uses: actions/checkout@v3
+      with:
+        token: ${{ inputs.github_token }}
+        repository: ${{ inputs.source_repository }}
+    - run: |
+        github-label-sync \
+          --access-token ${{ inputs.github_token }} \
+          --labels ${{ inputs.source_path }} \
+          ${{ inputs.allow_added_labels != 'false' && '--allow-added-labels' || '' }} \
+          ${{ inputs.target_repository }} \
+      shell: bash
+branding:
+  color: orange
+  icon: refresh-cw

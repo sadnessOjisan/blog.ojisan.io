@@ -1,0 +1,17 @@
+- name: C-bug
+  description: "Category: bug"
+  color: "B60205"
+- name: C-refactor
+  description: "Category: refactor"
+  color: "B60205"
+- name: C-cleanup
+  description: "Category: cleanup"
+  color: "B60205"
+- name: C-documentation
+  description: "Category: documentation"
+  color: "B60205"
+- name: C-feature
+  description: "Category: feature"
+- name: A-tools/build
+  description: "Area: build"
+  color: "d7e102"
