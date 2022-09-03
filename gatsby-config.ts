@@ -11,7 +11,14 @@ const config: GatsbyConfig = {
   // Learn more at: https://gatsby.dev/graphql-typegen
   graphqlTypegen: true,
   plugins: [
-    "gatsby-plugin-postcss",
+    {
+      resolve: `gatsby-plugin-postcss`,
+      options: {
+        // FIXME: TS で設定書いてしまったし、postcss-custom-media の型定義ファイルなくて import で置き換えると error 出るしで仕方なく。
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
+        postCssPlugins: [require("postcss-custom-media")()],
+      },
+    },
     {
       resolve: "gatsby-plugin-google-analytics",
       options: {
