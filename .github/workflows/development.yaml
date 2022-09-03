@@ -18,4 +18,5 @@ jobs:
           registry-url: "https://registry.npmjs.org"
       - name: Install npm packages
         run: npm install
-      - uses: ./.github/actions/static-check
+      - name: static check
+        uses: ./.github/actions/static-check
