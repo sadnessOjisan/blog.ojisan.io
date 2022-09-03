@@ -16,6 +16,33 @@
 - name: A-tools/build
   description: "Area: build"
   color: "d7e102"
+- name: A-page/top
+  description: "Area: top page"
+  color: "d7e102"
+- name: A-page/detail
+  description: "Area: detail page"
+  color: "d7e102"
+-- name: A-page/tags
+  description: "Area: tags page"
+  color: "d7e102"
+- name: A-page/me
+  description: "Area: profile page"
+  color: "d7e102"
+- name: A-rss
+  description: "Area: rss"
+  color: "d7e102"
+- name: A-analytics
+  description: "Area: analytics"
+  color: "d7e102"
+- name: A-storybook
+  description: "Area: storybook"
+  color: "d7e102"
+- name: A-ops
+  description: "Area: ops, CI/CD"
+  color: "d7e102"
+- name: A-toolchain
+  description: "Area: toolchain"
+  color: "d7e102"
 - name: E-renew2022
   description: "Epic: renewal 2022"
   color: "453A97"
