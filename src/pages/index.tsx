@@ -4,6 +4,7 @@ import * as React from "react";
 const IndexPage = ({ data }: PageProps) => {
   return (
     <main>
+      {process.env["NODE_ENV"]}
       {/* eslint-disable-next-line */}
       {/* @ts-ignore */}
       {data.allMarkdownRemark.nodes.map((node) => (
