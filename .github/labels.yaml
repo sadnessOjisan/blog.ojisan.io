@@ -12,8 +12,10 @@
   color: "B60205"
 - name: C-feature
   description: "Category: feature"
+  color: "B60205"
 - name: A-tools/build
   description: "Area: build"
   color: "d7e102"
 - name: E-renew2022
   description: "Epic: renewal 2022"
+  color: "453A97"
