@@ -17,7 +17,7 @@
     "_eslint": "npx eslint -c .eslintrc.js --ext .tsx,.ts src",
     "lint:check": "npm run _eslint",
     "lint:fix": "npm run _eslint -- --fix",
-    "_prettier": "prettier 'src/**/*.{js,jsx,ts,tsx,html,md,css,json,yaml,yml}'",
+    "_prettier": "prettier 'src/**/*.{js,jsx,ts,tsx,html,css,json,yaml,yml}'",
     "format:fix": "npm run _prettier -- --write",
     "format:check": "npm run _prettier -- --check"
   },
