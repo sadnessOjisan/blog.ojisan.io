@@ -14,9 +14,9 @@ const config: GatsbyConfig = {
     {
       resolve: `gatsby-plugin-postcss`,
       options: {
-        // TODO: postcss-custom-media を入れる
-        // https://github.com/csstools/postcss-plugins/tree/main/plugins/postcss-custom-media
-        // postCssPlugins: [],
+        // FIXME: TS で設定書いてしまったし、postcss-custom-media の型定義ファイルなくて import で置き換えると error 出るしで仕方なく。
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
+        postCssPlugins: [require("postcss-custom-media")()],
       },
     },
     {
