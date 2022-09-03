@@ -1,0 +1,60 @@
+- name: C-bug
+  description: "Category: bug"
+  color: "B60205"
+- name: C-refactor
+  description: "Category: refactor"
+  color: "B60205"
+- name: C-cleanup
+  description: "Category: cleanup"
+  color: "B60205"
+- name: C-documentation
+  description: "Category: documentation"
+  color: "B60205"
+- name: C-feature
+  description: "Category: feature"
+  color: "B60205"
+- name: A-tools/gatsby
+  description: "Area: gatsby"
+  color: "d7e102"
+- name: A-page/top
+  description: "Area: top page"
+  color: "d7e102"
+- name: A-page/detail
+  description: "Area: detail page"
+  color: "d7e102"
+- name: A-page/tags
+  description: "Area: tags page"
+  color: "d7e102"
+- name: A-page/me
+  description: "Area: profile page"
+  color: "d7e102"
+- name: A-styling
+  description: "Area: styling"
+  color: "d7e102"
+- name: A-rss
+  description: "Area: rss"
+  color: "d7e102"
+- name: A-analytics
+  description: "Area: analytics"
+  color: "d7e102"
+- name: A-storybook
+  description: "Area: storybook"
+  color: "d7e102"
+- name: A-ops
+  description: "Area: ops, CI/CD"
+  color: "d7e102"
+- name: A-toolchain
+  description: "Area: toolchain"
+  color: "d7e102"
+- name: A-label
+  description: "Area: label"
+  color: "d7e102"
+- name: A-infra
+  description: "Area: infra"
+  color: "d7e102"
+- name: A-node_modules
+  description: "Area: node_modules"
+  color: "d7e102"
+- name: E-renew2022
+  description: "Epic: renewal 2022"
+  color: "453A97"
