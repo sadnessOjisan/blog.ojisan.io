@@ -14,7 +14,7 @@
     "serve": "gatsby serve",
     "clean": "gatsby clean",
     "typecheck": "tsc --noEmit",
-    "_eslint": "eslint 'src/**/*' --ext .js,.cjs,.mjs,.ts,.tsx --color --max-warnings 0",
+    "_eslint": "npx eslint -c .eslintrc.js --ext .tsx src",
     "lint": "npm run _eslint",
     "lint:fix": "npm run _eslint --fix"
   },

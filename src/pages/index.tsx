@@ -5,6 +5,7 @@ import { graphql, HeadFC,type PageProps } from "gatsby"
 const IndexPage = ({data}:PageProps) => {
   return (
     <main>
+      {/* eslint-disable-next-line */}
       {/* @ts-ignore */}
       {data.allMarkdownRemark.nodes.map(node => <p key={node.id}>{node.frontmatter.title}</p>)}
     </main>
