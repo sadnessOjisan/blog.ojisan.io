@@ -1,8 +1,7 @@
+import { graphql, HeadFC, type PageProps } from "gatsby"
 import * as React from "react"
-import { graphql, HeadFC,type PageProps } from "gatsby"
 
-
-const IndexPage = ({data}:PageProps) => {
+const IndexPage = ({ data }: PageProps) => {
   return (
     <main>
       {/* eslint-disable-next-line */}
