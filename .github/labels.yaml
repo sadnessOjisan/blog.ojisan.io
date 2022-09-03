@@ -43,6 +43,15 @@
 - name: A-toolchain
   description: "Area: toolchain"
   color: "d7e102"
+- name: A-label
+  description: "Area: label"
+  color: "d7e102"
+- name: A-infra
+  description: "Area: infra"
+  color: "d7e102"
+- name: A-node_modules
+  description: "Area: node_modules"
+  color: "d7e102"
 - name: E-renew2022
   description: "Epic: renewal 2022"
   color: "453A97"
