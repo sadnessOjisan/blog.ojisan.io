@@ -22,7 +22,7 @@
 - name: A-page/detail
   description: "Area: detail page"
   color: "d7e102"
--- name: A-page/tags
+- name: A-page/tags
   description: "Area: tags page"
   color: "d7e102"
 - name: A-page/me
