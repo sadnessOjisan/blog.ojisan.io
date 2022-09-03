@@ -28,6 +28,9 @@
 - name: A-page/me
   description: "Area: profile page"
   color: "d7e102"
+- name: A-styling
+  description: "Area: styling"
+  color: "d7e102"
 - name: A-rss
   description: "Area: rss"
   color: "d7e102"
