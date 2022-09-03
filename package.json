@@ -14,8 +14,12 @@
     "serve": "gatsby serve",
     "clean": "gatsby clean",
     "typecheck": "tsc --noEmit",
-    "lint": "npx eslint -c .eslintrc.js --ext .tsx,.ts src",
-    "lint:fix": "npx eslint -c .eslintrc.js --ext .tsx,.ts src --fix"
+    "_eslint": "npx eslint -c .eslintrc.js --ext .tsx,.ts src",
+    "lint:check": "npm run _eslint",
+    "lint:fix": "npm run _eslint -- --fix",
+    "_prettier": "prettier 'src/**/*.{js,jsx,ts,tsx,html,md,css,json,yaml,yml}'",
+    "format:fix": "npm run _prettier -- --write",
+    "format:check": "npm run _prettier -- --check"
   },
   "dependencies": {
     "gatsby": "^4.22.0",
@@ -42,6 +46,7 @@
     "eslint-import-resolver-typescript": "^3.5.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-react": "^7.31.4",
+    "prettier": "^2.7.1",
     "typescript": "^4.8.2"
   }
 }
