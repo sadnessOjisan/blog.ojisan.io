@@ -1,4 +1,4 @@
 node_modules/
 .cache/
 public
-.DS_store
+src/gatsby-types.d.ts
