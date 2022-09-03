@@ -1,5 +1,5 @@
 import * as React from "react"
-import type { HeadFC } from "gatsby"
+import { graphql, HeadFC,type PageProps } from "gatsby"
 
 const pageStyles = {
   color: "#232129",
@@ -136,9 +136,10 @@ const links = [
   },
 ]
 
-const IndexPage = () => {
+const IndexPage = ({data}:PageProps) => {
   return (
     <main style={pageStyles}>
+      {JSON.stringify(data)}
       <h1 style={headingStyles}>
         Congratulations
         <br />
@@ -189,5 +190,15 @@ const IndexPage = () => {
 }
 
 export default IndexPage
+
+export const query = graphql`
+  query HomePageQuery {
+    site {
+      siteMetadata {
+        description
+      }
+    }
+  }
+`
 
 export const Head: HeadFC = () => <title>Home Page</title>
