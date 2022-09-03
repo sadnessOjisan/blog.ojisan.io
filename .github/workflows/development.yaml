@@ -10,17 +10,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: setup Node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
-          node-version: v16.x
+          node-version: v18.x
           registry-url: "https://registry.npmjs.org"
       - name: Install npm packages
         run: npm install
-      - name: typecheck
-        run: npm run typecheck:ci
-      - name: lint
-        run: npm run lint:ci
-      - name: format
-        run: npm run format:ci
+      - uses: ./.github/actions/static-check

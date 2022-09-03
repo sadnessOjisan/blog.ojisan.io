@@ -1,0 +1,13 @@
+name: static-check
+description: Run static check
+runs:
+  using: composite
+  steps:
+    - run: npm run typecheck
+      shell: bash
+    - run: npm run lint:check
+      shell: bash
+    - run: npm run format:check
+      shell: bash
+    - run: npm run test
+      shell: bash
