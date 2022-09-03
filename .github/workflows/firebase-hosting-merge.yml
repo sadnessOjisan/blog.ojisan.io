@@ -10,7 +10,12 @@ jobs:
   build_and_preview:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+      - name: setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: v18.x
+          registry-url: "https://registry.npmjs.org"
       - name: Caching Gatsby
         id: gatsby-cache-build
         uses: actions/cache@v2
@@ -22,9 +27,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gatsby-build-
       - name: Install npm packages
-        run: yarn install
+        run: npm install
       - name: build app
-        run: GATSBY_ACTIVE_ENV=production yarn build
+        run: GATSBY_ACTIVE_ENV=production npm run build
         env:
           GATSBY_EXPERIMENTAL_PAGE_BUILD_ON_DATA_CHANGES: true
           CI: true
