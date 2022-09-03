@@ -1,18 +1,19 @@
-
-import { graphql, HeadFC, type PageProps } from "gatsby"
-import * as React from "react"
+import { graphql, HeadFC, type PageProps } from "gatsby";
+import * as React from "react";
 
 const IndexPage = ({ data }: PageProps) => {
   return (
     <main>
       {/* eslint-disable-next-line */}
       {/* @ts-ignore */}
-      {data.allMarkdownRemark.nodes.map(node => <p key={node.id}>{node.frontmatter.title}</p>)}
+      {data.allMarkdownRemark.nodes.map((node) => (
+        <p key={node.id}>{node.frontmatter.title}</p>
+      ))}
     </main>
-  )
-}
+  );
+};
 
-export default IndexPage
+export default IndexPage;
 
 export const query = graphql`
   query HomePageQuery {
@@ -29,6 +30,6 @@ export const query = graphql`
       }
     }
   }
-`
+`;
 
-export const Head: HeadFC = () => <title>Home Page</title>
+export const Head: HeadFC = () => <title>Home Page</title>;
