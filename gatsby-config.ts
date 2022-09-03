@@ -11,7 +11,14 @@ const config: GatsbyConfig = {
   // Learn more at: https://gatsby.dev/graphql-typegen
   graphqlTypegen: true,
   plugins: [
-    "gatsby-plugin-postcss",
+    {
+      resolve: `gatsby-plugin-postcss`,
+      options: {
+        // TODO: postcss-custom-media を入れる
+        // https://github.com/csstools/postcss-plugins/tree/main/plugins/postcss-custom-media
+        // postCssPlugins: [],
+      },
+    },
     {
       resolve: "gatsby-plugin-google-analytics",
       options: {
