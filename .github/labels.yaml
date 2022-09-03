@@ -13,8 +13,8 @@
 - name: C-feature
   description: "Category: feature"
   color: "B60205"
-- name: A-tools/build
-  description: "Area: build"
+- name: A-tools/gatsby
+  description: "Area: gatsby"
   color: "d7e102"
 - name: A-page/top
   description: "Area: top page"
