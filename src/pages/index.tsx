@@ -139,7 +139,8 @@ const links = [
 const IndexPage = ({data}:PageProps) => {
   return (
     <main style={pageStyles}>
-      {JSON.stringify(data)}
+      {/* @ts-ignore */}
+      {data.allMarkdownRemark.nodes.map(node => <p>{node.frontmatter.title}</p>)}
       <h1 style={headingStyles}>
         Congratulations
         <br />
@@ -196,6 +197,13 @@ export const query = graphql`
     site {
       siteMetadata {
         description
+      }
+    }
+    allMarkdownRemark {
+      nodes {
+        frontmatter {
+          title
+        }
       }
     }
   }
