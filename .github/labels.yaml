@@ -29,7 +29,7 @@
   description: "Area: profile page"
   color: "d7e102"
 - name: A-styling
-  description: "Area: styling"
+  description: "Area: styling (CSS)"
   color: "d7e102"
 - name: A-rss
   description: "Area: rss"
@@ -54,6 +54,9 @@
   color: "d7e102"
 - name: A-node_modules
   description: "Area: node_modules"
+  color: "d7e102"
+- name: A-SEO
+  description: "Area: SEO"
   color: "d7e102"
 - name: E-renew2022
   description: "Epic: renewal 2022"
