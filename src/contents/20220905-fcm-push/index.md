@@ -60,7 +60,6 @@ isProtect: false
   <body>
     <div id="message">hoge</div>
     <script type="module">
-      // https://stackoverflow.com/questions/68209854/firebase-9-modular-how-to-start
       import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.3/firebase-app.js";
       import {
         getMessaging,
@@ -239,6 +238,71 @@ messaging.onBackgroundMessage((payload) => {
 さて、service worker のコードを書きましたが、この登録をしている箇所が見つかりません。実はこれは SDK が勝手にしてくれるので不要です。そのためにはさきほどのファイル名を firebase-messaging-sw.js にしておく必要があります。
 
 またこの登録処理ですがなぜか上手くいかないこともあって、そのときに manifest.json を使うと上手くいきました。これが原因かわかりませんし、原因の切り分けを調査するのがめんどくさいのでしていませんが、もし上手くいかない場合は試してみてください。
+
+### Push の送信
+
+認証鍵を作って専用のエンドポイントに POST するといったこともできますが、今回はあるイベントをトリガーに Push を送るとしたかったので FCM の Admin SDK を Cloud Function から使いました。
+
+```js
+const functions = require("firebase-functions");
+const admin = require("firebase-admin");
+
+const topic = "all";
+
+admin.initializeApp();
+
+exports.registerTokenTrigger = functions
+  .region("asia-northeast1")
+  .firestore.document("token/{tokenId}")
+  .onCreate((snap, context) => {
+    const newValue = snap.data();
+
+    const token = newValue.token;
+
+    admin
+      .messaging()
+      .subscribeToTopic(token, topic)
+      .then((response) => {
+        console.log("Successfully subscribed to topic:", response);
+        response.status(200).send("set token");
+      })
+      .catch((error) => {
+        console.log("Error subscribing to topic:", error);
+        response.status(500).send("fail to set token");
+      });
+  });
+
+exports.hogeTrigger = functions
+  .region("asia-northeast1")
+  .firestore.document("data/{dataId}")
+  .onCreate((snap, context) => {
+    const newValue = snap.data();
+
+    const message = {
+      data: {
+        value: JSON.stringify(newValue),
+      },
+      topic,
+    };
+
+    admin
+      .messaging()
+      .send(message)
+      .then((response) => {
+        // Response is a message ID string.
+        console.log("Successfully sent message:", response);
+        return;
+      })
+      .catch((error) => {
+        console.log("Error sending message:", error);
+        return;
+      });
+  });
+```
+
+registerTokenTrigger で token をトピックに紐づけています。こうすることでトピックに対して Push を送れ、一括送信ができます。
+
+hogeTrigger は firestore が更新されたら通知を送るようにしている処理です。
 
 ## FCM に対する感想、お気持ち
 
