@@ -1,5 +1,5 @@
 ---
-path: /jsimple-classname-cat
+path: /simple-classname-cat
 created: "2022-09-04"
 title: TSプロジェクトにコピペするだけの classname 連結関数
 visual: "./visual.png"
