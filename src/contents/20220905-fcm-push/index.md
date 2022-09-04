@@ -231,7 +231,7 @@ messaging.onBackgroundMessage((payload) => {
 
 フォアグラウンド版と違って sw で SDK モジュールをインポートするのは、`type=module` 相応のものがないので importScript 構文を使っています。そのため ESM 版も使っていません。
 
-通知は `self.registration.showNotification(notificationTitle, notificationOptions);` で受け取るように登録しています。こうすることでバックグラウンドで通知を受け取れます。
+通知は self.registration.showNotification(notificationTitle, notificationOptions); で受け取るように登録しています。こうすることでバックグラウンドで通知を受け取れます。
 
 ### service worker の登録はどのようにしたか？
 

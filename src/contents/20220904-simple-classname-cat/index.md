@@ -9,6 +9,10 @@ isFavorite: false
 isProtect: false
 ---
 
+先日、[nuko](https://github.com/sadnessOjisan/nuko)というライブラリを作った。class 名を連結するライブラリだ。
+
+OGP は programming cat で生成したものである。
+
 ## CSS classname
 
 CSS の class 名を連結させるライブラリがある。[classnames](https://www.npmjs.com/package/classnames) や [clsx](https://www.npmjs.com/package/clsx) だ。
@@ -158,3 +162,9 @@ $ yarn install nuko
 ```
 
 で使えるはずである。
+
+## テスト
+
+テストもしている。テストケースは clsx のものをそのまま使った。これは clsx 独自のものに加えて classname のケースもカバーしている。つまり clsx のケースをカバーすればこれらとの互換性も大丈夫というわけだ。
+
+FYI: https://github.com/lukeed/clsx/tree/master/test
