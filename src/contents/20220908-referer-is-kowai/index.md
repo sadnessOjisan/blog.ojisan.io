@@ -1,7 +1,7 @@
 ---
 path: /referer-is-kowai
 created: "2022-09-08"
-title: 転職サイトはリファラを送るのはやめた方が良いと思う
+title: 転職サイトはリファラを送るのをやめた方が良いと思う
 visual: "./visual.png"
 tags: ["雑記"]
 userId: sadnessOjisan
