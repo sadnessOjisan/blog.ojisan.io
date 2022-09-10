@@ -1,6 +1,6 @@
 ---
 path: /bought-capture-board
-created: "2022-09-09"
+created: "2022-09-10"
 title: キャプチャーボードを買ってスプラトゥーンの反省をしている話
 visual: "./visual.png"
 tags: ["雑記"]

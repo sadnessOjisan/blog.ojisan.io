@@ -38,7 +38,7 @@ OAuth2.0 の仕様は RFC6749 にあり、Client Credentials Flow は[4.4 Client
 > grant_type: REQUIRED. Value MUST be set to "client_credentials".
 > scope: OPTIONAL. The scope of the access request as described by Section 3.3.
 
-Client Credentials Flow では application/x-www-form-urlencoded、つまりフォームとしてボディを送る必要がある。そしてボディは grant_type=client_credentials を必要がある。
+Client Credentials Flow では application/x-www-form-urlencoded としてボディを送る必要がある。そしてボディの値は grant_type=client_credentials である。
 
 ではこのリクエストの送り主の特定、認証はどうするのであろうか。Client Credentials Grant には
 
@@ -109,6 +109,18 @@ const buildFormParams = (params: Record<string, string | number | boolean>) => {
   }
   const body = formBody.join("&");
   return body;
+};
+```
+
+または URLSearchParams を使う手もある。
+
+```ts
+const buildFormParams = (record: Record<string, string | number | boolean>) => {
+  const params = new URLSearchParams();
+  for (const r in record) {
+    params.append(r, record[r].toString());
+  }
+  return params.toString();
 };
 ```
 
