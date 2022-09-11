@@ -1,5 +1,4 @@
 import { graphql, PageProps } from "gatsby";
-import React from "react";
 
 const RootBlogList = ({ data }: PageProps<Queries.PaginationQueryQuery>) => {
   return (
