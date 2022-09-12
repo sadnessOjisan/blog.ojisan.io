@@ -17,12 +17,12 @@ jobs:
           node-version: v18.x
           registry-url: "https://registry.npmjs.org"
       - uses: actions/cache@v3
-              id: node_modules_cache_id
-              env:
-                  cache-name: cache-node-modules
-              with:
-                  path: '**/node_modules'
-                  key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+        id: node_modules_cache_id
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: "**/node_modules"
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
       - if: ${{ steps.node_modules_cache_id.outputs.cache-hit != 'true' }}
         name: Install npm packages
         run: npm install
