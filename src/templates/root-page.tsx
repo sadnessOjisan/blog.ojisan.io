@@ -1,11 +1,13 @@
 import { graphql, PageProps } from "gatsby";
+import { CardList } from "../components/top/card-list";
 
-const RootBlogList = ({ data }: PageProps<Queries.PaginationQueryQuery>) => {
+const RootBlogList = ({
+  data,
+}: PageProps<Queries.postsPaginationQueryQuery>) => {
+  console.log("data: ", data);
   return (
     <div>
-      {data.allMarkdownRemark.nodes.map((node) => (
-        <p key={node.frontmatter?.path}>{node.frontmatter?.path}</p>
-      ))}
+      <CardList nodes={data.allMarkdownRemark.nodes} />
     </div>
   );
 };
@@ -20,6 +22,7 @@ export const postsPaginationQuery = graphql`
       skip: $skip
     ) {
       nodes {
+        id
         frontmatter {
           path
         }
