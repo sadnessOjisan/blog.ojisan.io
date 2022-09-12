@@ -1,13 +1,32 @@
-import { graphql, PageProps } from "gatsby";
+import { graphql, Link, PageProps } from "gatsby";
 import { CardList } from "../components/top/card-list";
 
 const RootBlogList = ({
   data,
-}: PageProps<Queries.postsPaginationQueryQuery>) => {
-  console.log("data: ", data);
+  pageContext,
+}: PageProps<
+  Queries.postsPaginationQueryQuery,
+  Queries.postsPaginationQueryQueryVariables & {
+    // context defined by gatsby-node
+    numPages: number;
+    currentPage: number;
+  }
+>) => {
+  const isFirst = pageContext.currentPage === 1;
+  const isLast = pageContext.currentPage === pageContext.numPages;
   return (
     <div>
       <CardList nodes={data.allMarkdownRemark.nodes} />
+      {!isFirst &&
+        (pageContext.currentPage - 1 === 1 ? (
+          <Link to={`/`}>back</Link>
+        ) : (
+          <Link to={`/posts/${pageContext.currentPage - 1}`}>back</Link>
+        ))}
+      {pageContext.currentPage}/{pageContext.numPages}
+      {!isLast && (
+        <Link to={`/posts/${pageContext.currentPage + 1}`}>next</Link>
+      )}
     </div>
   );
 };
@@ -25,6 +44,7 @@ export const postsPaginationQuery = graphql`
         id
         frontmatter {
           path
+          title
         }
       }
     }
