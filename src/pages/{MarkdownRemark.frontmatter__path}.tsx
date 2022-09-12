@@ -1,11 +1,13 @@
 import { graphql, PageProps } from "gatsby";
 import { ComponentType } from "react";
+import { ContentsHeader } from "../components/detail/contents-header";
 
 const Template: ComponentType<PageProps<Queries.BlogPostQuery>> = (props) => {
   console.log(props);
   return (
     <div>
       <p>{props.data.markdownRemark?.frontmatter?.title}</p>
+      <ContentsHeader markdownMeta={props.data.markdownRemark?.frontmatter} />
       <div>
         <div
           dangerouslySetInnerHTML={{
