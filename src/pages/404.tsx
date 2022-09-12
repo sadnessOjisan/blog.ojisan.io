@@ -1,5 +1,4 @@
 import { Link, HeadFC } from "gatsby";
-import * as React from "react";
 
 const pageStyles = {
   color: "#232129",
