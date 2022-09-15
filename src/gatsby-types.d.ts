@@ -719,7 +719,6 @@ type FileFieldsEnum =
   | 'childMarkdownRemark.frontmatter.visual.size'
   | 'childMarkdownRemark.frontmatter.visual.sourceInstanceName'
   | 'childMarkdownRemark.frontmatter.visual.uid'
-  | 'childMarkdownRemark.gatsbyPath'
   | 'childMarkdownRemark.headings'
   | 'childMarkdownRemark.headings.depth'
   | 'childMarkdownRemark.headings.id'
@@ -898,7 +897,6 @@ type FileFieldsEnum =
   | 'childrenMarkdownRemark.frontmatter.visual.size'
   | 'childrenMarkdownRemark.frontmatter.visual.sourceInstanceName'
   | 'childrenMarkdownRemark.frontmatter.visual.uid'
-  | 'childrenMarkdownRemark.gatsbyPath'
   | 'childrenMarkdownRemark.headings'
   | 'childrenMarkdownRemark.headings.depth'
   | 'childrenMarkdownRemark.headings.id'
@@ -1728,7 +1726,6 @@ type MarkdownRemark = Node & {
   readonly excerptAst: Maybe<Scalars['JSON']>;
   readonly fileAbsolutePath: Maybe<Scalars['String']>;
   readonly frontmatter: Maybe<MarkdownRemarkFrontmatter>;
-  readonly gatsbyPath: Maybe<Scalars['String']>;
   readonly headings: Maybe<ReadonlyArray<Maybe<MarkdownHeading>>>;
   readonly html: Maybe<Scalars['String']>;
   readonly htmlAst: Maybe<Scalars['JSON']>;
@@ -1752,11 +1749,6 @@ type MarkdownRemark_excerptArgs = {
 type MarkdownRemark_excerptAstArgs = {
   pruneLength?: InputMaybe<Scalars['Int']>;
   truncate?: InputMaybe<Scalars['Boolean']>;
-};
-
-
-type MarkdownRemark_gatsbyPathArgs = {
-  filePath: InputMaybe<Scalars['String']>;
 };
 
 
@@ -1889,7 +1881,6 @@ type MarkdownRemarkFieldsEnum =
   | 'frontmatter.visual.childMarkdownRemark.excerpt'
   | 'frontmatter.visual.childMarkdownRemark.excerptAst'
   | 'frontmatter.visual.childMarkdownRemark.fileAbsolutePath'
-  | 'frontmatter.visual.childMarkdownRemark.gatsbyPath'
   | 'frontmatter.visual.childMarkdownRemark.headings'
   | 'frontmatter.visual.childMarkdownRemark.html'
   | 'frontmatter.visual.childMarkdownRemark.htmlAst'
@@ -1907,7 +1898,6 @@ type MarkdownRemarkFieldsEnum =
   | 'frontmatter.visual.childrenMarkdownRemark.excerpt'
   | 'frontmatter.visual.childrenMarkdownRemark.excerptAst'
   | 'frontmatter.visual.childrenMarkdownRemark.fileAbsolutePath'
-  | 'frontmatter.visual.childrenMarkdownRemark.gatsbyPath'
   | 'frontmatter.visual.childrenMarkdownRemark.headings'
   | 'frontmatter.visual.childrenMarkdownRemark.html'
   | 'frontmatter.visual.childrenMarkdownRemark.htmlAst'
@@ -1952,7 +1942,6 @@ type MarkdownRemarkFieldsEnum =
   | 'frontmatter.visual.size'
   | 'frontmatter.visual.sourceInstanceName'
   | 'frontmatter.visual.uid'
-  | 'gatsbyPath'
   | 'headings'
   | 'headings.depth'
   | 'headings.id'
@@ -2023,7 +2012,6 @@ type MarkdownRemarkFilterInput = {
   readonly excerptAst: InputMaybe<JSONQueryOperatorInput>;
   readonly fileAbsolutePath: InputMaybe<StringQueryOperatorInput>;
   readonly frontmatter: InputMaybe<MarkdownRemarkFrontmatterFilterInput>;
-  readonly gatsbyPath: InputMaybe<StringQueryOperatorInput>;
   readonly headings: InputMaybe<MarkdownHeadingFilterListInput>;
   readonly html: InputMaybe<StringQueryOperatorInput>;
   readonly htmlAst: InputMaybe<JSONQueryOperatorInput>;
@@ -2390,7 +2378,6 @@ type Query_markdownRemarkArgs = {
   excerptAst: InputMaybe<JSONQueryOperatorInput>;
   fileAbsolutePath: InputMaybe<StringQueryOperatorInput>;
   frontmatter: InputMaybe<MarkdownRemarkFrontmatterFilterInput>;
-  gatsbyPath: InputMaybe<StringQueryOperatorInput>;
   headings: InputMaybe<MarkdownHeadingFilterListInput>;
   html: InputMaybe<StringQueryOperatorInput>;
   htmlAst: InputMaybe<JSONQueryOperatorInput>;
@@ -3691,12 +3678,12 @@ type WebPOptions = {
   readonly quality: InputMaybe<Scalars['Int']>;
 };
 
-type BlogPostQueryVariables = Exact<{
+type DetailPageQueryQueryVariables = Exact<{
   id: Scalars['String'];
 }>;
 
 
-type BlogPostQuery = { readonly markdownRemark: { readonly html: string | null, readonly excerpt: string | null, readonly frontmatter: { readonly title: string | null, readonly path: string | null, readonly isProtect: boolean | null, readonly created: string | null, readonly tags: ReadonlyArray<string | null> | null } | null } | null };
+type DetailPageQueryQuery = { readonly markdownRemark: { readonly id: string, readonly html: string | null, readonly frontmatter: { readonly path: string | null, readonly title: string | null, readonly tags: ReadonlyArray<string | null> | null } | null } | null };
 
 type GatsbyImageSharpFixedFragment = { readonly base64: string | null, readonly width: number, readonly height: number, readonly src: string, readonly srcSet: string };
 
@@ -3736,6 +3723,11 @@ type PaginationQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 type PaginationQueryQuery = { readonly allMarkdownRemark: { readonly nodes: ReadonlyArray<{ readonly frontmatter: { readonly path: string | null } | null }> } };
+
+type NextPrevQueryQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type NextPrevQueryQuery = { readonly allMarkdownRemark: { readonly edges: ReadonlyArray<{ readonly next: { readonly frontmatter: { readonly title: string | null, readonly path: string | null } | null } | null, readonly previous: { readonly frontmatter: { readonly path: string | null, readonly title: string | null } | null } | null, readonly node: { readonly id: string, readonly frontmatter: { readonly path: string | null } | null } }> } };
 
 
 }

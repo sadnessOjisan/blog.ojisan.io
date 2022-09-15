@@ -7,29 +7,35 @@ export const createPages: GatsbyNode["createPages"] = async ({
 }) => {
   const { createPage } = actions;
 
-  const result = await graphql<Queries.PaginationQueryQuery>(`
-    query PaginationQuery {
-      allMarkdownRemark(
-        sort: { fields: [frontmatter___created], order: DESC }
-        limit: 1000
-      ) {
-        nodes {
-          frontmatter {
-            path
+  // ---- pagination
+
+  const paginationIndexPageResult =
+    await graphql<Queries.PaginationQueryQuery>(`
+      query PaginationQuery {
+        allMarkdownRemark(
+          sort: { fields: [frontmatter___created], order: DESC }
+          limit: 1000
+        ) {
+          nodes {
+            frontmatter {
+              path
+            }
           }
         }
       }
-    }
-  `);
+    `);
 
-  const posts = result.data?.allMarkdownRemark.nodes;
-
-  if (posts === undefined) {
-    throw new Error("posts should be");
+  if (!paginationIndexPageResult.data || paginationIndexPageResult.errors) {
+    throw new Error("pagination 用のデータ取得に失敗しました。");
   }
 
-  const postsPerPage = 6;
-  console.log(posts);
+  const posts = paginationIndexPageResult.data.allMarkdownRemark.nodes;
+
+  if (posts === undefined) {
+    throw new Error("pagination 用のデータが見つかりませんでした。");
+  }
+
+  const postsPerPage = 20;
   const numPages = Math.ceil(posts.length / postsPerPage);
   Array.from({ length: numPages }).forEach((_, i) => {
     createPage({
@@ -44,5 +50,62 @@ export const createPages: GatsbyNode["createPages"] = async ({
     });
   });
 
-  console.log(result);
+  // --- detail page
+
+  const getNextPrevsResult = await graphql<Queries.NextPrevQueryQuery>(`
+    query NextPrevQuery {
+      allMarkdownRemark {
+        edges {
+          next {
+            frontmatter {
+              title
+              path
+            }
+          }
+          previous {
+            frontmatter {
+              path
+              title
+            }
+          }
+          node {
+            frontmatter {
+              path
+            }
+            id
+          }
+        }
+      }
+    }
+  `);
+
+  if (!getNextPrevsResult.data || getNextPrevsResult.errors) {
+    throw new Error("全ページURLのデータ取得に失敗しました。");
+  }
+
+  getNextPrevsResult.data.allMarkdownRemark.edges.forEach((edge) => {
+    const context: DetailPageContext = {
+      id: edge.node.id,
+      next: edge.next,
+      prev: edge.previous,
+    };
+    if (!edge.node.frontmatter?.path) {
+      throw new Error("path 情報がありません");
+    }
+    createPage({
+      path: `${edge.node.frontmatter.path}`,
+      component: path.resolve("./src/templates/detail-page.tsx"),
+      context,
+    });
+  });
 };
+
+type NextEdge =
+  Queries.NextPrevQueryQuery["allMarkdownRemark"]["edges"][number]["next"];
+type PrevEdge =
+  Queries.NextPrevQueryQuery["allMarkdownRemark"]["edges"][number]["previous"];
+export interface DetailPageContext {
+  next: NextEdge;
+  prev: PrevEdge;
+  id: string;
+}
