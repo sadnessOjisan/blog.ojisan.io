@@ -2,7 +2,7 @@ import { ComponentType } from "react";
 
 export const ContentsHeader: ComponentType<{
   markdownMeta:
-    | NonNullable<Queries.BlogPostQuery["markdownRemark"]>["frontmatter"]
+    | NonNullable<Queries.DetailPageQueryQuery["markdownRemark"]>["frontmatter"]
     | null
     | undefined;
 }> = ({ markdownMeta }) => {
