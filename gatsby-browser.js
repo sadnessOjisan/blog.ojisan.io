@@ -1,1 +1,1 @@
-require("prismjs/themes/prism-solarizedlight.css");
+import ___ from "./src/styles/prism-node.css";
