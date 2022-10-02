@@ -1,7 +1,7 @@
 ---
 path: /next-astro
 created: "2022-10-03"
-title: NextJS にあるアレ、Astro でどうするか
+title: Next.js にあるアレ、Astro でどうするか
 visual: "./visual.png"
 tags: ["astro"]
 userId: sadnessOjisan
