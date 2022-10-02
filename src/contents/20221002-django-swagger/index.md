@@ -190,7 +190,7 @@ urlpatterns = [
 
 と url 指定をすればこの問題は解決する。
 
-しかしそうすると今度は GUI で URL 一覧の表示に全部オリジンがついて見づらくなったり、また実際にクエリを GUI から発酵した時に例えば localhost で実行した場合は `http://localhost:8080/https://hoge.ojisan.dev/api/battles` のような URL に対してリクエストが送られてしまう。
+しかしそうすると今度は GUI で URL 一覧の表示に全部オリジンがついて見づらくなったり、また実際にクエリを GUI から発酵した時に例えば localhost で実行した場合は http://localhost:8080/https://hoge.ojisan.dev/api/battles のような URL に対してリクエストが送られてしまう。
 
 そのため Client Generator が読む spec file は別の場所に置きたい。
 
