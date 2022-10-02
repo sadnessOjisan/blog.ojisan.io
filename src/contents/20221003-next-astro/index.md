@@ -9,6 +9,8 @@ isFavorite: false
 isProtect: false
 ---
 
+明日、トロ w
+
 最近 Astro を触ったのでそのときに調べたこと。
 
 ## Dynamic Routing
