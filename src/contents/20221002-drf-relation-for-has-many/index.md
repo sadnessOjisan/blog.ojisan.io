@@ -1,6 +1,6 @@
 ---
 path: /drf-serialize-association
-created: "2022-10-03"
+created: "2022-10-02"
 title: DRF で association を持ったデータを serialize する
 visual: "./visual.png"
 tags: ["django-rest-framework", "django", "python"]
