@@ -1,5 +1,6 @@
 import { Link } from "gatsby";
 import { ComponentType } from "react";
+import "../../styles/prism-node.css";
 
 export const ContentsHeader: ComponentType<{
   markdownMeta:
