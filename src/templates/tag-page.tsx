@@ -24,6 +24,11 @@ export const postsPaginationQuery = graphql`
           title
           created
           path
+          visual {
+            childImageSharp {
+              gatsbyImageData
+            }
+          }
         }
       }
     }

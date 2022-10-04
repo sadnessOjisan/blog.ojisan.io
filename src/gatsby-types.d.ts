@@ -3688,7 +3688,7 @@ type ArticlesByTagQueryVariables = Exact<{
 }>;
 
 
-type ArticlesByTagQuery = { readonly allMarkdownRemark: { readonly nodes: ReadonlyArray<{ readonly id: string, readonly frontmatter: { readonly path: string | null, readonly title: string | null, readonly created: string | null } | null }> } };
+type ArticlesByTagQuery = { readonly allMarkdownRemark: { readonly nodes: ReadonlyArray<{ readonly id: string, readonly frontmatter: { readonly path: string | null, readonly title: string | null, readonly created: string | null, readonly visual: { readonly childImageSharp: { readonly gatsbyImageData: import('gatsby-plugin-image').IGatsbyImageData } | null } | null } | null }> } };
 
 type DetailPageQueryQueryVariables = Exact<{
   id: Scalars['String'];
@@ -3729,7 +3729,7 @@ type postsPaginationQueryQueryVariables = Exact<{
 }>;
 
 
-type postsPaginationQueryQuery = { readonly allMarkdownRemark: { readonly nodes: ReadonlyArray<{ readonly id: string, readonly frontmatter: { readonly path: string | null, readonly title: string | null } | null }> } };
+type postsPaginationQueryQuery = { readonly allMarkdownRemark: { readonly nodes: ReadonlyArray<{ readonly id: string, readonly frontmatter: { readonly path: string | null, readonly title: string | null, readonly visual: { readonly childImageSharp: { readonly gatsbyImageData: import('gatsby-plugin-image').IGatsbyImageData } | null } | null } | null }> } };
 
 type PaginationQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
