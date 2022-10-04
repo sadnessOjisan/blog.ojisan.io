@@ -8,13 +8,16 @@ const RootBlogList = ({
   data,
   pageContext,
 }: PageProps<Queries.DetailPageQueryQuery, DetailPageContext>) => {
+  if (!data.markdownRemark) {
+    throw new Error("markdown data should be");
+  }
   return (
     <div>
-      <ContentsHeader markdownMeta={data.markdownRemark?.frontmatter} />
+      <ContentsHeader markdownMeta={data.markdownRemark.frontmatter} />
       <div>
         <div
           dangerouslySetInnerHTML={{
-            __html: data.markdownRemark?.html || "",
+            __html: data.markdownRemark.html || "",
           }}
         ></div>
       </div>
@@ -24,7 +27,7 @@ const RootBlogList = ({
         )}
         {pageContext.next?.frontmatter?.path && (
           <Link to={pageContext.next.frontmatter.path}>next</Link>
-        )}{" "}
+        )}
       </div>
     </div>
   );
@@ -43,7 +46,7 @@ export const postsPaginationQuery = graphql`
         tags
         visual {
           childImageSharp {
-            gatsbyImageData(width: 400)
+            gatsbyImageData(width: 1024, height: 400)
           }
         }
       }
