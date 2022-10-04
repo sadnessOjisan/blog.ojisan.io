@@ -6,9 +6,26 @@ export const createPages: GatsbyNode["createPages"] = async ({
   graphql,
 }) => {
   const { createPage } = actions;
+  await pagination(createPage, graphql);
+  await detailPage(createPage, graphql);
+};
 
-  // ---- pagination
+type NextEdge =
+  Queries.NextPrevQueryQuery["allMarkdownRemark"]["edges"][number]["next"];
+type PrevEdge =
+  Queries.NextPrevQueryQuery["allMarkdownRemark"]["edges"][number]["previous"];
+export interface DetailPageContext {
+  next: NextEdge;
+  prev: PrevEdge;
+  id: string;
+}
 
+const pagination = async (
+  createPage: Parameters<
+    NonNullable<GatsbyNode["createPages"]>
+  >["0"]["actions"]["createPage"],
+  graphql: Parameters<NonNullable<GatsbyNode["createPages"]>>["0"]["graphql"]
+) => {
   const paginationIndexPageResult =
     await graphql<Queries.PaginationQueryQuery>(`
       query PaginationQuery {
@@ -49,9 +66,14 @@ export const createPages: GatsbyNode["createPages"] = async ({
       },
     });
   });
+};
 
-  // --- detail page
-
+const detailPage = async (
+  createPage: Parameters<
+    NonNullable<GatsbyNode["createPages"]>
+  >["0"]["actions"]["createPage"],
+  graphql: Parameters<NonNullable<GatsbyNode["createPages"]>>["0"]["graphql"]
+) => {
   const getNextPrevsResult = await graphql<Queries.NextPrevQueryQuery>(`
     query NextPrevQuery {
       allMarkdownRemark {
@@ -99,13 +121,3 @@ export const createPages: GatsbyNode["createPages"] = async ({
     });
   });
 };
-
-type NextEdge =
-  Queries.NextPrevQueryQuery["allMarkdownRemark"]["edges"][number]["next"];
-type PrevEdge =
-  Queries.NextPrevQueryQuery["allMarkdownRemark"]["edges"][number]["previous"];
-export interface DetailPageContext {
-  next: NextEdge;
-  prev: PrevEdge;
-  id: string;
-}
