@@ -121,3 +121,39 @@ const detailPage = async (
     });
   });
 };
+
+export interface TagsPageContext {
+  tagsInfo: ReadonlyArray<{
+    tag: NonNullable<Queries.AllTagsQuery["tags"]["group"][number]["tag"]>;
+    count: Queries.AllTagsQuery["tags"]["group"][number]["totalCount"];
+  }>;
+}
+const tagsPage = async (
+  createPage: Parameters<
+    NonNullable<GatsbyNode["createPages"]>
+  >["0"]["actions"]["createPage"],
+  graphql: Parameters<NonNullable<GatsbyNode["createPages"]>>["0"]["graphql"]
+) => {
+  const getTagsResult = await graphql<Queries.AllTagsQuery>(`
+    query AllTags {
+      tags: allMarkdownRemark {
+        group(field: frontmatter___tags) {
+          tag: fieldValue
+          totalCount
+        }
+      }
+    }
+  `);
+
+  if (!getTagsResult.data || getTagsResult.errors) {
+    throw new Error("全tagのデータ取得に失敗しました。");
+  }
+
+  // create each page
+  getTagsResult.data.tags.group.forEach((tag) => {
+    createPage({
+      path: `/tags/${tag.tag}`,
+      component: path.resolve("./src/templates/tag-page.tsx"),
+    });
+  });
+};
