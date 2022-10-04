@@ -1,5 +1,6 @@
-import { graphql, Link, PageProps } from "gatsby";
+import { graphql, HeadProps, Link, PageProps } from "gatsby";
 import { DetailPageContext } from "../../gatsby-node";
+import { HeadFactory } from "../components/common/head";
 import { ContentsHeader } from "../components/detail/contents-header";
 
 const RootBlogList = ({
@@ -43,3 +44,10 @@ export const postsPaginationQuery = graphql`
     }
   }
 `;
+
+export const Head = ({ data }: HeadProps<Queries.DetailPageQueryQuery>) => {
+  if (!data.markdownRemark?.frontmatter?.title) {
+    throw new Error("title should be");
+  }
+  return <HeadFactory title={data.markdownRemark?.frontmatter?.title} />;
+};

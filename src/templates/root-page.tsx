@@ -1,4 +1,5 @@
 import { graphql, Link, PageProps } from "gatsby";
+import { HeadFactory } from "../components/common/head";
 import { CardList } from "../components/top/card-list";
 
 const RootBlogList = ({
@@ -55,3 +56,5 @@ export const postsPaginationQuery = graphql`
     }
   }
 `;
+
+export const Head = () => <HeadFactory />;
