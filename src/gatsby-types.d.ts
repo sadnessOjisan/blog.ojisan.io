@@ -3678,6 +3678,18 @@ type WebPOptions = {
   readonly quality: InputMaybe<Scalars['Int']>;
 };
 
+type AllTagsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type AllTagsQuery = { readonly tags: { readonly group: ReadonlyArray<{ readonly totalCount: number, readonly tag: string | null }> } };
+
+type ArticlesByTagQueryVariables = Exact<{
+  tag: Scalars['String'];
+}>;
+
+
+type ArticlesByTagQuery = { readonly allMarkdownRemark: { readonly nodes: ReadonlyArray<{ readonly id: string, readonly frontmatter: { readonly path: string | null, readonly title: string | null, readonly created: string | null } | null }> } };
+
 type DetailPageQueryQueryVariables = Exact<{
   id: Scalars['String'];
 }>;

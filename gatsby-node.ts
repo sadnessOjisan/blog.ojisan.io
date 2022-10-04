@@ -6,9 +6,27 @@ export const createPages: GatsbyNode["createPages"] = async ({
   graphql,
 }) => {
   const { createPage } = actions;
+  await pagination(createPage, graphql);
+  await detailPage(createPage, graphql);
+  await tagsPage(createPage, graphql);
+};
 
-  // ---- pagination
+type NextEdge =
+  Queries.NextPrevQueryQuery["allMarkdownRemark"]["edges"][number]["next"];
+type PrevEdge =
+  Queries.NextPrevQueryQuery["allMarkdownRemark"]["edges"][number]["previous"];
+export interface DetailPageContext {
+  next: NextEdge;
+  prev: PrevEdge;
+  id: string;
+}
 
+const pagination = async (
+  createPage: Parameters<
+    NonNullable<GatsbyNode["createPages"]>
+  >["0"]["actions"]["createPage"],
+  graphql: Parameters<NonNullable<GatsbyNode["createPages"]>>["0"]["graphql"]
+) => {
   const paginationIndexPageResult =
     await graphql<Queries.PaginationQueryQuery>(`
       query PaginationQuery {
@@ -49,9 +67,14 @@ export const createPages: GatsbyNode["createPages"] = async ({
       },
     });
   });
+};
 
-  // --- detail page
-
+const detailPage = async (
+  createPage: Parameters<
+    NonNullable<GatsbyNode["createPages"]>
+  >["0"]["actions"]["createPage"],
+  graphql: Parameters<NonNullable<GatsbyNode["createPages"]>>["0"]["graphql"]
+) => {
   const getNextPrevsResult = await graphql<Queries.NextPrevQueryQuery>(`
     query NextPrevQuery {
       allMarkdownRemark {
@@ -100,12 +123,42 @@ export const createPages: GatsbyNode["createPages"] = async ({
   });
 };
 
-type NextEdge =
-  Queries.NextPrevQueryQuery["allMarkdownRemark"]["edges"][number]["next"];
-type PrevEdge =
-  Queries.NextPrevQueryQuery["allMarkdownRemark"]["edges"][number]["previous"];
-export interface DetailPageContext {
-  next: NextEdge;
-  prev: PrevEdge;
-  id: string;
+export interface TagsPageContext {
+  tagsInfo: ReadonlyArray<{
+    tag: NonNullable<Queries.AllTagsQuery["tags"]["group"][number]["tag"]>;
+    count: Queries.AllTagsQuery["tags"]["group"][number]["totalCount"];
+  }>;
 }
+const tagsPage = async (
+  createPage: Parameters<
+    NonNullable<GatsbyNode["createPages"]>
+  >["0"]["actions"]["createPage"],
+  graphql: Parameters<NonNullable<GatsbyNode["createPages"]>>["0"]["graphql"]
+) => {
+  const getTagsResult = await graphql<Queries.AllTagsQuery>(`
+    query AllTags {
+      tags: allMarkdownRemark {
+        group(field: frontmatter___tags) {
+          tag: fieldValue
+          totalCount
+        }
+      }
+    }
+  `);
+
+  if (!getTagsResult.data || getTagsResult.errors) {
+    throw new Error("全tagのデータ取得に失敗しました。");
+  }
+
+  // create each page
+  getTagsResult.data.tags.group.forEach((tag) => {
+    createPage({
+      path: `/tags/${tag.tag}`,
+      component: path.resolve("./src/templates/tag-page.tsx"),
+      context: {
+        // This is needed for query by tag in tag page.
+        tag: tag.tag,
+      },
+    });
+  });
+};
