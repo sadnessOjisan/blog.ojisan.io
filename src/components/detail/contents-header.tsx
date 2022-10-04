@@ -1,3 +1,4 @@
+import { Link } from "gatsby";
 import { ComponentType } from "react";
 
 export const ContentsHeader: ComponentType<{
@@ -14,7 +15,11 @@ export const ContentsHeader: ComponentType<{
       <div>{markdownMeta.title}</div>
       <div>
         {markdownMeta.tags.map((tag) => {
-          return <span key={tag}>{tag}</span>;
+          return (
+            <Link key={tag} to={`/tags/${tag}`}>
+              {tag}
+            </Link>
+          );
         })}
       </div>
     </div>
