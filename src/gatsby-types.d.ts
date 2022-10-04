@@ -2846,8 +2846,10 @@ type SiteFieldsEnum =
   | 'polyfill'
   | 'port'
   | 'siteMetadata.description'
+  | 'siteMetadata.image'
   | 'siteMetadata.siteUrl'
   | 'siteMetadata.title'
+  | 'siteMetadata.twitterUsername'
   | 'trailingSlash';
 
 type SiteFilterInput = {
@@ -3637,14 +3639,18 @@ type SitePluginSortInput = {
 
 type SiteSiteMetadata = {
   readonly description: Maybe<Scalars['String']>;
+  readonly image: Maybe<Scalars['String']>;
   readonly siteUrl: Maybe<Scalars['String']>;
   readonly title: Maybe<Scalars['String']>;
+  readonly twitterUsername: Maybe<Scalars['String']>;
 };
 
 type SiteSiteMetadataFilterInput = {
   readonly description: InputMaybe<StringQueryOperatorInput>;
+  readonly image: InputMaybe<StringQueryOperatorInput>;
   readonly siteUrl: InputMaybe<StringQueryOperatorInput>;
   readonly title: InputMaybe<StringQueryOperatorInput>;
+  readonly twitterUsername: InputMaybe<StringQueryOperatorInput>;
 };
 
 type SiteSortInput = {
@@ -3695,7 +3701,7 @@ type DetailPageQueryQueryVariables = Exact<{
 }>;
 
 
-type DetailPageQueryQuery = { readonly markdownRemark: { readonly id: string, readonly html: string | null, readonly frontmatter: { readonly path: string | null, readonly title: string | null, readonly tags: ReadonlyArray<string | null> | null } | null } | null };
+type DetailPageQueryQuery = { readonly markdownRemark: { readonly id: string, readonly html: string | null, readonly frontmatter: { readonly path: string | null, readonly title: string | null, readonly tags: ReadonlyArray<string | null> | null, readonly visual: { readonly childImageSharp: { readonly gatsbyImageData: import('gatsby-plugin-image').IGatsbyImageData } | null } | null } | null } | null };
 
 type GatsbyImageSharpFixedFragment = { readonly base64: string | null, readonly width: number, readonly height: number, readonly src: string, readonly srcSet: string };
 
@@ -3730,6 +3736,11 @@ type postsPaginationQueryQueryVariables = Exact<{
 
 
 type postsPaginationQueryQuery = { readonly allMarkdownRemark: { readonly nodes: ReadonlyArray<{ readonly id: string, readonly frontmatter: { readonly path: string | null, readonly title: string | null, readonly visual: { readonly childImageSharp: { readonly gatsbyImageData: import('gatsby-plugin-image').IGatsbyImageData } | null } | null } | null }> } };
+
+type SiteMetaDataQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type SiteMetaDataQuery = { readonly site: { readonly siteMetadata: { readonly title: string | null, readonly description: string | null, readonly twitterUsername: string | null, readonly image: string | null, readonly siteUrl: string | null } | null } | null };
 
 type PaginationQueryQueryVariables = Exact<{ [key: string]: never; }>;
 

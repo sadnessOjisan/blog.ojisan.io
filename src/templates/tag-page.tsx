@@ -1,4 +1,6 @@
-import { graphql, PageProps } from "gatsby";
+import { graphql, HeadProps, PageProps } from "gatsby";
+import { TagPageContext } from "../../gatsby-node";
+import { HeadFactory } from "../components/common/head";
 import { CardList } from "../components/tags/card-list";
 
 const ListByTag = ({ data }: PageProps<Queries.ArticlesByTagQuery>) => {
@@ -34,3 +36,9 @@ export const postsPaginationQuery = graphql`
     }
   }
 `;
+
+export const Head = ({
+  pageContext,
+}: HeadProps<Queries.ArticlesByTagQuery, TagPageContext>) => {
+  return <HeadFactory type="blog" title={`${pageContext.tag} の記事一覧`} />;
+};

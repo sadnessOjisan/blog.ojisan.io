@@ -4,7 +4,9 @@ const config: GatsbyConfig = {
   siteMetadata: {
     title: `blog.ojisan.io`,
     siteUrl: `https://blog.ojisan.io`,
-    description: `hogehoge`,
+    description: `おじさんのブログ。プログラミングとか料理とかゲームとか。`,
+    twitterUsername: `@sadnessOjisan`,
+    image: `/default-ogp.png`,
   },
   // More easily incorporate content into your pages through automatic TypeScript type generation and better GraphQL IntelliSense.
   // If you use VSCode you can also use the GraphQL plugin
