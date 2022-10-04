@@ -1,4 +1,5 @@
 import { graphql, Link, PageProps } from "gatsby";
+import { CardList } from "../components/tags/card-list";
 
 const ListByTag = ({
   data,
@@ -8,14 +9,7 @@ const ListByTag = ({
   console.log(pageContext);
   return (
     <div>
-      {data.allMarkdownRemark.edges.map((t) => (
-        <Link
-          to={t.node.frontmatter?.path || ""}
-          key={t.node.frontmatter?.path}
-        >
-          <div>{t.node.frontmatter?.title}</div>
-        </Link>
-      ))}
+      <CardList nodes={data.allMarkdownRemark.nodes} />
     </div>
   );
 };
@@ -25,14 +19,13 @@ export default ListByTag;
 export const postsPaginationQuery = graphql`
   query ArticlesByTag($tag: String!) {
     allMarkdownRemark(filter: { frontmatter: { tags: { in: [$tag] } } }) {
-      edges {
-        node {
-          frontmatter {
-            title
-            tags
-            created
-            path
-          }
+      nodes {
+        id
+        frontmatter {
+          path
+          title
+          created
+          path
         }
       }
     }

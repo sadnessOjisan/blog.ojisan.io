@@ -1,5 +1,4 @@
 import { graphql, Link, PageProps } from "gatsby";
-import { CardList } from "../components/top/card-list";
 
 const RootBlogList = ({ data }: PageProps<Queries.AllTagsQuery>) => {
   return (

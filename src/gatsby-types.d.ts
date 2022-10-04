@@ -3688,7 +3688,7 @@ type ArticlesByTagQueryVariables = Exact<{
 }>;
 
 
-type ArticlesByTagQuery = { readonly allMarkdownRemark: { readonly edges: ReadonlyArray<{ readonly node: { readonly frontmatter: { readonly title: string | null, readonly tags: ReadonlyArray<string | null> | null, readonly created: string | null, readonly path: string | null } | null } }> } };
+type ArticlesByTagQuery = { readonly allMarkdownRemark: { readonly nodes: ReadonlyArray<{ readonly id: string, readonly frontmatter: { readonly path: string | null, readonly title: string | null, readonly created: string | null } | null }> } };
 
 type DetailPageQueryQueryVariables = Exact<{
   id: Scalars['String'];
