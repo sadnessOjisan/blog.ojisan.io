@@ -1,5 +1,5 @@
 import { graphql, HeadProps, Link, PageProps } from "gatsby";
-import { getImage, getSrc } from "gatsby-plugin-image";
+import { getSrc } from "gatsby-plugin-image";
 import { DetailPageContext } from "../../gatsby-node";
 import { HeadFactory } from "../components/common/head";
 import { ContentsHeader } from "../components/detail/contents-header";
