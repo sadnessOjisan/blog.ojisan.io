@@ -1,4 +1,4 @@
-import { graphql, Link, PageProps } from "gatsby";
+import { graphql, PageProps } from "gatsby";
 import { CardList } from "../components/tags/card-list";
 
 const ListByTag = ({
