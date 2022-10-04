@@ -1,5 +1,5 @@
+import { Link } from "gatsby";
 import { ComponentType } from "react";
-import { Card as CardOrig } from "../common/card";
 
 export const Card: ComponentType<{
   node: Queries.postsPaginationQueryQuery["allMarkdownRemark"]["nodes"][number];
@@ -8,5 +8,9 @@ export const Card: ComponentType<{
     console.error(node.frontmatter);
     throw new Error("props value is invalid.");
   }
-  return <CardOrig node={node} />;
+  return (
+    <Link to={`${node.frontmatter.path}`}>
+      <div>{node.frontmatter.title}</div>
+    </Link>
+  );
 };
