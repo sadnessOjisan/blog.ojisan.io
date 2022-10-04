@@ -156,6 +156,7 @@ const tagsPage = async (
       path: `/tags/${tag.tag}`,
       component: path.resolve("./src/templates/tag-page.tsx"),
       context: {
+        // This is needed for query by tag in tag page.
         tag: tag.tag,
       },
     });
