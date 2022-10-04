@@ -3701,7 +3701,7 @@ type DetailPageQueryQueryVariables = Exact<{
 }>;
 
 
-type DetailPageQueryQuery = { readonly markdownRemark: { readonly id: string, readonly html: string | null, readonly frontmatter: { readonly path: string | null, readonly title: string | null, readonly tags: ReadonlyArray<string | null> | null } | null } | null };
+type DetailPageQueryQuery = { readonly markdownRemark: { readonly id: string, readonly html: string | null, readonly frontmatter: { readonly path: string | null, readonly title: string | null, readonly tags: ReadonlyArray<string | null> | null, readonly visual: { readonly childImageSharp: { readonly gatsbyImageData: import('gatsby-plugin-image').IGatsbyImageData } | null } | null } | null } | null };
 
 type GatsbyImageSharpFixedFragment = { readonly base64: string | null, readonly width: number, readonly height: number, readonly src: string, readonly srcSet: string };
 
