@@ -57,4 +57,4 @@ export const postsPaginationQuery = graphql`
   }
 `;
 
-export const Head = () => <HeadFactory />;
+export const Head = () => <HeadFactory type="blog" />;

@@ -123,11 +123,8 @@ const detailPage = async (
   });
 };
 
-export interface TagsPageContext {
-  tagsInfo: ReadonlyArray<{
-    tag: NonNullable<Queries.AllTagsQuery["tags"]["group"][number]["tag"]>;
-    count: Queries.AllTagsQuery["tags"]["group"][number]["totalCount"];
-  }>;
+export interface TagPageContext {
+  tag: string;
 }
 const tagsPage = async (
   createPage: Parameters<
@@ -152,13 +149,17 @@ const tagsPage = async (
 
   // create each page
   getTagsResult.data.tags.group.forEach((tag) => {
+    if (tag.tag === null) {
+      throw new Error("tag should be there");
+    }
+    const context: TagPageContext = {
+      // This is needed for query by tag in tag page.
+      tag: tag.tag,
+    };
     createPage({
       path: `/tags/${tag.tag}`,
       component: path.resolve("./src/templates/tag-page.tsx"),
-      context: {
-        // This is needed for query by tag in tag page.
-        tag: tag.tag,
-      },
+      context,
     });
   });
 };

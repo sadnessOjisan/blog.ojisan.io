@@ -1,4 +1,5 @@
 import { graphql, Link, PageProps } from "gatsby";
+import { HeadFactory } from "../components/common/head";
 
 const RootBlogList = ({ data }: PageProps<Queries.AllTagsQuery>) => {
   return (
@@ -26,3 +27,5 @@ export const postsPaginationQuery = graphql`
     }
   }
 `;
+
+export const Head = () => <HeadFactory type="blog" />;

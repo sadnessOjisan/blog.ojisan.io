@@ -49,5 +49,10 @@ export const Head = ({ data }: HeadProps<Queries.DetailPageQueryQuery>) => {
   if (!data.markdownRemark?.frontmatter?.title) {
     throw new Error("title should be");
   }
-  return <HeadFactory title={data.markdownRemark?.frontmatter?.title} />;
+  return (
+    <HeadFactory
+      title={data.markdownRemark?.frontmatter?.title}
+      type="article"
+    />
+  );
 };
