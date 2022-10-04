@@ -8,6 +8,7 @@ export const createPages: GatsbyNode["createPages"] = async ({
   const { createPage } = actions;
   await pagination(createPage, graphql);
   await detailPage(createPage, graphql);
+  await tagsPage(createPage, graphql);
 };
 
 type NextEdge =
@@ -154,6 +155,9 @@ const tagsPage = async (
     createPage({
       path: `/tags/${tag.tag}`,
       component: path.resolve("./src/templates/tag-page.tsx"),
+      context: {
+        tag: tag.tag,
+      },
     });
   });
 };

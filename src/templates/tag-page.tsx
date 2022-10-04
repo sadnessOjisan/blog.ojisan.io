@@ -1,23 +1,37 @@
 import { graphql, Link, PageProps } from "gatsby";
-import { DetailPageContext } from "../../gatsby-node";
-import { ContentsHeader } from "../components/detail/contents-header";
 
-const RootBlogList = ({
+const ListByTag = ({
   data,
   pageContext,
-}: PageProps<Queries.ArticlesByTagQuery, DetailPageContext>) => {
-  return <div></div>;
+}: PageProps<Queries.ArticlesByTagQuery>) => {
+  console.log(data);
+  console.log(pageContext);
+  return (
+    <div>
+      {data.allMarkdownRemark.edges.map((t) => (
+        <Link
+          to={t.node.frontmatter?.path || ""}
+          key={t.node.frontmatter?.path}
+        >
+          <div>{t.node.frontmatter?.title}</div>
+        </Link>
+      ))}
+    </div>
+  );
 };
 
-export default RootBlogList;
+export default ListByTag;
 
 export const postsPaginationQuery = graphql`
-  query ArticlesByTag($id: [String]) {
-    tags: allMarkdownRemark(filter: { frontmatter: { tags: { in: $id } } }) {
+  query ArticlesByTag($tag: String!) {
+    allMarkdownRemark(filter: { frontmatter: { tags: { in: [$tag] } } }) {
       edges {
         node {
           frontmatter {
+            title
             tags
+            created
+            path
           }
         }
       }

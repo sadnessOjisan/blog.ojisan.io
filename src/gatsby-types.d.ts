@@ -3684,11 +3684,11 @@ type AllTagsQueryVariables = Exact<{ [key: string]: never; }>;
 type AllTagsQuery = { readonly tags: { readonly group: ReadonlyArray<{ readonly totalCount: number, readonly tag: string | null }> } };
 
 type ArticlesByTagQueryVariables = Exact<{
-  id: InputMaybe<ReadonlyArray<InputMaybe<Scalars['String']>> | InputMaybe<Scalars['String']>>;
+  tag: Scalars['String'];
 }>;
 
 
-type ArticlesByTagQuery = { readonly tags: { readonly edges: ReadonlyArray<{ readonly node: { readonly frontmatter: { readonly tags: ReadonlyArray<string | null> | null } | null } }> } };
+type ArticlesByTagQuery = { readonly allMarkdownRemark: { readonly edges: ReadonlyArray<{ readonly node: { readonly frontmatter: { readonly title: string | null, readonly tags: ReadonlyArray<string | null> | null, readonly created: string | null, readonly path: string | null } | null } }> } };
 
 type DetailPageQueryQueryVariables = Exact<{
   id: Scalars['String'];
