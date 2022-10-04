@@ -47,7 +47,7 @@ export const postsPaginationQuery = graphql`
           title
           visual {
             childImageSharp {
-              gatsbyImageData
+              gatsbyImageData(width: 400)
             }
           }
         }
