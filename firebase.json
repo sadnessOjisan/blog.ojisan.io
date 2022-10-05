@@ -1,6 +1,7 @@
 {
   "hosting": [
     {
+      "target": "default",
       "public": "./public",
       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
       "trailingSlash": true
