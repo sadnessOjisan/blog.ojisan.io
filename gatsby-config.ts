@@ -135,7 +135,7 @@ const config: GatsbyConfig = {
       resolve: `gatsby-plugin-feed`,
       options: {
         query: `
-          {
+          query SiteMetadata {
             site {
               siteMetadata {
                 title
@@ -151,8 +151,12 @@ const config: GatsbyConfig = {
             serialize: ({
               query: { site, allMarkdownRemark },
             }: {
+              // gatsby-config の中の gql は codegen が型を履いてくれないので型を誤魔化している
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
               query: any;
             }) => {
+              // gatsby-config の中の gql は codegen が型を履いてくれないので型を誤魔化している
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
               return allMarkdownRemark.edges.map((edge: any) => {
                 return Object.assign({}, edge.node.frontmatter, {
                   description: edge.node.excerpt,
@@ -164,7 +168,7 @@ const config: GatsbyConfig = {
               });
             },
             query: `
-              {
+              query Rss {
                 allMarkdownRemark(
                   sort: { order: DESC, fields: [frontmatter___created] },
                 ) {
