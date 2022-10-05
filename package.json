@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "gatsby": "^4.22.0",
+    "gatsby-plugin-feed": "^4.24.0",
     "gatsby-plugin-google-analytics": "^4.22.0",
     "gatsby-plugin-image": "^2.22.0",
     "gatsby-plugin-manifest": "^4.22.0",
