@@ -1,5 +1,6 @@
 import { graphql, Link, PageProps } from "gatsby";
 import { HeadFactory } from "../components/common/head";
+import { HeaderLayout } from "../components/common/header-layout";
 import { CardList } from "../components/top/card-list";
 
 const RootBlogList = ({
@@ -17,6 +18,7 @@ const RootBlogList = ({
   const isLast = pageContext.currentPage === pageContext.numPages;
   return (
     <div>
+      <HeaderLayout />
       <CardList nodes={data.allMarkdownRemark.nodes} />
       {!isFirst &&
         (pageContext.currentPage - 1 === 1 ? (
