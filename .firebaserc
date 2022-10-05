@@ -1,5 +1,15 @@
 {
   "projects": {
     "default": "blog-ojisan-io"
-  }
+  },
+  "targets": {
+    "blog-ojisan-io": {
+      "hosting": {
+        "storybook": [
+          "storybook-blog-ojisan-io"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }
