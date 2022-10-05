@@ -1,6 +1,5 @@
 // https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/order.md#groups-array
 const DEFAULT_ORDER = ["builtin", "external", "parent", "sibling", "index"];
-
 module.exports = {
   env: {
     browser: true,
@@ -13,6 +12,7 @@ module.exports = {
     "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended",
     "prettier",
+    "plugin:storybook/recommended",
   ],
   settings: {
     "import/resolver": {
@@ -37,7 +37,10 @@ module.exports = {
       "error",
       {
         groups: DEFAULT_ORDER,
-        alphabetize: { order: "asc", caseInsensitive: true },
+        alphabetize: {
+          order: "asc",
+          caseInsensitive: true,
+        },
       },
     ],
   },
