@@ -7,6 +7,9 @@
       "hosting": {
         "storybook": [
           "storybook-blog-ojisan-io"
+        ],
+        "default": [
+          "blog-ojisan-io"
         ]
       }
     }
