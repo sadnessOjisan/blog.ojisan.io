@@ -1,6 +1,6 @@
 ---
 path: /splatoon3-hansei-site
-created: "2022-10-03"
+created: "2022-10-07"
 title: スプラトゥーン３の反省サイトを Jamstack でコスト抑えて作った
 visual: "./visual.png"
 tags: ["astro", "django", "cloud sql"]
