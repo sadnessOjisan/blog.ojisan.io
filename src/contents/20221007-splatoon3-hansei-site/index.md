@@ -29,7 +29,7 @@ isProtect: false
 
 ### 型(のようなもの)がつく
 
-Django はモデルベースの FW で、いわゆる Entity の利用が推奨されます。
+Django はモデルベースの FW で、いわゆるデータモデル構文が存在して Entity の利用が推奨されます。
 フィールドはそれぞれ models.CharField のような関数を呼び出して定義するのですが、これが型のように効いてくれます。
 DB の migration に使われるだけでなく、この情報を Serializer に渡せばそこから Swagger の生成までできます。
 
