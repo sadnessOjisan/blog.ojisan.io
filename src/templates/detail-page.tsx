@@ -3,6 +3,7 @@ import { getSrc } from "gatsby-plugin-image";
 import { DetailPageContext } from "../../gatsby-node";
 import { HeadFactory } from "../components/common/head";
 import { ContentsHeader } from "../components/detail/contents-header";
+import * as styles from "./detail-page.module.css";
 
 const RootBlogList = ({
   data,
@@ -12,10 +13,9 @@ const RootBlogList = ({
     throw new Error("markdown data should be");
   }
   return (
-    <div>
-      {JSON.stringify(pageContext)}
+    <div className={styles.wrapper}>
       <ContentsHeader markdownMeta={data.markdownRemark.frontmatter} />
-      <div>
+      <div className={styles.contentsBox}>
         <div
           dangerouslySetInnerHTML={{
             __html: data.markdownRemark.html || "",
