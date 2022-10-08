@@ -64,6 +64,7 @@
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-react": "^7.31.4",
     "eslint-plugin-storybook": "^0.6.4",
+    "html-webpack-plugin": "^5.5.0",
     "postcss-custom-media": "^8.0.2",
     "prettier": "^2.7.1",
     "stylelint": "^14.11.0",
