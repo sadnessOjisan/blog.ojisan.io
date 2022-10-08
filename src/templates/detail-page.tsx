@@ -2,6 +2,7 @@ import { graphql, HeadProps, Link, PageProps } from "gatsby";
 import { getSrc } from "gatsby-plugin-image";
 import { DetailPageContext } from "../../gatsby-node";
 import { HeadFactory } from "../components/common/head";
+import { HeaderLayout } from "../components/common/header-layout";
 import { ContentsHeader } from "../components/detail/contents-header";
 
 const RootBlogList = ({
@@ -13,6 +14,7 @@ const RootBlogList = ({
   }
   return (
     <div>
+      <HeaderLayout />
       <ContentsHeader markdownMeta={data.markdownRemark.frontmatter} />
       <div>
         <div
