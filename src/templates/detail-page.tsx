@@ -13,6 +13,7 @@ const RootBlogList = ({
   }
   return (
     <div>
+      {JSON.stringify(pageContext)}
       <ContentsHeader markdownMeta={data.markdownRemark.frontmatter} />
       <div>
         <div
@@ -20,6 +21,11 @@ const RootBlogList = ({
             __html: data.markdownRemark.html || "",
           }}
         ></div>
+        <div>
+          {data.tags.nodes.map((n) => (
+            <div key={n.frontmatter?.path}>{n.frontmatter?.title}</div>
+          ))}
+        </div>
       </div>
       <div>
         {pageContext.prev?.frontmatter?.path && (
@@ -36,7 +42,7 @@ const RootBlogList = ({
 export default RootBlogList;
 
 export const postsPaginationQuery = graphql`
-  query DetailPageQuery($id: String!) {
+  query DetailPageQuery($id: String!, $tags: [String!]) {
     markdownRemark(id: { eq: $id }) {
       id
       html
@@ -48,6 +54,17 @@ export const postsPaginationQuery = graphql`
           childImageSharp {
             gatsbyImageData(width: 1024, height: 400)
           }
+        }
+      }
+    }
+    tags: allMarkdownRemark(
+      filter: { frontmatter: { tags: { in: $tags } } }
+      limit: 10
+    ) {
+      nodes {
+        frontmatter {
+          path
+          title
         }
       }
     }

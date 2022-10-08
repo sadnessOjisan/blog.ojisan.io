@@ -19,6 +19,7 @@ export interface DetailPageContext {
   next: NextEdge;
   prev: PrevEdge;
   id: string;
+  tags: string[];
 }
 
 const pagination = async (
@@ -94,6 +95,7 @@ const detailPage = async (
           node {
             frontmatter {
               path
+              tags
             }
             id
           }
@@ -107,10 +109,14 @@ const detailPage = async (
   }
 
   getNextPrevsResult.data.allMarkdownRemark.edges.forEach((edge) => {
+    if (!edge.node.frontmatter || !edge.node.frontmatter.tags) {
+      throw new Error("data should be");
+    }
     const context: DetailPageContext = {
       id: edge.node.id,
       next: edge.next,
       prev: edge.previous,
+      tags: edge.node.frontmatter.tags.filter((t) => Boolean(t)) as string[],
     };
     if (!edge.node.frontmatter?.path) {
       throw new Error("path 情報がありません");
