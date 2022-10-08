@@ -1,6 +1,7 @@
 import { Link } from "gatsby";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import { ComponentType } from "react";
+import { Tag } from "./tag";
 
 export const Card: ComponentType<{
   node: Queries.postsPaginationQueryQuery["allMarkdownRemark"]["nodes"][number];
@@ -21,6 +22,9 @@ export const Card: ComponentType<{
     <Link to={`${node.frontmatter.path}`}>
       <div>{node.frontmatter.title}</div>
       <GatsbyImage image={image} alt="thumbnail" />
+      {node.frontmatter.tags.map((tag) => (
+        <Tag name={tag} />
+      ))}
     </Link>
   );
 };

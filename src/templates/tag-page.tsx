@@ -31,6 +31,7 @@ export const postsPaginationQuery = graphql`
               gatsbyImageData(width: 400)
             }
           }
+          tags
         }
       }
     }
