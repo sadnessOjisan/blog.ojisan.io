@@ -1,4 +1,5 @@
 import { ComponentType, ReactNode } from "react";
+import { Header } from "./header";
 import * as styles from "./layout.module.css";
 
 interface Props {
@@ -8,7 +9,7 @@ interface Props {
 export const Layout: ComponentType<Props> = ({ children }) => {
   return (
     <>
-      <header className={styles.header}>aaa</header>
+      <Header />
       <div className={styles.contents}>{children}</div>
       <footer className={styles.footer}>
         <a href="https://github.com/sadnessOjisan/blog.ojisan.io">GitHub</a>

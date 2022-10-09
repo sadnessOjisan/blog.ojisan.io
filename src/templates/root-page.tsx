@@ -1,5 +1,6 @@
 import { graphql, Link, PageProps } from "gatsby";
 import { HeadFactory } from "../components/common/head";
+import { Layout } from "../components/common/layout";
 import { CardList } from "../components/top/card-list";
 
 const RootBlogList = ({
@@ -16,7 +17,7 @@ const RootBlogList = ({
   const isFirst = pageContext.currentPage === 1;
   const isLast = pageContext.currentPage === pageContext.numPages;
   return (
-    <div>
+    <Layout>
       <CardList nodes={data.allMarkdownRemark.nodes} />
       {!isFirst &&
         (pageContext.currentPage - 1 === 1 ? (
@@ -28,7 +29,7 @@ const RootBlogList = ({
       {!isLast && (
         <Link to={`/posts/${pageContext.currentPage + 1}`}>next</Link>
       )}
-    </div>
+    </Layout>
   );
 };
 
