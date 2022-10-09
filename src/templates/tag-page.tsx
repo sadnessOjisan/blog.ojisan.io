@@ -1,13 +1,18 @@
 import { graphql, HeadProps, PageProps } from "gatsby";
 import { TagPageContext } from "../../gatsby-node";
 import { HeadFactory } from "../components/common/head";
+import { Layout } from "../components/common/layout";
 import { CardList } from "../components/tags/card-list";
 
-const ListByTag = ({ data }: PageProps<Queries.ArticlesByTagQuery>) => {
+const ListByTag = ({
+  data,
+  pageContext,
+}: PageProps<Queries.ArticlesByTagQuery, TagPageContext>) => {
   return (
-    <div>
+    <Layout>
+      <h1>{pageContext.tag} の記事一覧</h1>
       <CardList nodes={data.allMarkdownRemark.nodes} />
-    </div>
+    </Layout>
   );
 };
 
