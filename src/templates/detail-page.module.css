@@ -1,15 +1,16 @@
 .wrapper {
-    display: grid;
-    row-gap: 24px;
-
+  display: grid;
+  row-gap: 24px;
 }
 
 .contentsBox {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    column-gap: 24px;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  column-gap: 24px;
 }
 
-.mainCol {}
+.mainCol {
+}
 
-.subCol{}
+.subCol {
+}
