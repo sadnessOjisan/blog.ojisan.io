@@ -1,0 +1,13 @@
+.contents {
+    max-width: 1280px;
+    margin: auto;
+    padding: 12px
+}
+
+.header {
+    height: 80px;
+}
+
+.footer {
+    height: 100px;
+}

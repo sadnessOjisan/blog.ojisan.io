@@ -24,8 +24,7 @@ export const ContentsHeader: ComponentType<{
 
   return (
     <div>
-      <GatsbyImage image={image} alt="thumbnail" />
-      <div>{markdownMeta.title}</div>
+      <h1>{markdownMeta.title}</h1>
       <div>
         {markdownMeta.tags.map((tag) => {
           return (
@@ -35,6 +34,7 @@ export const ContentsHeader: ComponentType<{
           );
         })}
       </div>
+      <GatsbyImage image={image} alt="thumbnail" />
     </div>
   );
 };

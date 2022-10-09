@@ -2,6 +2,7 @@ import { graphql, HeadProps, Link, PageProps } from "gatsby";
 import { getSrc } from "gatsby-plugin-image";
 import { DetailPageContext } from "../../gatsby-node";
 import { HeadFactory } from "../components/common/head";
+import { Layout } from "../components/common/layout";
 import { ContentsHeader } from "../components/detail/contents-header";
 import * as styles from "./detail-page.module.css";
 
@@ -13,29 +14,31 @@ const RootBlogList = ({
     throw new Error("markdown data should be");
   }
   return (
-    <div className={styles.wrapper}>
-      <ContentsHeader markdownMeta={data.markdownRemark.frontmatter} />
-      <div className={styles.contentsBox}>
-        <div
-          dangerouslySetInnerHTML={{
-            __html: data.markdownRemark.html || "",
-          }}
-        ></div>
+    <Layout>
+      <div className={styles.wrapper}>
+        <ContentsHeader markdownMeta={data.markdownRemark.frontmatter} />
+        <div className={styles.contentsBox}>
+          <div
+            dangerouslySetInnerHTML={{
+              __html: data.markdownRemark.html || "",
+            }}
+          ></div>
+          <div>
+            {data.tags.nodes.map((n) => (
+              <div key={n.frontmatter?.path}>{n.frontmatter?.title}</div>
+            ))}
+          </div>
+        </div>
         <div>
-          {data.tags.nodes.map((n) => (
-            <div key={n.frontmatter?.path}>{n.frontmatter?.title}</div>
-          ))}
+          {pageContext.prev?.frontmatter?.path && (
+            <Link to={pageContext.prev.frontmatter.path}>prev</Link>
+          )}
+          {pageContext.next?.frontmatter?.path && (
+            <Link to={pageContext.next.frontmatter.path}>next</Link>
+          )}
         </div>
       </div>
-      <div>
-        {pageContext.prev?.frontmatter?.path && (
-          <Link to={pageContext.prev.frontmatter.path}>prev</Link>
-        )}
-        {pageContext.next?.frontmatter?.path && (
-          <Link to={pageContext.next.frontmatter.path}>next</Link>
-        )}
-      </div>
-    </div>
+    </Layout>
   );
 };
 
@@ -52,7 +55,7 @@ export const postsPaginationQuery = graphql`
         tags
         visual {
           childImageSharp {
-            gatsbyImageData(width: 1024, height: 400)
+            gatsbyImageData(width: 1280, height: 600)
           }
         }
       }
