@@ -1,4 +1,5 @@
 import { ComponentType, ReactNode } from "react";
+import { Footer } from "./footer";
 import { Header } from "./header";
 import * as styles from "./layout.module.css";
 
@@ -13,9 +14,7 @@ export const Layout: ComponentType<Props> = ({ children }) => {
       <div className={styles.contentsWrapper}>
         <div className={styles.contents}>{children}</div>
       </div>
-      <footer className={styles.footer}>
-        <a href="https://github.com/sadnessOjisan/blog.ojisan.io">GitHub</a>
-      </footer>
+      <Footer />
     </>
   );
 };

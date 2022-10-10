@@ -1,0 +1,22 @@
+.footer {
+  min-height: 200px;
+  background-color: var(--primary-compatible-color);
+  padding: 32px 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.contents {
+  max-width: var(--screen-width);
+  margin: auto;
+}
+
+.contents a {
+  color: var(--primary-color);
+}
+
+.contents > p {
+  margin: 20px 0px;
+}
