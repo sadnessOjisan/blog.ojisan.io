@@ -4,6 +4,7 @@ import { DetailPageContext } from "../../gatsby-node";
 import { HeadFactory } from "../components/common/head";
 import { Layout } from "../components/common/layout";
 import { ContentsHeader } from "../components/detail/contents-header";
+import { MainColumn } from "../components/detail/main-col";
 import { SubColumn } from "../components/detail/sub-col";
 import * as styles from "./detail-page.module.css";
 
@@ -19,12 +20,11 @@ const RootBlogList = ({
       <div className={styles.wrapper}>
         <ContentsHeader markdownMeta={data.markdownRemark.frontmatter} />
         <div className={styles.contentsBox}>
-          <div
-            dangerouslySetInnerHTML={{
-              __html: data.markdownRemark.html || "",
-            }}
-          ></div>
-          <SubColumn tags={data.tags.nodes} />
+          <MainColumn detailPage={data.markdownRemark} />
+          <SubColumn
+            tags={data.tags.nodes}
+            toc={data.markdownRemark.tableOfContents}
+          />
         </div>
         <div>
           {pageContext.prev?.frontmatter?.path && (
@@ -56,6 +56,8 @@ export const postsPaginationQuery = graphql`
           }
         }
       }
+      tableOfContents
+      timeToRead
     }
     tags: allMarkdownRemark(
       filter: { frontmatter: { tags: { in: $tags } } }
