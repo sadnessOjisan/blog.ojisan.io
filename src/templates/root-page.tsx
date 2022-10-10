@@ -49,9 +49,11 @@ export const postsPaginationQuery = graphql`
           title
           visual {
             childImageSharp {
-              gatsbyImageData(width: 400)
+              gatsbyImageData(width: 300, height: 300)
             }
           }
+          created
+          tags
         }
       }
     }

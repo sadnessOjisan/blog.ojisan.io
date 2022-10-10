@@ -9,8 +9,10 @@
   column-gap: 24px;
 }
 
-.mainCol {
+.contentsBox > * {
+  overflow: hidden;
 }
 
-.subCol {
+.nextPrevSection {
+  margin-top: 32px;
 }

@@ -3694,7 +3694,7 @@ type ArticlesByTagQueryVariables = Exact<{
 }>;
 
 
-type ArticlesByTagQuery = { readonly allMarkdownRemark: { readonly nodes: ReadonlyArray<{ readonly id: string, readonly frontmatter: { readonly path: string | null, readonly title: string | null, readonly created: string | null, readonly visual: { readonly childImageSharp: { readonly gatsbyImageData: import('gatsby-plugin-image').IGatsbyImageData } | null } | null } | null }> } };
+type ArticlesByTagQuery = { readonly allMarkdownRemark: { readonly nodes: ReadonlyArray<{ readonly id: string, readonly frontmatter: { readonly path: string | null, readonly title: string | null, readonly created: string | null, readonly tags: ReadonlyArray<string | null> | null, readonly visual: { readonly childImageSharp: { readonly gatsbyImageData: import('gatsby-plugin-image').IGatsbyImageData } | null } | null } | null }> } };
 
 type DetailPageQueryQueryVariables = Exact<{
   id: Scalars['String'];
@@ -3702,7 +3702,7 @@ type DetailPageQueryQueryVariables = Exact<{
 }>;
 
 
-type DetailPageQueryQuery = { readonly markdownRemark: { readonly id: string, readonly html: string | null, readonly frontmatter: { readonly path: string | null, readonly title: string | null, readonly tags: ReadonlyArray<string | null> | null, readonly visual: { readonly childImageSharp: { readonly gatsbyImageData: import('gatsby-plugin-image').IGatsbyImageData } | null } | null } | null } | null, readonly tags: { readonly nodes: ReadonlyArray<{ readonly frontmatter: { readonly path: string | null, readonly title: string | null } | null }> } };
+type DetailPageQueryQuery = { readonly markdownRemark: { readonly id: string, readonly html: string | null, readonly tableOfContents: string | null, readonly timeToRead: number | null, readonly frontmatter: { readonly path: string | null, readonly title: string | null, readonly tags: ReadonlyArray<string | null> | null, readonly visual: { readonly childImageSharp: { readonly gatsbyImageData: import('gatsby-plugin-image').IGatsbyImageData } | null } | null } | null } | null, readonly tags: { readonly nodes: ReadonlyArray<{ readonly timeToRead: number | null, readonly excerpt: string | null, readonly frontmatter: { readonly path: string | null, readonly title: string | null, readonly visual: { readonly childImageSharp: { readonly gatsbyImageData: import('gatsby-plugin-image').IGatsbyImageData } | null } | null } | null }> } };
 
 type GatsbyImageSharpFixedFragment = { readonly base64: string | null, readonly width: number, readonly height: number, readonly src: string, readonly srcSet: string };
 
@@ -3736,7 +3736,7 @@ type postsPaginationQueryQueryVariables = Exact<{
 }>;
 
 
-type postsPaginationQueryQuery = { readonly allMarkdownRemark: { readonly nodes: ReadonlyArray<{ readonly id: string, readonly frontmatter: { readonly path: string | null, readonly title: string | null, readonly visual: { readonly childImageSharp: { readonly gatsbyImageData: import('gatsby-plugin-image').IGatsbyImageData } | null } | null } | null }> } };
+type postsPaginationQueryQuery = { readonly allMarkdownRemark: { readonly nodes: ReadonlyArray<{ readonly id: string, readonly frontmatter: { readonly path: string | null, readonly title: string | null, readonly created: string | null, readonly tags: ReadonlyArray<string | null> | null, readonly visual: { readonly childImageSharp: { readonly gatsbyImageData: import('gatsby-plugin-image').IGatsbyImageData } | null } | null } | null }> } };
 
 type SiteMetaDataQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -3751,7 +3751,7 @@ type PaginationQueryQuery = { readonly allMarkdownRemark: { readonly nodes: Read
 type NextPrevQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type NextPrevQueryQuery = { readonly allMarkdownRemark: { readonly edges: ReadonlyArray<{ readonly next: { readonly frontmatter: { readonly title: string | null, readonly path: string | null } | null } | null, readonly previous: { readonly frontmatter: { readonly path: string | null, readonly title: string | null } | null } | null, readonly node: { readonly id: string, readonly frontmatter: { readonly path: string | null, readonly tags: ReadonlyArray<string | null> | null } | null } }> } };
+type NextPrevQueryQuery = { readonly allMarkdownRemark: { readonly edges: ReadonlyArray<{ readonly next: { readonly timeToRead: number | null, readonly excerpt: string | null, readonly frontmatter: { readonly path: string | null, readonly title: string | null, readonly visual: { readonly childImageSharp: { readonly gatsbyImageData: import('gatsby-plugin-image').IGatsbyImageData } | null } | null } | null } | null, readonly previous: { readonly timeToRead: number | null, readonly excerpt: string | null, readonly frontmatter: { readonly path: string | null, readonly title: string | null, readonly visual: { readonly childImageSharp: { readonly gatsbyImageData: import('gatsby-plugin-image').IGatsbyImageData } | null } | null } | null } | null, readonly node: { readonly id: string, readonly frontmatter: { readonly path: string | null, readonly tags: ReadonlyArray<string | null> | null } | null } }> } };
 
 
 }

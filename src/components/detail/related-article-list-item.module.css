@@ -1,0 +1,37 @@
+.wrapper {
+  border-bottom: 1px solid var(--text-color);
+}
+
+.wrapper:last-child {
+  border-bottom: none;
+}
+
+.wrapper a {
+  text-decoration: none;
+  color: var(--text-color);
+}
+
+.col {
+  display: flex;
+  text-decoration: none;
+}
+
+.body {
+  padding: 4px 8px;
+}
+
+.body:hover {
+  width: 100%;
+  font-weight: 900;
+  color: var(--primary-color);
+}
+
+.image {
+  flex-shrink: 0;
+}
+
+.excerpt {
+  overflow: hidden;
+  height: 60px;
+  font-size: 12px;
+}

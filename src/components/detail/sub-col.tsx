@@ -1,32 +1,26 @@
-import { Link } from "gatsby";
 import { ComponentType } from "react";
+import { RelatedArticlesList } from "./releated-article-list";
+import * as styles from "./sub-col.module.css";
+import { Toc } from "./toc";
 
 interface Props {
   tags: Queries.DetailPageQueryQuery["tags"]["nodes"];
+  toc: NonNullable<
+    Queries.DetailPageQueryQuery["markdownRemark"]
+  >["tableOfContents"];
 }
 
-export const SubColumn: ComponentType<Props> = ({ tags }) => {
+export const SubColumn: ComponentType<Props> = ({ tags, toc }) => {
   return (
     <div>
-      <h2>関連記事</h2>
-      <ul>
-        {tags.map((n) => (
-          <LinkItem key={n.frontmatter?.path} tag={n}></LinkItem>
-        ))}
-      </ul>
+      <section className={styles.tocSection}>
+        <h2>目次</h2>
+        <Toc toc={toc} />
+      </section>
+      <section className={styles.relArticleSection}>
+        <h2>関連記事</h2>
+        <RelatedArticlesList articles={tags} />
+      </section>
     </div>
-  );
-};
-
-const LinkItem: ComponentType<{
-  tag: Queries.DetailPageQueryQuery["tags"]["nodes"][number];
-}> = ({ tag }) => {
-  if (!tag.frontmatter?.path || !tag.frontmatter?.title) {
-    throw new Error();
-  }
-  return (
-    <li key={tag.frontmatter.path}>
-      <Link to={tag.frontmatter.path}>{tag.frontmatter.title}</Link>
-    </li>
   );
 };

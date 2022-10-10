@@ -1,9 +1,11 @@
-import { graphql, HeadProps, Link, PageProps } from "gatsby";
+import { graphql, HeadProps, PageProps } from "gatsby";
 import { getSrc } from "gatsby-plugin-image";
 import { DetailPageContext } from "../../gatsby-node";
 import { HeadFactory } from "../components/common/head";
 import { Layout } from "../components/common/layout";
 import { ContentsHeader } from "../components/detail/contents-header";
+import { MainColumn } from "../components/detail/main-col";
+import { NextPrevArticles } from "../components/detail/next-prev-articles";
 import { SubColumn } from "../components/detail/sub-col";
 import * as styles from "./detail-page.module.css";
 
@@ -19,20 +21,14 @@ const RootBlogList = ({
       <div className={styles.wrapper}>
         <ContentsHeader markdownMeta={data.markdownRemark.frontmatter} />
         <div className={styles.contentsBox}>
-          <div
-            dangerouslySetInnerHTML={{
-              __html: data.markdownRemark.html || "",
-            }}
-          ></div>
-          <SubColumn tags={data.tags.nodes} />
-        </div>
-        <div>
-          {pageContext.prev?.frontmatter?.path && (
-            <Link to={pageContext.prev.frontmatter.path}>prev</Link>
-          )}
-          {pageContext.next?.frontmatter?.path && (
-            <Link to={pageContext.next.frontmatter.path}>next</Link>
-          )}
+          <MainColumn detailPage={data.markdownRemark} />
+          <SubColumn
+            tags={data.tags.nodes}
+            toc={data.markdownRemark.tableOfContents}
+          />
+          <section className={styles.nextPrevSection}>
+            <NextPrevArticles next={pageContext.next} prev={pageContext.prev} />
+          </section>
         </div>
       </div>
     </Layout>
@@ -56,6 +52,8 @@ export const postsPaginationQuery = graphql`
           }
         }
       }
+      tableOfContents
+      timeToRead
     }
     tags: allMarkdownRemark(
       filter: { frontmatter: { tags: { in: $tags } } }
@@ -65,7 +63,14 @@ export const postsPaginationQuery = graphql`
         frontmatter {
           path
           title
+          visual {
+            childImageSharp {
+              gatsbyImageData(width: 120, height: 90)
+            }
+          }
         }
+        timeToRead
+        excerpt(pruneLength: 40)
       }
     }
   }

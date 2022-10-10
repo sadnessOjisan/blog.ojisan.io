@@ -11,4 +11,5 @@
 
 .footer {
   height: 100px;
+  background-color: var(--primary-compatible-color);
 }

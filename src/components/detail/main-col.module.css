@@ -1,0 +1,15 @@
+.article {
+  line-height: 1.6;
+}
+
+.article h2 {
+  margin-top: 36px;
+}
+
+.article pre {
+  overflow-x: scroll;
+}
+
+.article a {
+  color: var(--primary-color);
+}
