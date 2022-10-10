@@ -4,6 +4,7 @@ import { DetailPageContext } from "../../gatsby-node";
 import { HeadFactory } from "../components/common/head";
 import { Layout } from "../components/common/layout";
 import { ContentsHeader } from "../components/detail/contents-header";
+import { SubColumn } from "../components/detail/sub-col";
 import * as styles from "./detail-page.module.css";
 
 const RootBlogList = ({
@@ -23,11 +24,7 @@ const RootBlogList = ({
               __html: data.markdownRemark.html || "",
             }}
           ></div>
-          <div>
-            {data.tags.nodes.map((n) => (
-              <div key={n.frontmatter?.path}>{n.frontmatter?.title}</div>
-            ))}
-          </div>
+          <SubColumn tags={data.tags.nodes} />
         </div>
         <div>
           {pageContext.prev?.frontmatter?.path && (
