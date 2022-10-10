@@ -1,8 +1,10 @@
+.contentsWrapper{
+    background-color: var(--base-color);}
+
 .contents {
   max-width: 1280px;
   margin: auto;
   padding: 12px;
-  background-color: var(--base-color);
 }
 
 .header {
