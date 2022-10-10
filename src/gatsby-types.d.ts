@@ -3751,7 +3751,7 @@ type PaginationQueryQuery = { readonly allMarkdownRemark: { readonly nodes: Read
 type NextPrevQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-type NextPrevQueryQuery = { readonly allMarkdownRemark: { readonly edges: ReadonlyArray<{ readonly next: { readonly frontmatter: { readonly title: string | null, readonly path: string | null } | null } | null, readonly previous: { readonly frontmatter: { readonly path: string | null, readonly title: string | null } | null } | null, readonly node: { readonly id: string, readonly frontmatter: { readonly path: string | null, readonly tags: ReadonlyArray<string | null> | null } | null } }> } };
+type NextPrevQueryQuery = { readonly allMarkdownRemark: { readonly edges: ReadonlyArray<{ readonly next: { readonly timeToRead: number | null, readonly excerpt: string | null, readonly frontmatter: { readonly path: string | null, readonly title: string | null, readonly visual: { readonly childImageSharp: { readonly gatsbyImageData: import('gatsby-plugin-image').IGatsbyImageData } | null } | null } | null } | null, readonly previous: { readonly timeToRead: number | null, readonly excerpt: string | null, readonly frontmatter: { readonly path: string | null, readonly title: string | null, readonly visual: { readonly childImageSharp: { readonly gatsbyImageData: import('gatsby-plugin-image').IGatsbyImageData } | null } | null } | null } | null, readonly node: { readonly id: string, readonly frontmatter: { readonly path: string | null, readonly tags: ReadonlyArray<string | null> | null } | null } }> } };
 
 
 }

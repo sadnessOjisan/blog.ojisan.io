@@ -1,8 +1,12 @@
-.wrapper { border-bottom: 1px solid var(--text-color);}
+.wrapper {
+  border-bottom: 1px solid var(--text-color);
+}
 
-.wrapper:last-child { border-bottom: none}
+.wrapper:last-child {
+  border-bottom: none;
+}
 
-.wrapper a{
+.wrapper a {
   text-decoration: none;
   color: var(--text-color);
 }
@@ -22,11 +26,12 @@
   color: var(--primary-color);
 }
 
-.image {flex-shrink: 0;
+.image {
+  flex-shrink: 0;
 }
 
 .excerpt {
-  overflow:hidden;
+  overflow: hidden;
   height: 60px;
   font-size: 12px;
 }

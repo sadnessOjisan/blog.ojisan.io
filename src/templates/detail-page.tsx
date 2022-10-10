@@ -5,6 +5,7 @@ import { HeadFactory } from "../components/common/head";
 import { Layout } from "../components/common/layout";
 import { ContentsHeader } from "../components/detail/contents-header";
 import { MainColumn } from "../components/detail/main-col";
+import { NextPrevArticles } from "../components/detail/next-prev-articles";
 import { SubColumn } from "../components/detail/sub-col";
 import * as styles from "./detail-page.module.css";
 
@@ -25,14 +26,9 @@ const RootBlogList = ({
             tags={data.tags.nodes}
             toc={data.markdownRemark.tableOfContents}
           />
-        </div>
-        <div>
-          {pageContext.prev?.frontmatter?.path && (
-            <Link to={pageContext.prev.frontmatter.path}>prev</Link>
-          )}
-          {pageContext.next?.frontmatter?.path && (
-            <Link to={pageContext.next.frontmatter.path}>next</Link>
-          )}
+          <section className={styles.nextPrevSection}>
+            <NextPrevArticles next={pageContext.next} prev={pageContext.prev} />
+          </section>
         </div>
       </div>
     </Layout>

@@ -82,15 +82,29 @@ const detailPage = async (
         edges {
           next {
             frontmatter {
-              title
               path
+              title
+              visual {
+                childImageSharp {
+                  gatsbyImageData(width: 120, height: 90)
+                }
+              }
             }
+            timeToRead
+            excerpt(pruneLength: 40)
           }
           previous {
             frontmatter {
               path
               title
+              visual {
+                childImageSharp {
+                  gatsbyImageData(width: 120, height: 90)
+                }
+              }
             }
+            timeToRead
+            excerpt(pruneLength: 40)
           }
           node {
             frontmatter {

@@ -13,8 +13,6 @@
   overflow: hidden;
 }
 
-.mainCol {
-}
-
-.subCol {
+.nextPrevSection {
+  margin-top: 32px;
 }
