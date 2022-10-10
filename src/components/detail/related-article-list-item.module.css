@@ -1,5 +1,6 @@
 .wrapper {
   border-bottom: 1px solid var(--text-color);
+  height: 100px;
 }
 
 .wrapper:last-child {
@@ -19,6 +20,7 @@
 .body {
   width: 100%;
   padding: 4px 8px;
+  word-break: break-all;
 }
 
 .col:hover {
@@ -29,10 +31,4 @@
 
 .image {
   flex-shrink: 0;
-}
-
-.excerpt {
-  overflow: hidden;
-  height: 60px;
-  font-size: 12px;
 }

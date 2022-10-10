@@ -1,7 +1,9 @@
-import { graphql, Link, PageProps } from "gatsby";
+import { graphql, PageProps } from "gatsby";
 import { HeadFactory } from "../components/common/head";
 import { Layout } from "../components/common/layout";
+import { Pagination } from "../components/root/pagination";
 import { CardList } from "../components/top/card-list";
+import * as styles from "./root-page.module.css";
 
 const RootBlogList = ({
   data,
@@ -14,21 +16,15 @@ const RootBlogList = ({
     currentPage: number;
   }
 >) => {
-  const isFirst = pageContext.currentPage === 1;
-  const isLast = pageContext.currentPage === pageContext.numPages;
   return (
     <Layout>
       <CardList nodes={data.allMarkdownRemark.nodes} />
-      {!isFirst &&
-        (pageContext.currentPage - 1 === 1 ? (
-          <Link to={`/`}>back</Link>
-        ) : (
-          <Link to={`/posts/${pageContext.currentPage - 1}`}>back</Link>
-        ))}
-      {pageContext.currentPage}/{pageContext.numPages}
-      {!isLast && (
-        <Link to={`/posts/${pageContext.currentPage + 1}`}>next</Link>
-      )}
+      <div className={styles.paginationSection}>
+        <Pagination
+          currentPage={pageContext.currentPage}
+          pageSum={pageContext.numPages}
+        />
+      </div>
     </Layout>
   );
 };
