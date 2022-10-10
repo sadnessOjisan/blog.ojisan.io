@@ -1,8 +1,9 @@
-import { graphql, Link, PageProps } from "gatsby";
+import { graphql, PageProps } from "gatsby";
 import { HeadFactory } from "../components/common/head";
 import { Layout } from "../components/common/layout";
 import { Pagination } from "../components/root/pagination";
 import { CardList } from "../components/top/card-list";
+import * as styles from "./root-page.module.css";
 
 const RootBlogList = ({
   data,
@@ -18,10 +19,12 @@ const RootBlogList = ({
   return (
     <Layout>
       <CardList nodes={data.allMarkdownRemark.nodes} />
-      <Pagination
-        currentPage={pageContext.currentPage}
-        pageSum={pageContext.numPages}
-      />
+      <div className={styles.paginationSection}>
+        <Pagination
+          currentPage={pageContext.currentPage}
+          pageSum={pageContext.numPages}
+        />
+      </div>
     </Layout>
   );
 };
