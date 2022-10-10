@@ -78,7 +78,7 @@ const detailPage = async (
 ) => {
   const getNextPrevsResult = await graphql<Queries.NextPrevQueryQuery>(`
     query NextPrevQuery {
-      allMarkdownRemark {
+      allMarkdownRemark(sort: { order: DESC, fields: frontmatter___created }) {
         edges {
           next {
             frontmatter {
