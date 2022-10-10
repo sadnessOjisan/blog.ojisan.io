@@ -13,12 +13,12 @@ export const NextPrevArticles: ComponentType<Props> = ({ next, prev }) => {
       {prev ? (
         <NextPrevArticlesItem article={prev} direction="left" />
       ) : (
-        <div></div>
+        <div className={styles.none}></div>
       )}
       {next ? (
         <NextPrevArticlesItem article={next} direction="right" />
       ) : (
-        <div></div>
+        <div className={styles.none}></div>
       )}
     </div>
   );

@@ -1,6 +1,7 @@
 .wrapper {
   list-style-type: none;
   display: flex;
+  padding-left: 0;
 }
 
 .wrapper a {

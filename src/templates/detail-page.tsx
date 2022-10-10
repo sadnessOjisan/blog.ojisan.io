@@ -22,10 +22,12 @@ const RootBlogList = ({
         <ContentsHeader markdownMeta={data.markdownRemark.frontmatter} />
         <div className={styles.contentsBox}>
           <MainColumn detailPage={data.markdownRemark} />
-          <SubColumn
-            tags={data.tags.nodes}
-            toc={data.markdownRemark.tableOfContents}
-          />
+          <aside className={styles.subCol}>
+            <SubColumn
+              tags={data.tags.nodes}
+              toc={data.markdownRemark.tableOfContents}
+            />
+          </aside>
           <section className={styles.nextPrevSection}>
             <NextPrevArticles next={pageContext.next} prev={pageContext.prev} />
           </section>

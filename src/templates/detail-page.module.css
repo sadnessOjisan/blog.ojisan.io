@@ -14,5 +14,16 @@
 }
 
 .nextPrevSection {
-  margin-top: 32px;
+  margin-top: 16px;
+}
+
+@media screen and (max-width: 480px) {
+  .contentsBox {
+    row-gap: 0px;
+    grid-template-columns: initial;
+  }
+
+  .subCol {
+    display: none;
+  }
 }

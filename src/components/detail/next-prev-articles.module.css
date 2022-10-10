@@ -2,3 +2,18 @@
   display: flex;
   justify-content: space-between;
 }
+
+@media screen and (max-width: 480px) {
+  .wrapper {
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .wrapper > * {
+    margin: 12px 0px;
+  }
+
+  .wrapper > .none {
+    margin: 0px;
+  }
+}

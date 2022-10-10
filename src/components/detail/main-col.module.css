@@ -33,3 +33,7 @@
 .article a {
   color: var(--primary-color);
 }
+
+.article > p {
+  margin: 24px 0px;
+}
