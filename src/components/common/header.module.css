@@ -1,3 +1,23 @@
 .header {
   height: 80px;
+  background-color: var(--white-color);
+  position: fixed;
+  width: 100%;
+  z-index: 1;
+}
+
+.headerContents {
+  width: 90%;
+  height: 80px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  font-size: 32px;
+  text-decoration: none;
+  color: var(--text-color);
+  font-weight: 900;
 }
