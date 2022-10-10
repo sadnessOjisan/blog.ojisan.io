@@ -1,5 +1,6 @@
 .wrapper {
   border-bottom: 1px solid var(--text-color);
+  height: 100px;
 }
 
 .wrapper:last-child {
@@ -30,10 +31,4 @@
 
 .image {
   flex-shrink: 0;
-}
-
-.excerpt {
-  overflow: hidden;
-  height: 60px;
-  font-size: 12px;
 }

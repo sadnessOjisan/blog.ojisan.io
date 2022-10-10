@@ -26,9 +26,6 @@ export const RelatedArticleListItem: ComponentType<Props> = ({ article }) => {
           <GatsbyImage image={image} alt="thumbnail" className={styles.image} />
           <div className={styles.body}>
             <span>{article.frontmatter.title}</span>
-            <div>
-              <p className={styles.excerpt}>{article.excerpt}</p>
-            </div>
           </div>
         </div>
       </Link>

@@ -15,6 +15,15 @@
   justify-content: space-between;
 }
 
+.right {
+  display: flex;
+}
+
+.right a {
+  color: var(--text-color);
+  margin-right: 12px;
+}
+
 .logo {
   font-size: 32px;
   text-decoration: none;
