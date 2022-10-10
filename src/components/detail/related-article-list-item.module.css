@@ -17,13 +17,14 @@
 }
 
 .body {
+  width: 100%;
   padding: 4px 8px;
 }
 
-.body:hover {
-  width: 100%;
+.col:hover {
   font-weight: 900;
-  color: var(--primary-color);
+  color: var(--base-color);
+  background-color: var(--text-color);
 }
 
 .image {

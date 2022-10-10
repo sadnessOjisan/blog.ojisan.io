@@ -10,8 +10,16 @@ interface Props {
 export const NextPrevArticles: ComponentType<Props> = ({ next, prev }) => {
   return (
     <div className={styles.wrapper}>
-      {prev && <NextPrevArticlesItem article={prev} direction="left" />}
-      {next && <NextPrevArticlesItem article={next} direction="right" />}
+      {prev ? (
+        <NextPrevArticlesItem article={prev} direction="left" />
+      ) : (
+        <div></div>
+      )}
+      {next ? (
+        <NextPrevArticlesItem article={next} direction="right" />
+      ) : (
+        <div></div>
+      )}
     </div>
   );
 };

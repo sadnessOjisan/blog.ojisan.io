@@ -26,5 +26,5 @@
 
 .tocWrapper a:hover {
   background-color: var(--text-color);
-  color: var(--white-color);
+  color: var(--base-color);
 }

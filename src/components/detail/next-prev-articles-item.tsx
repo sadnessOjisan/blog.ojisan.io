@@ -34,32 +34,32 @@ export const NextPrevArticlesItem: ComponentType<Props> = ({
       <div className={styles.wrapper}>
         {direction === "left" ? (
           <>
-            <GatsbyImage
-              image={image}
-              alt="thumbnail"
-              className={styles.image}
-            />
             <div className={styles.body}>
               <span>
                 {"<<"} {article.frontmatter.title}
               </span>
             </div>
-          </>
-        ) : (
-          <>
-            <div className={styles.body}>
-              <span>
-                {">>"} {article.frontmatter.title}
-              </span>
-            </div>
             <GatsbyImage
               image={image}
               alt="thumbnail"
               className={styles.image}
             />
           </>
+        ) : (
+          <>
+            <GatsbyImage
+              image={image}
+              alt="thumbnail"
+              className={styles.image}
+            />
+            <div className={styles.body}>
+              <span>
+                {">>"} {article.frontmatter.title}
+              </span>
+            </div>
+          </>
         )}
-      </div>{" "}
+      </div>
     </Link>
   );
 };

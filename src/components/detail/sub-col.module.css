@@ -1,3 +1,7 @@
-.tocSection {
+.section {
+  margin-bottom: 48px;
+}
+
+.sectionTitle {
   margin-bottom: 16px;
 }

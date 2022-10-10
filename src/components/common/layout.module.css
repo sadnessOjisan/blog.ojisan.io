@@ -1,6 +1,6 @@
 .contentsWrapper {
   background-color: var(--base-color);
-  padding-top: 80px;
+  padding-top: var(--header-height);
 }
 
 .contents {

@@ -13,12 +13,12 @@ interface Props {
 export const SubColumn: ComponentType<Props> = ({ tags, toc }) => {
   return (
     <div>
-      <section className={styles.tocSection}>
-        <h2>目次</h2>
+      <section className={styles.section}>
+        <h2 className={styles.sectionTitle}>目次</h2>
         <Toc toc={toc} />
       </section>
-      <section className={styles.relArticleSection}>
-        <h2>関連記事</h2>
+      <section className={styles.section}>
+        <h2 className={styles.sectionTitle}>関連記事</h2>
         <RelatedArticlesList articles={tags} />
       </section>
     </div>

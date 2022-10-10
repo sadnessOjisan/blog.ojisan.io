@@ -1,3 +1,4 @@
+import { Link } from "gatsby";
 import { ComponentType } from "react";
 import * as styles from "./tag.module.css";
 
@@ -6,5 +7,9 @@ interface Props {
 }
 
 export const Tag: ComponentType<Props> = ({ name }) => {
-  return <div className={styles.wrapper}>#{name}</div>;
+  return (
+    <div className={styles.wrapper}>
+      <Link to={`/tags/${name}`}>#{name}</Link>
+    </div>
+  );
 };

@@ -1,14 +1,14 @@
 .header {
-  height: 80px;
-  background-color: var(--white-color);
+  height: var(--header-height);
+  background-color: var(--header-color);
   position: fixed;
   width: 100%;
   z-index: 1;
 }
 
 .headerContents {
-  width: 90%;
-  height: 80px;
+  max-width: 1280px;
+  height: var(--header-height);
   margin: auto;
   display: flex;
   align-items: center;
