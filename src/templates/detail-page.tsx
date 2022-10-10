@@ -1,4 +1,4 @@
-import { graphql, HeadProps, Link, PageProps } from "gatsby";
+import { graphql, HeadProps, PageProps } from "gatsby";
 import { getSrc } from "gatsby-plugin-image";
 import { DetailPageContext } from "../../gatsby-node";
 import { HeadFactory } from "../components/common/head";

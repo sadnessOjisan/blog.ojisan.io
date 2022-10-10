@@ -1,4 +1,3 @@
-import { Link } from "gatsby";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import { ComponentType } from "react";
 import "../../styles/prism-node.css";
