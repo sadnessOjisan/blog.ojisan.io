@@ -3,6 +3,7 @@
   grid-template-columns: repeat(4, 1fr);
   gap: 10px;
   list-style-type: none;
+  padding-left: 0;
 }
 
 .listItem {
@@ -16,4 +17,10 @@
 
 .listItem:hover {
   border-width: 2px;
+}
+
+@media screen and (max-width: 480px) {
+  .list {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
