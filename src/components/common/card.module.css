@@ -1,6 +1,10 @@
 .wrapper {
   color: var(--text-color);
-  background-color: var(--white-color);
+}
+
+.wrapper:hover > * {
+  background-color: var(--text-color);
+  color: var(--base-color);
 }
 
 .contents {

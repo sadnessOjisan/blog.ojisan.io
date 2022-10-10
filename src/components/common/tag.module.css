@@ -1,5 +1,20 @@
 .wrapper {
   padding: 2px 4px;
-  background-color: var(--neutral-gray);
+  background-color: var(--tag-gray);
   border-radius: 4px;
+  color: var(--text-color);
+}
+
+.wrapper:hover {
+  background-color: var(--text-color);
+  border: solid 1px var(--tag-gray);
+}
+
+.wrapper a {
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+.wrapper:hover > a {
+  color: var(--base-color);
 }
