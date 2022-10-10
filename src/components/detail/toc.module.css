@@ -1,7 +1,7 @@
 .tocWrapper {
-    border: solid 1px var(--text-color);
-    padding: 8px;
-    border-radius: 4px;
+  border: solid 1px var(--text-color);
+  padding: 8px;
+  border-radius: 4px;
 }
 
 .tocWrapper > ul {
@@ -18,13 +18,13 @@
 }
 
 .tocWrapper a {
-    text-decoration: none;
-    color: var(--text-color);
-    display: block;
-    padding: 4px 12px;
+  text-decoration: none;
+  color: var(--text-color);
+  display: block;
+  padding: 4px 12px;
 }
 
 .tocWrapper a:hover {
-    background-color: var(--text-color);
-    color: var(--white-color)
+  background-color: var(--text-color);
+  color: var(--white-color);
 }

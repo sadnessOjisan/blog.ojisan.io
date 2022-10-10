@@ -67,7 +67,14 @@ export const postsPaginationQuery = graphql`
         frontmatter {
           path
           title
+          visual {
+            childImageSharp {
+              gatsbyImageData(width: 120, height: 90)
+            }
+          }
         }
+        timeToRead
+        excerpt(pruneLength: 40)
       }
     }
   }
