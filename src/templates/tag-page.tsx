@@ -29,13 +29,13 @@ export const postsPaginationQuery = graphql`
         frontmatter {
           path
           title
-          created
-          path
           visual {
             childImageSharp {
               gatsbyImageData(width: 400)
             }
           }
+          created
+          tags
         }
       }
     }

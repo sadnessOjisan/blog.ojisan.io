@@ -2,6 +2,7 @@ import { Link } from "gatsby";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import { ComponentType } from "react";
 import "../../styles/prism-node.css";
+import { Tags } from "../common/tags";
 
 export const ContentsHeader: ComponentType<{
   markdownMeta:
@@ -25,15 +26,7 @@ export const ContentsHeader: ComponentType<{
   return (
     <div>
       <h1>{markdownMeta.title}</h1>
-      <div>
-        {markdownMeta.tags.map((tag) => {
-          return (
-            <Link key={tag} to={`/tags/${tag}`}>
-              {tag}
-            </Link>
-          );
-        })}
-      </div>
+      <Tags tags={markdownMeta.tags} />
       <GatsbyImage image={image} alt="thumbnail" />
     </div>
   );

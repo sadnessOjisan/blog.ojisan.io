@@ -9,6 +9,10 @@
   column-gap: 24px;
 }
 
+.contentsBox > * {
+  overflow: hidden;
+}
+
 .mainCol {
 }
 

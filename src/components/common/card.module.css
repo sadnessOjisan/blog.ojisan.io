@@ -1,0 +1,19 @@
+.wrapper {
+  color: var(--text-color);
+  background-color: var(--white-color);
+}
+
+.contents {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 160px;
+}
+
+.body {
+  padding: 8px;
+}
+
+.foooter {
+  margin-top: auto;
+}

@@ -1,0 +1,13 @@
+.list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  list-style-type: none;
+}
+
+.listItem {
+  text-decoration: none;
+  border-radius: 4px;
+  background-color: var(--white-color);
+  box-shadow: 2px 2px 6px 0px;
+}

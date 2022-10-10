@@ -1,0 +1,8 @@
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.tags > * {
+  margin: 2px 4px;
+}

@@ -54,7 +54,7 @@ const pagination = async (
     throw new Error("pagination 用のデータが見つかりませんでした。");
   }
 
-  const postsPerPage = 20;
+  const postsPerPage = 50;
   const numPages = Math.ceil(posts.length / postsPerPage);
   Array.from({ length: numPages }).forEach((_, i) => {
     createPage({

@@ -8,13 +8,12 @@ interface Props {
 export const MainColumn: ComponentType<Props> = ({ detailPage }) => {
   return (
     <div>
-      <h2>目次</h2>
-      <div
+      <article
         dangerouslySetInnerHTML={{
           __html: detailPage.html || "",
         }}
         className={styles.article}
-      ></div>
+      ></article>
     </div>
   );
 };

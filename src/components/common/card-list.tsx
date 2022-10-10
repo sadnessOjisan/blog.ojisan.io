@@ -1,14 +1,17 @@
 import { ComponentType } from "react";
 import { Card } from "./card";
+import * as styles from "./card-list.module.css";
 
 export const CardList: ComponentType<{
   nodes: Queries.postsPaginationQueryQuery["allMarkdownRemark"]["nodes"];
 }> = ({ nodes }) => {
   return (
-    <div>
+    <ul className={styles.list}>
       {nodes.map((node) => (
-        <Card key={node.id} node={node} />
+        <li key={node.id} className={styles.listItem}>
+          <Card node={node} />
+        </li>
       ))}
-    </div>
+    </ul>
   );
 };

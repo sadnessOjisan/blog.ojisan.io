@@ -1,5 +1,7 @@
 import { Link } from "gatsby";
 import { ComponentType } from "react";
+import * as styles from "./sub-col.module.css";
+import { Toc } from "./toc";
 
 interface Props {
   tags: Queries.DetailPageQueryQuery["tags"]["nodes"];
@@ -11,8 +13,10 @@ interface Props {
 export const SubColumn: ComponentType<Props> = ({ tags, toc }) => {
   return (
     <div>
-      <h2>目次</h2>
-      <div dangerouslySetInnerHTML={{ __html: toc || "" }} />
+      <section className={styles.tocSection}>
+        <h2>目次</h2>
+        <Toc toc={toc} />
+      </section>
       <h2>関連記事</h2>
       <ul>
         {tags.map((n) => (
