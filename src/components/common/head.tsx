@@ -66,11 +66,11 @@ export const HeadFactory: ComponentType<Props> = ({
         {
           "@context": "https://schema.org",
           "@type": "BlogPosting",
-          "headline": ${title},
+          "headline": "${title}",
           "image": [
-            ${pageImage},
+            "${pageImage}",
            ],
-          "datePublished": ${created},
+          "datePublished": "${created}",
           "author": [{
               "@type": "Person",
               "name": "sadnessOjisan",
