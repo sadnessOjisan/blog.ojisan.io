@@ -68,7 +68,7 @@ export const HeadFactory: ComponentType<Props> = ({
           "@type": "BlogPosting",
           "headline": "${title}",
           "image": [
-            "${pageImage}",
+            "${pageImage}"
            ],
           "datePublished": "${created}",
           "author": [{
