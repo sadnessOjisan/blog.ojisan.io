@@ -1,0 +1,21 @@
+.wrapper {
+  display: flex;
+}
+
+.link {
+  text-decoration: none;
+  color: var(--text-color);
+}
+
+.link:hover {
+  font-weight: 900;
+  background-color: var(--primary-color);
+  color: var(--white-color);
+}
+
+.body {
+  border: solid 1px var(--text-color);
+  width: 220px;
+  height: 120px;
+  padding: 12px;
+}

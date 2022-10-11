@@ -1,0 +1,29 @@
+.wrapper {
+  display: grid;
+  row-gap: 24px;
+}
+
+.contentsBox {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  column-gap: 24px;
+}
+
+.contentsBox > * {
+  overflow: hidden;
+}
+
+.nextPrevSection {
+  margin-top: 16px;
+}
+
+@media screen and (max-width: 480px) {
+  .contentsBox {
+    row-gap: 0px;
+    grid-template-columns: initial;
+  }
+
+  .subCol {
+    display: none;
+  }
+}

@@ -3,7 +3,7 @@ path: /noreferrer-noopener
 created: "2020-09-18"
 title: noopener と noreferrer の整理、結局どっちを使えば良いのか
 visual: "./visual.png"
-tags: [HTML]
+tags: [html]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false

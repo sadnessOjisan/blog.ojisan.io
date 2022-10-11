@@ -3,7 +3,7 @@ path: /ts-cbor
 created: "2020-12-16"
 title: RFCからCBORのデコーダーを作る
 visual: "./visual.png"
-tags: ["NodeJS"]
+tags: ["node.js"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false
@@ -152,34 +152,34 @@ export class Decoder {
    * @throws CBOR文字列ではないときに例外を投げる
    */
   static decode(cborInputString: string): any {
-    const cbor = toCBOR(cborInputString)
-    const { majorType } = cbor
+    const cbor = toCBOR(cborInputString);
+    const { majorType } = cbor;
     switch (majorType) {
       case 0:
         // 正の数
-        return PositiveNumberDecoder.decode(cbor)
+        return PositiveNumberDecoder.decode(cbor);
       case 1:
         // 負の数
-        return NegativeNumberDecoder.decode(cbor)
+        return NegativeNumberDecoder.decode(cbor);
       case 2:
         // Byte
-        return Byte.decode(cbor)
+        return Byte.decode(cbor);
       case 3:
         // 文字列
-        return StringDecoder.decode(cbor)
+        return StringDecoder.decode(cbor);
       case 4:
         // 配列
-        return ArrayDecoder.decode(cbor)
+        return ArrayDecoder.decode(cbor);
       case 5:
         // オブジェクト
-        return ObjectDecoder.decode(cbor)
+        return ObjectDecoder.decode(cbor);
       case 6:
         // tag
-        return Tag.decode(cbor)
+        return Tag.decode(cbor);
       case 7:
-        return PrimitiveDecoder.decode(cbor)
+        return PrimitiveDecoder.decode(cbor);
       default:
-        throw new Error("Invalid CBOR Input")
+        throw new Error("Invalid CBOR Input");
     }
   }
 }
@@ -200,54 +200,56 @@ export class ArrayDecoder {
    major typeと追加情報が格納されている.
    */
   static decode(cbor: BaseCborType): any[] {
-    const result: any[] = []
-    const definedToken = detectCborTypeFromBaseCbor(cbor)
+    const result: any[] = [];
+    const definedToken = detectCborTypeFromBaseCbor(cbor);
 
     if (cbor.type === "tiny") {
-      throw new Error("配列はshort or long. ")
+      throw new Error("配列はshort or long. ");
     }
     switch (definedToken.type) {
       case "short": {
         // additinal infoに長さが入っており、次のbyte以降にデータ
         if (definedToken.additionalInformation > 23) {
-          throw new Error("not tiny")
+          throw new Error("not tiny");
         }
 
         if (definedToken.additionalInformation === 0) {
-          return []
+          return [];
         }
-        let eating = null
+        let eating = null;
         for (;;) {
-          const eatResult = Decoder.decode(eating || definedToken.variable)
-          eating = eatResult.restCborString
-          result.push(eatResult.decodeResult)
+          const eatResult = Decoder.decode(eating || definedToken.variable);
+          eating = eatResult.restCborString;
+          result.push(eatResult.decodeResult);
           if (!eatResult.restCborString) {
             // これ以上tokenがないなら抜ける
-            break
+            break;
           }
         }
 
         if (result.length !== definedToken.additionalInformation) {
-          throw new Error("additional informationと配列の数があってない")
+          throw new Error("additional informationと配列の数があってない");
         }
 
-        return result
+        return result;
       }
 
       case "long": {
-        let eating_long = null
+        let eating_long = null;
         for (;;) {
-          const eatResult = Decoder.decode(eating_long || definedToken.variable)
-          eating_long = eatResult.restCborString
-          result.push(eatResult.decodeResult)
+          const eatResult = Decoder.decode(
+            eating_long || definedToken.variable
+          );
+          eating_long = eatResult.restCborString;
+          result.push(eatResult.decodeResult);
           if (eatResult.restCborString === null) {
-            break
+            break;
           }
         }
-        return result
+        return result;
       }
     }
-    throw new Error("ありえない")
+    throw new Error("ありえない");
   }
 }
 ```
@@ -261,7 +263,7 @@ import {
   separateTokenFromCBOR,
   BaseCborType,
   detectCborTypeFromBaseCbor,
-} from "../helper"
+} from "../helper";
 
 /**
  * 正の数のdecoder
@@ -276,16 +278,16 @@ export class PositiveNumberDecoder {
    * @returns 正の数
    */
   static decode(cbor: BaseCborType): number {
-    const definedToken = detectCborTypeFromBaseCbor(cbor)
+    const definedToken = detectCborTypeFromBaseCbor(cbor);
     if (definedToken.additionalInformation < 24) {
-      return definedToken.additionalInformation
+      return definedToken.additionalInformation;
     } else {
-      const separatedCborObject = separateTokenFromCBOR(definedToken.raw)
+      const separatedCborObject = separateTokenFromCBOR(definedToken.raw);
       if (!separatedCborObject.rest) {
-        throw new Error("読み込む対象が存在しない")
+        throw new Error("読み込む対象が存在しない");
       }
-      const hexValue = separatedCborObject.rest
-      return parseInt(hexValue, 16)
+      const hexValue = separatedCborObject.rest;
+      return parseInt(hexValue, 16);
     }
   }
 }
@@ -308,36 +310,36 @@ export class StringDecoder {
    * @param dataItemHeader CBOR文字列の先頭1byte. major typeと追加情報が格納されている.
    */
   static decode(cbor: BaseCborType): string {
-    const definedToken = detectCborTypeFromBaseCbor(cbor)
+    const definedToken = detectCborTypeFromBaseCbor(cbor);
     switch (definedToken.type) {
       case "short": {
-        const cborTokenArray = this.cborValueToArray(definedToken.variable)
-        const URI = this.cborTokenArrayToURI(cborTokenArray)
-        const decoded = decodeURIComponent(URI)
+        const cborTokenArray = this.cborValueToArray(definedToken.variable);
+        const URI = this.cborTokenArrayToURI(cborTokenArray);
+        const decoded = decodeURIComponent(URI);
         const decodedByteLength = encodeURIComponent(decoded).replace(
           /%../g,
           "x"
-        ).length
+        ).length;
         if (decodedByteLength !== definedToken.additionalInformation) {
-          throw new Error("長さあってない")
+          throw new Error("長さあってない");
         }
-        return decoded
+        return decoded;
       }
       case "long": {
-        const cborTokenArray = this.cborValueToArray(definedToken.variable)
-        const URI = this.cborTokenArrayToURI(cborTokenArray)
-        const decoded = decodeURIComponent(URI)
+        const cborTokenArray = this.cborValueToArray(definedToken.variable);
+        const URI = this.cborTokenArrayToURI(cborTokenArray);
+        const decoded = decodeURIComponent(URI);
         const decodedByteLength = encodeURIComponent(decoded).replace(
           /%../g,
           "x"
-        ).length
+        ).length;
         if (decodedByteLength !== definedToken.payloadLength) {
-          throw new Error("長さあってない")
+          throw new Error("長さあってない");
         }
-        return decoded
+        return decoded;
       }
     }
-    throw new Error("un reach")
+    throw new Error("un reach");
   }
   /**
    * cbor文字列のvalue部分を配列に分割する関数.
@@ -347,18 +349,18 @@ export class StringDecoder {
    *
    */
   private static cborValueToArray(cborValue: string): string[] {
-    const res = []
-    let trimed = null
+    const res = [];
+    let trimed = null;
     for (;;) {
       trimed = separateTokenFromCBOR(
         trimed ? trimed.rest || cborValue : cborValue
-      )
-      res.push(trimed.token)
+      );
+      res.push(trimed.token);
       if (!trimed.rest) {
-        break
+        break;
       }
     }
-    return res
+    return res;
   }
 
   /**
@@ -370,9 +372,9 @@ export class StringDecoder {
     const uri =
       "%" +
       hexStringArray.reduce((acc, value) => {
-        return acc + "%" + value
-      })
-    return uri
+        return acc + "%" + value;
+      });
+    return uri;
   }
 }
 ```
@@ -389,15 +391,15 @@ export class StringDecoder {
  */
 export const hexToDateitemHeader = (input: number): DataItemHeader => {
   if (input < 0 || input > 255) {
-    throw new Error("un expected input")
+    throw new Error("un expected input");
   }
-  const majorType = (input >> 5) as MAJOR_TYPE_IDENTIFIER_TYPE
-  const additionalInformation = input & 0b00011111
+  const majorType = (input >> 5) as MAJOR_TYPE_IDENTIFIER_TYPE;
+  const additionalInformation = input & 0b00011111;
   if (!majorTypeIdentifiers.includes(majorType)) {
-    throw new Error("unexpected major type")
+    throw new Error("unexpected major type");
   }
-  return { majorType, additionalInformation }
-}
+  return { majorType, additionalInformation };
+};
 ```
 
 ここでは Major Type として先頭 3bit を取得するために入力値に 5bit 分のシフト演算して 3bit を取り出したり、additional information を取得するために 5bit 分を`&0b00011111`しています。
@@ -427,29 +429,29 @@ CBOR は何らかの構造を持つ以上、そのデコードは何らかの繰
 
 ```ts
 const p = new Promise((resolve, reject) => {
-  c.on("data", val => {
-    console.log("data val", val)
-    v = Decoder.nullcheck(val)
-    c.close()
-  })
+  c.on("data", (val) => {
+    console.log("data val", val);
+    v = Decoder.nullcheck(val);
+    c.close();
+  });
   c.once("end", () => {
     switch (v) {
       case NOT_FOUND:
       default:
-        console.log("dend")
-        return resolve(v)
+        console.log("dend");
+        return resolve(v);
     }
-  })
-})
-c.end(input, encod)
-return p
+  });
+});
+c.end(input, encod);
+return p;
 ```
 
 node-cbor では NodeJS のライブラリによくある命名として Sync を付けたもの・付けてないものが用意されています。
 
 ```ts
-console.log(Decoder.decodeFirstSync("17"))
-Decoder.decodeFirstSync("17").then(decoded => console.log(decoded))
+console.log(Decoder.decodeFirstSync("17"));
+Decoder.decodeFirstSync("17").then((decoded) => console.log(decoded));
 ```
 
 ### データのやりとりを stream API で行う
@@ -545,14 +547,14 @@ parse した進捗を parser に戻すことで次読むべき文字を知れま
 ```
 
 ```ts
-const parser = c._parse()
-let state = parser.next()
+const parser = c._parse();
+let state = parser.next();
 while (!state.done) {
-  const b = s.read(state.value)
+  const b = s.read(state.value);
   if (b == null || b.length !== state.value) {
-    throw new Error("Insufficient data")
+    throw new Error("Insufficient data");
   }
-  state = parser.next(b)
+  state = parser.next(b);
 }
 ```
 

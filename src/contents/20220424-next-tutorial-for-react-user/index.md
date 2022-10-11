@@ -3,7 +3,7 @@ path: /next-tutorial-for-react-user
 created: "2022-04-24"
 title: React ユーザー向けの NextJS ガイド
 visual: "./visual.png"
-tags: ["React", "NextJS"]
+tags: ["react", "nextjs"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false

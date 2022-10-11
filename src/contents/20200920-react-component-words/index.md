@@ -3,7 +3,7 @@ path: /react-component-words
 created: "2020-09-20"
 title: Reactのコンポーネント周りの用語を整理する
 visual: "./visual.png"
-tags: [React]
+tags: [react]
 userId: sadnessOjisan
 isFavorite: true
 isProtect: false
@@ -48,8 +48,8 @@ React 内部の話に入る前に[Glossary of React Terms](https://reactjs.org/d
 
 ```jsx
 const A = () => {
-  return <div>hello</div>
-}
+  return <div>hello</div>;
+};
 ```
 
 や
@@ -96,13 +96,13 @@ Elements は、
 たとえば、
 
 ```jsx
-const el = <div>hello world!</div>
+const el = <div>hello world!</div>;
 ```
 
 は Elements ですが、
 
 ```jsx
-const El = () => <div>hello world!</div>
+const El = () => <div>hello world!</div>;
 ```
 
 は Elements ではありません。
@@ -136,12 +136,12 @@ const El = () => <div>hello world!</div>
 例えば、
 
 ```tsx
-import React from "react"
-import ReactDOM from "react-dom"
+import React from "react";
+import ReactDOM from "react-dom";
 
-const App = () => <div>hello</div>
+const App = () => <div>hello</div>;
 
-ReactDOM.render(App, document.getElementById("root"))
+ReactDOM.render(App, document.getElementById("root"));
 ```
 
 のようなコードが
@@ -162,13 +162,13 @@ No overload matches this call.
 ここで render に必要なのは Components ではなく Elements なので、
 
 ```tsx
-ReactDOM.render(App, document.getElementById("root"))
+ReactDOM.render(App, document.getElementById("root"));
 ```
 
 ではなく
 
 ```tsx
-ReactDOM.render(<App />, document.getElementById("root"))
+ReactDOM.render(<App />, document.getElementById("root"));
 ```
 
 が正解です。
@@ -185,10 +185,10 @@ createElement に変換される必要があるからです。
 先ほど示した
 
 ```tsx
-import React from "react"
-import ReactDOM from "react-dom"
+import React from "react";
+import ReactDOM from "react-dom";
 
-const App = () => <div>hello</div>
+const App = () => <div>hello</div>;
 ```
 
 の App の戻り値型は JSX.Element です。
@@ -225,7 +225,7 @@ interface ReactElement<P = any, T extends string
 ここで注意したいのは
 
 ```jsx
-const App = () => <div>hello</div>
+const App = () => <div>hello</div>;
 ```
 
 の App の型は () => JSX.Element と関数であることです。
@@ -234,7 +234,7 @@ const App = () => <div>hello</div>
 そしてこの App を `<App></App>` として記述することで Babel によって
 
 ```js
-React.createElement("div", null, "")
+React.createElement("div", null, "");
 ```
 
 といった風に`React.createElement()`へと変換されます。
@@ -251,9 +251,9 @@ interface ReactElement<
     | string
     | JSXElementConstructor<any>
 > {
-  type: T
-  props: P
-  key: Key | null
+  type: T;
+  props: P;
+  key: Key | null;
 }
 ```
 
@@ -262,7 +262,7 @@ interface ReactElement<
 ```tsx
 type JSXElementConstructor<P> =
   | ((props: P) => ReactElement | null)
-  | (new (props: P) => Component<P, any>)
+  | (new (props: P) => Component<P, any>);
 ```
 
 であることが分かります。
@@ -295,7 +295,7 @@ interface DetailedReactHTMLElement<
   P extends HTMLAttributes<T>,
   T extends HTMLElement
 > extends DOMElement<P, T> {
-  type: keyof ReactHTML
+  type: keyof ReactHTML;
 }
 ```
 
@@ -311,7 +311,7 @@ interface DOMElement<
   P extends HTMLAttributes<T> | SVGAttributes<T>,
   T extends Element
 > extends ReactElement<P, string> {
-  ref: LegacyRef<T>
+  ref: LegacyRef<T>;
 }
 ```
 
@@ -326,11 +326,11 @@ interface DOMElement<
 例えば、
 
 ```tsx
-const jsxel = <div></div>
-jsxel.key
+const jsxel = <div></div>;
+jsxel.key;
 
-const crel = React.createElement("div")
-crel.key
+const crel = React.createElement("div");
+crel.key;
 ```
 
 という二つの関数を定義して、key からコードジャンプすると、双方とも ReactElement の key にジャンプするはずです。
@@ -352,17 +352,17 @@ const Hoge:React.FC<IProps> (props) => {
 `React.FC` はこうなっています。
 
 ```tsx
-type FC<P = {}> = FunctionComponent<P>
+type FC<P = {}> = FunctionComponent<P>;
 
 interface FunctionComponent<P = {}> {
-  (props: PropsWithChildren<P>, context?: any): ReactElement<any, any> | null
-  propTypes?: WeakValidationMap<P>
-  contextTypes?: ValidationMap<any>
-  defaultProps?: Partial<P>
-  displayName?: string
+  (props: PropsWithChildren<P>, context?: any): ReactElement<any, any> | null;
+  propTypes?: WeakValidationMap<P>;
+  contextTypes?: ValidationMap<any>;
+  defaultProps?: Partial<P>;
+  displayName?: string;
 }
 
-type PropsWithChildren<P> = P & { children?: ReactNode }
+type PropsWithChildren<P> = P & { children?: ReactNode };
 ```
 
 このコンポーネントを使う 1 つのメリットとしては children を型推論から得られることが挙げられます。
@@ -378,24 +378,24 @@ type PropsWithChildren<P> = P & { children?: ReactNode }
 interface Component<P = {}, S = {}, SS = any>
   extends ComponentLifecycle<P, S, SS> {}
 class Component<P, S> {
-  static contextType?: Context<any>
-  context: any
+  static contextType?: Context<any>;
+  context: any;
 
-  constructor(props: Readonly<P>)
-  constructor(props: P, context?: any)
+  constructor(props: Readonly<P>);
+  constructor(props: P, context?: any);
   setState<K extends keyof S>(
     state:
       | ((prevState: Readonly<S>, props: Readonly<P>) => Pick<S, K> | S | null)
       | (Pick<S, K> | S | null),
     callback?: () => void
-  ): void
-  forceUpdate(callback?: () => void): void
-  render(): ReactNode
-  readonly props: Readonly<P> & Readonly<{ children?: ReactNode }>
-  state: Readonly<S>
+  ): void;
+  forceUpdate(callback?: () => void): void;
+  render(): ReactNode;
+  readonly props: Readonly<P> & Readonly<{ children?: ReactNode }>;
+  state: Readonly<S>;
   refs: {
-    [key: string]: ReactInstance
-  }
+    [key: string]: ReactInstance;
+  };
 }
 ```
 
@@ -416,7 +416,7 @@ type ReactNode =
   | ReactPortal
   | boolean
   | null
-  | undefined
+  | undefined;
 ```
 
 という定義です。
@@ -428,7 +428,7 @@ function createElement<P extends HTMLAttributes<T>, T extends HTMLElement>(
   type: keyof ReactHTML,
   props?: (ClassAttributes<T> & P) | null,
   ...children: ReactNode[]
-): DetailedReactHTMLElement<P, T>
+): DetailedReactHTMLElement<P, T>;
 ```
 
 JSX は babel や tsc によって createElement という関数に変換されますが、ここにある children は JSX が入れ子として持つ要素のことです。
@@ -442,7 +442,7 @@ class Hello extends React.Component {
       <div>
         hello<span>world!</span>
       </div>
-    )
+    );
   }
 }
 
@@ -452,14 +452,14 @@ const Component: React.FC = () => {
       hello world
       <Hello></Hello>
     </div>
-  )
-}
+  );
+};
 ```
 
 のようなコードはトランスパイルすると
 
 ```js
-const React = __importStar(require("react"))
+const React = __importStar(require("react"));
 class Hello extends React.Component {
   render() {
     return React.createElement(
@@ -467,7 +467,7 @@ class Hello extends React.Component {
       null,
       "hello",
       React.createElement("span", null, "world!")
-    )
+    );
   }
 }
 const Component = () => {
@@ -476,8 +476,8 @@ const Component = () => {
     null,
     "hello world",
     React.createElement(Hello, null)
-  )
-}
+  );
+};
 ```
 
 となり、たとえば Hello コンポーネントの例で言えば ...children: ReactNode[] は `"hello"`といった文字列 や `React.createElement("span", null, "world!")` といった DetailedReactHTMLElement(ReactElement を継承している)を指します。
@@ -489,7 +489,7 @@ const Component = () => {
 `ReactNode` に含まれる `ReactChild` を見てみましょう。
 
 ```tsx
-type ReactChild = ReactElement | ReactText
+type ReactChild = ReactElement | ReactText;
 ```
 
 Child という名前から`props.children`に関係がある何かかもしれないと思うかもしれませんが、直接は関係ないので注意しましょう。
@@ -501,7 +501,7 @@ props.children の型は ReactNode です。
 ### ReactText
 
 ```tsx
-type ReactText = string | number
+type ReactText = string | number;
 ```
 
 primitive なものを 2 つ組み合わせただけのものです。
@@ -510,17 +510,17 @@ primitive なものを 2 つ組み合わせただけのものです。
 ```jsx
 class Hoge extends React.Component {
   render() {
-    return "1"
+    return "1";
   }
 }
 
 const Hoge2 = () => {
-  return 1
-}
+  return 1;
+};
 
 const Hoge3 = () => {
-  return <div>1</div>
-}
+  return <div>1</div>;
+};
 ```
 
 といったことができるようになります。

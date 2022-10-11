@@ -3,7 +3,7 @@ path: /fastly-domain-config
 created: "2022-05-07"
 title: Fastly に自ドメインを設定する
 visual: "./visual.png"
-tags: ["Fastly"]
+tags: ["fastly"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false

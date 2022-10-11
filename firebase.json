@@ -1,7 +1,15 @@
 {
-  "hosting": {
-    "public": "./public",
-    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-    "trailingSlash": true
-  }
+  "hosting": [
+    {
+      "target": "default",
+      "public": "./public",
+      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+      "trailingSlash": true
+    },
+    {
+      "target": "storybook",
+      "public": "./story-build",
+      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
+    }
+  ]
 }

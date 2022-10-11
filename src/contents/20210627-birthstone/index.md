@@ -3,7 +3,7 @@ path: /birthstone
 created: "2021-06-27"
 title: ソシャゲの石を効率的に集める情報サイトを作った
 visual: "./visual.png"
-tags: ["Rust", "WebAssembly", "クソアプリ", "ゲーム"]
+tags: ["rust", "webassembly", "クソアプリ", "ゲーム"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false

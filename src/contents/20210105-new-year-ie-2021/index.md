@@ -3,7 +3,7 @@ path: /new-year-ie-2021
 created: "2021-01-05"
 title: ☆謹賀新年☆IE対応2021
 visual: "./visual.png"
-tags: ["IE対応"]
+tags: ["ie対応"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false
@@ -139,7 +139,7 @@ module.exports = {
       },
     ],
   },
-}
+};
 ```
 
 いま IE 対応が必要なので goober だけなので、ライブラリからは goober だけを loader に読ませます。
@@ -174,25 +174,25 @@ export const reducer = (state: State, action: ActionType): State => {
         isLoading: true,
         data: undefined,
         error: undefined,
-      }
+      };
     case SUCCESS_FETCH_DATA:
       return {
         ...state,
         isLoading: false,
         data: action.payload,
         error: undefined,
-      }
+      };
     case FAIL_FETCH_DATA:
       return {
         ...state,
         isLoading: false,
         data: undefined,
         error: action.payload,
-      }
+      };
     default:
-      return state
+      return state;
   }
-}
+};
 ```
 
 さて、この spread 演算子は ES6 の機能の一つですが、ES5 へと出力するとこのように`Object.assign` を使ったものへとなります。
@@ -200,17 +200,17 @@ export const reducer = (state: State, action: ActionType): State => {
 before
 
 ```js
-const old = { k: "v" }
+const old = { k: "v" };
 
-const newObj = { ...old, k: "v2" }
+const newObj = { ...old, k: "v2" };
 ```
 
 after
 
 ```js
-"use strict"
-const old = { k: "v" }
-const newObj = Object.assign(Object.assign({}, old), { k: "v2" })
+"use strict";
+const old = { k: "v" };
+const newObj = Object.assign(Object.assign({}, old), { k: "v2" });
 ```
 
 さて、この `Object.assign` は IE11 では動作しません。
@@ -239,42 +239,42 @@ if (!Object.assign) {
     configurable: true,
     writable: true,
     value: function (target) {
-      "use strict"
+      "use strict";
       if (target === undefined || target === null) {
-        throw new TypeError("Cannot convert first argument to object")
+        throw new TypeError("Cannot convert first argument to object");
       }
 
-      var to = Object(target)
+      var to = Object(target);
       for (var i = 1; i < arguments.length; i++) {
-        var nextSource = arguments[i]
+        var nextSource = arguments[i];
         if (nextSource === undefined || nextSource === null) {
-          continue
+          continue;
         }
-        nextSource = Object(nextSource)
+        nextSource = Object(nextSource);
 
-        var keysArray = Object.keys(Object(nextSource))
+        var keysArray = Object.keys(Object(nextSource));
         for (
           var nextIndex = 0, len = keysArray.length;
           nextIndex < len;
           nextIndex++
         ) {
-          var nextKey = keysArray[nextIndex]
-          var desc = Object.getOwnPropertyDescriptor(nextSource, nextKey)
+          var nextKey = keysArray[nextIndex];
+          var desc = Object.getOwnPropertyDescriptor(nextSource, nextKey);
           if (desc !== undefined && desc.enumerable) {
-            to[nextKey] = nextSource[nextKey]
+            to[nextKey] = nextSource[nextKey];
           }
         }
       }
-      return to
+      return to;
     },
-  })
+  });
 }
 ```
 
 [副作用として root で import](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Statements/import#Import_a_module_for_its_side_effects_only) しました。
 
 ```js
-import "./lib/object-assign-polyfil"
+import "./lib/object-assign-polyfil";
 ```
 
 参考にした（丸パクリした）コードはこれです。
@@ -331,24 +331,24 @@ whatwg-fetch の polyfill を import するだけでもいいのですが、こ�
 それを実現するスニペットとして[How to polyfill JavaScript fetch function for Internet Explorer](https://dev.to/adrianbdesigns/how-to-polyfill-javascript-fetch-function-for-internet-explorer-g46)にはこういうものがあります。
 
 ```js
-var isIE = !!window.MSInputMethodContext && !!document.documentMode
+var isIE = !!window.MSInputMethodContext && !!document.documentMode;
 
 if (isIE) {
   // Create Promise polyfill script tag
-  var promiseScript = document.createElement("script")
-  promiseScript.type = "text/javascript"
+  var promiseScript = document.createElement("script");
+  promiseScript.type = "text/javascript";
   promiseScript.src =
-    "https://cdn.jsdelivr.net/npm/promise-polyfill@8.1.3/dist/polyfill.min.js"
+    "https://cdn.jsdelivr.net/npm/promise-polyfill@8.1.3/dist/polyfill.min.js";
 
   // Create Fetch polyfill script tag
-  var fetchScript = document.createElement("script")
-  fetchScript.type = "text/javascript"
+  var fetchScript = document.createElement("script");
+  fetchScript.type = "text/javascript";
   fetchScript.src =
-    "https://cdn.jsdelivr.net/npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js"
+    "https://cdn.jsdelivr.net/npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js";
 
   // Add polyfills to head element
-  document.head.appendChild(promiseScript)
-  document.head.appendChild(fetchScript)
+  document.head.appendChild(promiseScript);
+  document.head.appendChild(fetchScript);
 
   // Wait for the polyfills to load and run the function.
   // We could have done this differently,
@@ -357,11 +357,13 @@ if (isIE) {
     window
       .fetch("https://path/to/api.endpoint")
       .then(handleResponse)
-      .catch(handleErrors)
-  }, 1000)
+      .catch(handleErrors);
+  }, 1000);
 } else {
   // If fetch is supported, just run the fetch function
-  fetch("https://path/to/api.endpoint").then(handleResponse).catch(handleErrors)
+  fetch("https://path/to/api.endpoint")
+    .then(handleResponse)
+    .catch(handleErrors);
 }
 ```
 
@@ -372,10 +374,10 @@ CDN で読み込んでいる whatwg-http を確認してみると、(解説の�
 
 ```js
 if (!global.fetch) {
-  global.fetch = fetch
-  global.Headers = Headers
-  global.Request = Request
-  global.Response = Response
+  global.fetch = fetch;
+  global.Headers = Headers;
+  global.Request = Request;
+  global.Response = Response;
 }
 ```
 

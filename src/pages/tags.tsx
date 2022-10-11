@@ -1,42 +1,36 @@
-// If you don't want to use TypeScript you can delete this file!
 import { graphql, Link, PageProps } from "gatsby";
-import * as React from "react";
+import { HeadFactory } from "../components/common/head";
+import { Layout } from "../components/common/layout";
+import * as styles from "./tags.module.css";
 
-import Layout from "../components/layout";
-import Seo from "../components/seo";
-import { toLower } from "../util/kebab";
-import { cards } from "./index.module.scss";
-
-const TagsPage: React.FC<PageProps<GatsbyTypes.TagsQuery>> = (props) => {
-  const tags = props.data.allMarkdownRemark.group;
-  if (tags.some((tag) => tag === undefined)) throw new Error("invalid tag");
-  const kebabTags = tags.map((tag) => ({
-    ...tag,
-    fieldValue: toLower(tag.fieldValue || ""),
-  }));
+const RootBlogList = ({ data }: PageProps<Queries.AllTagsQuery>) => {
   return (
     <Layout>
-      <Seo title="blog.ojisan.io" />
-      <div className={cards}>
-        {kebabTags.map((node) => (
-          <Link key={node.fieldValue} to={`/tags/${node.fieldValue}`}>
-            {node.fieldValue}({node.totalCount})
-          </Link>
+      <h1>タグ一覧</h1>
+      <ul className={styles.list}>
+        {data.tags.group.map((t) => (
+          <li key={t.tag} className={styles.listItem}>
+            <Link to={`/tags/${t.tag}`}>
+              {t.tag}({t.totalCount})
+            </Link>
+          </li>
         ))}
-      </div>
+      </ul>
     </Layout>
   );
 };
 
-export default TagsPage;
+export default RootBlogList;
 
-export const query = graphql`
-  query Tags {
-    allMarkdownRemark {
+export const postsPaginationQuery = graphql`
+  query AllTags {
+    tags: allMarkdownRemark {
       group(field: frontmatter___tags) {
-        fieldValue
+        tag: fieldValue
         totalCount
       }
     }
   }
 `;
+
+export const Head = () => <HeadFactory type="blog" />;

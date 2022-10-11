@@ -1,0 +1,30 @@
+.tocWrapper {
+  border: solid 1px var(--text-color);
+  padding: 8px;
+  border-radius: 4px;
+}
+
+.tocWrapper > ul {
+  list-style-type: none;
+  padding-left: 0px;
+}
+
+.tocWrapper > ul > li > ul,
+.tocWrapper > ul > li > ul > li > ul,
+.tocWrapper > ul > li > ul > li > ul > li > ul,
+.tocWrapper > ul > li > ul > li > ul > li > ul > li > ul {
+  list-style-type: none;
+  padding-left: 12px;
+}
+
+.tocWrapper a {
+  text-decoration: none;
+  color: var(--text-color);
+  display: block;
+  padding: 4px 12px;
+}
+
+.tocWrapper a:hover {
+  background-color: var(--text-color);
+  color: var(--base-color);
+}

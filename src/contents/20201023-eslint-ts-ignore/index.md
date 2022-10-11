@@ -3,7 +3,7 @@ path: /eslint-ts-ignore
 created: "2020-10-23"
 title: TypeScript と ESLint における検査エラーを無視したい時のおまじないまとめ
 visual: "./visual.png"
-tags: [ESLint, TypeScript]
+tags: [eslint, typescript]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false
@@ -44,8 +44,8 @@ const Hoge = () => {
         handleClick={handleClick}
       />
     </div>
-  )
-}
+  );
+};
 ```
 
 といった場合です。
@@ -65,8 +65,8 @@ const Hoge = () => {
         handleClick={handleClick}
       />
     </div>
-  )
-}
+  );
+};
 ```
 
 とします。
@@ -123,22 +123,22 @@ ESLint の rule の設定そのものを書けるので、ここで 0(つまり 
 
 ```js
 // eslint-disable-next-line
-hoge
+hoge;
 ```
 
 また、eslint-disable-line とすれば同一行のエラーを抑制できます。
 
 ```js
-hoge // eslint-disable-line
+hoge; // eslint-disable-line
 ```
 
 またコメントの後ろにルール名を書けばそのルールだけをピンポイントで抑制できます。
 
 ```js
 // eslint-disable-next-line ルール名
-hoge
+hoge;
 
-fuga // eslint-disable-line ルール名
+fuga; // eslint-disable-line ルール名
 ```
 
 ### ブロック単位で無視する
@@ -147,10 +147,10 @@ fuga // eslint-disable-line ルール名
 
 ```js
 /* eslint-disable ルール名 */
-hoge
-fuga
+hoge;
+fuga;
 /* eslint-enable ルール名 */
-piyo
+piyo;
 ```
 
 ### 複数のルールを対応する場合
@@ -163,10 +163,10 @@ piyo
 つまり、たとえば行単位での無視の場合
 
 ```js
-alert("foo") // eslint-disable-line no-alert, quotes, semi
+alert("foo"); // eslint-disable-line no-alert, quotes, semi
 
 // eslint-disable-next-line no-alert, quotes, semi
-alert("foo")
+alert("foo");
 ```
 
 とすれば良いです。
@@ -176,8 +176,8 @@ alert("foo")
 ```js
 /* eslint-disable no-alert, no-console */
 
-alert("foo")
-console.log("bar")
+alert("foo");
+console.log("bar");
 
 /* eslint-enable no-alert, no-console */
 ```

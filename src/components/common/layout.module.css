@@ -1,0 +1,10 @@
+.contentsWrapper {
+  background-color: var(--base-color);
+  padding-top: var(--header-height);
+}
+
+.contents {
+  max-width: 1280px;
+  margin: auto;
+  padding: 12px;
+}

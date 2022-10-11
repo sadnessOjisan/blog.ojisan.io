@@ -3,7 +3,7 @@ path: /prettier-eslint-cli
 created: "2020-09-24"
 title: Prettier と ESLint の組み合わせの公式推奨が変わり plugin が不要になった
 visual: "./visual.png"
-tags: [Prettier, ESLint]
+tags: [prettier, eslint]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false

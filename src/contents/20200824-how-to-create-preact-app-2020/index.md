@@ -3,7 +3,7 @@ path: /how-to-create-preact-app-2020
 created: "2020-08-24 09:00"
 title: Preactの環境構築 of 2020
 visual: "./visual.png"
-tags: [preact, TypeScript]
+tags: [preact, typescript]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false
@@ -192,8 +192,8 @@ preact の世界では h 関数を import しておけばビルドが通るよ�
 公式にある通り、
 
 ```jsx
-import Router from "preact-router"
-import { h, render } from "preact"
+import Router from "preact-router";
+import { h, render } from "preact";
 /** @jsx h */
 
 const Main = () => (
@@ -203,9 +203,9 @@ const Main = () => (
     // Advanced is an optional query
     <Search path="/search/:query/:advanced?" />
   </Router>
-)
+);
 
-render(<Main />, document.body)
+render(<Main />, document.body);
 ```
 
 として使え、よく見る Router という感じがします。
@@ -248,7 +248,7 @@ middleware のような物が欲しくなるとこちらを検討してもいい
 preact/compat もしくは preact/hooks に含まれています。
 
 ```jsx
-import { useReducer } from "preact/compat"
+import { useReducer } from "preact/compat";
 ```
 
 ### preact/compat ってなに？
@@ -291,8 +291,8 @@ React の場合@types/react が提供している Dispatch という型で creat
 
 ```ts
 export const TodoDispatchContext = createContext<{
-  dispatch: (action: ActionType) => void
-}>({ dispatch: () => {} })
+  dispatch: (action: ActionType) => void;
+}>({ dispatch: () => {} });
 ```
 
 ### 実装例
@@ -479,8 +479,8 @@ emotion や styled-components でやる時の方法と同じです。
 コンポーネントをラップし、
 
 ```tsx
-import { styled } from "goober"
-import { Item as _Item } from "../component/Item"
+import { styled } from "goober";
+import { Item as _Item } from "../component/Item";
 
 const Item = styled(_Item)`
   border: solid 1px #ccc;
@@ -490,7 +490,7 @@ const Item = styled(_Item)`
     flex-direction: column;
     margin: 12px 0px;
   }
-`
+`;
 ```
 
 ラップ対象に className を渡すと
@@ -516,7 +516,7 @@ const Items = styled("div")`
   @media screen and (max-width: 450px) {
     flex-direction: column;
   }
-`
+`;
 ```
 
 #### global css も簡単に読み込める
@@ -525,7 +525,7 @@ glob という機能で実現できます。(global の略っぽい)
 reset.css の実現に使えます。
 
 ```jsx
-import { glob } from "goober"
+import { glob } from "goober";
 
 glob`
   *,
@@ -543,7 +543,7 @@ glob`
   body {
     box-sizing: border-box;
   }
-`
+`;
 ```
 
 これを呼ぶだけで GlobalCSS が適用されます。

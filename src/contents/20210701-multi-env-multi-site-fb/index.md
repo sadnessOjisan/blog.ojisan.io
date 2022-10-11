@@ -3,7 +3,7 @@ path: /multi-env-multi-site-fb
 created: "2021-07-01"
 title: 複数環境・複数サイトを対象としたFirebaseデプロイ
 visual: "./visual.png"
-tags: ["Firebase"]
+tags: ["firebase"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false

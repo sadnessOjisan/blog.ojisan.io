@@ -3,7 +3,7 @@ path: /no-class-css-fw
 created: "2020-07-30"
 title: No-Class CSS フレームワークをいろいろ比較するサイトを作った
 visual: "./visual.png"
-tags: [CSS, Angular, PR]
+tags: [css, angular, pr]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false

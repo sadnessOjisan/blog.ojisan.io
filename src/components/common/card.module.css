@@ -1,0 +1,24 @@
+.wrapper {
+  color: var(--text-color);
+}
+
+.wrapper:hover > * {
+  background-color: var(--text-color);
+  color: var(--base-color);
+}
+
+.contents {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 160px;
+}
+
+.body {
+  padding: 8px;
+  word-break: break-all;
+}
+
+.foooter {
+  margin-top: auto;
+}

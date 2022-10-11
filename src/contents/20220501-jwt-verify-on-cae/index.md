@@ -3,7 +3,7 @@ path: /jwt-verify-on-cae
 created: "2022-05-01"
 title: Fastly Compute@Edge + Rust で JWT を decode する
 visual: "./visual.png"
-tags: ["Rust", "Fastly", "C@E"]
+tags: ["rust", "fastly", "c@e"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false

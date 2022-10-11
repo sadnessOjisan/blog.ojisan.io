@@ -1,0 +1,26 @@
+.list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.listItem {
+  border-radius: 4px;
+  border: solid 1px var(--neutral-gray);
+}
+
+.listItem a {
+  text-decoration: none;
+}
+
+.listItem:hover {
+  border-width: 2px;
+}
+
+@media screen and (max-width: 480px) {
+  .list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

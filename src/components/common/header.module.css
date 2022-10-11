@@ -1,0 +1,33 @@
+.header {
+  height: var(--header-height);
+  background-color: var(--header-color);
+  position: fixed;
+  width: 100%;
+  z-index: 1;
+  padding: 0px 12px;
+}
+
+.headerContents {
+  max-width: 1280px;
+  height: var(--header-height);
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.right {
+  display: flex;
+}
+
+.right a {
+  color: var(--text-color);
+  margin-right: 12px;
+}
+
+.logo {
+  font-size: 32px;
+  text-decoration: none;
+  color: var(--text-color);
+  font-weight: 900;
+}

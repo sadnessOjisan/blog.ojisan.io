@@ -3,7 +3,7 @@ path: /compute-at-edge-study
 created: "2022-04-29"
 title: Fastly Compute@Edge の勉強 (JS)
 visual: "./visual.png"
-tags: ["JavaScript", "Fastly", "C@E"]
+tags: ["javascript", "fastly", "c@e"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false

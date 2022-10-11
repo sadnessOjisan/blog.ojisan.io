@@ -3,7 +3,7 @@ path: /firebase-storage-restrict
 created: "2020-08-31 09:00"
 title: cloud storage からのファイル取得を制限したい
 visual: "./visual.png"
-tags: [Firebase]
+tags: [firebase]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false
@@ -55,15 +55,15 @@ $ npm i firebase-admin
 初期化は `initializeApp` という関数で行います。
 
 ```ts
-import { NextApiRequest, NextApiResponse } from "next"
-import * as admin from "firebase-admin"
+import { NextApiRequest, NextApiResponse } from "next";
+import * as admin from "firebase-admin";
 
-var serviceAccount = require("path/to/key.json")
+var serviceAccount = require("path/to/key.json");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   storageBucket: "hoge.appspot.com",
-})
+});
 ```
 
 cloud storage を使うのならこのとき storageBucket も渡しましょう。
@@ -78,8 +78,8 @@ cloud storage を使うのならこのとき storageBucket も渡しましょう
 
 ```ts
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  res.status(200).json({ url })
-}
+  res.status(200).json({ url });
+};
 ```
 
 ではまずアクセスが誰からされたかという識別をします。
@@ -88,19 +88,19 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   // FIXME: request header に書くべき
   // TODO: リクエストのバリデーション
-  const idToken = req.query.idToken as string
-  const vid = req.query.vid as string
+  const idToken = req.query.idToken as string;
+  const vid = req.query.vid as string;
   admin
     .auth()
     .verifyIdToken(idToken)
     .then(function (decodedToken) {
-      let uid = decodedToken.uid
+      let uid = decodedToken.uid;
     })
     .catch(function (error) {
-      console.error(error)
-      res.status(400).json({ message: "fail" })
-    })
-}
+      console.error(error);
+      res.status(400).json({ message: "fail" });
+    });
+};
 ```
 
 クライアントからはユーザーの識別可能な token が送られてくると仮定します。
@@ -108,23 +108,23 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 そのトークンはクライアント側からこのように作成できます。
 
 ```ts
-const cu = firebase.auth().currentUser
+const cu = firebase.auth().currentUser;
 if (!cu) {
-  alert("you should login")
-  return
+  alert("you should login");
+  return;
 }
 cu.getIdToken(true)
   .then(function (idToken) {
     // TODO: 便宜上そうしているけどURLにトークン入れたらだめだよ！！！
     fetch(`/api/movie?idToken=${idToken}&vid=${videoId}`)
-      .then(res => res.json())
-      .then(d => {
+      .then((res) => res.json())
+      .then((d) => {
         // no op
-      })
+      });
   })
   .catch(function (error) {
     // Handle error
-  })
+  });
 ```
 
 （普通は URL からその token を見れないようにリクエストヘッダにセットするとは思いますが、楽に説明したいのでクエリパラメタに含めています。）

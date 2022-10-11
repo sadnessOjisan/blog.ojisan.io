@@ -3,7 +3,7 @@ path: /min-caml-for-mac
 created: "2020-11-13 18:00"
 title: min-caml を Mac で動かす
 visual: "./visual.png"
-tags: ["OCaml"]
+tags: ["ocaml"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: true

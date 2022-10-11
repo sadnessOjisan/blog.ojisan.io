@@ -1,0 +1,39 @@
+.article {
+  line-height: 1.6;
+}
+
+.article h2 {
+  margin-top: 36px;
+  font-size: 32px;
+}
+
+.article h2:first-child {
+  margin-top: 0px;
+}
+
+.article h3 {
+  margin-top: 32px;
+  font-size: 24px;
+}
+
+.article h4 {
+  margin-top: 16px;
+  font-size: 20px;
+}
+
+.article h5 {
+  margin-top: 12px;
+  font-size: 18px;
+}
+
+.article pre {
+  overflow-x: scroll;
+}
+
+.article a {
+  color: var(--primary-color);
+}
+
+.article > p {
+  margin: 24px 0px;
+}

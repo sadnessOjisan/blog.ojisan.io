@@ -3,7 +3,7 @@ path: /syntax-highlight-battle
 created: "2021-05-08"
 title: 最強の syntax highlight を知りたくてバトルするサイトを作った話
 visual: "./visual.png"
-tags: ["Rust", "svelte", "クソアプリ"]
+tags: ["rust", "svelte", "クソアプリ"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false

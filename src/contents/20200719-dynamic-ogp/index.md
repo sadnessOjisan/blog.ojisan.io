@@ -3,7 +3,7 @@ path: /dynamic-ogp
 created: "2020-07-20"
 title: 絶対にお金を払いたくない精神での動的OGP生成は辛い
 visual: "./visual.png"
-tags: [OGP, Vercel, Firebase]
+tags: [ogp, vercel, firebase]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false
@@ -53,24 +53,24 @@ node-canvas は
 例えば、
 
 ```js
-import { join } from "path"
-import { createCanvas, loadImage, registerFont } from "canvas"
+import { join } from "path";
+import { createCanvas, loadImage, registerFont } from "canvas";
 
-const baseImagePath = join(__dirname, "../..", "imagesForFunction", "base.png")
+const baseImagePath = join(__dirname, "../..", "imagesForFunction", "base.png");
 
-const createOGP = async title => {
-  const W = 1200
-  const H = 630
+const createOGP = async (title) => {
+  const W = 1200;
+  const H = 630;
 
-  const canvas = createCanvas(W, H)
-  const ctx = canvas.getContext("2d")
+  const canvas = createCanvas(W, H);
+  const ctx = canvas.getContext("2d");
 
   // 背景画像の描画
-  const baseImage = await loadImage(baseImagePath)
-  ctx.drawImage(baseImage, 0, 0, W, H)
+  const baseImage = await loadImage(baseImagePath);
+  ctx.drawImage(baseImage, 0, 0, W, H);
 
-  return canvas.toBuffer()
-}
+  return canvas.toBuffer();
+};
 ```
 
 のようなコードを書けば OGP 画像を作れます。
@@ -157,19 +157,19 @@ NextJS を使っていると別のホスティングサービスから叩いて�
 [公式](https://cloud.google.com/functions/docs/writing/http?hl=ja#handling_cors_requests)でも解説されている通り、次のコードが必要になります。
 
 ```js
-response.set("Access-Control-Allow-Origin", "*")
+response.set("Access-Control-Allow-Origin", "*");
 
 if (request.method === "OPTIONS") {
   // Send response to OPTIONS requests
-  response.set("Access-Control-Allow-Methods", "GET")
-  response.set("Access-Control-Allow-Headers", "Content-Type")
-  response.set("Access-Control-Max-Age", "3600")
-  response.status(204).send("")
+  response.set("Access-Control-Allow-Methods", "GET");
+  response.set("Access-Control-Allow-Headers", "Content-Type");
+  response.set("Access-Control-Max-Age", "3600");
+  response.status(204).send("");
 } else {
-  const body = request.body
-  const image = await _createOgp(body.title)
-  await upload(image)
-  response.send("ok")
+  const body = request.body;
+  const image = await _createOgp(body.title);
+  await upload(image);
+  response.send("ok");
 }
 ```
 
@@ -183,20 +183,20 @@ if (request.method === "OPTIONS") {
 
 ```js
 const upload = async (image: Buffer): Promise<void> => {
-  const loaclTargetPath = `/tmp/target.png`
-  const targetPath = `${CLOUD_STORAGE_KEYS.QUESTION}/ogp.png`
+  const loaclTargetPath = `/tmp/target.png`;
+  const targetPath = `${CLOUD_STORAGE_KEYS.QUESTION}/ogp.png`;
 
   // （Syncはやめといた方が良いよ）
-  fs.writeFileSync(loaclTargetPath, image)
+  fs.writeFileSync(loaclTargetPath, image);
 
   // Storageにアップロード
-  await bucket.upload(loaclTargetPath, { destination: targetPath })
+  await bucket.upload(loaclTargetPath, { destination: targetPath });
 
   // tmpファイルの削除
-  fs.unlinkSync(loaclTargetPath)
+  fs.unlinkSync(loaclTargetPath);
 
-  return
-}
+  return;
+};
 ```
 
 とあるようにファイルに画像を書き込んでいます。
@@ -256,7 +256,7 @@ Firebase の SDK には Storage の DL パスを取得できる機能がある�
 どうやらドキュメントの[URL 経由でデータをダウンロードする](https://firebase.google.com/docs/storage/web/download-files?hl=ja#download_data_via_url)を見ると、`getDownloadURL` で可能なようです。
 
 ```js
-var storageRef = firebase.storage().ref()
+var storageRef = firebase.storage().ref();
 storageRef
   .child("images/stars.jpg")
   .getDownloadURL()
@@ -264,21 +264,21 @@ storageRef
     // `url` is the download URL for 'images/stars.jpg'
 
     // This can be downloaded directly:
-    var xhr = new XMLHttpRequest()
-    xhr.responseType = "blob"
+    var xhr = new XMLHttpRequest();
+    xhr.responseType = "blob";
     xhr.onload = function (event) {
-      var blob = xhr.response
-    }
-    xhr.open("GET", url)
-    xhr.send()
+      var blob = xhr.response;
+    };
+    xhr.open("GET", url);
+    xhr.send();
 
     // Or inserted into an <img> element:
-    var img = document.getElementById("myimg")
-    img.src = url
+    var img = document.getElementById("myimg");
+    img.src = url;
   })
   .catch(function (error) {
     // Handle any errors
-  })
+  });
 ```
 
 ここで取得したい URL は SSR 時に必要なので、`getServerSideProps` を使って記述しましょう。
@@ -332,23 +332,23 @@ Cloud Functions を使うので**無料では動かない**ですが・・・
 
 ```js
 const upload = async (image: Buffer): Promise<void> => {
-  const loaclTargetPath = `/tmp/target.png`
-  const localBasePath = "/tmp/base.png"
-  const targetPath = `${CLOUD_STORAGE_KEYS.QUESTION}/ogp.png`
-  const basePath = `${CLOUD_STORAGE_KEYS.QUESTION}/base.png`
+  const loaclTargetPath = `/tmp/target.png`;
+  const localBasePath = "/tmp/base.png";
+  const targetPath = `${CLOUD_STORAGE_KEYS.QUESTION}/ogp.png`;
+  const basePath = `${CLOUD_STORAGE_KEYS.QUESTION}/base.png`;
 
   // （Syncはやめといた方が良いよ）
-  fs.writeFileSync(loaclTargetPath, image)
+  fs.writeFileSync(loaclTargetPath, image);
 
   // Storageにアップロード
-  await bucket.upload(loaclTargetPath, { destination: targetPath })
+  await bucket.upload(loaclTargetPath, { destination: targetPath });
 
   // tmpファイルの削除
-  fs.unlinkSync(localBasePath)
-  fs.unlinkSync(loaclTargetPath)
+  fs.unlinkSync(localBasePath);
+  fs.unlinkSync(loaclTargetPath);
 
-  return
-}
+  return;
+};
 ```
 
 と言いたいのですが、これは vercel では**動きません。**
@@ -367,38 +367,38 @@ OGP 画像をバイナリで返す API を持っておけば、この API 自体
 つまり先ほどの API を、
 
 ```js
-import { join } from "path"
-import { createCanvas, loadImage } from "canvas"
-import { NextApiRequest, NextApiResponse } from "next"
+import { join } from "path";
+import { createCanvas, loadImage } from "canvas";
+import { NextApiRequest, NextApiResponse } from "next";
 
 export default async (
   request: NextApiRequest,
   response: NextApiResponse
 ): Promise<void> => {
-  const buf = await createOGP()
+  const buf = await createOGP();
 
   response.writeHead(200, {
     "Content-Type": "image/png",
     "Content-Length": buf.length,
-  })
-  response.end(buf, "binary")
-}
+  });
+  response.end(buf, "binary");
+};
 
-const baseImagePath = join(__dirname, "../..", "imagesForFunction", "base.png")
+const baseImagePath = join(__dirname, "../..", "imagesForFunction", "base.png");
 
 const createOGP = async (): Promise<Buffer> => {
-  const W = 1200
-  const H = 630
+  const W = 1200;
+  const H = 630;
 
-  const canvas = createCanvas(W, H)
-  const ctx = canvas.getContext("2d")
+  const canvas = createCanvas(W, H);
+  const ctx = canvas.getContext("2d");
   // 背景画像の描画
-  const baseImage = await loadImage(baseImagePath)
+  const baseImage = await loadImage(baseImagePath);
 
-  ctx.drawImage(baseImage, 0, 0, W, H)
+  ctx.drawImage(baseImage, 0, 0, W, H);
 
-  return canvas.toBuffer()
-}
+  return canvas.toBuffer();
+};
 ```
 
 とします。
@@ -407,8 +407,8 @@ const createOGP = async (): Promise<Buffer> => {
 そうするとこれを展開する側は、
 
 ```jsx
-import * as React from "react"
-import Head from "next/head"
+import * as React from "react";
+import Head from "next/head";
 
 export default function Post(props: IProps): JSX.Element {
   return (
@@ -424,7 +424,7 @@ export default function Post(props: IProps): JSX.Element {
         />
       </Head>
     </div>
-  )
+  );
 }
 ```
 
@@ -435,8 +435,8 @@ export default function Post(props: IProps): JSX.Element {
 簡易的な例としてはこんな感じです。
 
 ```jsx
-import * as React from "react"
-import Head from "next/head"
+import * as React from "react";
+import Head from "next/head";
 
 interface IProps {
   title?: string;
@@ -444,7 +444,7 @@ interface IProps {
 
 export default function Post(props: IProps): JSX.Element {
   // SSR時に取得したタイトルを流し込む
-  const { title } = props
+  const { title } = props;
 
   return (
     <div>
@@ -463,25 +463,25 @@ export default function Post(props: IProps): JSX.Element {
         />
       </Head>
     </div>
-  )
+  );
 }
 
 // SSR時にtitleを取得
-export const getServerSideProps: GetServerSideProps = async context => {
-  let title
-  const qid = context.query.id
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  let title;
+  const qid = context.query.id;
   try {
     if (!qid || typeof qid !== "string") {
-      throw new Error("you should select id")
+      throw new Error("you should select id");
     }
-    const res = await QuestionRepository.get(qid)
-    title = res.data.title
+    const res = await QuestionRepository.get(qid);
+    title = res.data.title;
   } catch (e) {
-    title = undefined
+    title = undefined;
   }
 
-  return { props: { title } }
-}
+  return { props: { title } };
+};
 ```
 
 そして後は vercel 上に作った function が create_and_get_ogp への GET で OGP を生成してバイナリで返せばきれいに作れます。
