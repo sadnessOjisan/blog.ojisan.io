@@ -3,7 +3,7 @@ path: /swipe-fix
 created: "2020-09-20"
 title: CSS スワイプ 固定 横スクロール
 visual: "./visual.png"
-tags: [CSS]
+tags: [css]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false

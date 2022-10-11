@@ -3,7 +3,7 @@ path: /how-to-stripe
 created: "2020-09-08"
 title: stripe を使った決済機能の実装方法を学ぶ前に知っとくといい全体感
 visual: "./visual.png"
-tags: [React, stripe]
+tags: [react, stripe]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false
@@ -279,7 +279,7 @@ const result = await stripe.confirmCardPayment(secret, {
       name: "user name",
     },
   },
-})
+});
 ```
 
 その result の結果を見れば後続処理もかけます。
@@ -294,13 +294,13 @@ if (result.error) {
    * * card_error
    * * and so on...
    */
-  console.log(result.error.message)
+  console.log(result.error.message);
 } else {
   if (result.paymentIntent.status === "succeeded") {
     /**
      * 決済に成功したときの処理をこのブロックに書く
      */
-    alert("payment success!!")
+    alert("payment success!!");
   }
 }
 ```
@@ -344,7 +344,7 @@ const CARD_OPTIONS = {
       color: "#ffc7ee",
     },
   },
-}
+};
 
 const CardField = ({ onChange }) => (
   <fieldset className="FormGroup">
@@ -352,7 +352,7 @@ const CardField = ({ onChange }) => (
       <CardElement options={CARD_OPTIONS} onChange={onChange} />
     </div>
   </fieldset>
-)
+);
 ```
 
 またデフォルトでは郵便番号のフォームも表示されますが、多くの場合は不要だと思うので（あまり見ない気がする）、これも消します。
@@ -372,22 +372,22 @@ const CardField = ({ onChange }) => (
  * CSS properties supported by Stripe.js.
  */
 interface StripeElementCSSProperties {
-  backgroundColor?: string
-  color?: string
-  fontFamily?: string
-  fontSize?: string
-  fontSmoothing?: string
-  fontStyle?: string
-  fontVariant?: string
-  fontWeight?: string
-  iconColor?: string
-  lineHeight?: string
-  letterSpacing?: string
-  textAlign?: string
-  padding?: number
-  textDecoration?: string
-  textShadow?: string
-  textTransform?: string
+  backgroundColor?: string;
+  color?: string;
+  fontFamily?: string;
+  fontSize?: string;
+  fontSmoothing?: string;
+  fontStyle?: string;
+  fontVariant?: string;
+  fontWeight?: string;
+  iconColor?: string;
+  lineHeight?: string;
+  letterSpacing?: string;
+  textAlign?: string;
+  padding?: number;
+  textDecoration?: string;
+  textShadow?: string;
+  textTransform?: string;
 }
 ```
 

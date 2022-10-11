@@ -3,7 +3,7 @@ path: /what-is-mrm
 created: "2020-10-14"
 title: mrm で JavaScript ライブラリの config を整える
 visual: "./visual.png"
-tags: [JavaScript, NodeJS]
+tags: [javascript, nodejs]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false

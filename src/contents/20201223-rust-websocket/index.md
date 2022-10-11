@@ -3,7 +3,7 @@ path: /rust-websocket
 created: "2020-12-23"
 title: RustでWebSocketサーバーそのものを作ってみた！
 visual: "./visual.png"
-tags: ["Rust"]
+tags: ["rust"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false
@@ -110,7 +110,7 @@ stream.write(data);
 これを読み込んだクライアントは
 
 ```js
-new WebSocket("ws://localhost:8080/websocket", ["chat"])
+new WebSocket("ws://localhost:8080/websocket", ["chat"]);
 ```
 
 を実行するので、`/websocket` にコネクション確立のためのリクエストが飛んできます。
@@ -206,7 +206,7 @@ function () {
 コネクションに成功したので、
 
 ```js
-ws.send("test")
+ws.send("test");
 ```
 
 が実行されています。

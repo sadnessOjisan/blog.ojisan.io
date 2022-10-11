@@ -3,7 +3,7 @@ path: /actix-web-cloud-run
 created: "2021-05-03"
 title: actix-web を Cloud Run で動かす
 visual: "./visual.png"
-tags: ["Rust", "actix-web", "Docker"]
+tags: ["rust", "actix-web", "docker"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false

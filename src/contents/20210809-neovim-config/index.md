@@ -3,7 +3,7 @@ path: /neovim-config
 created: "2021-08-09"
 title: Neovim の設定を lspconfig + treesitter ベースにした
 visual: "./visual.png"
-tags: ["Vim"]
+tags: ["vim"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false

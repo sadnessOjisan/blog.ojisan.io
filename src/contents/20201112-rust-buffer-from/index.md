@@ -3,7 +3,7 @@ path: /rust-buffer-from
 created: "2020-11-12 20:00"
 title: Rust でも require("crypto").createHash("sha1").update(key).digest("base64") したい
 visual: "./visual.png"
-tags: [Rust]
+tags: [rust]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false
@@ -15,7 +15,7 @@ websocket サーバーを作る時に sha1 の base64 ダイジェスト値が�
 Node.js でいう
 
 ```js
-require("crypto").createHash("sha1").update(key).digest("base64")
+require("crypto").createHash("sha1").update(key).digest("base64");
 ```
 
 に相当する関数が Rust に無くて少し困りました。
@@ -26,7 +26,7 @@ require("crypto").createHash("sha1").update(key).digest("base64")
 まず、
 
 ```js
-require("crypto").createHash("sha1").update(key).digest("base64")
+require("crypto").createHash("sha1").update(key).digest("base64");
 ```
 
 は
@@ -35,7 +35,7 @@ require("crypto").createHash("sha1").update(key).digest("base64")
 Buffer.from(
   require("crypto").createHash("sha1").update(key).digest("base64"),
   "hex"
-).toString("base64")
+).toString("base64");
 ```
 
 と同値です。
@@ -56,7 +56,7 @@ console.log(require("crypto").createHash("sha1").update(key).digest("hex");)
 Buffer.from(
   require("crypto").createHash("sha1").update(key).digest("hex"),
   "hex"
-)
+);
 ```
 
 digest 値は 16 進数に変換されていて、Buffer.from はデフォルトでは utf-8 を想定しているためです。
@@ -82,7 +82,7 @@ console.log(
     require("crypto").createHash("sha1").update(key).digest("base64"),
     "hex"
   ).toString("base64")
-)
+);
 // 'VYxuL5MhLRD4tKsax3Ax4roVdHE='
 ```
 
@@ -114,7 +114,7 @@ let sha1_string = hasher.result_str();
 Buffer.from(
   require("crypto").createHash("sha1").update(key).digest("hex"),
   "hex"
-)
+);
 ```
 
 のようなことをする必要が生まれます。

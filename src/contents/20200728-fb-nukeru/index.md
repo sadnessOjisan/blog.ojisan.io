@@ -3,7 +3,7 @@ path: /fb-nukeru
 created: "2020-07-28"
 title: Firebaseの存在をフロントエンドから隠蔽するために
 visual: "./visual.png"
-tags: [Firebase]
+tags: [firebase]
 userId: sadnessOjisan
 isFavorite: true
 isProtect: false
@@ -99,7 +99,7 @@ const [userData, userDataLoading] = useCollection(
   {
     snapshotListenOptions: { includeMetadataChanges: true },
   }
-)
+);
 ```
 
 といったコードを書きます。
@@ -150,7 +150,7 @@ firebase.initializeApp({
   storageBucket: "XXXXXXX",
   messagingSenderId: "XXXXXXX",
   appId: "XXXXXXX",
-})
+});
 ```
 
 こういった初期設定をし、いつでもどこでも Firebase を呼び出せるようにします。
@@ -232,7 +232,7 @@ if (!firebase.apps.length) {
     storageBucket: "XXXXXXX",
     messagingSenderId: "XXXXXXX",
     appId: "XXXXXXX",
-  })
+  });
 }
 ```
 
@@ -409,13 +409,13 @@ state や store を配信すると、SSR 前提のアプリであれば routing 
 React.useEffect(() => {
   SessionRepository.checkAlreadyLogin({
     successHandle: (userId: string) => {
-      auth.setUid(userId)
+      auth.setUid(userId);
     },
     noUserHandle: () => {
-      auth.setUid(null)
+      auth.setUid(null);
     },
-  })
-}, [])
+  });
+}, []);
 ```
 
 (TIPS: ブラウザ備え付けのストレージで user 情報を永続化してしまえば SSR しても user 情報を保てるし、store として Redux を選択していれば middleware で自動的に store <=> browser で sync できるのでこの手の問題は考えなくても済んだりする。しかも認証情報ではなくユーザー情報(ここでは userID のみ)を保存するのでセキュリティ的にも大丈夫です。)

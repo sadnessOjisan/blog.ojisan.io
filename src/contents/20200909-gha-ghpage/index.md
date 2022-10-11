@@ -3,7 +3,7 @@ path: /gha-ghpage
 created: "2020-09-09"
 title: GitHub Actions と GitHub Pages で yml をフォルダに入れておくだけのお手軽デプロイ
 visual: "./visual.png"
-tags: ["GitHub Actions", "GitHub Pages"]
+tags: ["gitHub actions", "gitHub pages"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false
@@ -52,7 +52,7 @@ GitHub の書くレポジトリにある setting 画面から設定できます�
 
 ここでどのブランチのどのフォルダにある資材をデプロイするかを設定できます。
 よくある慣習では gh-pages というブランチにあるものをデプロイします。
-ここで設定したものは自動でデプロイされ、https://{user名}.github.io/{リポジトリ名}/ としてホスティングされます。
+ここで設定したものは自動でデプロイされ、https://{user 名}.github.io/{リポジトリ名}/ としてホスティングされます。
 
 ## GitHub Actions とは
 

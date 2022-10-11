@@ -3,7 +3,7 @@ path: /react-re-render-history
 created: "2020-10-13"
 title: Reactのパフォーマンスチューニングの歴史をまとめてみた
 visual: "./visual.png"
-tags: [React]
+tags: [react]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false
@@ -128,7 +128,7 @@ FYI: https://qiita.com/wifecooky/items/23fd1da041f707c1b78b#2-purecomponent%E3%8
 ハンドラ登録やバケツリレーで
 
 ```tsx
-return <Hoge handleClick={() => this.handleClick()}></Hoge>
+return <Hoge handleClick={() => this.handleClick()}></Hoge>;
 ```
 
 のようにインラインでアロー関数を渡せますが、アロー関数を `props` に渡すと再レンダリングの火種になります。
@@ -150,15 +150,15 @@ return <Hoge handleClick={() => this.handleClick()}></Hoge>
 ```tsx
 export class _ClassComponent extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       count: 0,
-    }
-    this.handleClick = this.hoge.bind(this)
+    };
+    this.handleClick = this.hoge.bind(this);
   }
 
   handleClick() {
-    this.setState({ ...this.state, count: this.state.count + 1 })
+    this.setState({ ...this.state, count: this.state.count + 1 });
   }
 
   render() {
@@ -167,7 +167,7 @@ export class _ClassComponent extends React.Component {
         now is {this.state.count}
         <button onClick={this.handleClick}>increment</button>
       </div>
-    )
+    );
   }
 }
 ```
@@ -184,9 +184,9 @@ FYI: https://ja.reactjs.org/docs/faq-functions.html
 
 ```tsx
 class Foo extends Component {
-  handleClick = () => {}
+  handleClick = () => {};
   render() {
-    return <button onClick={this.handleClick}>Click Me</button>
+    return <button onClick={this.handleClick}>Click Me</button>;
   }
 }
 ```
@@ -276,51 +276,51 @@ const initialState = {
 `createSelector`でメモ化するセレクタを作り、
 
 ```ts
-import { createSelector } from "reselect"
+import { createSelector } from "reselect";
 
-const getVisibilityFilter = state => state.visibilityFilter
-const getTodos = state => state.todos
+const getVisibilityFilter = (state) => state.visibilityFilter;
+const getTodos = (state) => state.todos;
 
 export const getVisibleTodos = createSelector(
   [getVisibilityFilter, getTodos],
   (visibilityFilter, todos) => {
     switch (visibilityFilter) {
       case "SHOW_ALL":
-        return todos
+        return todos;
       case "SHOW_COMPLETED":
-        return todos.filter(t => t.completed)
+        return todos.filter((t) => t.completed);
       case "SHOW_ACTIVE":
-        return todos.filter(t => !t.completed)
+        return todos.filter((t) => !t.completed);
     }
   }
-)
+);
 ```
 
 `mapStateToProps` の中で呼び出します。
 
 ```tsx
-import { connect } from "react-redux"
-import { toggleTodo } from "../actions"
-import TodoList from "../components/TodoList"
-import { getVisibleTodos } from "../selectors"
+import { connect } from "react-redux";
+import { toggleTodo } from "../actions";
+import TodoList from "../components/TodoList";
+import { getVisibleTodos } from "../selectors";
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     todos: getVisibleTodos(state),
-  }
-}
+  };
+};
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    onTodoClick: id => {
-      dispatch(toggleTodo(id))
+    onTodoClick: (id) => {
+      dispatch(toggleTodo(id));
     },
-  }
-}
+  };
+};
 
-const VisibleTodoList = connect(mapStateToProps, mapDispatchToProps)(TodoList)
+const VisibleTodoList = connect(mapStateToProps, mapDispatchToProps)(TodoList);
 
-export default VisibleTodoList
+export default VisibleTodoList;
 ```
 
 これだけで使えるので、`mapStateToProps` で何か計算をしている場合は入れると良いでしょう。
@@ -376,9 +376,9 @@ FYI: https://react-redux.js.org/api/connect#options-object
 `memo` は
 
 ```jsx
-const Button = React.memo(props => {
-  return <div>{props.value}</div>
-})
+const Button = React.memo((props) => {
+  return <div>{props.value}</div>;
+});
 ```
 
 のようにして書けます。
@@ -387,13 +387,13 @@ const Button = React.memo(props => {
 
 ```jsx
 const Button = React.memo(
-  props => {
-    return <div>{props.value}</div>
+  (props) => {
+    return <div>{props.value}</div>;
   },
   (nextProps, prevProps) => {
-    return nextProps.value === prevProps.value
+    return nextProps.value === prevProps.value;
   }
-)
+);
 ```
 
 #### memo と shouldComponentUpdate を比較した注意点
@@ -412,7 +412,7 @@ const Button = React.memo(
 つまり`useMemo`は **再レンダリングのコストを節約する**のに役立ちます。
 
 ```ts
-const memoizedValue = useMemo(() => computeExpensiveValue(a, b), [a, b])
+const memoizedValue = useMemo(() => computeExpensiveValue(a, b), [a, b]);
 ```
 
 とすればよく、作成用の関数とそれが依存する値の配列を渡すと作れます。
@@ -423,8 +423,8 @@ const memoizedValue = useMemo(() => computeExpensiveValue(a, b), [a, b])
 
 ```tsx
 const memoizedCallback = useCallback(() => {
-  doSomething(a, b)
-}, [a, b])
+  doSomething(a, b);
+}, [a, b]);
 ```
 
 useCallback を利用しない場合、コールバック関数は Function Component の再レンダリングの度に新しい関数インスタンスを生成します。

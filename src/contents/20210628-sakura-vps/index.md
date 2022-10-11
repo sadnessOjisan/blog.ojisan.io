@@ -3,7 +3,7 @@ path: /sakura-vps
 created: "2021-06-28"
 title: ブログを さくらVPS に移管しました
 visual: "./visual.png"
-tags: ["VPS"]
+tags: ["vps"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false
@@ -146,7 +146,7 @@ server {
 
 ちなみに、きっと Netlify 時代にそのルーティングができていたのは Gatsby のおかげな気がしていたのでビルド時にパスを解決するような work around も当初は実装していました。
 
-新しいブログではSSG の仕組みそのものを自作しているので(template engine を SSG と読んでいいかは要審議)、 markdown を変換するタイミングでいくらでもいじれる機会はありました。
+新しいブログでは SSG の仕組みそのものを自作しているので(template engine を SSG と読んでいいかは要審議)、 markdown を変換するタイミングでいくらでもいじれる機会はありました。
 幸い使っていた md parser([pulldown-cmark](https://github.com/raphlinus/pulldown-cmark)) には replacer という機能があり、その辺は柔軟に書き換えることができました。
 
 ```rust

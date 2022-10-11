@@ -3,7 +3,7 @@ path: /container-optimized-os-nginx
 created: "2021-04-24"
 title: Container Optimized OS に nginx を入れるだけの記事
 visual: "./visual.png"
-tags: ["GCP", "Docker"]
+tags: ["gcp", "docker"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false

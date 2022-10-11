@@ -3,7 +3,7 @@ path: /i-am-indexed
 created: "2022-02-18"
 title: 検索エンジンに認識されないと言ったがあれは嘘だ
 visual: "./visual.png"
-tags: ["雑記", "SEO"]
+tags: ["雑記", "seo"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false

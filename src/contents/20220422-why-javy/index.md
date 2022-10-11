@@ -3,7 +3,7 @@ path: /why-javy
 created: "2022-04-22"
 title: JS を wasm 化とは何か、あるいは不正確な情報
 visual: "./visual.png"
-tags: ["Rust", "WebAssembly"]
+tags: ["rust", "webassembly"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false

@@ -3,7 +3,7 @@ path: /react-form-control
 created: "2020-09-26"
 title: Reactのフォームをコントロールしたときのデメリットを考える
 visual: "./visual.png"
-tags: [React, お気持ち]
+tags: [react, お気持ち]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: true
@@ -93,13 +93,13 @@ onBlur は input からフォーカスが外れた時に発火するイベント
 フォーカスは input の外をクリックしたとき、つまり送信ボタンを押したときなどでも発火します。
 
 ```jsx
-import React from "react"
+import React from "react";
 
 export default function App() {
-  const [state, setState] = React.useState({})
-  const handleBlur = e => {
-    setState({ ...state, first: e.target.value })
-  }
+  const [state, setState] = React.useState({});
+  const handleBlur = (e) => {
+    setState({ ...state, first: e.target.value });
+  };
   return (
     <div>
       <form>
@@ -108,7 +108,7 @@ export default function App() {
       </form>
       {JSON.stringify(state)}
     </div>
-  )
+  );
 }
 ```
 
@@ -121,14 +121,14 @@ onBlur を使った方法は万能な気もするのですが、input が 1 つ�
 submit イベントからは name 経由でフォームの内容を取得できます。
 
 ```jsx
-import React from "react"
+import React from "react";
 
 export default function App() {
-  const [state, setState] = React.useState({})
-  const handeSubmit = e => {
-    e.preventDefault()
-    setState({ ...state, second: e.target["second"].value })
-  }
+  const [state, setState] = React.useState({});
+  const handeSubmit = (e) => {
+    e.preventDefault();
+    setState({ ...state, second: e.target["second"].value });
+  };
   return (
     <div>
       <form onSubmit={handeSubmit}>
@@ -138,7 +138,7 @@ export default function App() {
       </form>
       {JSON.stringify(state)}
     </div>
-  )
+  );
 }
 ```
 

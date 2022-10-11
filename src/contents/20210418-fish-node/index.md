@@ -3,7 +3,7 @@ path: /fish-node
 created: "2021-04-18"
 title: fish で Node.js を使う
 visual: "./visual.png"
-tags: ["fish", "Node.js"]
+tags: ["fish", "node.js"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false

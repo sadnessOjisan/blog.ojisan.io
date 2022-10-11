@@ -3,7 +3,7 @@ path: /many-copies-original-sin
 created: "2022-03-22"
 title: 多コピーの原罪
 visual: "./visual.png"
-tags: ["Rust"]
+tags: ["rust"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false

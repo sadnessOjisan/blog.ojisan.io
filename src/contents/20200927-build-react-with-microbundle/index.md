@@ -3,7 +3,7 @@ path: /build-react-with-microbundle
 created: "2020-09-26"
 title: microbundle で react のコードをビルドする
 visual: "./visual.png"
-tags: [React, microbundle]
+tags: [react, microbundle]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false
