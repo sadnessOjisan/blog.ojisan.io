@@ -3,7 +3,7 @@ path: /s-c-kigo
 created: "2020-09-15"
 title: styled-components の :&>before(記号) まとめ
 visual: "./visual.png"
-tags: ["styled-components", React]
+tags: ["styled-components", react]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false
@@ -409,7 +409,7 @@ const Wrapper = styled.div`
   &:hover {
     color: blue;
   }
-`
+`;
 ```
 
 などといった記法を好き放題にかけます。
@@ -425,12 +425,12 @@ const AAA = styled.div`
   &:hover {
     color: blue;
   }
-`
+`;
 const BBB = styled.div`
   :hover {
     color: blue;
   }
-`
+`;
 ```
 
 このとき、:hover は SCSS の記法としては間違いなのですが、 このコンポーネントをクライアントで動かした時に inject される CSS は同様です。
@@ -470,7 +470,7 @@ FYI: https://github.com/ojisan-toybox/hover-spacing
 ちなみにこれは stylis を実行しても同様の結果が得られます。
 
 ```js
-import { compile, serialize, stringify } from "stylis"
+import { compile, serialize, stringify } from "stylis";
 
 const css = `
 div {
@@ -481,9 +481,9 @@ div {
         color: blue;
     }
 }
-`
+`;
 
-console.log(serialize(compile(css), stringify))
+console.log(serialize(compile(css), stringify));
 ```
 
 を実行すると
@@ -506,22 +506,22 @@ div :hover {
 ![styled-componentsからのCSSの出力結果を確認すると、hoverの前にspaceありなしで差はなかった](./css.png)
 
 ```jsx
-import React from "react"
-import styled from "styled-components"
+import React from "react";
+import styled from "styled-components";
 
 const AAA = styled.div`
   color: red;
   :hover {
     color: blue;
   }
-`
+`;
 
 const BBB = styled.div`
   color: red;
   &:hover {
     color: blue;
   }
-`
+`;
 
 export default function App() {
   return (
@@ -529,7 +529,7 @@ export default function App() {
       <AAA>afewfwefwe</AAA>
       <BBB>fiojfwjfi</BBB>
     </div>
-  )
+  );
 }
 ```
 
@@ -625,7 +625,7 @@ const Component = styled.div`
 
   & p {
   }
-`
+`;
 ```
 
 の使い分けに悩んでいました。
@@ -641,7 +641,7 @@ SCSS の記法を意識すればわかりますね。
 const Component = styled.div`
   p {
   }
-`
+`;
 ```
 
 というパターンもあり得ます。
@@ -686,13 +686,13 @@ const DDD = styled.div`
   p {
     color: green;
   }
-`
+`;
 
 const EEE = styled.div`
   & p {
     color: yellow;
   }
-`
+`;
 ```
 
 は同じセレクタ(.class p) を出力します。
@@ -705,7 +705,7 @@ const EEE = styled.div`
 たとえば、styled-components が利用しているライブラリ(stylis)を直接叩くと white-space が入り、hover できない CSS が出力されることが確認できます。
 
 ```js
-import { compile, serialize, stringify, tokenize, parse } from "stylis"
+import { compile, serialize, stringify, tokenize, parse } from "stylis";
 
 const css = `
 div {
@@ -716,9 +716,9 @@ div {
         color: blue;
     }
 }
-`
+`;
 
-console.log(serialize(compile(css), stringify))
+console.log(serialize(compile(css), stringify));
 ```
 
 ```sh

@@ -3,7 +3,7 @@ path: /gce-mysql
 created: "2021-05-04"
 title: GCE & Container Optimized OS で MySQL サーバーを楽に安価に作る
 visual: "./visual.png"
-tags: ["GCP", "GCE", "Docker", "MySQL"]
+tags: ["gcp", "gce", "docker", "mysql"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false

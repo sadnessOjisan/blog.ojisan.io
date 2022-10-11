@@ -3,7 +3,7 @@ path: /node-bin-order
 created: "2021-07-05"
 title: 同名の bin script を持つ package を install するとどうなるのか？
 visual: "./visual.png"
-tags: ["NodeJS"]
+tags: ["node.js"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false

@@ -3,7 +3,7 @@ path: /cloud-functions-structured-logging
 created: "2022-02-19"
 title: GCP 版 Cloud Functions でも構造化ロギング
 visual: "./visual.png"
-tags: ["GCP", "cloud-functions"]
+tags: ["gcp", "cloud-functions"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false

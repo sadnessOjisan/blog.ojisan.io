@@ -3,7 +3,7 @@ path: /my-blog-seo-is-bad
 created: "2022-02-17"
 title: ブログのSEOが壊滅し始めていることに気づいた
 visual: "./visual.png"
-tags: ["SEO", "雑記"]
+tags: ["seo", "雑記"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false

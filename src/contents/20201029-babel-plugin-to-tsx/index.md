@@ -3,7 +3,7 @@ path: /babel-plugin-to-tsx
 created: "2020-10-29"
 title: Babel の Plugin で .tsx をビルドする
 visual: "./visual.png"
-tags: [TypeScript, React, Babel]
+tags: [typescript, react, babel]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false

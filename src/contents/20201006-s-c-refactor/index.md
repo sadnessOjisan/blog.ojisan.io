@@ -3,7 +3,7 @@ path: /s-c-refactor
 created: "2020-10-06"
 title: ブログに CSS in JS 環境下での スタイル分離リファクタリングを施してみた
 visual: "./visual.png"
-tags: [React, "styled-components"]
+tags: [react, "styled-components"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false
@@ -44,11 +44,11 @@ isProtect: false
 
 ```tsx
 interface IContainerProps {
-  data: AllBlogsQuery
+  data: AllBlogsQuery;
 }
 
 interface IProps extends IContainerProps {
-  className?: string
+  className?: string;
 }
 
 // DOM だけを返すコンポーネント
@@ -58,7 +58,7 @@ const Component: React.FC<IProps> = ({ data, className }) => {
       <Layout>
         <SEO title={data.site?.siteMetadata?.title || "HOME"} />
         <div className="cards">
-          {data.blogs.nodes.map(node =>
+          {data.blogs.nodes.map((node) =>
             node.frontmatter?.path ? (
               <Card
                 className="card"
@@ -73,8 +73,8 @@ const Component: React.FC<IProps> = ({ data, className }) => {
         </div>
       </Layout>
     </div>
-  )
-}
+  );
+};
 
 // コンポーネントにスタイルを埋め込むラッパーコンポーネント
 const StyledComponent = styled(Component)`
@@ -96,14 +96,14 @@ const StyledComponent = styled(Component)`
       display: inline-block;
     }
   }
-`
+`;
 
 // スタイリングされたコンポーネントにデータや振る舞いを埋め込むコンポーネント
 // Gatsby環境下では graphql から得たdataをpropsから取得できるのでそれを
 // 下位のコンポーネントに伝える役割を担う
 const ContainerComponent: React.FC<IProps> = ({ children, data }) => {
-  return <StyledComponent data={data}>{children}</StyledComponent>
-}
+  return <StyledComponent data={data}>{children}</StyledComponent>;
+};
 
 export const pageQuery = graphql`
   query AllBlogs {
@@ -115,9 +115,9 @@ export const pageQuery = graphql`
       ...
     }
   }
-`
+`;
 
-export default ContainerComponent
+export default ContainerComponent;
 ```
 
 ## 気付いたこと
@@ -129,11 +129,11 @@ export default ContainerComponent
 hooks を使うようになってから 関数の中にイベントハンドラ関数をたくさん定義するといったことをして長くなったりなどしていましたが、それらを全部 ConatinerComponent に押し込めることができ、DOM と振る舞いを分離することができて読みやすくなったと思います。
 
 ```jsx
-const ContainerComponent: React.FC<PassedProps> = props => {
-  const [isOpen, setOpen] = React.useState(false)
-  const containerProps = { isOpen, setOpen }
-  return <StyledComponent {...props} {...containerProps}></StyledComponent>
-}
+const ContainerComponent: React.FC<PassedProps> = (props) => {
+  const [isOpen, setOpen] = React.useState(false);
+  const containerProps = { isOpen, setOpen };
+  return <StyledComponent {...props} {...containerProps}></StyledComponent>;
+};
 ```
 
 ### HTML から CSS に埋め込むためだけの props が消える
@@ -178,15 +178,15 @@ const ContainerComponent: React.FC<PassedProps> = (props) => {
 これまでの経験上、
 
 ```tsx
-const Container = styled.div``
-const ContentWrapper = styled.div``
-const StyledText = styled.p``
+const Container = styled.div``;
+const ContentWrapper = styled.div``;
+const StyledText = styled.p``;
 ```
 
 といった命名をする人は僕以外にもそれなりにいることを知っているのですが、今の運用では
 
 ```tsx
-const StyledComponent = styled(Component)``
+const StyledComponent = styled(Component)``;
 ```
 
 しか登場しないので命名で悩んだり、「これ絶対意味ない名前だろ」みたいな心配から解放されます。
@@ -194,19 +194,19 @@ const StyledComponent = styled(Component)``
 ### 同じクラス名だと衝突するので注意
 
 ```tsx
-const Component = props => {
+const Component = (props) => {
   return (
     <div className={props.className}>
       <p className="hoge"></p>
     </div>
-  )
-}
+  );
+};
 
 export const Hoge = styled(Component)`
   & .hoge {
     color: red;
   }
-`
+`;
 ```
 
 をビルドすると、div タグには hash が入りますが、p タグは hoge のままです。
@@ -217,28 +217,28 @@ export const Hoge = styled(Component)`
 
 ```tsx
 const Hoge = () => {
-  return <div className="piyo"></div>
-}
+  return <div className="piyo"></div>;
+};
 
 const Piyo = () => {
-  return <div className="piyo"></div>
-}
+  return <div className="piyo"></div>;
+};
 
-const Component = props => {
+const Component = (props) => {
   return (
     <div className={props.className}>
       <p className="piyo"></p>
       <Hoge />
       <Piyo />
     </div>
-  )
-}
+  );
+};
 
 export const Fuga = styled(Component)`
   & .piyo {
     color: red;
   }
-`
+`;
 ```
 
 このとき `& > .piyo` とすれば解決できますが、クラスの衝突が起きるという問題の本質的な解決方法ではないので、どう扱うかは考えものです。
@@ -256,52 +256,52 @@ export const Fuga = styled(Component)`
 
 ```tsx
 interface IPassedProps {
-  message: string
+  message: string;
 }
 
 interface IContainerProps {
-  state: boolean
-  setState: (state: boolean) => void
+  state: boolean;
+  setState: (state: boolean) => void;
 }
 
 interface IProps extends IPassedProps, IContainerProps {
-  className?: string
+  className?: string;
 }
 
-const Component = props => {
+const Component = (props) => {
   return (
     <div className={props.className}>
       {props.state && props.message}
       <button
         onClick={() => {
-          setState(!state)
+          setState(!state);
         }}
       >
         toggle
       </button>
     </div>
-  )
-}
+  );
+};
 
-const StyledComponent = styled(Component)``
+const StyledComponent = styled(Component)``;
 
-const ContainerComponent: React.FC<IPassedProps> = props => {
-  const [state, setState] = useState(null)
+const ContainerComponent: React.FC<IPassedProps> = (props) => {
+  const [state, setState] = useState(null);
   return (
     <StyledComponent
       state={state}
       setState={setState}
       {...props}
     ></StyledComponent>
-  )
-}
+  );
+};
 ```
 
 ここでミソなのは
 
 ```tsx
 interface IProps extends IPassedProps, IContainerProps {
-  className?: string
+  className?: string;
 }
 ```
 
@@ -314,13 +314,13 @@ interface IProps extends IPassedProps, IContainerProps {
 
 ```tsx
 interface IPassedProps {
-  message: string
-  className?: string
+  message: string;
+  className?: string;
 }
 
 interface IContainerProps {
-  state: boolean
-  setState: (state: boolean) => void
+  state: boolean;
+  setState: (state: boolean) => void;
 }
 
 interface IProps extends IPassedProps, IContainerProps {}
@@ -334,9 +334,9 @@ interface IProps extends IPassedProps, IContainerProps {}
 それに関してはこのように spread 演算子で props を全部渡すようにすると良いです。
 
 ```tsx
-const ContainerComponent: React.FC<PassedProps> = props => {
-  return <StyledComponent {...props}></StyledComponent>
-}
+const ContainerComponent: React.FC<PassedProps> = (props) => {
+  return <StyledComponent {...props}></StyledComponent>;
+};
 ```
 
 ### 拡張しようとすると mui の API ぽくなる
@@ -358,7 +358,7 @@ const StyledButton = withStyles({
   label: {
     textTransform: "capitalize",
   },
-})(Button)
+})(Button);
 ```
 
 特に何か嬉しくなる情報ではないのですが、別のレイヤーからスタイルを渡すテクニックとしてここにつながって自分の中では「うおー」ってなりました。

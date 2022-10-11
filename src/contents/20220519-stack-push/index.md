@@ -3,7 +3,7 @@ path: /stack-push
 created: "2022-05-19"
 title: stackにpushする試行錯誤
 visual: "./visual.png"
-tags: ["Rust", "アセンブリ"]
+tags: ["rust", "アセンブリ"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false

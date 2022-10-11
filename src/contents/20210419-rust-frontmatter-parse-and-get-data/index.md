@@ -3,7 +3,7 @@ path: /rust-frontmatter-parse-and-get-data
 created: "2021-04-19"
 title: Rust で frontmatter からデータを取得する
 visual: "./visual.png"
-tags: ["Rust"]
+tags: ["rust"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false

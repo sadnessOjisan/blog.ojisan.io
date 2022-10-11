@@ -3,7 +3,7 @@ path: /jsx-preview
 created: "2020-07-18"
 title: ブラウザ上でJSXをコンパイルしてプレビュー環境を作る
 visual: "./visual.png"
-tags: [JSX, Babel]
+tags: [jsx, babel]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false
@@ -65,9 +65,7 @@ HTML から画像を作る仕組みはあるので、JSX から HTML に変換�
 を
 
 ```html
-<div style="color: red;">
-  Hello, World!
-</div>
+<div style="color: red;">Hello, World!</div>
 ```
 
 に変換できたら勝ちです。
@@ -103,7 +101,7 @@ React のドキュメントを探しても見つけられず、この方法に�
 ```js
 const res = babel.transform(reactElStr, {
   plugins: ["transform-react-jsx"],
-})
+});
 ```
 
 この`babel.transform`が何をしているかは**めちゃくちゃ頑張って**書いたので、気になる方は参照してください。
@@ -120,7 +118,7 @@ monaco エディタに入力された文字列から React.Element を生成で�
 とあり、ReactElement を HTML に変換できます。
 
 ```js
-const newHtml = ReactDOMServer.renderToString(el)
+const newHtml = ReactDOMServer.renderToString(el);
 ```
 
 とすれば HTML を取得できます。

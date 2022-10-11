@@ -3,7 +3,7 @@ path: /jsx-to-js
 created: "2020-09-19"
 title: どうしてJSXを使ってもエラーにならないのか？
 visual: "./visual.png"
-tags: [React]
+tags: [react]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false
@@ -12,11 +12,11 @@ isProtect: false
 一般的に JSX と言えば
 
 ```jsx
-import React from "react"
+import React from "react";
 
 export const Hoge = () => {
-  return <div>Hello World</div>
-}
+  return <div>Hello World</div>;
+};
 ```
 
 の return 以下の部分を指しますが、どうしてこれが実行できるのでしょうか。
@@ -33,11 +33,11 @@ JSX は `createElement` の糖衣構文であることは、React 公式の[JSX 
 ```jsx
 class Hello extends React.Component {
   render() {
-    return <div>Hello {this.props.toWhat}</div>
+    return <div>Hello {this.props.toWhat}</div>;
   }
 }
 
-ReactDOM.render(<Hello toWhat="World" />, document.getElementById("root"))
+ReactDOM.render(<Hello toWhat="World" />, document.getElementById("root"));
 ```
 
 は
@@ -45,14 +45,14 @@ ReactDOM.render(<Hello toWhat="World" />, document.getElementById("root"))
 ```jsx
 class Hello extends React.Component {
   render() {
-    return React.createElement("div", null, `Hello ${this.props.toWhat}`)
+    return React.createElement("div", null, `Hello ${this.props.toWhat}`);
   }
 }
 
 ReactDOM.render(
   React.createElement(Hello, { toWhat: "World" }, null),
   document.getElementById("root")
-)
+);
 ```
 
 とありますが、普段 JSX が使えているのはどうしてでしょうか？
@@ -77,11 +77,11 @@ $ npm i -D @babel/core @babel/cli @babel/plugin-transform-react-jsx
 このファイルをトランスパイルしてみましょう。
 
 ```jsx
-import React from "react"
+import React from "react";
 
 const Component = () => {
-  return <div>hello world</div>
-}
+  return <div>hello world</div>;
+};
 ```
 
 上のプラグインを使うための config を書き、
@@ -130,11 +130,11 @@ $ npm i -D typescript @types/react
 このファイルをトランスパイルしてみましょう。
 
 ```jsx
-import React from "react"
+import React from "react";
 
 const Component = () => {
-  return <div>hello world</div>
-}
+  return <div>hello world</div>;
+};
 ```
 
 上のプラグインを使うための config を書き、
@@ -217,11 +217,11 @@ PURE__*/ React.createElement("div", null, "hello world")
 ところで 関数コンポーネントを使うときに
 
 ```jsx
-import React from "react"
+import React from "react";
 
 const Component = () => {
-  return <div>hello world</div>
-}
+  return <div>hello world</div>;
+};
 ```
 
 と言った風に、React という文字をどこにも使っていないのに、`import React from "react"` と書かないとコンパイルが通らないといった現象に出逢った経験があるはずです。

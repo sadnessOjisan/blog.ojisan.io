@@ -3,7 +3,7 @@ path: /animation-radio
 created: "2020-11-11"
 title: おしゃれなラジオボタンをちゃんと作る
 visual: "./visual.png"
-tags: [HTML, CSS]
+tags: [html, css]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false
@@ -109,7 +109,7 @@ box-shadow を transiton にすると良い感じになります。
 
 ```tsx
 {
-  isSelected && <DivStyleForSelected></DivStyleForSelected>
+  isSelected && <DivStyleForSelected></DivStyleForSelected>;
 }
 ```
 
@@ -145,19 +145,19 @@ visibility や display を使ってスタイルを見えなくするとキーボ
 というわけでこんな感じで実装しました。
 
 ```tsx
-import { Fragment, h } from "preact"
-import { css, styled } from "goober"
+import { Fragment, h } from "preact";
+import { css, styled } from "goober";
 
 interface PassedProps {
-  name: string
-  value: string
-  isSelected: boolean
-  handleClick: () => void
-  children?: preact.ComponentChildren
+  name: string;
+  value: string;
+  isSelected: boolean;
+  handleClick: () => void;
+  children?: preact.ComponentChildren;
 }
 
 interface Props extends PassedProps {
-  className?: string
+  className?: string;
 }
 
 const Component = (props: Props) => (
@@ -176,7 +176,7 @@ const Component = (props: Props) => (
       {props.value}
     </label>
   </Fragment>
-)
+);
 
 const StyledComponent = styled(Component)`
   position: relative;
@@ -198,14 +198,14 @@ const StyledComponent = styled(Component)`
     left: 24px;
     background-color: #f6f8fa;
     border: 2px solid #c8c9cc;
-    border-color: ${props => (props.isSelected ? "#05f" : "#c8c9cc")};
+    border-color: ${(props) => (props.isSelected ? "#05f" : "#c8c9cc")};
     border-radius: 50%;
-    box-shadow: ${props =>
+    box-shadow: ${(props) =>
       props.isSelected ? "0 0 0 4px rgba(0,85,255,.32)" : undefined};
   }
 
   &::after {
-    ${props =>
+    ${(props) =>
       props.isSelected
         ? `
         content: "";
@@ -221,13 +221,13 @@ const StyledComponent = styled(Component)`
     `
         : undefined}
   }
-`
+`;
 
 const ContainerComponent = (props: PassedProps) => {
-  return <StyledComponent {...props}></StyledComponent>
-}
+  return <StyledComponent {...props}></StyledComponent>;
+};
 
-export const RadioButton = ContainerComponent
+export const RadioButton = ContainerComponent;
 ```
 
 https://github.com/ui-impl-training/radio-animation

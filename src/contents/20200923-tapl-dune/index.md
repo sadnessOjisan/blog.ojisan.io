@@ -3,7 +3,7 @@ path: /tapl-dune
 created: "2020-09-23"
 title: TaPL のサンプルコードを dune でビルドして読みやすくする
 visual: "./visual.png"
-tags: [OCaml, TaPL]
+tags: [ocaml, tapl]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false

@@ -3,7 +3,7 @@ path: /draw-ogp-by-ai
 created: "2022-08-24"
 title: OGP の生成をAIですれば楽な気がしてきた
 visual: "./visual.png"
-tags: ["OGP"]
+tags: ["ogp"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false
