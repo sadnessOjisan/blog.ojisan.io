@@ -83,6 +83,7 @@ export const postsPaginationQuery = graphql`
 export const Head = ({ data }: HeadProps<Queries.DetailPageQueryQuery>) => {
   if (
     !data.markdownRemark?.frontmatter?.title ||
+    !data.markdownRemark?.frontmatter?.created ||
     !data.markdownRemark?.frontmatter?.visual?.childImageSharp
   ) {
     throw new Error("title should be");
