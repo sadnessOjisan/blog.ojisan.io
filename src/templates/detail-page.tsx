@@ -53,6 +53,7 @@ export const postsPaginationQuery = graphql`
             gatsbyImageData(width: 1280, height: 600)
           }
         }
+        created
       }
       tableOfContents
       timeToRead
@@ -101,6 +102,7 @@ export const Head = ({ data }: HeadProps<Queries.DetailPageQueryQuery>) => {
       title={data.markdownRemark?.frontmatter?.title}
       type="article"
       imagePath={imageSrc}
+      created={data.markdownRemark.frontmatter?.created}
     />
   );
 };
