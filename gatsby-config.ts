@@ -14,6 +14,69 @@ const config: GatsbyConfig = {
   graphqlTypegen: true,
   plugins: [
     {
+      resolve: `gatsby-plugin-feed`,
+      options: {
+        query: `
+          {
+            site {
+              siteMetadata {
+                title
+                description
+                siteUrl
+                site_url: siteUrl
+              }
+            }
+          }
+        `,
+        feeds: [
+          {
+            serialize: ({
+              query: { site, allMarkdownRemark },
+            }: {
+              query: {
+                site: Queries.SiteMetaDataQuery["site"];
+                // config の gql に型がつかない
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                allMarkdownRemark: { edges: any[] };
+              };
+            }) => {
+              return allMarkdownRemark.edges.map((edge) => {
+                return Object.assign({}, edge.node.frontmatter, {
+                  description: edge.node.excerpt,
+                  date: edge.node.frontmatter.created,
+                  url: site?.siteMetadata?.siteUrl + edge.node.frontmatter.path,
+                  guid:
+                    site?.siteMetadata?.siteUrl + edge.node.frontmatter.path,
+                  custom_elements: [{ "content:encoded": edge.node.html }],
+                });
+              });
+            },
+            query: `
+              {
+                allMarkdownRemark(
+                  sort: { order: DESC, fields: [frontmatter___created] },
+                ) {
+                  edges {
+                    node {
+                      excerpt
+                      html
+                      frontmatter {
+                        path
+                        title
+                        created
+                      }
+                    }
+                  }
+                }
+              }
+            `,
+            output: "/rss.xml",
+            title: "blog.ojisan.io's RSS Feed",
+          },
+        ],
+      },
+    },
+    {
       resolve: `gatsby-plugin-postcss`,
       options: {
         // FIXME: TS で設定書いてしまったし、postcss-custom-media の型定義ファイルなくて import で置き換えると error 出るしで仕方なく。
