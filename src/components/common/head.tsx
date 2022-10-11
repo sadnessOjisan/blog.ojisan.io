@@ -5,6 +5,7 @@ interface Props {
   title?: string;
   imagePath?: string;
   description?: string;
+  created?: string;
   type: "blog" | "article";
 }
 
@@ -17,6 +18,7 @@ export const HeadFactory: ComponentType<Props> = ({
   description,
   imagePath,
   type,
+  created,
 }) => {
   // 他の場所でも呼び出すなら custom hooks として切り出すべき
   const siteMetaDataQueryResult: Queries.SiteMetaDataQuery =
@@ -58,10 +60,26 @@ export const HeadFactory: ComponentType<Props> = ({
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:url" content={baseData.siteUrl} />
       <meta name="twitter:site" content={baseData.twitterUsername} />
-      <script type="application/ld+json">
-        {`{
-        }`}
-      </script>
+      {type === "article" && (
+        <script type="application/ld+json">
+          {`
+        {
+          "@context": "https://schema.org",
+          "@type": "BlogPosting",
+          "headline": ${title},
+          "image": [
+            ${pageImage},
+           ],
+          "datePublished": ${created},
+          "author": [{
+              "@type": "Person",
+              "name": "sadnessOjisan",
+              "url": "https://ojisan.io"
+            }]
+        }
+        `}
+        </script>
+      )}
     </>
   );
 };
