@@ -7,6 +7,7 @@ interface Props {
   description?: string;
   created?: string;
   type: "blog" | "article";
+  shouldProtect?: boolean;
 }
 
 /**
@@ -19,6 +20,7 @@ export const HeadFactory: ComponentType<Props> = ({
   imagePath,
   type,
   created,
+  shouldProtect,
 }) => {
   // 他の場所でも呼び出すなら custom hooks として切り出すべき
   const siteMetaDataQueryResult: Queries.SiteMetaDataQuery =
@@ -60,6 +62,7 @@ export const HeadFactory: ComponentType<Props> = ({
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:url" content={baseData.siteUrl} />
       <meta name="twitter:site" content={baseData.twitterUsername} />
+      {shouldProtect && <meta name="Hatena::Bookmark" content="nocomment" />}
       {type === "article" && (
         <script type="application/ld+json">
           {`
