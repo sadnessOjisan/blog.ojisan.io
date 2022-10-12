@@ -13,7 +13,7 @@ lit を使う機会があったので、「React でやる、あれをどうす�
 
 ## 前提
 
-環境構築めんどくさいので[playground](https://lit.dev/playground/) で試す。環境構築についてはまた別の記事で書く。
+環境構築めんどくさいので[playground](https://lit.dev/playground/) で試す。
 
 ## state
 
