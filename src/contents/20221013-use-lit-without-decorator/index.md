@@ -1,5 +1,5 @@
 ---
-path: /lit-for-react-user
+path: /use-lit-without-decorator
 created: "2022-10-13"
 title: decorator を使わずに lit を使う
 visual: "./visual.png"
