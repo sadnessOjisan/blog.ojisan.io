@@ -6,7 +6,7 @@ visual: "./visual.png"
 tags: ["scala", "cats", "monad"]
 userId: sadnessOjisan
 isFavorite: false
-isProtect: false
+isProtect: true
 ---
 
 Scala の cats のドキュメント群が Monad に関する説明としてすごくわかりやすかったので、そこで学んだことをまとめておこうと思った。
