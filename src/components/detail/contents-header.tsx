@@ -13,6 +13,7 @@ export const ContentsHeader: ComponentType<{
   if (
     !markdownMeta ||
     !markdownMeta.title ||
+    !markdownMeta.created ||
     !markdownMeta.tags ||
     !markdownMeta.visual
   ) {
@@ -26,6 +27,9 @@ export const ContentsHeader: ComponentType<{
   return (
     <div className={styles.wrapper}>
       <h1>{markdownMeta.title}</h1>
+      <p>
+        <time dateTime={markdownMeta.created}>{markdownMeta.created}</time>
+      </p>
       <Tags tags={markdownMeta.tags} />
       <GatsbyImage image={image} alt="thumbnail" />
     </div>
