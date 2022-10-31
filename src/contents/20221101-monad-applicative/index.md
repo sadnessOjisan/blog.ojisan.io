@@ -356,7 +356,7 @@ object FormValidatorNec extends FormValidatorNec
 
 Either は失敗するかもしれないというモナドであったが、Validated は失敗するかもしれないと言う Applicative である。
 
-### Either でも良いざー
+## Either でも良いざー
 
 とはいえ Either は Monad であるため Applicative でもある。そう考えると Validated の存在意義は何だろうか？Either は逐次を表すから Validation に向かないと書いたが、その真犯人は for yield ではないだろうか。並列処理できるようにした真の立役者は mapN ではないだろうか。mapN は Either でもできるので Validated を使う理由はないかもしれない。
 
