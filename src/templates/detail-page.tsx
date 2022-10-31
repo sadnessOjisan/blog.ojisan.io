@@ -58,6 +58,7 @@ export const postsPaginationQuery = graphql`
       }
       tableOfContents
       timeToRead
+      excerpt(pruneLength: 140)
     }
     tags: allMarkdownRemark(
       filter: { frontmatter: { tags: { in: $tags } } }
@@ -85,6 +86,7 @@ export const Head = ({ data }: HeadProps<Queries.DetailPageQueryQuery>) => {
   if (
     !data.markdownRemark?.frontmatter?.title ||
     !data.markdownRemark.frontmatter.created ||
+    !data.markdownRemark.excerpt ||
     !data.markdownRemark.frontmatter.visual?.childImageSharp
   ) {
     throw new Error("title should be");
@@ -106,6 +108,7 @@ export const Head = ({ data }: HeadProps<Queries.DetailPageQueryQuery>) => {
       imagePath={imageSrc}
       created={data.markdownRemark.frontmatter?.created}
       shouldProtect={!!data.markdownRemark.frontmatter.isProtect}
+      description={data.markdownRemark.excerpt}
     />
   );
 };
