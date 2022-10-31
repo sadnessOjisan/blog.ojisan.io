@@ -42,6 +42,7 @@ export default RootBlogList;
 export const postsPaginationQuery = graphql`
   query DetailPageQuery($id: String!, $tags: [String!]) {
     markdownRemark(id: { eq: $id }) {
+      excerpt(pruneLength: 140, truncate: true)
       id
       html
       frontmatter {
@@ -58,7 +59,6 @@ export const postsPaginationQuery = graphql`
       }
       tableOfContents
       timeToRead
-      excerpt(pruneLength: 140)
     }
     tags: allMarkdownRemark(
       filter: { frontmatter: { tags: { in: $tags } } }
