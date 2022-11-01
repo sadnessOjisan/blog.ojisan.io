@@ -58,7 +58,7 @@ export const HeadFactory: ComponentType<Props> = ({
       <meta property="og:url" content={baseData.siteUrl} />
       <meta property="og:type" content={type} />
       <meta property="og:site_name" content={baseData.title} />
-      <meta property="og:image" content={pageImage} />
+      <meta property="og:image" content={`${baseData.siteUrl}${pageImage}`} />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:url" content={baseData.siteUrl} />
       <meta name="twitter:site" content={baseData.twitterUsername} />
