@@ -38,6 +38,10 @@
   margin: 24px 0px;
 }
 
+.article > div {
+  margin: 24px 0px;
+}
+
 .article blockquote{
   font-style: italic;
   line-height: 1.6;
