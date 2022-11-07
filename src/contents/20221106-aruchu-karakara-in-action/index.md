@@ -27,19 +27,22 @@ isProtect: false
 
 #### 【コメ付き】カステラ食べてみた【アル中カラカラハイボール】
 
-<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;"><iframe src="https://www.youtube.com/embed/8echxqBSi0Y" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen scrolling="no" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"></iframe></div>
+<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;"><iframe src="http://embed.nicovideo.jp/watch/sm34824230" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen scrolling="no" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"></iframe>
+</div>
 
 カステラのタネを最初に作ると言うのだが、カステラにそんなものは存在しない。スポンジを鶏肉で作る、調味料の量がおかしい、キッチンが汚過ぎるなど、アル中カラカラの魅力が序盤に全て詰まっている初心者にオススメの動画。
 
 #### 【コメ付き】ワイハでハイボール飲んでみた
 
-<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;"><iframe src="https://www.youtube.com/embed/HDNm7YiJGG4" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen scrolling="no" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"></iframe></div>
+<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;"><iframe src="http://embed.nicovideo.jp/watch/sm31729451" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen scrolling="no" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"></iframe>
+</div>
 
 どう見てもハワイではない。
 
 #### 【コメ付き】超精密なハイボール飲んでみた【アル中カラカラ】
 
-<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;"><iframe src="https://www.youtube.com/embed/aJ1dJHCGOk0" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen scrolling="no" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"></iframe></div>
+<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;"><iframe src="http://embed.nicovideo.jp/watch/sm32203168" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen scrolling="no" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"></iframe>
+</div>
 
 段ボールの中から業務用角瓶が出てくるのと、それを開封する時の我慢できていない感が恐怖。普段雑な料理しかしないのに、お酒や食べ物をぴったり測って食べているのが面白い。
 
@@ -47,31 +50,36 @@ isProtect: false
 
 #### 【コメ付き】水道止められたのでハイボール飲んでみた
 
-<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;"><iframe src="https://www.youtube.com/embed/9Qr-nhvA5A8" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen scrolling="no" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"></iframe></div>
+<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;"><iframe src="http://embed.nicovideo.jp/watch/sm32498892" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen scrolling="no" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"></iframe>
+</div>
 
 水道を止められたから外出して、外出先でハイボールを飲みまくる動画。コインランドリー待ってる間に宴会しているのと、最後の最後でお金を払いに行くところに狂気を感じる。
 
 #### 【コメ付き】特急あずさでハイボールのんでみたかも【アル中カラカラ】
 
-<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;"><iframe src="https://www.youtube.com/embed/p-IegETlwDA" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen scrolling="no" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"></iframe></div>
+<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;"><iframe src="http://embed.nicovideo.jp/watch/sm32284967" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen scrolling="no" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"></iframe>
+</div>
 
 駅が過ぎるたびに、電車の窓際に積み上がっていく酒缶に恐怖を感じる。他の客からの目線が怖い。
 
 #### 【コメ付き】ハイボールタイムアタックしてみた
 
-<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;"><iframe src="https://www.youtube.com/embed/jDuyZ6wWvnQ" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen scrolling="no" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"></iframe></div>
+<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;"><iframe src="http://embed.nicovideo.jp/watch/sm30755914" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen scrolling="no" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"></iframe>
+</div>
 
 角瓶を 1 本空けるまでのタイムアタック動画
 
 #### 【コメ付き】クリスマスなのでケーキ作ってみた
 
-<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;"><iframe src="https://www.youtube.com/embed/6b4sWQvSkEE" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen scrolling="no" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"></iframe></div>
+<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;"><iframe src="http://embed.nicovideo.jp/watch/sm30291685" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen scrolling="no" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"></iframe>
+</div>
 
 スポンジが鶏肉、クリームは塩分の塊のケーキを作る回。また、似た動画に [【コメ付き】いちごのショートケーキ作ってみた](https://www.youtube.com/watch?v=kxd-2X49UmY) というのがある。
 
 #### 【コメ付き】結婚式でハイボール飲んでみた
 
-<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;"><iframe src="https://www.youtube.com/embed/LEmK7fa2FAI" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen scrolling="no" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"></iframe></div>
+<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;"><iframe src="http://embed.nicovideo.jp/watch/sm33198335" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen scrolling="no" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"></iframe>
+</div>
 
 式場でバーカウンターを見つけて、一気飲みからのアル中カラカラや、バーカウンターのスタッフがいないときに自分でお酒を入れ出しているのが面白い。
 
@@ -81,13 +89,15 @@ isProtect: false
 
 #### 【コメ付き】スペシャルな鶏の唐揚げ食べてみた【アル中カラカラハイボール】
 
-<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;"><iframe src="https://www.youtube.com/embed/oJy6mKuq6CI" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen scrolling="no" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"></iframe></div>
+<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;"><iframe src="http://embed.nicovideo.jp/watch/sm33262442" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen scrolling="no" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"></iframe>
+</div>
 
 加熱済みの油の扱いがかなり危険。いつ事故が起きてもおかしくなくそわそわする動画。
 
 #### 【コメ付き】シャア専用鍋食べてみた【アル中カラカラハイボール】
 
-<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;"><iframe src="https://www.youtube.com/embed/trcOhJDsQgw" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen scrolling="no" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"></iframe></div>
+<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;"><iframe src="http://embed.nicovideo.jp/watch/sm34283992" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen scrolling="no" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"></iframe>
+</div>
 
 シャア専用の鍋。七味を一本まるごと使い切る。
 
@@ -97,18 +107,21 @@ isProtect: false
 
 #### 【コメ付き】病院行ってみました
 
-<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;"><iframe src="https://www.youtube.com/embed/OjbFZzkooro" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen scrolling="no" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"></iframe></div>
+<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;"><iframe src="http://embed.nicovideo.jp/watch/sm30561512" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen scrolling="no" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"></iframe>
+</div>
 
 検査の結果、微妙な結果 = OK ということでハイボールを飲みまくる動画
 
 #### 【コメ付き】偽ハイボール飲んでみた
 
-<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;"><iframe src="https://www.youtube.com/embed/JnT1ia1EBdI" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen scrolling="no" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"></iframe></div>
+<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;"><iframe src="http://embed.nicovideo.jp/watch/sm32054026" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen scrolling="no" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"></iframe>
+</div>
 
 禁酒しないといけなくなって、緑茶にハイボールのラベルを貼って飲む動画。なお料理パートは全く健康に気を使ってない。
 
 #### 【コメ付き】しばらくハイボール飲めなくなりました。
 
-<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;"><iframe src="https://www.youtube.com/embed/Tuja22zi1dg" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen scrolling="no" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"></iframe></div>
+<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;"><iframe src="http://embed.nicovideo.jp/watch/sm29577781" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen scrolling="no" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"></iframe>
+</div>
 
 ついに入院。
