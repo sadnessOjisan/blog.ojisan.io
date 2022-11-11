@@ -6,7 +6,7 @@ visual: "./visual.png"
 tags: ["scala", "cats", "monad"]
 userId: sadnessOjisan
 isFavorite: false
-isProtect: false
+isProtect: true
 ---
 
 最近 Scala を勉強していて、cats が少しずつ色々分かってきたが Free モナドは何もわからんすぎたので整理がてらまとめる。
