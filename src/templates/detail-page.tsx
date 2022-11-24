@@ -63,7 +63,7 @@ export const postsPaginationQuery = graphql`
     tags: allMarkdownRemark(
       filter: { frontmatter: { tags: { in: $tags } } }
       limit: 10
-      sort: { fields: [frontmatter___created], order: DESC }
+      sort: { frontmatter: { created: DESC } }
     ) {
       nodes {
         frontmatter {

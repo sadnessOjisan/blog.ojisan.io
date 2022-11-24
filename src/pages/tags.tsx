@@ -3,7 +3,7 @@ import { HeadFactory } from "../components/common/head";
 import { Layout } from "../components/common/layout";
 import * as styles from "./tags.module.css";
 
-const RootBlogList = ({ data }: PageProps<Queries.AllTagsQuery>) => {
+const RootBlogList = ({ data }: PageProps<Queries.PagenationAllTagsQuery>) => {
   return (
     <Layout>
       <h1>タグ一覧</h1>
@@ -23,9 +23,9 @@ const RootBlogList = ({ data }: PageProps<Queries.AllTagsQuery>) => {
 export default RootBlogList;
 
 export const postsPaginationQuery = graphql`
-  query AllTags {
+  query PagenationAllTags {
     tags: allMarkdownRemark {
-      group(field: frontmatter___tags) {
+      group(field: { frontmatter: { tags: SELECT } }) {
         tag: fieldValue
         totalCount
       }
