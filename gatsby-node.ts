@@ -32,7 +32,7 @@ const pagination = async (
     await graphql<Queries.PaginationQueryQuery>(`
       query PaginationQuery {
         allMarkdownRemark(
-          sort: { fields: [frontmatter___created], order: DESC }
+          sort: { frontmatter: { created: DESC } }
           limit: 1000
         ) {
           nodes {
@@ -78,7 +78,7 @@ const detailPage = async (
 ) => {
   const getNextPrevsResult = await graphql<Queries.NextPrevQueryQuery>(`
     query NextPrevQuery {
-      allMarkdownRemark(sort: { order: DESC, fields: frontmatter___created }) {
+      allMarkdownRemark(sort: { frontmatter: { created: DESC } }) {
         edges {
           next {
             frontmatter {
@@ -155,7 +155,7 @@ const tagsPage = async (
   const getTagsResult = await graphql<Queries.AllTagsQuery>(`
     query AllTags {
       tags: allMarkdownRemark {
-        group(field: frontmatter___tags) {
+        group(field: { frontmatter: { tags: SELECT } }) {
           tag: fieldValue
           totalCount
         }

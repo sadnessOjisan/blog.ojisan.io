@@ -23,7 +23,7 @@ export const postsPaginationQuery = graphql`
   query ArticlesByTag($tag: String!) {
     allMarkdownRemark(
       filter: { frontmatter: { tags: { in: [$tag] } } }
-      sort: { fields: [frontmatter___created], order: DESC }
+      sort: { frontmatter: { created: DESC } }
     ) {
       nodes {
         id

@@ -34,7 +34,7 @@ export default RootBlogList;
 export const postsPaginationQuery = graphql`
   query postsPaginationQuery($skip: Int!, $limit: Int!) {
     allMarkdownRemark(
-      sort: { fields: [frontmatter___created], order: DESC }
+      sort: { frontmatter: { created: DESC } }
       limit: $limit
       skip: $skip
     ) {
