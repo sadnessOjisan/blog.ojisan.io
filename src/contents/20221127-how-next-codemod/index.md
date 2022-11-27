@@ -102,7 +102,7 @@ v12 から v13 では `npx @next/codemod@latest next-link src` といった修�
 
 具体的にどういった変更が要求されるかでいうと、<https://nextjs.org/docs/upgrading#link-component> にある通り
 
-> The <Link> Component no longer requires manually adding an <a> tag as a child. This behavior was added as an experimental option in version 12.2 and is now the default. In Next.js > 13, <Link> always renders <a> and allows you to forward props to the underlying tag.
+> The `<Link>` Component no longer requires manually adding an `<a>` tag as a child. This behavior was added as an experimental option in version 12.2 and is now the default. In Next.js > 13, `<Link>` always renders `<a>` and allows you to forward props to the underlying tag.
 >
 > For example:
 >
