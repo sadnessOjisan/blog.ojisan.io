@@ -1,6 +1,6 @@
 ---
 path: /think-rust-async-part1
-created: "2022-11-27"
+created: "2022-12-05"
 title: ライブラリを使わない非同期処理（前編）
 visual: "./visual.png"
 tags: ["rust"]
