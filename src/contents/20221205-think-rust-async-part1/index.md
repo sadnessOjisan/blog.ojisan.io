@@ -9,13 +9,13 @@ isFavorite: false
 isProtect: false
 ---
 
-この記事は Rust アドベントカレンダー 5 日目の記事です。OGP 画像は間に合わなさそうな画像です。
+この記事は [Rust アドベントカレンダー](https://qiita.com/advent-calendar/2022/rust) 5 日目の記事です。OGP 画像は間に合わなさそうな画像です。
 
 Rust そのものには非同期処理の仕組み自体はありますが、非同期のタスク群をスケジューリングして実行する仕組みがありません。これはユーザーもしくはライブラリに任されています。例えば代表的なライブラリである tokio は schadular や executor を提供します。
 
 非同期処理は関係してくる分野が多くさまざまなレイヤーが重なるのでとても難しいと思っています。そこで非同期処理を深く理解するために tokio を使わなければレイヤーをひとつ剥がせて理解が深まると思いました。そこで tokio を使わずに Rust の公式　 crate だけで非同期処理を実現してみましょう。
 
-ちなみに前編とついているのはアドベントカレンダーに間に合わせるために志半ばで切り上げたからです。というかアドベントカレンダーは元々 Wasm と Off the main thread を書くとしてエントリーしていました。全然違うものを書いてます。ゴールポストをずらせるのは良いですね。
+ちなみに前編とついているのはアドベントカレンダーに間に合わせるために志半ばで切り上げたからです。というかアドベントカレンダーは元々 「Wasm と Off the main thread」 を書くとしてエントリーしていました。全然違うものを書いてます。ゴールポストをずらせるのは良いですね。
 
 ## ライブラリを使わない非同期処理の例
 
@@ -144,13 +144,15 @@ enum Poll<T> {
 
 なんらかの Future が作られたら、それを呼び出す側は poll を呼び出して「タスク完了した？」と聞いて、完了していなければ完了するまで呼び出し続けることでいつかは Ready を得られるという算段です。
 
-しかし何回も poll を読んだり、ましてやそれを loop の中でしているとその実行スレッドを占有することになるので wake という仕組みで防ぐのが現実です。OS 側からタスクの完了を通知してもらって wake という仕組みを使わないとブロックされるので、一般的には非同期処理は wake のような仕組みを使うと便利になります。
+しかし何回も poll を呼んだり、ましてやそれを loop の中でしているとその実行スレッドを占有することになるので wake という仕組みで防ぐのが現実です。例えば OS 側からタスクの完了を通知してもらい wake を呼んでもらうことでそこにあらかじめ登録しておいた処理を呼び出させるといった使い方（よくあるのは実行キューに Task を入れてもらう）があるので、一般的には非同期処理は wake のような仕組みを使うと便利になります。
 
 さて、そのような簡単な例ですが、`Context`、`BoxFuture`、`ArcWake`、`wake_by_ref`、`Task`、`waker_ref` といった非同期処理くらいでしかみかけない単語がたくさん出てきます。これらを見ていきましょう。
 
 ### Waker とはなにか
 
-Context の定義に、
+まず poll の引数の Context から見ていきます。
+poll は非同期処理が完了したかどうかを問い合わせられる、Future に備わるインターフェースです。
+その Context は
 
 ```rust
 /// The `Context` of an asynchronous task.
@@ -186,7 +188,8 @@ impl<'a> Context<'a> {
 }
 ```
 
-というのがあります。Waker のラッパーです。
+と定義されています。どうやら Waker のラッパーです。
+では Waker とは何でしょうか。Waker は 該当の Future が進行可能、PENDING でなく READY であることを通知するための仕組みと書かれています。
 
 ```rust
 /// A `Waker` is a handle for waking up a task by notifying its executor that it
@@ -203,9 +206,100 @@ pub struct Waker {
 }
 ```
 
-Waker は 該当の Future が進行可能、PENDING でなく READY であることを通知するための仕組みです。
+その通知用の関数である wake 関数は Waker に impl されています。
 
-Task は非同期処理の処理の単位であり、Future のラッパーです。
+```rust
+impl Waker {
+    /// Wake up the task associated with this `Waker`.
+    ///
+    /// As long as the executor keeps running and the task is not finished, it is
+    /// guaranteed that each invocation of [`wake()`](Self::wake) (or
+    /// [`wake_by_ref()`](Self::wake_by_ref)) will be followed by at least one
+    /// [`poll()`] of the task to which this `Waker` belongs. This makes
+    /// it possible to temporarily yield to other tasks while running potentially
+    /// unbounded processing loops.
+    ///
+    /// Note that the above implies that multiple wake-ups may be coalesced into a
+    /// single [`poll()`] invocation by the runtime.
+    ///
+    /// Also note that yielding to competing tasks is not guaranteed: it is the
+    /// executor’s choice which task to run and the executor may choose to run the
+    /// current task again.
+    ///
+    /// [`poll()`]: crate::future::Future::poll
+    #[inline]
+    #[stable(feature = "futures_api", since = "1.36.0")]
+    pub fn wake(self) {
+        // The actual wakeup call is delegated through a virtual function call
+        // to the implementation which is defined by the executor.
+        let wake = self.waker.vtable.wake;
+        let data = self.waker.data;
+
+        // Don't call `drop` -- the waker will be consumed by `wake`.
+        crate::mem::forget(self);
+
+        // SAFETY: This is safe because `Waker::from_raw` is the only way
+        // to initialize `wake` and `data` requiring the user to acknowledge
+        // that the contract of `RawWaker` is upheld.
+        unsafe { (wake)(data) };
+    }
+
+    /// Wake up the task associated with this `Waker` without consuming the `Waker`.
+    ///
+    /// This is similar to [`wake()`](Self::wake), but may be slightly less efficient in
+    /// the case where an owned `Waker` is available. This method should be preferred to
+    /// calling `waker.clone().wake()`.
+    #[inline]
+    #[stable(feature = "futures_api", since = "1.36.0")]
+    pub fn wake_by_ref(&self) {
+        // The actual wakeup call is delegated through a virtual function call
+        // to the implementation which is defined by the executor.
+
+        // SAFETY: see `wake`
+        unsafe { (self.waker.vtable.wake_by_ref)(self.waker.data) }
+    }
+
+    /// Returns `true` if this `Waker` and another `Waker` would awake the same task.
+    ///
+    /// This function works on a best-effort basis, and may return false even
+    /// when the `Waker`s would awaken the same task. However, if this function
+    /// returns `true`, it is guaranteed that the `Waker`s will awaken the same task.
+    ///
+    /// This function is primarily used for optimization purposes.
+    #[inline]
+    #[must_use]
+    #[stable(feature = "futures_api", since = "1.36.0")]
+    pub fn will_wake(&self, other: &Waker) -> bool {
+        self.waker == other.waker
+    }
+
+    /// Creates a new `Waker` from [`RawWaker`].
+    ///
+    /// The behavior of the returned `Waker` is undefined if the contract defined
+    /// in [`RawWaker`]'s and [`RawWakerVTable`]'s documentation is not upheld.
+    /// Therefore this method is unsafe.
+    #[inline]
+    #[must_use]
+    #[stable(feature = "futures_api", since = "1.36.0")]
+    #[rustc_const_unstable(feature = "const_waker", issue = "102012")]
+    pub const unsafe fn from_raw(waker: RawWaker) -> Waker {
+        Waker { waker }
+    }
+
+    /// Get a reference to the underlying [`RawWaker`].
+    #[inline]
+    #[must_use]
+    #[unstable(feature = "waker_getters", issue = "87021")]
+    pub fn as_raw(&self) -> &RawWaker {
+        &self.waker
+    }
+}
+```
+
+Waker のラッパーである Context が poll に渡していることから、poll 関数は Waker や wake が使えることとなります。
+これは poll されたときにあらかじめ登録しておいた wake を呼び出せる仕組みが備わっていると解釈できます。
+この Waker を作る方法は、一般的には Task の ArcWake に対して waker_ref を取ることで作り出します。
+なので次の登場人物ととして Task を見ていきましょう。Task は非同期処理の処理の単位であり、Future のラッパーです。
 
 ```rust
 struct Task {
@@ -223,9 +317,9 @@ impl Task {
 ```
 
 これは Future を Mutex で包むためのようなものです。
-Future の進行状態は Future 自体で管理できるように、それが外部から書き換えられないように lock を取るというわけです。
+Future の進行状態は Future 自体で管理できるようにするので、それが外部から書き換えられないように lock を取るというわけです。
 
-そしてその Task に ArcWake を実装します。これは wake と wake_by_ref を持ち、wake に wake_by_ref がデフォルト実装されています。Wake の役割は Future が完了して状態を進行させて欲しいことを Future の外側に通知することです。こうすることで無駄な poll をなくせます。その通知は開発者に任せられており、wake は wake_by_ref がデフォルト実装されているので wake_by_ref にその通知処理を実装する必要があります。
+そしてその Task に ArcWake を実装します。これは wake と wake_by_ref を持ちます。wake の役割は Future が完了して状態を進行させて欲しいことを Future の外側に通知することです。こうすることで無駄な poll をなくせます。その通知は開発者に任せられており、wake は wake_by_ref がデフォルト実装されているので wake_by_ref にその通知処理を実装する必要があります。
 
 ```rust
 /// A way of waking up a specific task.
@@ -277,7 +371,7 @@ pub trait ArcWake: Send + Sync {
 }
 ```
 
-今回の例だと外部に Future の進行を任せずに、開発者が
+今回の例だと外部(後編ではタスクランナーやスケジューラーといったものが登場する)に Future の進行を任せずに、開発者が
 
 ```rust
 hello.as_mut().poll(&mut ctx);
@@ -285,7 +379,7 @@ hello.as_mut().poll(&mut ctx);
 hello.as_mut().poll(&mut ctx);
 ```
 
-として呼び出しているし、肝心の非同期処理も OS からの通知を待つような待ち時間が発生しないので
+として呼び出しており、肝心の非同期処理も OS からの通知を待つような待ち時間が発生しないので wake_by_ref でタスクの進行を指示する必要はありません。
 
 ```rust
 fn poll(mut self: Pin<&mut Self>,
@@ -312,7 +406,7 @@ fn poll(mut self: Pin<&mut Self>,
 
 (普通は `(*self).state=` のところで epoll なりで OS 側からの通知を待ち受ける)
 
-wake_by_ref でタスクの進行を指示する必要はありません。なので
+なので
 
 ```rust
 // 何もしない
@@ -321,9 +415,9 @@ impl ArcWake for Task {
 }
 ```
 
-といった実装で大丈夫です。
+といった何もしない実装で大丈夫です。
 
-またしれっとスルーしましたが、task は Mutex だけでなく Arc でも囲みます。これは ArcWake や 後述の waker_ref が要求するためである。というより `Arc<Mutex<>>` は一つのパターンですね。
+またしれっとスルーしましたが、task は Mutex だけでなく Arc でも囲みます。これは ArcWake や 後述の waker_ref が要求するためです。もしくは `Arc<Mutex<>>` はマルチスレッドプログラミングにおける [一つのパターン](https://rustforbeginners.hatenablog.com/entry/arc-mutex-design-pattern) とも見れます。
 
 続いて waker_ref は task からその中の Future に対応する waker を取り出すものです。
 
@@ -347,9 +441,10 @@ where
 }
 ```
 
-そして Future の poll は waker をラップした Context が必要なので、それを Context::from_waker で作ります。
+waker は poll を呼び出すために必要な Context を作るために必要なのでこのようにして waker を作る必要があります。
+そして Context は waker を Context::from_waker に渡して作ります。
 
-そしてその結果が、
+その結果が、
 
 ```rust
 fn main() {
@@ -367,6 +462,17 @@ fn main() {
 ```
 
 として Future を進行させます。
+
+## まとめ
+
+- 一つの非同期処理の単位を Task として定義
+- Future の進行やその問合せは poll が行う
+- poll には Context が必要であり、poll 実行時には wake を呼び出す
+- Context は Waker のラッパー
+- Task に ArcWake トレイトを実装して wake 処理の内容を登録
+- poll するときは、Task から waker_by_ref で Waker を取り出し、それを Context でラップし、poll 関数に渡す
+
+この辺の概念の図みたいなのは TBD
 
 ## 実装していないものや現実との差異
 
