@@ -22,7 +22,7 @@ splatoon を知らない人のために説明させてください。
 splatoon はイカになってインクを塗り合うゲームです。
 イカはそのインクの上を進むことができて、陣地を塗ったり、バスケのようなものをして競います。
 
-<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;"><iframe src="https://youtu.be/z0MZh-cUNiA" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen scrolling="no" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"></iframe>
+<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;"><iframe src="https://www.youtube.com/embed/z0MZh-cUNiA" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen scrolling="no" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture;"></iframe>
 </div>
 
 このゲームは武器や装備の種類が多く、スキルも自由に組み合わせられ、非常に奥が深いゲームです。
@@ -190,7 +190,7 @@ $ ffmpeg -i /Volumes/Untitled/DCIM/100HDREC/IOHD0006.MP4  -vf scale=1024:-1 -b:v
 
 はじめて X 帯になれました！感動です！
 
-![x.png]
+![x](./x.png)
 
 ## これから
 
