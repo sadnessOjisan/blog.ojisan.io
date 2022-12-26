@@ -180,7 +180,7 @@ function setHookCallback(callback) {
 ```
 
 にあり、一度作られた Moment が hookCallback に保持されるからだ。
-別の moment() 呼び出しては同じ hookCallback が呼ばれるし、なにかは快適操作をすると hookCallback を参照している他の object にも影響があるというわけだ。
+別の moment() 呼び出しては同じ hookCallback が呼ばれるし、なにか破壊的操作をすると hookCallback を参照している他の object にも影響があるというわけだ。
 
 ちなみにこの手の問題は `.clone()` で解消するが、それは
 
