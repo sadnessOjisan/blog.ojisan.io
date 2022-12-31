@@ -1,5 +1,5 @@
 ---
-path: /programming-hurikaeri-2020
+path: /programming-hurikaeri-2022
 created: "2022-12-31"
 title: 2022年に勉強した技術
 visual: "./visual.png"
