@@ -50,7 +50,7 @@ Next は v6 くらいから prd で使っていてかなり貯金がある技術
 その辺りの勉強は
 
 - [Monad は継続、Applicative は並列](https://blog.ojisan.io/monad-applicative/)
-- [Free モナドは何が嬉しいか](http://localhost:8000/how-to-use-free-monad/)
+- [Free モナドは何が嬉しいか](http://blog.ojisan.io/how-to-use-free-monad/)
 
 に書きました。
 
