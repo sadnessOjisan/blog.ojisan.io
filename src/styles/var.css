@@ -21,7 +21,7 @@
   :root {
     --base-color: #222222;
     --text-color: #f7f7f7;
-    --primary-color: #1262ab;
+    --primary-color: #4598e6;
     --primary-compatible-color: #050b34;
     --neutral-gray: #d9d9d9;
     --white-color: #ffffff;
@@ -31,6 +31,6 @@
 
     /* invert */
     /* https://www.wave440.com/php/iro.php */
-    --primary-color-invert: #ed9d54;
+    --primary-color-invert: #e69345;
   }
 }
