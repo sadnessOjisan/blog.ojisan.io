@@ -1,9 +1,9 @@
 ---
 path: /machikon-ittekita
-created: "2022-12-31"
+created: "2022-12-30"
 title: 街コンに参加した
 visual: "./visual.png"
-tags: ["雑記"]
+tags: ["恋愛"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: true
