@@ -33,7 +33,7 @@ edge なスタイルを追求できるかもしれない。
 
 ## 他にもあったら自由に追加してね
 
-[Patch is welcome.](https://github.com/sadnessOjisan/blog.ojisan.io)
+[Patches are welcome.](https://github.com/sadnessOjisan/blog.ojisan.io/tree/main/src/contents/20230105-programmer-hair-set)
 
 ## 余談
 
