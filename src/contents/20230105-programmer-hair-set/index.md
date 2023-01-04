@@ -17,13 +17,19 @@ isProtect: false
 
 ![unix](./unix.png)
 
+1 つ 1 つのことをうまくしてくれるのかもしれない。
+
 ## lima
 
 ![lima](./lima.png)
 
+yaml でセットできるのかもしれない。
+
 ## lucet
 
 ![lucet](./lucet.png)
+
+edge なスタイルを追求できるかもしれない。
 
 ## 他にもあったら自由に追加してね
 
