@@ -368,7 +368,12 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#ff00ff,bg=cyan,bold,underline"
 git -C ~/.zsh/zsh-autosuggestions pull 2>/dev/null || git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
 ```
 
-https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md#manual-git-clone などに書いてあるが、plugin は実行させるだけで install できるので、これを ZDOTDIR で指定したフォルダに clone するだけで plugin は動かせるのである。
+https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md#manual-git-clone などに書いてあるが、plugin は実行させるだけで install できるので、これを ZDOTDIR で指定したフォルダに clone しておき、.zshrc から source することでインストールできる。
+
+```sh
+# load plugin
+source ${HOME}/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+```
 
 ### brew
 
