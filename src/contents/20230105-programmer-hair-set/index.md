@@ -9,6 +9,8 @@ isFavorite: false
 isProtect: false
 ---
 
+プログラミングとヘアサロン、実はこんなところに関係性がある。
+
 ## Unix
 
 ![unix](./unix.png)
