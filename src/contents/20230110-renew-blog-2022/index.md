@@ -13,6 +13,8 @@ OGP は古いブログの画像です。この記事が書かれた時代のブ�
 
 ![now lp](./now-lp.png)
 
+ソースコードは [こちら](https://github.com/sadnessOjisan/blog.ojisan.io) です。
+
 ## ブログを新しくするまでの経緯
 
 2020 年にブログを作ってから 2 年以上経ちますが、これまで Gatsby -> Rust で自作 SSG -> Gatsby といった風に作り替えてきました。Rust で実装したときの記事は[これ](https://blog.ojisan.io/sakura-vps/)で、Gatsby に戻した時の記事は[これ](https://blog.ojisan.io/taihi-kankyo-tsukuru/)です。この記事にある通り前のブログは仮住まいでして、次もまた自作 SSG にしようとしていました。しかし時間が取れなかったのと、いつまでも仮住まいは嫌だったので Gatsby でまた作り直しました。ブログを作るタイミングでいつも技術選定を見直していますが、今回も Gatsby になりました。いつも Next と悩んでいるのですが、今回はそこに Astro も入って選定をし直した結果、また Gatsby になりました。その理由は [こちら](https://blog.ojisan.io/why-i-will-use-gatsby) にあります。今回はデザインも白黒だけでサボるようなことはしなかったり、Developer Experience 周りも注力しました。これがその [PR](https://github.com/sadnessOjisan/blog.ojisan.io/pull/239) です。
