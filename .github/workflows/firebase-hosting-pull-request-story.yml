@@ -25,7 +25,7 @@ jobs:
         name: Install npm packages
         run: npm install
       - name: build app
-        run: npm run story-build
+        run: npm run build-storybook
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"

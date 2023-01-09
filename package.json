@@ -21,8 +21,6 @@
     "format:fix": "npm run _prettier -- --write",
     "format:check": "npm run _prettier -- --check",
     "test": "vitest test",
-    "story-serve": "ladle serve",
-    "story-build": "ladle build -o story-build",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
