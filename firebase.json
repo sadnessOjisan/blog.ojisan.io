@@ -8,7 +8,7 @@
     },
     {
       "target": "storybook",
-      "public": "./story-build",
+      "public": "./storybook-static",
       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
     }
   ]
