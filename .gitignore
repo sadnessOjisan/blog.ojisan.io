@@ -1,5 +1,5 @@
 node_modules/
 .cache/
 public
-story-build
 .DS_Store
+storybook-static
