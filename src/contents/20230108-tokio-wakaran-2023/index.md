@@ -1,5 +1,5 @@
 ---
-path: /tokio-wakaran-2023
+path: /tokio-wakaran-2023-winter
 created: "2023-01-08"
 title: tokio 分からん 2023冬
 visual: "./visual.png"
