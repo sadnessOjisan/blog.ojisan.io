@@ -1,0 +1,19 @@
+name: 機能リクエスト
+description: 追加機能のリクエスト
+title: "[request]: "
+labels: ["I-feature"]
+assignees:
+  - sadnessOjisan
+body:
+  - type: markdown
+    attributes:
+      value: |
+        こちらのフォームからリクエストしてください
+  - type: input
+    id: contact
+    attributes:
+      label: どのような機能が欲しいか
+      description: 書ける保証はありませんが検討します。
+      placeholder: 投げ銭機能
+    validations:
+      required: true

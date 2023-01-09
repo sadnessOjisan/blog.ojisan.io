@@ -1,0 +1,19 @@
+name: コンテンツリクエスト
+description: バグやtypoの報告
+title: "[report]: "
+labels: ["I-bug"]
+assignees:
+  - sadnessOjisan
+body:
+  - type: markdown
+    attributes:
+      value: |
+        こちらのフォームから報告してください
+  - type: input
+    id: contact
+    attributes:
+      label: 何が起きていますか？
+      description: 修正を検討します。
+      placeholder: 画像が画面幅以上に広がってしまって記事が読めない
+    validations:
+      required: true
