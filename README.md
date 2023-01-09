@@ -2,6 +2,11 @@
 
 sadnessOjisan のブログ。 技術以外も何でもアリ。
 
+## URL
+
+- [blog](https://blog.ojisan.io)
+- [storybook](https://storybook-blog-ojisan-io.web.app/)
+
 ## 開発者向け
 
 皆さんからの PR を受け付けております。
