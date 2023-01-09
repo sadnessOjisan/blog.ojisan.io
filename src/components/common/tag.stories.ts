@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { StoryObj } from "@storybook/react";
 
 import { Tag } from "./tag";
 
@@ -7,10 +7,7 @@ const meta = {
   title: "Component/Tag",
   component: Tag,
   tags: ["autodocs"],
-  argTypes: {
-    backgroundColor: { control: "color" },
-  },
-};
+} satisfies Meta<typeof Tag>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

@@ -1,4 +1,4 @@
-import { Link } from "gatsby";
+import { Link } from "gatsby-link";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import { ComponentType } from "react";
 import * as styles from "./card.module.css";
