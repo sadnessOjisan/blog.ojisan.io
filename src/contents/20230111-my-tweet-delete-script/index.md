@@ -52,9 +52,11 @@ client.get(
 
 ## Twitter Developer Platform での設定
 
+自分のツイートを消すためにはまず <https://developer.twitter.com/en> で開発者用アカウントを発行してください。そしてアプリ登録（ここではツイート削除アプリを作るという設定）をしたら API キーが発行されて、自由にアカウントを API 経由で触ることができます。
+
 ### v1 か v2 か
 
-v2 にはレートリミットがあるようです。<https://developer.twitter.com/ja/docs/twitter-api/rate-limits> によると 15 分で 50 件しか削除できないようです。
+v2 にはレートリミットがあるようです。<https://developer.twitter.com/en/docs/twitter-api/rate-limits> によると 15 分で 50 件しか削除できないようです。
 
 なので v1 を使いましょう。[node-twitter](https://github.com/desmondmorris/node-twitter) というライブラリは v1 のクライアントを提供します。
 
