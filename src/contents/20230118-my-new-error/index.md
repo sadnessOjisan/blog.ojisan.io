@@ -12,7 +12,7 @@ isProtect: false
 2023 年度の僕のエラーハンドリング について書きたい。
 昨日[Safe Data Fetching in Modern JavaScript](https://www.builder.io/blog/safe-data-fetching)を読んでいて、fetch に限った話ではないが一家言ある内容だったので書きたくなった。
 おそらくやりすぎだとか非効率と言われる点はあると思うので、みんなの一家言も教えて欲しい。
-対象は Typescript + Server の想定だが、TS であればクライアントほとんどに当てはまる話だと思う。
+対象は Typescript での サーバー開発想定だが、TS であればクライアント開発にもほとんどに当てはまる話だと思う。
 
 ## 例外ではなく Result 型を使う
 
@@ -135,7 +135,7 @@ Result が Ok であることの絞り込みをしてくれて val にアクセ�
 
 #### map
 
-Result の Ok の中身を更新したいときにつかう。例えば user data を取得した後にその user id を暗号化したいとする。そのとき
+Result の Ok の中身をもとに新しい値を作りたいときにつかう。例えば user data を取得した後にその user id を暗号化したいとする。そのとき
 
 ```ts
 const getUserResult = getUserResult(id)
@@ -148,14 +148,20 @@ isOk(getUserResult){
 
 ```
 
+とするのは何か長くて嫌だ。
+
 そこで文脈を保ったまま変換できるのが map で
 
 ```ts
-const encUserId = (input: User): Result => {};
+const encUserId = (input: User): EncUserId => {};
 ```
 
+を用意して、
+
 ```ts
-const getUserPostsResult = map(getUserPostsResult, (user) => {
+const getUserResult = getUserResult(id);
+
+const EncedUserId = map(getUserResult, (user) => {
   return getUserPostsResult(user);
 });
 ```
@@ -164,7 +170,7 @@ const getUserPostsResult = map(getUserPostsResult, (user) => {
 
 #### flatMap(and_then)
 
-Result をチェインしたい時に使う。例えば user data を取得した後にその user id を使って投稿履歴を問い合わせたいとする。そのとき
+Result を返す関数にチェインしたい時に使う。例えば user data を取得した後にその user id を使って投稿履歴を問い合わせたいとする。そのとき
 
 ```ts
 const getUserResult = getUserResult(id)
@@ -195,11 +201,13 @@ const getUserPostsResult = (input: Result<User, Error>) => {};
 ```
 
 といったふうに引数に Result が現れるので、ここ以外での使い回しがしにくくなる。
-それを防げるのが flatMap で
+それを防げるのが map や flatMap で
 
 ```ts
 const getUserPostsResult = (input: User): Result => {};
 ```
+
+を定義して
 
 ```ts
 const getUserPostsResult = flatMap(getUserPostsResult, (user) => {
@@ -225,7 +233,7 @@ FYI: https://blog.ojisan.io/monad-applicative/
 
 FYI: https://gcanti.github.io/fp-ts/modules/Either.ts
 
-しかしこのライブラリは Result の導入というより強く静的に型付けられた関数型プログラミングの道具の導入をするツールだ。役割で言えば Scala で言う cats だ。cats 経済圏のようなものを作らないのであれば入れなくてもいいのではというのが個人的な感想だ。Result を使うだけであれば少々オーバーキル感が否めないので私は次に紹介する option-t を推す。
+しかしこのライブラリは Result の導入というより強く静的に型付けられた関数型プログラミングスタイルを導入するツールだ。役割で言えば Scala で言う cats だと思っている。cats 経済圏のようなものを作らないのであれば入れなくてもいいのではというのが個人的な感想だ。Result を使うだけであれば少々オーバーキル感が否めないので私は次に紹介する option-t を推す。
 
 #### option-t
 
@@ -335,7 +343,7 @@ if (err instanceof ValidationError) {
 
 一方でバックエンド開発において Error に status code を入れる流派があるが私はそうしない。なぜなら Result に包む以上、response に複数の Result を含んだりネストさせることがあるからだ。例えば 1 画面を表示するデータを返す際に一部が失敗して全ページがクラッシュするよりかは部分的に見えていた方が良いに決まっているからだ。別々の API に分割しなよ、Suspence 使いなよと思うかもしれないが、例えば CDN にページごとキャッシュさせたいという使い方は十分に考えられ、現実に即したケースだ。そういった場合、HTTP Status は 200 だけど部分的にエラーがある場合のエラーの status は無用なものになるので最初から入れていない。
 
-それにエラーというものが HTTP の存在を知っているのは、なんちゃらアーキテクチャやほげほげアーキテクチャにおける依存関係としても正しくないと考え、ステータスコードは含めていない。
+それにエラーというものが HTTP の存在を知っているのは、`なんちゃらアーキテクチャ`や`ほげほげアーキテクチャ`における依存関係としても正しくないと考え、ステータスコードは含めていない。
 
 ## catch 節で受け取る Error を握り潰さない
 
@@ -424,7 +432,7 @@ console.error(e)
 
 ### Sentry か標準出力ログかどっちを使うか
 
-両方使うべき。
+両方使うべきである。
 
 たくさんツールを入れるのは憚られるかもしれないが、それぞれに目的があるのであればツールは全部入れていいと思う。
 
@@ -433,7 +441,7 @@ console.error(e)
 - Kibana: HTTP ベースでのモニタリング
 - Sentry: Issue の管理、アラートの作成
 
-といったふうにいろんなツールを使っていいと思う。入門監視にもそういうことが書かれている。
+といったふうにいろんなツールを使っていいと思う。[入門監視](https://www.oreilly.co.jp/books/9784873118642/)にもそういうことが書かれている。
 
 なので両方に出すような関数を作ってしまおう。
 
@@ -449,7 +457,7 @@ const loggingException = (err: Error) => {
 
 ### createErr のタイミングでロギング
 
-さて、Sentry だったり datadog のようなログ・アラートツールを使うときはどこでエラーを出力すればいいだろうか。Result を使っているのであれば選択肢は Err を作ったタイミングかレスポンスを返すタイミングだ。だが Result はネストしたり複数持つことがあるので上流でまとめてログを出すのはめんどくさかったり、問題が起きたときにすぐ出力した方が実態に側するので createErr したタイミングで必ずログに出すのが良いだろう。手で出力してもいいが自信がある人は createErr のラッパーを作るか createErr の中でロガーに出してしまえば良い。
+さて、Sentry だったり datadog のようなログ・アラートツールを使うときはソースのどこでエラーを出力すればいいだろうか。Result を使っているのであれば選択肢は Err を作ったタイミングかレスポンスを返すタイミングだ。だが Result はネストしたり複数持つことがあるので上流でまとめてログを出すのはめんどくさかったり、問題が起きたときにすぐ出力した方が実態に即するので createErr したタイミングで必ずログに出すのが良いだろう。手で出力してもいいが自信がある人は createErr のラッパーを作るか createErr の中でロガーに出してしまえば良い。
 
 ただそうすると
 
@@ -575,7 +583,7 @@ return createOk(data);
 
 まあコードが長くなってしまうので時と場合によるとは思う。
 
-## fetch を例に
+## fetch を例に実践する
 
 まずエラークラスを定義しましょう。
 
