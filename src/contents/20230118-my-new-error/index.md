@@ -945,6 +945,6 @@ class Repository {
 }
 ```
 
-まあ fetch に限ってこんなに長くなるので利便性を考えたら[Safe Data Fetching in Modern JavaScript](https://www.builder.io/blog/safe-data-fetching)でしていたことも取り入れるべきなのだろう。
+まあ fetch に限ってこんなに長くなるので利便性を考えたら[Safe Data Fetching in Modern JavaScript](https://www.builder.io/blog/safe-data-fetching)でしていたことも取り入れるべきなのだろう。実際にその記事は fetch の抽象化をしていくことが主題なので、ここでのエラーハンドリングのテクニックともあまり競合しない。
 
-が、私は結構ベタにこれを書くことが多い。それは status code の意味や使い方が API ごとによって異なりすぎて一概に抽象化できなかったり、もしくは spec がしっかりしているような API であればそもそも spec から client を自動生成できたりしてこういうコードを書かなくて済むからだ。結局は個々人の環境次第だと思う。
+が、私は結構ベタにこれを書くことが多いしこれからもそうすると思う。それは社会の現実は status code の意味や使い方が API ごとによって異なりすぎて一概に抽象化できなかったり、もしくは spec がしっかりしているような API であればそもそも spec から client を自動生成できたりしてこういうコードを書かなくて済むからだ。結局は個々人の環境次第だと思う。
