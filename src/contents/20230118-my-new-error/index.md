@@ -893,6 +893,7 @@ class Repository {
               reason: "fail to fetch by miisng auth",
               url: URL,
               payload: { id },
+              res,
             })
           );
           loggingException(error);
@@ -904,6 +905,7 @@ class Repository {
               reason: "internal server error",
               url: URL,
               payload: { id },
+              res,
             })
           );
           loggingException(error);
