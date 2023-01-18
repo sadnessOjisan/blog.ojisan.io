@@ -248,7 +248,7 @@ FYI: <https://github.com/karen-irc/option-t>
 - <https://doc.rust-jp.rs/rust-by-example-ja/error/option_unwrap/map.html>
 - <https://doc.rust-jp.rs/rust-by-example-ja/error/option_unwrap/and_then.html>
 
-またこのライブラリのいいところは 0deps であり、改造したいことがあればそのままファイルをコピーしてこればユーザーランドでも動かせるところにある。なので挙動を変えたいところがあったりするとすぐにパッチを当てられる。たとえば後述している 「createErr するときに必ずロギングしたい」みたいな改造を簡単に施せる。
+またこのライブラリのいいところは 0deps であり、改造したいことがあればそのままファイルをコピーしてこればユーザーランドでも動かせるところにある。なので挙動を変えたいところがあったりするとすぐにパッチを当てられる。たとえば後述している 「createErr するときに必ずロギングしたい」みたいな改造を簡単に施せる。ただし MIT ライセンスなのでクレジットのコピーも忘れないようにしよう。
 
 ## Custom Error を定義する
 
