@@ -186,6 +186,28 @@ $ ffmpeg -i /Volumes/Untitled/DCIM/100HDREC/IOHD0006.MP4  -vf scale=1024:-1 -b:v
 
 になりました。これで 1GB が 50MB まで圧縮されます。`-b:v 1200k` というビットレート指定は劣化が激しい時は外してもいいと思います。外した時は 200MB ほどになります。
 
+実際に使うときは複数の動画をまとめて圧縮したいので
+
+```sh
+path1=$1
+dirs=`find $path1 -type f -name *.MP4`
+
+for file in $dirs;
+do
+    ffmpeg -i $file -vf scale=1024:-1 ~/Downloads/`date "+%Y%m%d_%H%M%S"`.mp4
+    # ffmpeg -i $file -vf scale=1024:-1 -b:v 1200k ~/Downloads/`date "+%Y%m%d_%H%M%S"`.mp4
+done
+```
+
+のようなスクリプトを
+
+```
+# sh compress-all.sh dir_path
+sh compress-all.sh '/Volumes/Untitled/DCIM/100HDREC'
+```
+
+として実行しています。
+
 ## 反省し続けた結果
 
 はじめて X 帯になれました！感動です！
