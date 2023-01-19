@@ -381,7 +381,7 @@ FYI: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Ob
 try {
   throw new Error("orig error");
 } catch (e) {
-  throw new Error("なんかエラー出た");
+  throw new Error("なんかエラー出た", { cause: e });
 }
 ```
 
@@ -430,13 +430,15 @@ console.error(e)
 
 ## エラーログの扱い
 
-### Sentry か標準出力ログかどっちを使うか
+### アラートツールか標準出力ログかどっちを使うか
 
 両方使うべきである。
 
 たくさんツールを入れるのは憚られるかもしれないが、それぞれに目的があるのであればツールは全部入れていいと思う。
 
-- Cloud Logging: インスタンスの CPU メトリクス
+例えば
+
+- Cloud Logging: インスタンスの CPU メトリクス確認
 - Datadog: 標準出力の確認
 - Kibana: HTTP ベースでのモニタリング
 - Sentry: Issue の管理、アラートの作成
