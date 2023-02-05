@@ -231,7 +231,7 @@ expected struct `Repo`, found struct `MockRepo`rustcClick for full compiler diag
 No quick fixes available
 ```
 
-mockall は struct にではなく trait に生やさないとコンパイルが通らない。なので Repo は struct にではなく trait を作る必要があり、そのため DIP が強制されてしまう。std::mem::transmute 使えば突破できるかなとも思ったけどサイズ合わなくてできなかった。ただ Rust ほど厳しくない静的型付け言語なら Any 型的なもので突破ハッチは作れるだろう。
+mockall は struct にではなく trait に生やさないとコンパイルが通らない。なので Repo は struct にではなく trait を作る必要があり、そのため DIP が強制されてしまう。std::mem::transmute 使えば突破できるかなとも思ったけどサイズ合わなくてできなかった。ただ Rust ほど厳しくない静的型付け言語なら Any 型的なもので突破ハッチは作れるだろう。**なので言語やライブラリによるが DIP を準拠しなくてもテストにおける心配はしなくていいと思う。**
 
 ちなみに Rust での DI テクニックについてはこちらにまとめた。consturcutor injection して mockall 使えばいいよ。
 
