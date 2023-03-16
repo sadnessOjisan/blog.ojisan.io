@@ -3,7 +3,7 @@ path: /my-new-error
 created: "2023-01-18"
 title: My new error...
 visual: "./visual.png"
-tags: ["error"]
+tags: ["error", "sentry"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false
