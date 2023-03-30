@@ -27,7 +27,7 @@ FYI: <https://blog.yuuk.io/entry/2015-webserver-architecture>
 
 筆者がプログラミングを始めたのは 2018 年であり、サーバーサイド開発の経験は Node.js, tokio, cats-effect くらいしかない(一瞬 Java も書いていたがコピペしてただけなのでそれはノーカン、Python も書いたがほぼ JSON Schema を書いていたのでノーカン)。そもそもハローワールドが IO 多重化 から始まっており、その次の経験が M:N で動く Work-Steal 可能なグリーンスレッドといったようにイマドキなものしか経験がなく、ポエミーな話や歴史的な話はできない。そもそもフロントエンド専業で大学で教育を受けたわけでもないので、Web サーバーやコンピュータの事情はよく知らないしシステムプログラミングもしたことがないのでサーバーに関する専門的な話はできない。Node.js の章に入ると急に饒舌になると思うが、それ以前の章はあくまで教科書的な話しかできないだろう。なので経験に基づいた話を知りたければ先人の版を読んでほしい。
 
-また専門家が書いたわけでもなくただの職業プログラマが自分の勉強のまとめとして書いたものなので間違いや不適切な表現もあるかもしれない。もし見つけたら [sadnessOjisan](https://twitter.com/sadnessOjisan) に連絡をくれると嬉しい。直接 [Issue](https://github.com/sadnessOjisan/blog.ojisan.io/issues) や修正 PR を出してくれるともっと嬉しい。一応プロの専門家の方にレビューをして頂いたが、分量が分量だな上いきなり投げつけた感じなので漏れもあるだろう。それはそんなレビュー依頼をした私の責任でありレビュアーの責任ではないことを先に断ります。レビューしてくださった [@mitama_rs](https://twitter.com/mitama_rs) さん、ありがとうございます。美味しいご飯食べにいきましょう。
+また専門家が書いたわけでもなくただの職業プログラマが自分の勉強のまとめとして書いたものなので間違いや不適切な表現もあるかもしれない。もし見つけたら [sadnessOjisan](https://twitter.com/sadnessOjisan) に連絡をくれると嬉しい。直接 [Issue](https://github.com/sadnessOjisan/blog.ojisan.io/issues) や [該当ファイル](https://github.com/sadnessOjisan/blog.ojisan.io/tree/main/src/contents/20230331-server-architecture-2023) に対して [修正 PR](https://github.com/sadnessOjisan/blog.ojisan.io/compare) を出してくれるともっと嬉しい。一応プロの専門家の方にレビューをして頂いたが、分量が分量な上いきなり投げつけた感じなので漏れもあるだろう。そもそも全部を一緒に見直したというよりは自分がわからないところを質問をしにいったといった感じなので、漏れがあってもそれはレビュー依頼をした私の責任でありレビュアーの責任ではないことを先に断ります。レビューしてくださった [@mitama_rs](https://twitter.com/mitama_rs) さん、ありがとうございます。美味しいご飯食べにいきましょう。
 
 ### 参考文献
 
