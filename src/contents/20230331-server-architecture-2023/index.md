@@ -3,7 +3,7 @@ path: /server-architecture-2023
 created: "2023-03-31"
 title: Webサーバーアーキテクチャ進化論2023
 visual: "./visual.png"
-tags: [c, rust, tcp, nodejs, multi thread, async runtime]
+tags: [c, rust, scala, tcp, nodejs, multi thread, async runtime]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false
@@ -368,7 +368,7 @@ FYI: <https://www.alibabacloud.com/blog/tcp-syn-queue-and-accept-queue-overflow-
 
 ここで accept を理解するためには SYN Queue, Accept Queue, Socket が何かを知る必要があるので少し解説する。
 
-クライアントが connect を実行すると SYN パケットというのが送られる。接続の開始を知らせるパケットだ。これを listen しているサーバーが受け取ると接続が確立していない接続情報が SYN Queue に積まれる。（SYN パケットそのものが積まれるわけでないことに注意）。そしてサーバーが SYN+ACK を返すとクライアントが ESTABLISHED になって ACK を返す。サーバーは ACK を受け取ると Accept Queue に接続が確立された接続情報を積む。このときに accept を実行すると Accept Queue から接続情報を取り出し、プロセスから接続情報を使えるようになる。
+クライアントが connect を実行すると SYN パケットというのが送られる。接続の開始を知らせるパケットだ。これを listen しているサーバーが受け取ると接続が確立していない接続情報が SYN Queue に積まれる。（SYN パケットそのものが積まれるわけでないことに注意）。そしてサーバーが SYN+ACK を返すとクライアントが ESTABLISHED になって ACK を返す。サーバーは ACK を受け取ると Accept Queue に接続が確立された接続情報を積む。このときに accept を実行すると Accept Queue から接続情報を取り出し、その情報を詰め込んだソケットが作られ、プロセスから接続情報を使えるようになる。
 
 残念ながら接続情報、ソケットの実態が何かについてはカーネルのコードを読まないとわからない（インターネットを普段使いしている分には知らなくてもいいのかもしれない、知りたいけど）。この辺りは少し前から Linux Kernel を読んで理解しようとしたがまあ割と早い段階で挫折した。型まではわかるけどどういう値が入ってくるかはビルドしてみないと分からないし、良いビルド環境を持っていないので断念した。ちなみにコードリーディングするだけなら Github Codespaces で LSP 込みで使えるので体験がよかった。なのでちゃんと自分の手元では動かせていないのでその辺りを代わりにやってくれた人のブログを貼っておく。これ読みながらカーネルのコードを見比べると少し分かった気持ちになれる。
 
@@ -573,11 +573,17 @@ DESCRIPTION
      connection-based socket types, currently with SOCK_STREAM.
 ```
 
-このコマンドは listen している socket を渡しておくことで、接続が完了した時にそのソケットを接続完了済みとしてそのソケットのファイルディスクリプタを返す。このソケットに対して読み書きすることでネットワークをまたいだプロセス間通信ができるようになる。
+> accept() extracts the first connection request on the queue of pending connections, creates a new socket with the same properties of socket
+
+とある通り、接続情報を accept queue から取り出し、その情報を持ったソケットを新しく作る。
+
+そしてそのソケットのファイルディスクリプタを返す。このファイルディスクリプタに対して読み書きすることでネットワークをまたいだプロセス間通信ができるようになる。接続情報の入ったソケットが分かれば、あとはそこに read すれば通信を読み取れ、write で書き込めば通信を送れる。
 
 TCP に対応させて考えると、これは Accept Queue を消化してくれる。
 
-接続情報の入ったソケットが分かれば、あとはそこに read すれば通信を読み取れ、write で書き込めば通信を送れる。
+引数の fd には listen しているソケットの fd を使う。この fd に対する接続情報を accept queue から取り出してソケットを作る。
+
+またこのコマンドは後述する select, epoll のところで見るがブロッキングする可能性がある。
 
 ### 実装例
 
@@ -1034,7 +1040,9 @@ fn main() {
 
 ### epoll 以前はどうしていたが
 
-ちなみに http://www.kegel.com/c10k.html では epoll を使った方法ではなく、poll や select を使った方法が紹介されている。これらのコマンドは複数の file descriptor を監視することができるものだが、READY かどうか監視対象をループで全部舐めるので O(N) でありクライアント数が増えるとパフォーマンスが悪くなっていく。なのでやはりクライアントが多い場合は epoll を使う方が良い気がする。
+ちなみに http://www.kegel.com/c10k.html では epoll を使った方法ではなく、poll や select を使った方法が紹介されている。これらのコマンドも IO 多重化に使うもので、複数の file descriptor を監視することができ、ここに socket の fd を入れておけば READY の通知がきた fd のみ accept してブロッキングを防げるのだが、READY かどうか監視対象をループで全部舐めるので O(N) でありクライアント数が増えるとパフォーマンスが悪くなっていく。なのでやはりクライアントが多い場合は epoll を使う方が良い気がする。
+
+FYI: https://chibash.github.io/lecture/os/mt02.html
 
 ### 代表的な実装
 
