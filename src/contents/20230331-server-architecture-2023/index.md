@@ -1054,7 +1054,7 @@ libuv 公式の uvbook という本はとても分厚い解説で勉強になっ
 
 [Table of Contents — An Introduction to libuv](https://nikhilm.github.io/uvbook/)
 
-他言語だと OCaml の Lwt を自前で実装するチュートリアルや
+他言語だと OCaml の Lwt を自前で実装するチュートリアル(epoll ではなく select を使っているが非同期ランタイムを作っていることに変わりはない)や
 
 [超簡単にオモチャ LWT を実装してみた - camlspotter’s blog](https://camlspotter.hatenablog.com/entry/20091228/1262022937)
 
