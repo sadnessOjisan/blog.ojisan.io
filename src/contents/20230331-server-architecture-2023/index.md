@@ -93,7 +93,7 @@ FYI: <https://en.wikipedia.org/wiki/File_descriptor>
 
 プログラムはファイルディスクリプタを指定してプロセスやファイルにアクセスし、そこに read / write をすることで値を取り出したり送り出せる。イメージとしてはプロセス間にストリームというバイト列を流す配管があり、ここのデータを流し込んで読み書きするイメージだ。
 
-（※ストリームという概念は [ふつうの Linux プログラミング 第 2 版](<[https://www.sbcr.jp/product/4797386479/](https://www.sbcr.jp/product/4797386479/)>) で登場する概念であり、この説明に関しては <https://jibun.atmarkit.co.jp/lskill01/rensai/fulinux/04/01.html> でも読める。)
+（※ストリームという概念は [ふつうの Linux プログラミング 第 2 版](https://www.sbcr.jp/product/4797386479) で登場する概念であり、この説明に関しては <https://jibun.atmarkit.co.jp/lskill01/rensai/fulinux/04/01.html> でも読める。)
 
 ![ストリームのイメージ](./stream.png)
 
