@@ -31,6 +31,12 @@ yaml でセットできるのかもしれない。
 
 edge なスタイルを追求できるかもしれない。
 
+## syn
+
+![syn](./syn.png)
+
+flood なシャワーかもしれない。
+
 ## 他にもあったら自由に追加してね
 
 [Patches are welcome.](https://github.com/sadnessOjisan/blog.ojisan.io/tree/main/src/contents/20230105-programmer-hair-set)
