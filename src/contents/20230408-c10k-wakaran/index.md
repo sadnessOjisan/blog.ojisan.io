@@ -9,11 +9,11 @@ isFavorite: false
 isProtect: false
 ---
 
-# お願い
+## お願い
 
 「C10K 問題とは何か」がわかる方は是非 [Issue](https://github.com/sadnessOjisan/blog.ojisan.io) や [Twitter](https://twitter.com/sadnessOjisan) などで教えてください。
 
-# はじめに
+## はじめに
 
 ちょうど先週の今日くらいに [Web サーバーアーキテクチャ進化論 2023](https://blog.ojisan.io/server-architecture-2023/) という記事を書いた。予想以上にバズって驚いている。それでも yuuk1 先生が書いた原典の 1/3 ほどの影響（ブクマ）だったので改善の余地がたくさんあるので定期的に補足を足していこうと思うし、現にところどころ修正している（誤りの指摘ありがとうございます）。
 
