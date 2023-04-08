@@ -28,18 +28,18 @@ isProtect: false
 3. Serve many clients with each thread, and use asynchronous I/O and completion notification
 4. Serve one client with each server thread
 
-とあり、パターンに応じた実装テクニックを紹介しているドキュメントに思える。
+で、パターンに応じた実装テクニックを紹介していた。
 
 FYI: <http://www.kegel.com/c10k.html>
 
-なのであまり問題についての解説ではないのかと思ったが、どうやら[今の版はドキュメント公開時とは様変わりしていることを教えてもらい](https://github.com/sadnessOjisan/blog.ojisan.io/issues/316)、その[当時の原典](https://web.archive.org/web/19990508164301/http://www.kegel.com/c10k.html)を確認してみると、
+なのであまり C10K 問題いいう問題に対する提議ではないのかと思ったが、どうやら[今の版はドキュメント公開時とは様変わりしていることを教えてもらい](https://github.com/sadnessOjisan/blog.ojisan.io/issues/316)、その[当時の原典](https://web.archive.org/web/19990508164301/http://www.kegel.com/c10k.html)を確認してみると、
 
 - Limits on open filehandles
 - Limits on threads
 - Other limits/tips
 - Kernel Issues
 
-に重きがあるドキュメントのようだ。
+に重きをおいてクライアントが増えた時にどういう問題が起き得るかを紹介するドキュメントのようだった。このセクションは現代の版にもあるが他のセクションが重たかったのでこちらが当時は本題だったと気づいていなかった。
 
 この時の版の時代には epoll がまだないので epoll の言及がないのも味わい深い。
 
@@ -52,9 +52,9 @@ FYI: <http://www.kegel.com/c10k.html>
 
 > With that in mind, here are a few notes on how to configure operating systems and write code to support thousands of clients. The discussion centers around Unix-like operating systems, for obvious reasons.
 
-とある通り、大量のクライアントをどう裁くかの技術の紹介が目的のドキュメントではあるようだ。
+とあって、大量のクライアントをどう裁くかの技術の紹介が目的のドキュメントではあるようだ。
 
-ただ私は So hardware is no longer the bottleneck. の一文が大切で、クライアントが増えた時にハードウェアの限界でない理由でのパフォーマンス劣化を C10K 問題と呼んでいるのだろう。
+このうち私は So hardware is no longer the bottleneck. の一文が大切だと思い、クライアントが増えた時にハードウェアの限界でない理由でのパフォーマンス劣化を C10K 問題と呼んだのと解釈した。
 
 そしてその理由が 先に挙げた
 
@@ -73,7 +73,7 @@ FYI: <http://www.kegel.com/c10k.html>
 
 と指摘しており、さらに現在の版では poll は fd を全部舐めるためにクライアントが増えるとパフォーマンスが劣化する(おそらく 1req ごとに 1thread を作って割り当てたらという前提がある)ことも言及している。
 
-とはいえ 2023 年においては Kernel の実装も進化しているのでまた事情が異なってきていそうだ。 当時指摘の C10K 問題も現代の OS から見るとかなり緩和されているのではないだろうか。
+とはいえ 2023 年においては Kernel の実装も進化しているのでまた事情が異なってきていそうだ。当時指摘の C10K 問題も現代の OS から見るとかなり緩和されているのではないだろうか。
 
 ## 現代における金の弾丸
 
@@ -98,7 +98,7 @@ C10K 問題と一緒に語られる問題にコンテキストスイッチがあ
 
 ただ OS のネイティブスレッドで大量にスレッドを使うとコンテキストスイッチのコストが発生するのは事実で、1req ごとに 1thread 立てているとクライアントが増えれば増えるほどサーバーのパフォーマンスは劣化するだろう。さて、これは C10K 問題の原因の一つとして扱っていいのだろうか。僕は正直わかっていない。
 
-というかコンテキストスイッチも [グリーンスレッドの自作に必要なものは何か](https://blog.ojisan.io/multi-green-thread/) で実装はしたものの、本物のプログラミング言語や OS がどう実現していて何がコストになるのか知らない。これもわかる人は教えて欲しいです。
+というかコンテキストスイッチも [グリーンスレッドの自作に必要なものは何か](https://blog.ojisan.io/multi-green-thread/) で実装はしたものの、本物のプログラミング言語や OS がどう実現していて何がコストになるのか知らない。これもわかる人は教えて欲しい。
 
 ## そもそも原典から状況が変わりすぎているので C10K とは何かを考え直してもいいかもしれない、もしくは C10K はそもそも気にしなくていいのかもしれない
 
