@@ -1,7 +1,7 @@
 ---
 path: /astro-yarn-v3
 created: "2023-04-07"
-title: yarn v3, berry で astro 使う
+title: yarn v3, berry で astro を使う
 visual: "./visual.png"
 tags: [astro, yarn]
 userId: sadnessOjisan
