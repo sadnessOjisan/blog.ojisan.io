@@ -470,7 +470,8 @@ FYI: [https://github.com/sadnessOjisan/blog.ojisan.io/blob/eb47b0c563991e2e01370
 
 ## gatsby-image の制約が弱まっている
 
-まず [gatsby-image](https://www.gatsbyjs.com/plugins/gatsby-image/) パッケージだけでなく [gatsby-image-plugin](https://www.gatsbyjs.com/plugins/gatsby-plugin-image/) というものが今生まれている。gatsby-image は今や deprecated になっている。
+まず [gatsby-image](https://www.gatsbyjs.com/plugins/gatsby-image/) パッケージだけでなく [gatsby-plugin-image
+](https://www.gatsbyjs.com/plugins/gatsby-plugin-image/) というものが今生まれている。gatsby-image は今や deprecated になっている。
 
 これまでは画像を使うために GraphQL Fragment を埋め込んでいたが、今はそのようなことはせずに使いたい画像のサイズやトリミング条件を引数で指定するだけで良い。
 
