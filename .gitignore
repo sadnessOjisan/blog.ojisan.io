@@ -3,10 +3,3 @@ node_modules/
 public
 .DS_Store
 storybook-static
-
-.yarn/**
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/sdks
-!.yarn/versions
