@@ -29,7 +29,8 @@ Ajv と TS については [TypeScript, JSON Schema, Ajv の組み合わせを�
 
 ## 登場人物
 
-- [JSON Schema](https://json-schema.org/): JSON に対するスキーマ。それ自体も JSON で定義される。
+- [JSON Schema](https://json-schema.org/): JSON に対するスキーマ。それ自体も JSON で定義される。この前、歴史などを[@okunokentaro](https://twitter.com/okunokentaro) さんが解説してくれた → <https://speakerdeck.com/okunokentaro/tokyo-study>
+
 - [Ajv](https://ajv.js.org/): JSON Schema を使ったバリデータ。Ajv means Another JSON Validator.
 
 ## スキーマ駆動開発の定石: 型とスキーマとドキュメントを整合させろ
