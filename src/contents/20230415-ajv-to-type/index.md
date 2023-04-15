@@ -215,6 +215,10 @@ type Dog = FromSchema<typeof dogSchema>;
 
 このアプローチは正となるソースが JSON Schema だけになることだ。typebox などの IDL もいらなければ、ジェネリクス用の型自作も不要になる。JSON Schema 手書きに抵抗がなければオススメな方法だ。
 
+ただ ref でスキーマを分割しすぎると踏み抜く罠とかもあるらしい。普段僕は json ではなく TS ファイルにスキーマを書いていて、ECMAScript の世界での import でスキーマをつなぎ合わせるので考えたことがなかった。
+
+FYI: <https://speakerdeck.com/okunokentaro/tokyo-study>
+
 ## 結局どのやり方がいいか
 
 分からない。
