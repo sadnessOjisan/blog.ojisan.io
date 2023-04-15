@@ -27,6 +27,11 @@ Ajv と TS については [TypeScript, JSON Schema, Ajv の組み合わせを�
 
 これを改めて読み返すと、そもそも Ajv と TypeScript を組み合わせるときの考え方について解説していなかったと思い、今日はそれを書く。
 
+## 登場人物
+
+- [JSON Schema](https://json-schema.org/): JSON に対するスキーマ。それ自体も JSON で定義される。
+- [Ajv](https://ajv.js.org/): JSON Schema を使ったバリデータ。Ajv means Another JSON Validator.
+
 ## スキーマ駆動開発の定石: 型とスキーマとドキュメントを整合させろ
 
 [API 仕様書をバリデーターと型と同期させて作る](https://blog.ojisan.io/swagger-validator-ts/) に書いたことだが、型とスキーマとドキュメントを整合させましょう。スキーマで検証したデータに正しい型が推論されるようにしないと型安全とは言えない。じゃあ型とスキーマをどう Ajv で整合させるのか見ていく。
