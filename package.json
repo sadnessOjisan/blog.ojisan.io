@@ -1,5 +1,6 @@
 {
   "name": "blog.ojisan.io",
+  "packageManager": "yarn@3.5.0",
   "version": "1.0.0",
   "private": true,
   "description": "blog.ojisan.io",

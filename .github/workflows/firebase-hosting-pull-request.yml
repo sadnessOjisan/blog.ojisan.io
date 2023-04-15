@@ -30,12 +30,12 @@ jobs:
           cache-name: cache-node-modules
         with:
           path: "**/node_modules"
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
       - if: ${{ steps.node_modules_cache_id.outputs.cache-hit != 'true' }}
         name: Install npm packages
-        run: npm install
+        run: yarn install
       - name: build app
-        run: GATSBY_ACTIVE_ENV=development npm run build
+        run: GATSBY_ACTIVE_ENV=development yarn run build
         env:
           GATSBY_EXPERIMENTAL_PAGE_BUILD_ON_DATA_CHANGES: true
           CI: true
