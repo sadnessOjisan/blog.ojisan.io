@@ -10,6 +10,9 @@ isProtect: false
 ---
 
 最近 fastify v4 移行してる知人の話を聞いて、JSON SChema の推論めちゃくちゃ便利になってそうだなと思って試してみた。
+V4 GA が 2022-06 なので何を今更と思われるかもしれないが、正直最近 fastify 周りを追っていなかったので何も知らなかった。
+[Encraft #2 サーバーとクライアントを結ぶ技術](https://knowledgework.connpass.com/event/279962/) の自己紹介が "本当に何をしてるか分からない" になるくらいには何もしていない。
+
 OGP は YAPC で関西戻った時に見かけたマムアンちゃんだ。LUCUA で見かけた。昔めちゃくちゃハマっていてたくさんグッズ持っていた。
 
 ## なにが嬉しくなるのか
@@ -42,9 +45,7 @@ server.get<{
     },
   },
   async (request, reply) => {
-    const customerHeader = request.headers["h-Custom"];
-    // do something with request data
-    return `logged in!`;
+    const { foo, bar } = request.query; // type safe!
   }
 );
 ```
@@ -52,10 +53,7 @@ server.get<{
 という風にジェネリクスを渡さないと型が効いてくれなかった。このとき JSON Schema を渡していても型推論が聞いてくれなかった。ただランタイムでバリデーションしてくれるようになるだけだ。
 
 ```tsx
-server.get<{
-  Querystring: IQuerystring;
-  Headers: IHeaders;
-}>(
+server.get(
   "/auth",
   {
     schema: {
@@ -69,30 +67,11 @@ server.get<{
         additionalProperties: false,
         required: ["username", "password"],
       },
-      headers: {
-        title: "Headers Schema",
-        type: "object",
-        properties: {
-          "h-Custom": { type: "string" },
-        },
-        additionalProperties: false,
-        required: ["h-Custom"],
-      },
     },
-    preValidation: (request, reply, done) => {
-      const { username, password } = request.query;
-      done(username !== "admin" ? new Error("Must be admin") : undefined);
-    },
-    //  or if using async
-    //  preValidation: async (request, reply) => {
-    //    const { username, password } = request.query
-    //    if (username !== "admin") throw new Error("Must be admin");
-    //  }
   },
   async (request, reply) => {
-    const customerHeader = request.headers["h-Custom"];
-    // do something with request data
-    return `logged in!`;
+    // unsafe!
+    const { username } = request.query;
   }
 );
 ```
