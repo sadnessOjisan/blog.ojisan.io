@@ -1,6 +1,6 @@
 ---
 path: /ls-in-dockerfile
-created: "2023-04-21"
+created: "2023-05-05"
 title: Dockerfile 内の ls とか echo の出力をみたい
 visual: "./visual.png"
 tags: [docker]
