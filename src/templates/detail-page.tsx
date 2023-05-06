@@ -51,7 +51,7 @@ export const postsPaginationQuery = graphql`
         tags
         visual {
           childImageSharp {
-            gatsbyImageData(width: 1280, height: 600)
+            gatsbyImageData(width: 1280, height: 700)
           }
         }
         isProtect
