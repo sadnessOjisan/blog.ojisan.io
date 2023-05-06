@@ -59,8 +59,8 @@ Sender と Receiver がいて Sender が Receiver に、PC のカメラ映像を
 
 ブラウザ間で P2P するためには
 
-- rfc8124 [SDP](https://datatracker.ietf.org/doc/html/rfc8124) でセッションを確立するための IP アドレスやポート番号を交換する
-- rfc8445 [ICE](https://www.rfc-editor.org/rfc/rfc8445) でどのような通信経路が使えるかをお互いに確認しあって、通信経路を決める
+- [SDP](https://www.rfc-editor.org/rfc/rfc8124) で最適な p2p 通信を確立するために、お互いのメディアストリームに関する情報などを交換する
+- [ICE](https://www.rfc-editor.org/rfc/rfc8445) でどのような通信経路が使えるかをお互いに確認しあって、通信経路を決める
 
 という手順が必要です。このような交換を経て peer to peer 通信ができるようになるので、これらの手順はピアリングと呼ばれます。（と呼ばれているのをよく目にします）
 
@@ -85,7 +85,7 @@ sequenceDiagram
     受信側->>受信側: addIceCandidate(new RTCIceCandidate(candidate))
 ```
 
-(onicecandidate はイベント駆動だったり、ところどころ非同期な処理があるので上から順に実行されているわけではないことに注意。)
+(onicecandidate はイベント駆動だったり、ところどころ非同期な処理があるので上から順に実行されているわけではないことに注意。あと本当は（今回は不要だけど）シグナリングサーバーをここに入れてシーケンス図を書くべき。誰か書いて欲しい。)
 
 このブログは Mermaid 記法対応なんてものがないので、これを GitHub Issue や Notion に貼り付けて見てみよう。
 
@@ -365,6 +365,27 @@ senderConnection.onicecandidate = (e) => {
 ```
 
 経路情報の candidate は複数取りうります。そのため onicecandidate は何度も発火します。なので上記のコードの意図は発火が止まるまで保持し、発火が止まったら出力するようにしています。発火が止まると e.candidate には falsy な値が入ります。（型情報上は null なんだけど undefined が入ってきてよく分からん）
+
+出力された ICE Candidates は
+
+```json
+[
+  {
+    "candidate": "candidate:2806574370 1 tcp 1518214911 192.168.11.3 9 typ host tcptype active generation 0 ufrag 3tTq network-id 1 network-cost 10",
+    "sdpMid": "0",
+    "sdpMLineIndex": 0,
+    "usernameFragment": "3tTq"
+  }
+  {
+    "candidate": "candidate:3649507258 1 udp 2122194687 192.168.11.3 50204 typ host generation 0 ufrag 3tTq network-id 1 network-cost 10",
+    "sdpMid": "0",
+    "sdpMLineIndex": 0,
+    "usernameFragment": "3tTq"
+  }
+]
+```
+
+のようなものです。Private IP が入っていることから経路情報といえます。
 
 そしてこの値を receiver 側に入力します。これもイベントドリブンにするのはコードが複雑になるので createAnswer したときのコードを window.prompt で止めておき、そこから入力して再生させる形で進めます。receiver 側では sender 側から送られてきた candidate を addIceCandidate を使って RTCPeerConnection に全部登録します。
 
