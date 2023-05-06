@@ -186,7 +186,7 @@ navigator.mediaDevices
 
 ## 送信側の SDP を出力する
 
-さて、SDP の交換をしましょう。rfc4566 [SDP](https://www.rfc-editor.org/rfc/rfc4566) は Session Description Protocol の略で、平たく言うと WebRTC で送るものに関する情報を伝えるためのプロトコルです。例えば、
+さて、SDP の交換をしましょう。rfc8866 [SDP](https://www.rfc-editor.org/rfc/rfc8866) は Session Description Protocol の略で、平たく言うと WebRTC で送るものに関する情報を伝えるためのプロトコルです。例えば、
 
 ```json
 {
