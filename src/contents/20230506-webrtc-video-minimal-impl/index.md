@@ -92,6 +92,8 @@ sequenceDiagram
 
 ![マーメイド記法](./mermaid.png)
 
+これは配信側が先に開かれていることを前提としたコードであることに注意しよう。実務の上では 1:N 配信だと後から入ってきた人が SDP オファー出してそれに応えるような仕組みが必要となる。（そういう事情があるので WebSocket ベースのピアリングが便利）
+
 ## connection を作る
 
 WebRTC の中心となるオブジェクトは RTCPeerConnection インスタンスです。これは sender/receiver 双方に作られます。
