@@ -81,7 +81,6 @@ sequenceDiagram
     受信側->>配信側: 自分にセットした localDescription を answer として送る（手書きなりWebSocketなりを使う）
     配信側->>配信側: setRemoteDescription
     配信側->>配信側: onicecandidate を設定し、実行可能になったらICE candidateを送る
-    受信側->>受信側: onicecandidate を設定、実行可能になったらICE candidateを送る
     配信側->>受信側: onicecandidateでICE candidateを送る
     受信側->>受信側: addIceCandidate(new RTCIceCandidate(candidate))
 ```
