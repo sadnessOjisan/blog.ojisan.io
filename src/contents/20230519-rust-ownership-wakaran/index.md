@@ -99,7 +99,7 @@ Rust はこの権利を管理するために所有権という考えを持ち込
 
 Rust ではデフォルトでは効率を考慮してコピーを避けている。ヒープにあるデータ(それを指している変数) に対して = を使った場合、移されたものはデータの実態ではなく参照である。そして所有権システムによってその参照を触れる主体を一つだけに限っているのである。
 
-```
+```rust
 let s1 = String::from("hello hello hello hello hello hello");
 let s2 = s1;
 ```
@@ -108,7 +108,7 @@ let s2 = s1;
 
 そのために = をムーブとして使うことで s1 が持っていたデータに対する 所有権を s2 に移し、s1 を無効化する。その結果
 
-```
+```rust
 let s1 = String::from("hello hello hello hello hello hello"");
 let s2 = s1;
 println!("{}, world!", s1);
@@ -1115,19 +1115,19 @@ where
 
 Send を要求しているため、Send がないとコンパイルが通らないといっている。
 
-## マーカートレイト Send + Sync
+### マーカートレイト Send + Sync
 
 Send は [https://doc.rust-lang.org/std/marker/trait.Send.html](https://doc.rust-lang.org/std/marker/trait.Send.html) で、
 
-Types that can be transferred across thread boundaries.
+> Types that can be transferred across thread boundaries.
 
-である。つまり thread を跨いで使えることを保証する。
+とある。つまり thread を跨いで使えることを保証する。
 
 Sync は [https://doc.rust-lang.org/std/sync/](https://doc.rust-lang.org/std/sync/) で、複数のスレッドからのアクセスを許可できる。
 
 これらはよく「`&T`(`T`への参照)が`Send`なら、型`T`は`Sync` 」と表現される。
 
-[https://doc.rust-jp.rs/book-ja/ch16-04-extensible-concurrency-sync-and-send.html](https://doc.rust-jp.rs/book-ja/ch16-04-extensible-concurrency-sync-and-send.html)
+FYI: [https://doc.rust-jp.rs/book-ja/ch16-04-extensible-concurrency-sync-and-send.html](https://doc.rust-jp.rs/book-ja/ch16-04-extensible-concurrency-sync-and-send.html)
 
 Mutex を使わずにマルチスレッドを実行した際、
 
