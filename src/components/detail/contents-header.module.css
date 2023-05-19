@@ -4,3 +4,6 @@
 .wrapper > *:last-child {
   margin-bottom: 0px;
 }
+.wrapper > .title{
+  word-break: break-all;
+}

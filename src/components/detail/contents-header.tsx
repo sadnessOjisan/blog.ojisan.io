@@ -26,7 +26,7 @@ export const ContentsHeader: ComponentType<{
 
   return (
     <div className={styles.wrapper}>
-      <h1>{markdownMeta.title}</h1>
+      <h1 className={styles.title}>{markdownMeta.title}</h1>
       <p>
         <time dateTime={markdownMeta.created}>{markdownMeta.created}</time>
       </p>
