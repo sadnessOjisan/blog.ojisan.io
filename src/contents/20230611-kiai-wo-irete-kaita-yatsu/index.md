@@ -1,7 +1,7 @@
 ---
 path: /yonde-hosii-kiji
 created: "2023-06-13"
-title: 読んで欲しいブログ記事一覧
+title: 自己紹介としての、読んで欲しいブログ記事一覧
 visual: "./visual.png"
 tags: [雑記]
 userId: sadnessOjisan
@@ -21,6 +21,8 @@ isProtect: true
 
 - 自分はこういうことに関心がありますとアピールしたいもの
 - 頑張って書いたもの
+
+順序は古いものからの時系列です。
 
 ## ESLint の Plugin と Extend の違い
 
