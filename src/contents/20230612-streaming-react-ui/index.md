@@ -671,6 +671,26 @@ useEffect(() => {
 
 ここでのコツは、非同期処理は全部 useEffect 側に寄せることだ。reducer 側ですると reducer が Promise を返すことになってしまう。もし redux を使って thunk や saga を使うのであれば良いかもしれないが useReducer だけの方がシンプルなので自分はそうしている。（redux-saga は良い選択肢だとは思う）
 
+dispatch に専念しているからこそ非同期処理でいつイベントが飛んでくるかわからず、connection 確立後に detect_sender_send_ice_candidates が飛んできても無視するような実装も簡単にかける。
+
+```ts
+case "detect_sender_send_ice_candidates": {
+      if (state.step !== "wait_for_peer_peering_action") {
+        if (state.step === "complete_peer_configure") {
+          return { ...state };
+        }
+        throw new Error("invalid step");
+      }
+
+      return {
+        ...state,
+        step: "wait_for_peer_peering_action",
+        ice: action.payload.iceCandidate,
+        shouldConfigureIce: true,
+      };
+    }
+```
+
 受信側もここでしたことと似たことをすれば良い。onTrack トリガーの Action を追加して、MediaStream を受け取れば再生画面ができるだろう。
 
 ## まとめ
