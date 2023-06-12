@@ -1,6 +1,6 @@
 ---
 path: /yonde-hosii-kiji
-created: "2023-06-13"
+created: "2023-06-11"
 title: 自己紹介としての、読んで欲しいブログ記事一覧
 visual: "./visual.png"
 tags: [雑記]
