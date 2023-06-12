@@ -233,9 +233,9 @@ socket.on("sdp_from_sender", (sdp: RTCSessionDescriptionInit) => {
     .then(() => {
       return pc.createAnswer();
     })
-    .then((answerSdp) => {
-      return pc.setLocalDescription(answerSdp).then(() => {
-        state.socket.emit("sdp_from_receiver", answerSdp);
+    .then((sdp) => {
+      return pc.setLocalDescription(sdp).then(() => {
+        state.socket.emit("sdp_from_receiver", sdp);
       });
     });
 });
@@ -402,12 +402,12 @@ socket.on("sdp_from_sender", (sdp) => {
 
 ```ts
 socket.on("sdp_from_sender", (sdp: RTCSessionDescriptionInit) => {
-  pc.setRemoteDescription(state.peerSdp)
+  pc.setRemoteDescription(sdp)
     .then(() => {
       return pc.createAnswer();
     })
-    .then((answerSdp) => {
-      return pc.setLocalDescription(answerSdp).then(() => {
+    .then((sdp) => {
+      return pc.setLocalDescription(sdp).then(() => {
         // ここに socket が存在する保証はない
       });
     });
@@ -479,7 +479,7 @@ const reducer = (state: State, action: Action): State => {
     case "initialize": {
       return {
         ...state,
-        step: "search_room",
+        step: "wait_for_peer_peering_action",
         socket: action.payload.socket,
         pc: action.payload.pc,
       };
