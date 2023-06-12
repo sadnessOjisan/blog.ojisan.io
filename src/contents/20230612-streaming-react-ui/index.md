@@ -26,7 +26,7 @@ OGP は Flux ぽい画像だ。
 
 (完全版を書くとしたら技術書典かなぁ。WebRTC でマンション買えたら本望だけど、ドラム式洗濯機代くらいになったらうれしいなぁ...)
 
-あと前に書いた https://blog.ojisan.io/webrtc-video-minimal-impl/ で、「WebRTC は３週間しかやってない」と書いたが、実は SkyWay とかを使った実装はなんだかんだ４年くらい経験がある。なのでそれなりに実装パターンは知っているつもりだ。（WebRTC のことは本当に何も知らなかった。だって SkyWay すごいんだもん・・・）
+あと前に書いた https://blog.ojisan.io/webrtc-video-minimal-impl/ で、「WebRTC は３週間しかやってない」と書いたが、実は [SkyWay](https://skyway.ntt.com/ja/) とかを使った実装はなんだかんだ４年くらい経験がある。なのでそれなりに実装パターンは知っているつもりだ。（WebRTC のことは本当に何も知らなかった。だって [SkyWay](https://skyway.ntt.com/ja/) すごいんだもん・・・）
 
 ## WebRTC と組み合わせる時の実装テクニック
 
