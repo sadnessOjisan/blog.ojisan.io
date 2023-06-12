@@ -566,17 +566,17 @@ useEffect(() => {
       dispatch({ type: "start_negotiation" });
     };
 
-    state.socket.on("answer", (answerDescription: RTCSessionDescription) => {
+    state.socket.on("answer", (answer: RTCSessionDescription) => {
       dispatch({
         type: "handle_remote_sdp_arrival",
-        payload: { sdp: answerDescription },
+        payload: { sdp: answer },
       });
     });
 
-    state.socket.on("ice", (senderIceCandidate: RTCIceCandidate) => {
+    state.socket.on("ice", (ice: RTCIceCandidate) => {
       dispatch({
         type: "detect_receiver_send_ice_candidates",
-        payload: { iceCandidate: senderIceCandidate },
+        payload: { iceCandidate: ice },
       });
     });
 
