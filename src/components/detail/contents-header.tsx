@@ -5,10 +5,9 @@ import { Tags } from "../common/tags";
 import * as styles from "./contents-header.module.css";
 
 export const ContentsHeader: ComponentType<{
-  markdownMeta:
-    | NonNullable<
-        Queries.DetailPageQueryQuery["markdownRemark"]
-      >["frontmatter"];
+  markdownMeta: NonNullable<
+    Queries.DetailPageQueryQuery["markdownRemark"]
+  >["frontmatter"];
 }> = ({ markdownMeta }) => {
   if (
     !markdownMeta ||

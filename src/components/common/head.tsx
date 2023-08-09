@@ -23,8 +23,8 @@ export const HeadFactory: ComponentType<Props> = ({
   shouldProtect,
 }) => {
   // 他の場所でも呼び出すなら custom hooks として切り出すべき
-  const siteMetaDataQueryResult: Queries.SiteMetaDataQuery =
-    useStaticQuery(graphql`
+  const siteMetaDataQueryResult: Queries.SiteMetaDataQuery = useStaticQuery(
+    graphql`
       query SiteMetaData {
         site {
           siteMetadata {
@@ -36,7 +36,8 @@ export const HeadFactory: ComponentType<Props> = ({
           }
         }
       }
-    `);
+    `,
+  );
   const baseData = siteMetaDataQueryResult.site?.siteMetadata;
   if (
     !baseData?.title ||

@@ -95,7 +95,7 @@ export const Head = ({ data }: HeadProps<Queries.DetailPageQueryQuery>) => {
   // getImage と違って null を引数に取れないので上で null チェックしている
   // OGP 生成に使われてる関数: https://www.gatsbyjs.com/docs/reference/built-in-components/gatsby-plugin-image/#getsrc
   const imageSrc = getSrc(
-    data.markdownRemark.frontmatter.visual.childImageSharp
+    data.markdownRemark.frontmatter.visual.childImageSharp,
   );
 
   if (!imageSrc) {
