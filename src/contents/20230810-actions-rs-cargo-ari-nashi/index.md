@@ -338,5 +338,3 @@ https://github.com/actions/toolkit/blob/main/packages/exec/src/toolrunner.ts#L48
 ただ置き換えなくても喫緊で何か問題が起きるとも思わない。それでも移行したい人は、actions-rs のように [actions toolkit](https://github.com/actions/toolkit) を使ってそういう抽象化レイヤーを作ると良いと思う。そういうツールを TS で書けるのは良いことだ。
 
 FYI: https://docs.github.com/en/actions/creating-actions/creating-a-javascript-action
-
-ちなみにDockerでやる方法もあるが、ホストOSのmatrixが使えない・もしくはその数だけDockerfileを増やす必要があるのでJSに載せて、OS間の差異吸収はGitHubに任せる（信じる）方がよいと思う。
