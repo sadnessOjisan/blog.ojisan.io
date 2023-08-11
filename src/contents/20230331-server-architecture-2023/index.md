@@ -3,7 +3,7 @@ path: /server-architecture-2023
 created: "2023-03-31"
 title: Webサーバーアーキテクチャ進化論2023
 visual: "./visual.png"
-tags: [c, rust, scala, tcp, nodejs, multi thread, async runtime]
+tags: [c, rust, go, scala, tcp, nodejs, multi thread, async runtime]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false
