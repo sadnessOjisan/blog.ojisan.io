@@ -3,7 +3,7 @@ path: /how-to-read-js
 created: "2020-06-18"
 title: JavaScriptライブラリを読むときのコツ
 visual: "./visual.png"
-tags: [javaScript, nodejs]
+tags: [javascript, nodejs]
 userId: sadnessOjisan
 isFavorite: true
 isProtect: false

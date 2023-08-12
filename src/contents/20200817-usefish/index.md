@@ -3,7 +3,7 @@ path: /to-fish
 created: "2020-08-17 15:00"
 title: fishを使ってみて分かったメリットや設定のコツ
 visual: "./visual.png"
-tags: [fish, dotfile]
+tags: [fish, dotfiles]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false

@@ -3,7 +3,7 @@ path: /actions-rs-cargo-ari-nashi
 created: "2023-08-10"
 title: actions-rs/cargo が非推奨とは言うものの 
 visual: "./visual.png"
-tags: [rust, "github actions"]
+tags: [rust, "github-actions"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false
