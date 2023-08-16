@@ -16,6 +16,15 @@ const config: GatsbyConfig = {
     {
       resolve: `gatsby-plugin-feed`,
       options: {
+        setup: (options) => ({
+          ...options,
+          custom_elements: [
+            {
+              [`atom:link href="${options.query.site.siteMetadata.siteUrl}${options.output}" rel="self" type="application/rss+xml"`]:
+                null,
+            },
+          ],
+        }),
         query: `
           {
             site {
@@ -47,17 +56,15 @@ const config: GatsbyConfig = {
                   url: site?.siteMetadata?.siteUrl + edge.node.frontmatter.path,
                   guid:
                     site?.siteMetadata?.siteUrl + edge.node.frontmatter.path,
-                  custom_elements: [{ "content:encoded": edge.node.html }],
                 });
               });
             },
             query: `
               {
-                allMarkdownRemark(sort: {frontmatter: {created: DESC}}) {
+                allMarkdownRemark(sort: {frontmatter: {created: DESC}}, limit: 10) {
                   edges {
                     node {
                       excerpt
-                      html
                       frontmatter {
                         path
                         title
