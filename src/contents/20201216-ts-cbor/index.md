@@ -3,7 +3,7 @@ path: /ts-cbor
 created: "2020-12-16"
 title: RFCからCBORのデコーダーを作る
 visual: "./visual.png"
-tags: ["node.js"]
+tags: ["nodejs"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false

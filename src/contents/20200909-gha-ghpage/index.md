@@ -3,7 +3,7 @@ path: /gha-ghpage
 created: "2020-09-09"
 title: GitHub Actions と GitHub Pages で yml をフォルダに入れておくだけのお手軽デプロイ
 visual: "./visual.png"
-tags: ["gitHub actions", "gitHub pages"]
+tags: ["github-actions", "github-pages"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false

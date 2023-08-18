@@ -3,7 +3,7 @@ path: /node-oauth2-client
 created: "2022-09-07"
 title: Node.js の OAuth2.0 クライアントを自作する
 visual: "./visual.png"
-tags: ["node.js", "oauth2.0"]
+tags: ["nodejs", "oauth2.0"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false
