@@ -30,6 +30,10 @@ isProtect: false
 
 ただの Post has many Comments な掲示板だ。Railsチュートリアルで作るようなやつだ。
 
+app: https://gochannel.ojisan.dev/
+
+repository: https://github.com/sadnessOjisan/gochann
+
 ## 感想戦
 
 てなわけで、とりあえず動くようになって、いい感じに荒らされたので感想戦をしようと思う。
