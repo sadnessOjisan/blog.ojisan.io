@@ -75,6 +75,14 @@ https://docs.docker.jp/storage/volumes.html
 
 これは docker の機能なので本来は docker compose は不要で docker のコマンドオプションで利用できるものなのだが、この辺の設定を宣言的にファイルに落とし込めるので docker compose を使っている。
 
+あと
+
+```
+RUN apt-get update && apt-get install make && apt-get install -y build-essential
+```
+
+は gcc と make が ubuntu のイメージに入っていなかったので入れた。入っていると思っていた。
+
 ## 分からないこと
 
 ```
