@@ -26,8 +26,6 @@ FROM ubuntu:latest
 
 RUN apt-get update && apt-get install make && apt-get install -y build-essential
 
-COPY . ./workspace
-
 CMD ["tail", "-f", "/dev/null"]
 ```
 
@@ -70,6 +68,12 @@ cc  -g -W -Wall -Wno-unused-parameter -iquote . -pthread -iquote platform/linux 
 ![ホスト](./host.png)
 
 コンテナに入れたのは `tail -f /dev/null` のおかげだ。これがあるとコンテナが終了しない。「何もしないで永遠に実行し続ける」を達成する常套手段だ。
+
+ファイルがホストとコンテナで同期できているのは docker-compose.yaml の volumes のおかげだ。
+
+https://docs.docker.jp/storage/volumes.html
+
+これは docker の機能なので本来は docker compose は不要で docker のコマンドオプションで利用できるものなのだが、この辺の設定を宣言的にファイルに落とし込めるので docker compose を使っている。
 
 ## 分からないこと
 
