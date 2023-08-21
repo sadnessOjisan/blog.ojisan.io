@@ -1,6 +1,6 @@
 ---
 path: /why-hyper
-created: "2023-08-19"
+created: "2023-08-21"
 title: Rust の hyper は何が嬉しいか
 visual: "./visual.png"
 tags: [rust]
@@ -203,6 +203,19 @@ async fn main() {
 https://hyper.rs/guides/0.14/server/hello-world/
 
 で済んでいた。ただ main に tokio の非同期ランタイムを展開するマクロがついているので、tokio が前提のFWであることには間違いない。
+
+### バッファ操作からの解放
+
+std 飲みを使うと、リクエストを読み取る、レスポンスを書き込むには用意した buffer の可変参照越しに行う必要があった。
+
+```rs
+let mut buffer = [0; 1024];
+stream.read(&mut buffer).unwrap();
+```
+
+これはシステムプログラミング縛りでサーバーを書くときの read(2), write(2) に非常に似ている。これはシステムコールのIFがこうなっているので仕方ないのである。見覚えがない人は [server-architecture-2023/#ストリームへの読み書き](https://blog.ojisan.io/server-architecture-2023/#%E3%82%B9%E3%83%88%E3%83%AA%E3%83%BC%E3%83%A0%E3%81%B8%E3%81%AE%E8%AA%AD%E3%81%BF%E6%9B%B8%E3%81%8D) で雰囲気を掴んで欲しい。
+
+それが hyper では `req` としてアクセスできるし、レスポンスも `Ok(Response::new(full("Try POSTing data to /echo")))` として返せる。これはハンドラのテストも書きやすくてとてもいいIFだと思う。
 
 ### ミドルウェアを足す口がある
 
