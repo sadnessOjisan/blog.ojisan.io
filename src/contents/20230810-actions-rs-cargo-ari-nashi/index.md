@@ -1,7 +1,7 @@
 ---
 path: /actions-rs-cargo-ari-nashi
 created: "2023-08-10"
-title: actions-rs/cargo が非推奨とは言うものの 
+title: actions-rs/cargo が非推奨とは言うものの
 visual: "./visual.png"
 tags: [rust, "github-actions"]
 userId: sadnessOjisan
@@ -64,11 +64,11 @@ GitHub Actions では compose できる外部 action は action.yml として定
 
 ```yaml
 runs:
-  using: 'node12'
-  main: 'dist/index.js'
+  using: "node12"
+  main: "dist/index.js"
 ```
 
-とあるので、この処理の本体はそれだ。ただそれはどうみてもビルドした後のコードだ。package.json には 
+とあるので、この処理の本体はそれだ。ただそれはどうみてもビルドした後のコードだ。package.json には
 
 ```
 "build": "rm -rf ./dist/* && ncc build src/main.ts --minify"
@@ -205,7 +205,7 @@ export class RustUp {
 で定義されている。install 部分の肝は
 
 ```ts
-const rustupSh = await tc.downloadTool('https://sh.rustup.rs');
+const rustupSh = await tc.downloadTool("https://sh.rustup.rs");
 await exec.exec(rustupSh, args);
 ```
 
@@ -219,7 +219,7 @@ await exec.exec(rustupSh, args);
 
 ## actions-rs/cargo
 
-```rs
+```yaml
 - uses: actions-rs/cargo@v1
     with:
         command: test
@@ -268,7 +268,7 @@ void main();
 
 `program` は先に見た actins-rs/core だ。
 
-```rs
+```rust
 public static async get(): Promise<RustUp> {
   const exePath = await io.which('rustup', true);
   return new RustUp(exePath);

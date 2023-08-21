@@ -15,7 +15,7 @@ Rust でWebサーバーを書く時の技術選定をするときに調べてい
 
 さて、そんな hyper だが公式の example はこのようになっている。
 
-```rs
+```rust
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
     let addr = SocketAddr::from(([127, 0, 0, 1], 3000));
@@ -98,7 +98,7 @@ TRPLの例だと、GETを処理するためには HTTP ヘッダーをパース�
 
 `GET / HTTP/1.1` という文字列が来たら、
 
-```rs
+```rust
 let (status_line, filename) = if buffer.starts_with(get) {
         ("HTTP/1.1 200 OK\r\n\r\n", "hello.html")
     } else {
@@ -112,7 +112,7 @@ let (status_line, filename) = if buffer.starts_with(get) {
 
 それが hyper では
 
-```rs
+```rust
 async fn echo(
     req: Request<hyper::body::Incoming>,
 ) -> Result<Response<BoxBody<Bytes, hyper::Error>>, hyper::Error> {
@@ -150,7 +150,7 @@ async fn echo(
 
 それが hyper では
 
-```rs
+```rust
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error + Send + Sync>> {
     let addr = SocketAddr::from(([127, 0, 0, 1], 3000));
@@ -178,7 +178,7 @@ async fn main() -> Result<(), Box<dyn Error + Send + Sync>> {
 
 ちなみに version 0.14 時代は自分で spawn を書く必要はなく、
 
-```rs
+```rust
 #[tokio::main]
 async fn main() {
     // We'll bind to 127.0.0.1:3000
@@ -208,7 +208,7 @@ https://hyper.rs/guides/0.14/server/hello-world/
 
 std 飲みを使うと、リクエストを読み取る、レスポンスを書き込むには用意した buffer の可変参照越しに行う必要があった。
 
-```rs
+```rust
 let mut buffer = [0; 1024];
 stream.read(&mut buffer).unwrap();
 ```
@@ -225,7 +225,7 @@ stream.read(&mut buffer).unwrap();
 
 例えば、ルーティングを司る機能を実装し、
 
-```rs
+```rust
 async fn echo(
     req: Request<hyper::body::Incoming>,
 ) -> Result<Response<BoxBody<Bytes, hyper::Error>>, hyper::Error> {
@@ -245,7 +245,7 @@ async fn echo(
 
 これを連鎖的に受け取れる middleware の口を用意してあげる。
 
-```rs
+```rust
 async fn logging_middleware<F>(
     req: Request<hyper::body::Incoming>,
     handler: F,
@@ -270,7 +270,7 @@ where
 
 そしてこれらを Service として登録する。
 
-```rs
+```rust
 tokio::task::spawn(async move {
             if let Err(err) = http1::Builder::new()
                 .serve_connection(
