@@ -206,7 +206,7 @@ https://hyper.rs/guides/0.14/server/hello-world/
 
 ### バッファ操作からの解放
 
-std 飲みを使うと、リクエストを読み取る、レスポンスを書き込むには用意した buffer の可変参照越しに行う必要があった。
+std のみを使うと、リクエストを読み取る、レスポンスを書き込むには用意した buffer の可変参照越しに行う必要があった。
 
 ```rust
 let mut buffer = [0; 1024];
@@ -272,16 +272,16 @@ where
 
 ```rust
 tokio::task::spawn(async move {
-            if let Err(err) = http1::Builder::new()
-                .serve_connection(
-                    io,
-                    service_fn(|req| logging_middleware(req, |req2| Box::pin(echo(req2)))),
-                )
-                .await
-            {
-                println!("Error serving connection: {:?}", err);
-            }
-        });
+    if let Err(err) = http1::Builder::new()
+        .serve_connection(
+            io,
+            service_fn(|req| logging_middleware(req, |req2| Box::pin(echo(req2)))),
+        )
+        .await
+    {
+        println!("Error serving connection: {:?}", err);
+    }
+});
 ```
 
 hyper では router も logger もサービスとして登録できる。
