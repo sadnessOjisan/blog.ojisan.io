@@ -17,7 +17,7 @@ isProtect: false
 
 まず、簡単に HTML を返すサーバーを作る。
 
-```rs
+```rust
 use axum::{response::Html, Router};
 use std::net::SocketAddr;
 
@@ -55,7 +55,7 @@ println();
 
 実は README にもしれっと登場している。
 
-```rs
+```rust
 #[tokio::main]
 async fn main() {
     // initialize tracing
@@ -95,7 +95,7 @@ Rustのトレーシング系のライブラリは tracing, tracing-subscriber �
 
 まず、subsciber の設定をmainに追加する。
 
-```rs
+```rust
 tracing_subscriber::registry()
 .with(
   tracing_subscriber::EnvFilter::try_from_default_env()
@@ -109,7 +109,7 @@ tracing_subscriber::registry()
 
 そしてログを出す。
 
-```rs
+```rust
 #[tracing::instrument]
 async fn handler() -> Html<&'static str> {
     info!("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
@@ -150,7 +150,7 @@ fn g(rng: f32) -> () {
 
 しかし、これだと span の関係が見えてこないが、実は内部的には記録されていて JSON 出力すると見れる。
 
-```rs
+```rust
 .with(tracing_subscriber::fmt::layer().json())
 ```
 
@@ -178,7 +178,7 @@ rng 引数も入っているので、エラーが起きた時はここの値を�
 docker run -d -p6831:6831/udp -p6832:6832/udp -p16686:16686 -p14268:14268 jaegertracing/all-in-one:latest
 ```
 
-```rs
+```rust
 global::set_text_map_propagator(opentelemetry_jaeger::Propagator::new());
 
 let tracer = opentelemetry_jaeger::new_agent_pipeline()
@@ -211,7 +211,7 @@ tracing_subscriber::registry()
 
 opentelemetry には exporter という概念があって、それでログの出力先を決めれる。jaegerに送れたのは jaeger の exporter を利用した体。なので標準出力に出すこともできる。
 
-```rs
+```rust
 let provider = TracerProvider::builder()
     .with_simple_exporter(opentelemetry_stdout::SpanExporter::default())
     .build();
@@ -316,7 +316,7 @@ let telemetry = tracing_opentelemetry::layer().with_tracer(tracer);
 
 ここまでのコードをまとめるとこの様になる。
 
-```rs
+```rust
 use axum::{response::Html, Router};
 use opentelemetry::global;
 use rand::Rng;
