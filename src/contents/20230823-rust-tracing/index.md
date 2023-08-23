@@ -390,7 +390,7 @@ fn g(rng: f32) -> () {
 
 しかしここまでやっておいてなんだが、自分はこれはやりすぎだと思っている。昨日、[オブザーバビリティにはお金がかかる](https://dev.henry.jp/entry/observability-and-cost) というブログがバズっていたが、コストがかかる。jaeger を使うならそれの管理コストはかかるし、SaaSに切り出しても otel 周りの機能はアドオンが必要でコストがかかる。
 
-なので、otel 系のツールを使わずに tracing-subscriber のログをそのまま出すだけでいいと思っている。例えば JSON 形式で出せばそれは構造化ログとして datadog 上で検索可能となり、span を見ればどういう順序で関数を辿ってきたかも記録されている。なので可視化できなくても読み取ることができる。
+なので、otel 系のツールを使わずに tracing-subscriber のログをそのまま出すだけでいいと思っている。otel の tracer を tracing-subscriber のレイヤーに足さなくてもある程度は tracing-subscriber も otel 準拠している。例えば JSON 形式で出せばそれは構造化ログとして datadog 上で検索可能となり、span を見ればどういう順序で関数を辿ってきたかも記録されている。なので可視化できなくても読み取ることができる。
 
 構造化ログでいうと少し落とし穴はあって、GCPが求めるフォーマットとは若干違っていて（ログレベルのキーがSeverityじゃない）、もしGCPに完全準拠させるなら formatter を書く必要があってこれがめんどくさい。一応 [tracing_stackdriver](https://docs.rs/tracing-stackdriver/latest/tracing_stackdriver/) というクレートで対応できるがこれは 3rd party だ。
 
