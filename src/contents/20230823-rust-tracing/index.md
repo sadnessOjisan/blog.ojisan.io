@@ -9,7 +9,7 @@ isFavorite: false
 isProtect: false
 ---
 
-[axum](https://github.com/tokio-rs/axum) を始め、tower 系列（なんかタワレコみたい）でサーバーを作っているといくらでも例が出てきそうな話ではあるが、「ちょっと君、明日からRust でトレーシングしたまえ」って言われた時に欲しいまとまった情報は意外とない気がしたので書く。
+[axum](https://github.com/tokio-rs/axum) を始め、tower 系列でサーバーを作っているといくらでも例が出てきそうな話ではあるが、「ちょっと君、明日からRust でトレーシングしたまえ」って言われた時に欲しいまとまった情報は意外とない気がしたので書く。
 
 基本的に tower 系列や、tower に準ずる様な Service トレイトを持つ様なFWであれば同じ様な話であり、[tracing](https://docs.rs/tracing/latest/tracing/) crate 自体は Agnostic なものなので、ここでは axum を例にあげて書く。
 
