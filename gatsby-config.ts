@@ -90,9 +90,10 @@ const config: GatsbyConfig = {
       },
     },
     {
-      resolve: "gatsby-plugin-google-analytics",
+      resolve: `gatsby-plugin-google-gtag`,
       options: {
-        trackingId: "UA-119542494-2",
+        // You can add multiple tracking ids and a pageview event will be fired for all of them.
+        trackingIds: ["G-XP4330HSF2"],
       },
     },
     "gatsby-plugin-image",

@@ -6967,6 +6967,7 @@ __metadata:
     gatsby-link: ^5.11.0
     gatsby-plugin-feed: ^5.11.0
     gatsby-plugin-google-analytics: ^5.11.0
+    gatsby-plugin-google-gtag: ^5.12.0
     gatsby-plugin-image: ^3.11.0
     gatsby-plugin-manifest: ^5.11.0
     gatsby-plugin-postcss: ^6.11.0
@@ -10674,6 +10675,20 @@ __metadata:
     react: ^18.0.0 || ^0.0.0
     react-dom: ^18.0.0 || ^0.0.0
   checksum: 147049b875c6f8e55982ff21d676b60b971ce01a029957d8cee08fc0050bfc0dd6054d33ea536806f2a3246bf84b5170e39b3342f0512aedbe39b291d9370ec9
+  languageName: node
+  linkType: hard
+
+"gatsby-plugin-google-gtag@npm:^5.12.0":
+  version: 5.12.0
+  resolution: "gatsby-plugin-google-gtag@npm:5.12.0"
+  dependencies:
+    "@babel/runtime": ^7.20.13
+    minimatch: ^3.1.2
+  peerDependencies:
+    gatsby: ^5.0.0-next
+    react: ^18.0.0 || ^0.0.0
+    react-dom: ^18.0.0 || ^0.0.0
+  checksum: 0db584e11c8eb21e1ac59b848b8ed39e53eea9d6a53d0e50042e483ac0829e1f6c4362b0a12298b9a8b5fd677b77856373367e0134184907b0b91241e47e4cbb
   languageName: node
   linkType: hard
 
