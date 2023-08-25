@@ -3,7 +3,7 @@ path: /oreha-private-func-nimo-test-kaku
 created: "2023-08-25"
 title: private 関数にもテストを書きたいとき
 visual: "./visual.png"
-tags: [rust]
+tags: [test, rust, vitest]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false
