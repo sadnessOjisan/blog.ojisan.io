@@ -13,6 +13,8 @@ isProtect: false
 
 ![ツイート](tw.png)
 
+(In-source Testing: <https://vitest.dev/guide/in-source.html>)
+
 反応を見る限り、やはり「private 関数にはテストを書かない」の方が主流だった。Kent Beck先生の <http://shoulditestprivatemethods.com> を紹介するツイートにもそういった反応が寄せられていた。（[ぶんぶんさん、教えてくれてありがとうございます。](https://twitter.com/adoring_onion/status/1694625381217890665?s=20)）
 
 ![kent](./kent.png)
