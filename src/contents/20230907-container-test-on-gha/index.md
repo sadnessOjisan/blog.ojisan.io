@@ -1,6 +1,6 @@
 ---
 path: /container-test-on-gha
-created: "2023-09-06"
+created: "2023-09-07"
 title: ありのままのコンテナを使って E2E テストを GitHub Actions 上で行う
 visual: "./visual.png"
 tags: [docker, "github-actions"]
