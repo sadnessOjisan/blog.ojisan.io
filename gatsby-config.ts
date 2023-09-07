@@ -16,7 +16,8 @@ const config: GatsbyConfig = {
     {
       resolve: `gatsby-plugin-feed`,
       options: {
-        setup: (options) => ({
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        setup: (options: any) => ({
           ...options,
           custom_elements: [
             {
