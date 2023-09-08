@@ -136,6 +136,8 @@ https://togetter.com/li/544905
 
 IN / OUT の情報がしっかり充実していれば、挙動を知るために利用者は実装を読みに行く必要はない。
 
+<https://swagger.io/tools/swagger-ui/>
+
 ## 正しいAPI仕様書を書く
 
 ![slide](./kuso-12.png)
@@ -224,6 +226,8 @@ Notion, Google Docs はオススメしない。コメントに対してリンク
 
 テストだけ別workspace で定義してコンテナ同士でテストするのがマイブーム
 
+<https://blog.ojisan.io/container-test-on-gha/>
+
 ## ログを出す
 
 ![slide](./kuso-19.png)
@@ -246,6 +250,8 @@ opentelemetry 系のツールがオススメ <https://opentelemetry.io/docs/conc
 
 Rust だとマクロ書くだけで実現できたりする
 
+<https://blog.ojisan.io/rust-tracing/>
+
 ![slide](./kuso-21.png)
 
 ## アラートを出す
@@ -266,13 +272,17 @@ Rust だとマクロ書くだけで実現できたりする
 
 JSだと throw new Error() とするだけでなく、カスタムエラーを定義して、throw new MyCustomError() として呼び出そう。
 
+<https://blog.ojisan.io/my-new-error/>
+
 ## エラーにトレースを含める
 
 ![slide](./kuso-24.png)
 
-try { yabaiKansu() } catch (e) { captureError(new MyError())}; とするとエラーを引き起こした原因が追えなくなる。
+`try { yabaiKansu() } catch (e) { captureError(new MyError())};` とするとエラーを引き起こした原因が追えなくなる。
 
 エラーに trace を積む仕組みが Node v18 から使えるようになっているのでそれを使おう。
+
+<https://blog.ojisan.io/my-new-error/>
 
 ## サービス間通信の呼び出し元は明記させる
 
