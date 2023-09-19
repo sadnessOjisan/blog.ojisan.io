@@ -51,14 +51,14 @@ export const HeadFactory: ComponentType<Props> = ({
     throw new Error("data source is invalid");
   }
   const pageTitle = title ? `${title} | ${baseData.title}` : baseData.title;
-  const pageDiscription = description ? description : baseData.description;
+  const pageDescription = description ? description : baseData.description;
   const pageImage = imagePath ? imagePath : baseData.image;
   const pageUrl = path ? `${baseData.siteUrl}${path}` : baseData.siteUrl;
   return (
     <>
       <title>{pageTitle}</title>
       <meta property="og:title" content={title} />
-      <meta name="og:description" content={pageDiscription} />
+      <meta property="og:description" content={pageDescription} />
       <meta property="og:url" content={pageUrl} />
       <meta property="og:type" content={type} />
       <meta property="og:site_name" content={baseData.title} />
