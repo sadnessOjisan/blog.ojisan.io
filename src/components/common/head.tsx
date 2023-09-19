@@ -8,6 +8,7 @@ interface Props {
   created?: string;
   type: "blog" | "article";
   shouldProtect?: boolean;
+  path?: string;
 }
 
 /**
@@ -21,6 +22,7 @@ export const HeadFactory: ComponentType<Props> = ({
   type,
   created,
   shouldProtect,
+  path,
 }) => {
   // 他の場所でも呼び出すなら custom hooks として切り出すべき
   const siteMetaDataQueryResult: Queries.SiteMetaDataQuery = useStaticQuery(
@@ -49,19 +51,20 @@ export const HeadFactory: ComponentType<Props> = ({
     throw new Error("data source is invalid");
   }
   const pageTitle = title ? `${title} | ${baseData.title}` : baseData.title;
-  const pageDiscription = description ? description : baseData.description;
+  const pageDescription = description ? description : baseData.description;
   const pageImage = imagePath ? imagePath : baseData.image;
+  const pageUrl = path ? `${baseData.siteUrl}${path}` : baseData.siteUrl;
   return (
     <>
       <title>{pageTitle}</title>
       <meta property="og:title" content={title} />
-      <meta name="og:description" content={pageDiscription} />
-      <meta property="og:url" content={baseData.siteUrl} />
+      <meta property="og:description" content={pageDescription} />
+      <meta property="og:url" content={pageUrl} />
       <meta property="og:type" content={type} />
       <meta property="og:site_name" content={baseData.title} />
       <meta property="og:image" content={`${baseData.siteUrl}${pageImage}`} />
       <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:url" content={baseData.siteUrl} />
+      <meta name="twitter:url" content={pageUrl} />
       <meta name="twitter:site" content={baseData.twitterUsername} />
       {shouldProtect && <meta name="Hatena::Bookmark" content="nocomment" />}
       {type === "article" && (

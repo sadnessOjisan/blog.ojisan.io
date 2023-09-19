@@ -109,6 +109,7 @@ export const Head = ({ data }: HeadProps<Queries.DetailPageQueryQuery>) => {
       created={data.markdownRemark.frontmatter?.created}
       shouldProtect={!!data.markdownRemark.frontmatter.isProtect}
       description={data.markdownRemark.excerpt}
+      path={`${data.markdownRemark.frontmatter.path}/`}
     />
   );
 };
