@@ -34,8 +34,12 @@
   color: var(--primary-color);
 }
 
-.article > p {
+.article > p, .article > ul {
   margin: 24px 0px;
+}
+
+.article > ul > li {
+  margin: 12px 0px;
 }
 
 .article > div {
