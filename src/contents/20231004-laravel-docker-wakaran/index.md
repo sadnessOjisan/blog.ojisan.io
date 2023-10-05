@@ -1,6 +1,6 @@
 ---
 path: /laravel-docker-wakaran
-created: "2023-10-05"
+created: "2023-10-06"
 title: Laravel を Docker で動かしてホスティングするまで
 visual: "./visual.png"
 tags: [php, laravel, docker]
