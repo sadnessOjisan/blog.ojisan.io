@@ -1,6 +1,6 @@
 ---
 path: /axum-response
-created: "2023-10-12"
+created: "2023-10-13"
 title: axum の router は hyper の上でどのような仕組みでレスポンスを返しているのか
 visual: "./visual.png"
 tags: [rust, tower, axum]
