@@ -266,7 +266,7 @@ registerInstrumentations({
 });
 ```
 
-自動計装系を使うときは必要なものだけ入れるようにしましょう。(e.g. express, fastify, ...)
+自動計装系を使うときはそもそも getNodeAutoInstrumentations を使わずに必要なものだけ入れるようにしましょう。(e.g. express, fastify, ...)
 
 というわけで、いまの例では express を使っているので、@opentelemetry/instrumentation-express を読んでいきましょう。
 
