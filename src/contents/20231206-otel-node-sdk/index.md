@@ -9,6 +9,7 @@ isFavorite: false
 isProtect: false
 ---
 
+[OpenTelemetry Advent Calendar 2023](https://qiita.com/advent-calendar/2023/otel) 6日目は sadnessOjisan がやっていきます。
 約2ヶ月ぶりのブログ。サボった最長記録達成してると思います。何をしていたかはそのうち書きます。今日は OpenTelemetry & JS についてです。
 
 [公式のExample](https://opentelemetry.io/docs/instrumentation/js/getting-started/nodejs/) を使うとすぐに tracing を試せるようになっていますが、一体どういう仕組みで、express サーバーへのリクエストがトレーシングされてログになるのかって不思議じゃないですか？てなわけで調べてみました。
