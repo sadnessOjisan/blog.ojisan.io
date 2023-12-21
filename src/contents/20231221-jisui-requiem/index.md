@@ -97,7 +97,7 @@ isProtect: true
 
 生卵だと思ったら温泉卵買ってた時
 
-![](./onsen.png)
+![](./p5.png)
 
 ## 鍋
 
