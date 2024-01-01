@@ -421,3 +421,152 @@ include の中の deny を宣言するだけ。ファイルのimport先として
 #### strictFunctionTypes
 
 ???
+
+## 2023/10/31
+
+### https://www.typescriptlang.org/tsconfig
+
+#### moduleResolution
+
+Node.js の最新バージョンでは 'node16' または 'nodenext' を指定
+
+bundlerはimportsの相対パスにファイル拡張子を要求しない。TSだけどtype: moduleにしてるときに相性良さそう。
+
+### https://www.typescriptlang.org/docs/handbook/modules/theory.html#module-resolution
+
+#### moduleSuffixes
+
+コンパイル対象の拡張子をしていできる。異なる値で tsconfig 複数作っておけばRN で便利なときがあるらしい。
+
+#### resolvePackageJsonExports / resolvePackageJsonImports
+
+node_modules 読むとき、package.json の exports / imports を見てくれる
+
+#### rootDir
+
+指定した階層にあるものしかプロジェクトで使えなくなる
+
+デフォルト値は、最長のパスになるよう動的に計算される。なので src の親にあるものを参照していたらその親がデフォルト値に入り、tsc したときの成果物に src が含まれる。つまり dist/src/\*.js のようなものができあがる。注意が必要。
+
+#### rootDirs
+
+仮想的なフォルダを作り、指定したフォルダたちが型推論上は同じ場所にあるとみなしてくれるようになる。例えば d.ts だけ別の専用フォルダにまとめたいときとかに使える。
+
+usecase: https://qiita.com/Quramy/items/44ab1a046d58449cd783#rootdirs
+
+#### declarationMap
+
+project reference 使ってるときにあると良いらしい
+
+map ファイルというのも作ってくれて、IDEでのジャンプ時にd.ts ではなく ts ファイルを見れるらしい。
+
+（が、これはライブラリを作る側がそれを作っていたらの話であって、エンドユーザーは恩恵なさそう？）
+
+#### downlevelIteration
+
+古いJSでも使えるような 変換をiterationに対してしてくれる。
+
+今はあまり考えなくて良さそう
+
+#### emitBOM
+
+BOM つきで出せる。
+
+false 推奨
+
+#### emitDeclarationOnly
+
+d.ts だけ吐く。TS -> JS を別ライブラリでやっているときに便利
+
+#### importsNotUsedAsValues
+
+value import が type import として扱われた時の挙動を制御。tsconfig/strictest は error 指定としているが、これはそのような挙動があるとエラーとして警告を出すということ。デフォルト挙動は remove で消すだけ。
+
+#### inlineSourceMap
+
+sourcemap をファイルに埋め込んでくれる
+
+#### newLine
+
+CRLF, LF を指定できる
+
+#### noEmitOnError
+
+デフォルトではfalse, つまりコンパイルエラーになってもファイル出力できるならされる
+
+#### outFile
+
+成果物を1ファイルにまとめられる
+
+ただmodule is None, System, or AMDの場合のみなので出番あまりなさそう
+
+#### stripInternal
+
+internal を jsdoc で指定していたら、型を生成しない
+
+#### maxNodeModuleJsDepth
+
+???
+
+#### disableSizeLimit
+
+TS コンパイラ、実はメモリの上限がある。それをオフにできる
+
+#### plugins
+
+plugin 機能がある。（が、使ったことないからイメージ湧かないや）
+
+Quramyさんのプラグインが公式に言及されていた。
+
+https://github.com/Quramy/ts-graphql-plugin
+
+#### allowSyntheticDefaultImports
+
+`import * as react from 'react'` と書くべきところを `import react from 'react'` と書いても、型検査では問題なくなる。
+
+esModuleInterop の型検査のみバージョン？
+
+see: https://omochizo.netlify.app/posts/2020/08/commonjs-esm/
+
+#### esModuleInterop
+
+esm から cjs を読み込めるように、default をつけてくれる
+
+see: https://omochizo.netlify.app/posts/2020/08/commonjs-esm/
+
+#### isolatedModules
+
+1ファイルとしてトランスパイルできる実装をしないとエラーが出るようになる。tsc でなく babel などで transpile すると、型の情報を知った状態でトランスパイルできない。たとえば
+
+```ts
+import { someType, someFunction } from "someModule";
+
+someFunction();
+
+export { someType, someFunction };
+```
+
+的なコードを書くことができない。なぜなら someType が関数か型かはこのファイルだけではわからないからだ。type 識別子をつけるとOKだが、そうでない場合にエラーとなるようにしてくれるのがこのオプションだ。
+
+#### preserveSymlinks
+
+（何が嬉しいのか？）
+
+#### verbatimModuleSyntax
+
+???
+
+#### jsxImportSource
+
+たとえば emotion では css props を受け取るための専用の React が必要。
+
+### https://speakerdeck.com/recruitengineers/react-2023
+
+- 現在のReactは仮想DOMと言わずにUIツリーと呼ぶ
+- イベントハンドラはDOMに直接アタッチされない, react がイベントを受け取りハンドラを呼び出す、イベントオブジェクトはブラウザの違いを吸収したものとなっており、合成イベントと呼ばれる（syntetic event)
+- hook の前で if 呼ぶと壊れる (= 常に同じ順番で同じ数のhooksを呼ばないといけない、Reactはhookが呼ばれるたびにvdomにhookごとの情報を追加、連結リストで管理)
+  - （だけど、壊れる理由がいまいちまだしっくり来ていない）
+- Array.prototype.with を使った更新
+- コンポーネントの主目的はDOMのレンダリングで、それ以外のリソースの扱いを副作用と定義。コンポーネントはレンダーフェーズで実行。レンダーは破棄されて再実行されることもあるのでべき等であるべき。逆にレンダーフェーズで実行されないコードであれば副作用を持ってもよい。 -> useEffect
+- AbortControllerでクリーンアップを描く
+- useLayoutEffect, DOM更新されたブラウザ画面をペイントする前に実行する関数。スクロール位置の調整とかに使える。
