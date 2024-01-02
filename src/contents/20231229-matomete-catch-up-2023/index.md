@@ -153,7 +153,7 @@ gRPC も同じ怪しさを抱えているのだけど、来年は GraphQL の方
 
 ---
 
-## 2023/10/30
+## 2023/12/30
 
 ### https://developer.mozilla.org/ja/docs/Learn/HTML/Introduction_to_HTML/Getting_started
 
@@ -570,3 +570,120 @@ export { someType, someFunction };
 - コンポーネントの主目的はDOMのレンダリングで、それ以外のリソースの扱いを副作用と定義。コンポーネントはレンダーフェーズで実行。レンダーは破棄されて再実行されることもあるのでべき等であるべき。逆にレンダーフェーズで実行されないコードであれば副作用を持ってもよい。 -> useEffect
 - AbortControllerでクリーンアップを描く
 - useLayoutEffect, DOM更新されたブラウザ画面をペイントする前に実行する関数。スクロール位置の調整とかに使える。
+
+## 2024/1/1
+
+### https://react.dev/learn/start-a-new-react-project
+
+> If you want to build a new app or a new website fully with React, we recommend picking one of the React-powered frameworks popular in the community.
+
+meta framework として使えの話はこれかの気持ち
+
+### https://react.dev/learn/typescript
+
+context を使うときに null かもしれない問題、毎回チェックして例外投げるのは公式推奨だった。
+
+```ts
+const useGetComplexObject = () => {
+  const object = useContext(Context);
+  if (!object) {
+    throw new Error("useGetComplexObject must be used within a Provider");
+  }
+  return object;
+};
+```
+
+子コンポーネントの型には `React.ReactNode` か `React.ReactElement` を使うと良い。 `React.ReactNode`はJSXで渡せる型の全ての型を表現して、`React.ReactElement`は primitive な element を含まない。
+
+### https://react.dev/learn/render-and-commit
+
+trigger -> render -> commit
+
+“Rendering” is React calling your components.
+
+### https://react.dev/learn/state-as-a-snapshot
+
+> Its props, event handlers, and local variables were all calculated using its state at the time of the render.
+
+なので、state からの計算というのが根本
+
+```ts
+import { useState } from 'react';
+
+export default function Counter() {
+  const [number, setNumber] = useState(0);
+
+  return (
+    <>
+      <h1>{number}</h1>
+      <button onClick={() => {
+        setNumber(number + 1);
+        setNumber(number + 1);
+        setNumber(number + 1);
+      }}>+3</button>
+    </>
+  )
+}
+```
+
+は
+
+```
+  setNumber(0 + 1);
+  setNumber(0 + 1);
+  setNumber(0 + 1);
+```
+
+### https://react.dev/learn/queueing-a-series-of-state-updates
+
+いわゆるバッチ概念の解説。同一 setxxx を実行したら最後のものが適用される。
+
+先の　`setNumber(number + 1);` を `setNumber(n => n + 1);` にすると 3 に更新される。n + 1 を3回行うので。
+
+### https://web.dev/learn/accessibility/measure?hl=ja
+
+> アクセシビリティ標準にはさまざまなものがあります。通常は、業種、商品カテゴリ、国や地域の法律やポリシー、または全体的なユーザー補助の目標に応じて、従うべきガイドラインや達成すべきレベルが決まります。プロジェクトに特定の標準が必要ない場合は、最新バージョンの Web Content Accessibility Guidelines（WCAG）に従うことが標準の推奨事項となります。
+
+逆にWCAG以外にガイドラインがあるんだ。
+
+### https://web.dev/learn/accessibility/aria-html?hl=ja
+
+WAI-ARIA は旧称。今は ARIA.
+
+The accessibility treeをDOMから作る
+
+> WebAIM Million 年間ユーザー補助レポートによると、ARIA を実装したホームページは、ARIA を実装していないホームページよりも、主に ARIA 属性の不適切な実装により検出されたエラーが平均 70% 多いことが判明しています。
+
+> キーボードのフォーカスの順序に関する潜在的な問題を防ぐため、可能な限り正の整数でタブ インデックスを使用することは避けてください。
+
+aria-label は使う場面がありそう。特に視覚情報（位置・色）からは当たり前だけど、そうでない場合の注釈には使う場面多そう。
+
+heading は順番を守らないとスクリーンリーダーが使いにくい
+
+### https://web.dev/learn/accessibility/more-html?hl=ja
+
+タグごとに言語指定できたりする。
+
+```html
+<span lang="et">"Kas sa räägid inglise keelt?"</span>
+```
+
+iframe は title を設定する、scrolling を auto にしておくのが良い。iframe内にスクロールバーを追加できる。
+
+### https://web.dev/learn/accessibility/focus?hl=ja
+
+menu の数が多いとき、`#content` のようなリンクを、UI上は非表示にしておいて、skip to main みたいなラベルを与えておけば、そこん飛べるリンクを用意できる。ナビゲーションをtab 連打しないといけないとメインコンテンツにいけないような場合に利用できる。
+
+focus indicator, 目が見えるけどタブを使って移動する人向けに残すべきで消しては行けない。
+
+### https://web.dev/learn/accessibility/javascript?hl=ja
+
+JS書く時も支援ツールのこと意識した方が良い。例えば数秒で消えるnotificationを支援ツールが読み取ってくれるかなど。 -> aria-live が使えそう？
+
+モーダルと a11y (???)
+
+状態管理: メニューが開いているかどうかは aria-expanded で伝えられる。ボタンが押されていることは aria-pressed で伝えられる。
+
+### https://web.dev/learn/accessibility/motion?hl=ja
+
+we'll look at some of the ways to help better support people with all types of movement-triggered disorders. に該当するところが翻訳されていない。
