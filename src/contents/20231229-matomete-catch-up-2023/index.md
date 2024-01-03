@@ -687,3 +687,241 @@ JS書く時も支援ツールのこと意識した方が良い。例えば数秒
 ### https://web.dev/learn/accessibility/motion?hl=ja
 
 we'll look at some of the ways to help better support people with all types of movement-triggered disorders. に該当するところが翻訳されていない。
+
+アニメーションに関するOS設定、@prefers-reduced-motion というメディアクエリで拾える。これによって出し分けられる。
+
+## 2024/1/2
+
+### https://mswjs.io/docs
+
+> MSW uses the Service Worker API to intercept actual production requests on the network level. Instead of patching fetch and meddling with your application’s integrity, MSW bets on the platform, utilizing the standard browser API to implement a revolutionary request interception logic.
+>
+> Even in Node.js, where there are no standard means to intercept requests, MSW uses class extension instead of module patching to ensure your tests run in the environment as close to production as possible.
+
+### https://mswjs.io/docs/getting-started
+
+Node.js で service worker 使えなくねと思っていたが、module patch で拡張してるとのこと。
+
+> Developers come to MSW for various reasons: to establish proper testing boundaries, to prototype applications, debug network-related issues, or monitor production traffic. This makes it all the more challenging to write a single tutorial that would suit all those needs at the same time. In the end, it is your choice how you utilize the capabilities of the library, and we believe it should be you who decides on the right path to follow in this tutorial.
+
+多様なユースケースに対応できる道具の、チュートリアルを書くにあたってはこの文言良いなという気持ちになった。
+
+### https://mswjs.io/docs/basics/intercepting-requests
+
+GraphQL も専用のメソッドでinterceptできる
+
+### https://mswjs.io/docs/basics/mocking-responses
+
+mock のレスポンスは標準のResponseクラスでなく、ライブラリ提供のHttpResponseを使った方が良い
+
+jsonレスポンスは HttpResponse.json() で作った方が良い。ヘッダに application/json 指定してもいいが、冗長
+
+### https://mswjs.io/docs/philosophy
+
+msw が嬉しい理由のほとんどはツール非依存なところ。モックではなく、ネットワークの挙動そのものを再現できる。 = Network behavior
+
+### https://mswjs.io/docs/limitations
+
+firefox では XMLHttpRequest 非対応。つまり ajax できなさそう。けど、msw は開発ツールなので問題ないと考える。
+
+ネットワークの挙動をラップする仕組みなので、並行テストに弱い。msw を使用するときはテストの並列実行を無効にした方が良い。
+
+### https://mswjs.io/docs/migrations/1.x-to-2.x
+
+jest を使うとNode.js globalsにあるべきものが見つからないことがある（fetchとか)。undiciとかから持ってきたメソッドをglobalThisに入れてあげるようなセットアップスクリプトが必要かもしれない。また、JSDOMを使っているときは customExportConditions の条件が必要かもしれない。jestの走るNode.js 環境からbrowser fetchを動かそうとしていることもあるから。 -> react-testing-lib とかでテスト書くときは vitest か jest mock でやった方が良いかもな。
+
+### https://mswjs.io/docs/integrations/browser
+
+`npx msw init <PUBLIC_DIR>` とすれば service worker ファイルを作ってくれるので、それを使えば開発時もモック用のAPIエンドポイントを用意できる。
+
+### https://mswjs.io/docs/integrations/node
+
+テストランナーでやることは
+
+```ts
+beforeAll(() => server.listen());
+afterEach(() => server.resetHandlers());
+afterAll(() => server.close());
+```
+
+### https://mswjs.io/docs/best-practices/custom-request-predicate
+
+高階resolverを作れば、「idというクエパラがあるときはこのレスポンス」みたいな出しわけを作れる。
+
+どのidに対して物共通処理（例えばidの存在チェックなど）は高階resolverの外に書く。
+
+### https://mswjs.io/docs/best-practices/dynamic-mock-scenarios
+
+シナリオごとにデータを管理し、アプリケーションに対してクエパラを与えて、そのクエパラで起動するswを切り替えると、シナリオごとに動作を切り替えられる。
+
+### https://mswjs.io/docs/recipes/response-patching
+
+handler に実在するURL（サードパーティなど）を渡すと、そこへのリクエストもmockしてくれる。
+
+そのとき、bypass を使ってデータを取得した上で、独自の HttpResponse を返せば、既存レスポンスを拡張して返すことができる。
+
+### https://mswjs.io/docs/recipes/polling
+
+ジェネレータを使えば、一定回数呼ばれた後に別のレスポンス返すみたいな実装できる。
+
+### https://mswjs.io/docs/recipes/network-errors
+
+ネットワークエラーは HttpResponse.error() で表現できる。
+
+アプリケーションとしてのエラーの場合は `return new HttpResponse(null, { status: 401 })` を使う。
+
+### https://mswjs.io/docs/recipes/responding-with-binary
+
+fs でファイルをとり、content type を指定すれば、バイナリをレスポンスできる
+
+### https://mswjs.io/docs/recipes/custom-worker-script-location
+
+worker.start するときの引数で、読み込むサービスワーカー切り替えられる
+
+### https://playwright.dev/docs/writing-tests
+
+beforeEach とか、テストの塊ごとに作れる。(jestもそうだっけ？)
+
+```ts
+import { test, expect } from "@playwright/test";
+
+test.describe("navigation", () => {
+  test.beforeEach(async ({ page }) => {
+    // Go to the starting url before each test.
+    await page.goto("https://playwright.dev/");
+  });
+
+  test("main navigation", async ({ page }) => {
+    // Assertions use the expect API.
+    await expect(page).toHaveURL("https://playwright.dev/");
+  });
+});
+```
+
+### https://playwright.dev/docs/running-tests
+
+```
+npx playwright test --debug
+```
+
+でデバッグモードが使える。
+
+```
+npx playwright test example.spec.ts:10 --debug
+```
+
+のような数字指定で break point みたいなことができる。
+
+### https://playwright.dev/docs/ci-intro
+
+`if: github.event.deployment_status.state == 'success'` のような条件をGHAに書けば、デプロイ終了後にデプロイ成果物に対してテストを走らせられる。
+
+### https://playwright.dev/docs/test-annotations
+
+テストにタグ付けできて、実行できる。
+
+```
+import { test, expect } from '@playwright/test';
+
+test('Test login page @fast', async ({ page }) => {
+  // ...
+});
+
+test('Test full report @slow', async ({ page }) => {
+  // ...
+});
+```
+
+```
+npx playwright test --grep @fast
+```
+
+### https://playwright.dev/docs/test-sharding
+
+sharding したら分割したテストをレポーティングのためにマージしないといけない。playwright自体にその機能がある。
+なのでGHAでそれぞれのレポートをアップロードしてからマージすると良い。
+
+```yaml
+jobs:
+---
+merge-reports:
+  # Merge reports after playwright-tests, even if some shards have failed
+  if: always()
+  needs: [playwright-tests]
+
+  runs-on: ubuntu-latest
+  steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 18
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Download blob reports from GitHub Actions Artifacts
+      uses: actions/download-artifact@v3
+      with:
+        name: all-blob-reports
+        path: all-blob-reports
+
+    - name: Merge into HTML Report
+      run: npx playwright merge-reports --reporter html ./all-blob-reports
+
+    - name: Upload HTML report
+      uses: actions/upload-artifact@v3
+      with:
+        name: html-report--attempt-${{ github.run_attempt }}
+        path: playwright-report
+        retention-days: 14
+```
+
+### https://eslint.org/docs/latest/use/getting-started
+
+`npm init @eslint/config -- --config semistandard` で開始できる。--config オプション知らなかった。
+
+### https://eslint.org/docs/latest/use/configure/configuration-files-new
+
+flat config, eslint.config.js おかなくても ESLINT_USE_FLAT_CONFIG で有効化できる。
+
+eslint.config.js の内容は type: "module" かどうかで esm, cjs のどちらで export するかが決まる
+
+デフォルトでは **/\*.js, **/_.cjs, \*\*/_.mjsにマッチ
+
+files, ignore に従って、file objects はカスケーディングされていく。衝突したら後勝ち。
+
+reportUnusedDisableDirectives　というオプションで未使用の disable があるときに炙り出せる。これは CLI のオプションからでも指定できる。
+
+ecmaVersion はデフォルトでは latest, そのJSが古いJSとして評価されることを期待しない限りは latest 推奨。
+
+sourceType で esm, cjs, script を指定できる。何も指定しなければ、.js, .mjs は esm として評価される。
+
+何も設定していないなら、eslint は ecmaVersion 指定で入る global 以外のものを想定しない。ここに特定の global を足したいとき、globals というパッケージから定義を引っ張ってくると便利。
+
+plugin のキー名のところはルール名の指定と対応する。
+
+```js
+import jsdoc from "eslint-plugin-jsdoc";
+
+export default [
+  {
+    files: ["**/*.js"],
+    plugins: {
+      jsd: jsdoc,
+    },
+    rules: {
+      "jsd/require-description": "error",
+      "jsd/check-values": "error",
+    },
+  },
+];
+```
+
+eslint 自体には predefined な rule がある。
+
+```js
+import js from "@eslint/js";
+
+export default [js.configs.recommended];
+```
+
+で有効化できる。
