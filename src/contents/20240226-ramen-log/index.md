@@ -97,6 +97,12 @@ SUSURUの戦国時代に準えるコメントも面白い。
 
 ![](./dame2.png)
 
+![](./dame3.png)
+
+![](./dame4.png)
+
+![](./dame5.png)
+
 <div
   style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;"
 >
@@ -106,6 +112,9 @@ SUSURUの戦国時代に準えるコメントも面白い。
 ## 銀座・篝
 
 銀座とついているが大手町にもある。
+
+![](./kagari7.png)
+
 大手町を通るときは行くようにしている。
 鶏白湯系なんだけど、何かスープに色々なものが溶けてて不思議な味。
 うまい。
@@ -120,6 +129,25 @@ SUSURUの戦国時代に準えるコメントも面白い。
 ![](./kagari4.png)
 
 ![](./kagari5.png)
+
+![](./kagari6.png)
+
+![](./kagari8.png)
+
+![](./kagari9.png)
+
+![](./kagari10.png)
+
+![](./kagari11.png)
+
+![](./kagari12.png)
+
+![](./kagari13.png)
+
+たまごかげご飯に乗ってる佃煮が旨い。
+あと親子丼も旨い。
+親子丼を頼むとラーメン食べれないじゃんと思うかもしれないが、スープだけ付いてくる。
+最高かよ。
 
 ## 入鹿TOKYO
 
