@@ -1,9 +1,9 @@
 ---
 path: /frankenphp-on-cloudrun
-created: "2024-03-07"
+created: "2024-03-06"
 title: FrankenPHP を CloudRun で動かして、1イメージだけでサーバーを実行できるのか試してみる
 visual: "./visual.png"
-tags: [php]
+tags: [php, laravel, docker, cloudrun]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false
@@ -11,9 +11,11 @@ isProtect: false
 
 ## 隙あらば自分語り１
 
-3/7 に phperkaigi で話します。
+3/8 14:40-15:20 に [PHPerKaigi](https://phperkaigi.jp/2024/) で話します。
 PHP を Docker に固めてデプロイするときに ApacheやらNginxが求められることに対して、そもそも Webサーバーとは何かという話をします。
 FrankenPHPも、Dockerに固めてデプロイするときの解決策の一つとして紹介します。
+
+see: https://fortee.jp/phperkaigi-2024/proposal/42d9e721-b3e8-4a7d-ae88-1727ccfabf9b
 
 ## 隙あらば自分語り２
 
@@ -207,7 +209,7 @@ local では簡単に動きますがCICDからのデプロイは.envやvendorが
 
 まずGitHub上ではvendorはないので composer install する必要があります。
 
-```
+```dockerfile
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 RUN composer install
 ```
@@ -215,13 +217,13 @@ RUN composer install
 composer install するときに Git を要求されるので Git も入れておきます。
 zip, unzpi もあった方が良いのですが最小構成では不要なので無視します。
 
-```
+```dockerfile
 RUN apt-get update && apt-get install -y git
 ```
 
 そして frankenphp の実体(Goのバイナリ)も必要なので入れます。
 
-```
+```dockerfile
 RUN php artisan octane:install --server frankenphp -n
 ```
 
@@ -229,13 +231,13 @@ RUN php artisan octane:install --server frankenphp -n
 localでは .envに入っていますがGitの管理外なので設定が必要です。
 以下は無理やりベタに書いていますがきちんとシークレットマネージャなどを経由させてください。
 
-```
+```dockerfile
 ENV APP_KEY=base64:5L/VjaStUDxxa9CoUaea9YaldmcB/3GijfewswWP+6s=
 ```
 
 そして Cloudrun では 8080 ポートを開放かつ、グローバルなホストが必要なのでその設定で起動させます。
 
-```
+```dockerfile
 EXPOSE 8080
 ENTRYPOINT ["php", "artisan", "octane:frankenphp", "--port", "8080", "--host", "0.0.0.0"]
 ```
@@ -244,7 +246,7 @@ ENTRYPOINT ["php", "artisan", "octane:frankenphp", "--port", "8080", "--host", "
 
 と言うわけでこれが完成系です。
 
-```
+```dockerfile
 FROM dunglas/frankenphp
 
 ENV APP_KEY=base64:5L/VjaSaeDxxa9CoUaea9YaldmcB/3GijTkdiej+6s=
