@@ -20,7 +20,7 @@ aiko のライブに行くと「男子ー？」「女子ー？」「メガネー
 
 ## なにを話したのか
 
-Laravel を Docker で動かす際に Apache や Nginx を要求されることに対して、そもそもWebサーバーは並行プログラミングと密接な関係があるので、並行プログラミングのパラダイム紹介とPHPでの並行プログラミングの事例紹介をして Nginx や Apache の必要性を解き、最後に新しい選択肢として、PHP に M:N のグリーンスレッドを持ち込める FrankenPHP を紹介しました。
+Laravel を Docker で動かす際に Apache や Nginx を要求されることに対して、そもそもWebサーバーは並行プログラミングと密接な関係があるので、並行プログラミングのパラダイム紹介とPHPでの並行プログラミングの事例紹介をして Apache や Nginx の必要性を解き、最後に新しい選択肢として、PHP に M:N のグリーンスレッドを持ち込める FrankenPHP を紹介しました。
 
 <div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.1972%;"><iframe class="speakerdeck-iframe" frameborder="0" src="https://speakerdeck.com/player/482c7e00317c46c7ba50c5928c6f7a6f" title="サーバーとは何かを理解して、コンテナ1つで実行しよう | PHPerKaigi2024" allowfullscreen="true" style="border: 0px; background: padding-box padding-box rgba(0, 0, 0, 0.1); margin: 0px; padding: 0px; border-radius: 6px; box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 40px; width: 100%; height: auto; aspect-ratio: 560 / 315;" data-ratio="1.7777777777777777"></iframe></iframe></div>
 
