@@ -1,7 +1,7 @@
 ---
 path: /proprietary-search
 created: "2024-03-13"
-title: AlogoliaでOSSじゃない文書も実質タダで全文検索したい
+title: AlgoliaでOSSじゃない文書も実質タダで全文検索したい
 visual: "./visual.png"
 tags: [docusaurus, algoria]
 userId: sadnessOjisan
