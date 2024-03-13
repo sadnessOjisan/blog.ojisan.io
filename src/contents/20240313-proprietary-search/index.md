@@ -13,6 +13,12 @@ ISUCONのチートシートを作った時の話です。
 なんで4月にISUCONの話をするのかと言うと、今日 [ISUNARABE LT#1](https://isunarabe.connpass.com/event/310556/) だからです。
 スライドからはみ出た内容をブログにしました。
 
+<div
+  style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;"
+>
+<iframe style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" src="https://speakerdeck.com/player/298ef05ffaf84a20ac31da0bea2e3018" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+</div>
+
 タイトルは琵琶湖くんリスペクトです。
 
 <div
