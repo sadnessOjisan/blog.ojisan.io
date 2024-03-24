@@ -150,11 +150,7 @@ pub async fn root() -> &'static str {
 
 動いた！！！！！！！！！！！！！！！！！！！！！
 
-Axum や tower については rust.tokyo2023 でトークしたことがあるので、興味がある人は見て欲しい。
-
-<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.1972%;"><iframe class="speakerdeck-iframe" frameborder="0" src="https://speakerdeck.com/player/35c527ff800f44c4a4603e72579f1959" title="かにさんタワーバトル" allowfullscreen="true" style="border: 0px; background: padding-box padding-box rgba(0, 0, 0, 0.1); margin: 0px; padding: 0px; border-radius: 6px; box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 40px; width: 100%; height: auto; aspect-ratio: 560 / 315;" data-ratio="1.7777777777777777"></iframe></div>
-
-## それではバグらせていきます
+## それでは壊していきます
 
 さて、うまく行ったらこんなブログを書くわけがないので、壊れていく例を見せる。
 エッジサービスを使う目的の大多数はリバースプロキシ目的だと思う。
