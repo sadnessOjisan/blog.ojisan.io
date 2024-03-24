@@ -24,7 +24,6 @@ worker = { git = "https://github.com/cloudflare/workers-rs", branch="kflansburg/
 Cloudflare Workers では少し前から Rust が動いていた。
 (正確には動いているのは WebAssembly だが。)
 Cloudflare Workers は V8 ベースの技術に立っているので、WebAssembly がそのまま動くし、つまり WebAssembly に変換できたらコンパイル前の言語は何であっても良い。
-つまり Rust が動く。
 ちなみに V8 で動くものに変換できたらいいので hoge to JS なトランスパイラがある言語は全部動く。
 
 その中でも Rust は [worker-rs](https://github.com/cloudflare/workers-rs) という crate があって、さまざまな API にアクセスできる SDK が揃っている。
@@ -80,7 +79,7 @@ see: https://github.com/cloudflare/workers-rs#or-use-the-router
 
 see: https://github.com/cloudflare/workers-rs/releases/tag/v0.0.21
 
-このとき、http というクレートと互換性を持ってしまい、その結果 Cloudflare Workers 上で Axum が動くようになってしまった。
+このとき、http というクレートと互換性を持つようになったので、その結果 Cloudflare Workers 上で Axum が動くようになってしまった。
 
 一応、Cloudflare Workersの上で Axum を動かす方法は前々からあった。
 だがそれは [axum-cloudflare-adapter](https://github.com/logankeenan/axum-cloudflare-adapter) というのを使って強引に動かしていた。
