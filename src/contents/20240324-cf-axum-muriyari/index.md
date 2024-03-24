@@ -1,7 +1,7 @@
 ---
 path: /cf-axum-muriyari
 created: "2024-03-24"
-title: Axum を苦し紛れに Cloudflare Workers で動かす
+title: 頑張って Axum を Cloudflare Workers で動かす
 visual: "./visual.png"
 tags: ["cloudflare workers", "axum", "rust"]
 userId: sadnessOjisan
