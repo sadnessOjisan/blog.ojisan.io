@@ -162,7 +162,7 @@ server action を知った後に実際に使ってみると、できることが
 そのモヤモヤを晴らしてくれる章だった。
 いろんな実装パターンやテクニックを紹介してくれる。
 
-cache purge と refresh を同じ場所に置いたり、useFormState, useFormStatus といったserver action前提のhoooksや、useOptismitics との組み合わせを学べる。
+cache purge と refresh を同じ場所に置いたり、useFormState, useFormStatus といったserver action前提のhoooksや、useOptismic との組み合わせを学べる。
 実例があることが本当に嬉しかった章だ。
 
 #### 第10章: パフォーマンスとキャッシュ
