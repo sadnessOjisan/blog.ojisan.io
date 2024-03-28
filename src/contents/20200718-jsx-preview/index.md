@@ -29,7 +29,7 @@ ogpng では JSX からの OGP 画像をサポートしたのですが、それ�
 ## そもそもどうやって HTML を画像化していたか
 
 ogpng では左がエディタ(monaco-editor を使っています)、右が preview です。
-具体的には、React + NextJS + react-monaco-editor を使っています。
+具体的には、React + Next.js + react-monaco-editor を使っています。
 
 HTML のプレビューは、monaco-editor に入力した HTML を React の dangerouslySetInnerHTML を使ってレンダリングすることで実現しています。
 そしてその プレビューの DOM を [dom-to-image](https://github.com/tsayen/dom-to-image) で画像として出力しています。

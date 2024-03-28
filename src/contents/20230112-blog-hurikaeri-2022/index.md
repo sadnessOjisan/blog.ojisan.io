@@ -85,11 +85,11 @@ isProtect: true
 
 <https://b.hatena.ne.jp/entry/s/blog.ojisan.io/i-hate-infinite-scroll/>
 
-### React ユーザー向けの NextJS ガイド
+### React ユーザー向けの Next.js ガイド
 
 会社ではじめて Next 書く人向けのチュートリアルを担当したので、そのとき話したことを文書化しました。
 
-![React ユーザー向けの NextJS ガイド](./next.png)
+![React ユーザー向けの Next.js ガイド](./next.png)
 
 <https://blog.ojisan.io/next-tutorial-for-react-user/>
 

@@ -1,7 +1,7 @@
 ---
 path: /next-nest-ng
 created: "2022-05-05"
-title: NextJS でコンテンツモデルを無視してHTMLを書くと Dev サーバーでエラー扱いになる理由を調べた
+title: Next.js でコンテンツモデルを無視してHTMLを書くと Dev サーバーでエラー扱いになる理由を調べた
 visual: "./visual.png"
 tags: ["react", "nextjs"]
 userId: sadnessOjisan
@@ -26,7 +26,7 @@ Error: Hydration failed because the initial UI does not match what was rendered 
 
 ## 実験
 
-どういう HTML が NextJS 的に NG になるのか実験する。
+どういう HTML が Next.js 的に NG になるのか実験する。
 
 これは OK
 
@@ -221,7 +221,7 @@ FYI: <https://github.com/vercel/next.js/discussions/35773>
 
 結局はちゃんとタグを書こうという話ではあるのだが、どうしてこのルールを破ると Next はエラーとして警告を出すのだろうか。
 
-### NextJS ではいつトースターが出るのか
+### Next.js ではいつトースターが出るのか
 
 トースターが出る条件については実験をするとわかる。
 
@@ -252,7 +252,7 @@ export default () => {
 const recoverableError = new Error(
   "There was an error while hydrating. Because the error happened outside " +
     "of a Suspense boundary, the entire root will switch to " +
-    "client rendering."
+    "client rendering.",
 );
 ```
 

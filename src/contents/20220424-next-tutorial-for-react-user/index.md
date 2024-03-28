@@ -1,7 +1,7 @@
 ---
 path: /next-tutorial-for-react-user
 created: "2022-04-24"
-title: React ユーザー向けの NextJS ガイド
+title: React ユーザー向けの Next.js ガイド
 visual: "./visual.png"
 tags: ["react", "nextjs"]
 userId: sadnessOjisan
@@ -9,7 +9,7 @@ isFavorite: false
 isProtect: false
 ---
 
-最近会社で NextJS のチュートリアルを担当することがあったり、これからもあるので資料として記事をしたためておこうと思う。
+最近会社で Next.js のチュートリアルを担当することがあったり、これからもあるので資料として記事をしたためておこうと思う。
 対象は、React は知っているけどこれから Next を学ぼうとする人が想定。
 つまり React 単体と Next の差分をまとめる。
 
@@ -148,7 +148,7 @@ const TestPage: VoidFunctionComponent<Props> = (props) => {
 export default TestPage;
 
 export const getServerSideProps: GetServerSideProps<Props> = async (
-  context
+  context,
 ) => {
   return {
     props: { hoge: "hogeeeeeee" },

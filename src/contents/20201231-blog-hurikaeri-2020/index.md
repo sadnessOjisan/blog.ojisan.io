@@ -55,7 +55,7 @@ ex)
 
 - [gatsby-plugin-netlify-cache のキャッシュが効かない](https://blog.ojisan.io/gatsby-meet-netlify-botsu)
 - [stripe を使った決済機能の実装方法を学ぶ前に知っとくといい全体感](https://blog.ojisan.io/how-to-stripe)
-- [NextJS で linaria を動かすために知っておくと良いこと](https://blog.ojisan.io/next-linaria-setup)
+- [Next.js で linaria を動かすために知っておくと良いこと](https://blog.ojisan.io/next-linaria-setup)
 
 他の人にとっては困っていない内容だったりもするので、「なんでこんな内容でブログ書くの？」と言われたこともありますが、それは自分がわからなかったからです。
 自分にとっては当たり前ではなかったものはちゃんと記事にして文書化していきたいと思っています。

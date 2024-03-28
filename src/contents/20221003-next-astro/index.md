@@ -15,7 +15,7 @@ isProtect: false
 
 ## Dynamic Routing
 
-Routing 自体は NextJS と同じようにできる。つまり `pages/` に `[id].astro` のようなものを作れば良い。それが URL になる。
+Routing 自体は Next.js と同じようにできる。つまり `pages/` に `[id].astro` のようなものを作れば良い。それが URL になる。
 この id は `const { id } = Astro.params;` のようにして取れる。Next と違って context は無いが、Astro という名前空間から取ってこれる。
 
 ## getStaticPaths

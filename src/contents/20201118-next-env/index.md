@@ -1,7 +1,7 @@
 ---
 path: /next-env
 created: "2020-11-18"
-title: NextJS における環境変数まわりの挙動まとめ
+title: Next.js における環境変数まわりの挙動まとめ
 visual: "./visual.png"
 tags: ["nextjs", "vercel"]
 userId: sadnessOjisan

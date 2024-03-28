@@ -1,7 +1,7 @@
 ---
 path: /next-linaria-setup
 created: "2020-12-18"
-title: NextJS で linaria を動かすために知っておくと良いこと
+title: Next.js で linaria を動かすために知っておくと良いこと
 visual: "./visual.png"
 tags: ["nextjs", "linaria"]
 userId: sadnessOjisan

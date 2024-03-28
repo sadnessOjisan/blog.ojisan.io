@@ -56,7 +56,7 @@ Web 標準, Rust
 
 ![lp](./websocket.png)
 
-## React ユーザー向けの NextJS ガイド
+## React ユーザー向けの Next.js ガイド
 
 https://blog.ojisan.io/next-tutorial-for-react-user/
 

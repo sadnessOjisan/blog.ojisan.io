@@ -1,7 +1,7 @@
 ---
 path: /s3-next-deploy
 created: "2020-06-28"
-title: S3 に NextJS 製 App をデプロイできるか
+title: S3 に Next.js 製 App をデプロイできるか
 visual: "./visual.png"
 tags: [s3, nextjs]
 userId: sadnessOjisan
@@ -15,7 +15,7 @@ Lambda@Edge が必要で、さらに Lambda をルーティングごとに実行
 
 Static HTML Export での運用であれば、少し工夫をすれば CloudFront を使わずに S3 だけでもデプロイできるのでその解説をします。
 
-## NextJS は Static HTML Export 機能がある
+## Next.js は Static HTML Export 機能がある
 
 NextJS は SSR を容易にしてくれる FW という印象がありますが、Static HTML Export 機能も備わっており、SSR の対象を事前に Rendering して静的ページを吐き出すことができます。
 このページをホスティングすれば NodeJS 以外の環境でも NextJS を動かすことができます。
