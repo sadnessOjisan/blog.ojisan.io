@@ -1,7 +1,7 @@
 ---
 path: /syohyo-jissenn-next
 created: "2024-03-28"
-title: Next.jsを初心者向けツールとして捕らえている自分が、実践 Next.js を読んでみて
+title: Next.jsを初心者向けツールとして捉えている自分が、実践 Next.js を読んでみて
 visual: "./visual.png"
 tags: [javascript, nextjs]
 userId: sadnessOjisan
