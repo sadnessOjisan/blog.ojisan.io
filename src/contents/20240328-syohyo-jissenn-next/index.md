@@ -10,6 +10,7 @@ isProtect: false
 ---
 
 この記事は [実践 Next.js](https://gihyo.jp/book/2024/978-4-297-14061-8) の書評です。
+見本誌を頂いた上での記事です。（PR記事？）
 
 ![](./book.png)
 
