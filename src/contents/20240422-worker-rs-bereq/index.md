@@ -9,11 +9,11 @@ isFavorite: false
 isProtect: false
 ---
 
-今月と来月、Software Design で　Cloudflare Workers の連載を担当しています。
+今月と来月、Software Design で Cloudflare Workers の連載を担当しています。
 [Software Design 2024年5月号](https://gihyo.jp/magazine/SD/archive/2024/202405) では「エッジとHTTP Caching」というタイトルで書き、そのタイトル通りの内容を書きました。
 そして6月号はCloudflare Workers を Rust で利用することについて書きます。
 今日は5月号の原稿のうち、分量的に溢れてしまったことを書きます。
-元々 Rust で HTTP Caching させる記事を書いており、その中に登場する Rust を使った　Backend Request　について書きます。
+元々 Rust で HTTP Caching させる記事を書いており、その中に登場する Rust を使った Backend Request について書きます。
 
 今日のOGPは、[その連載に誘ってくれた人](https://twitter.com/__syumai)のアイコンの一部です。 (アイコン作: [@\_tanakaworld](https://x.com/_tanakaworld))
 
