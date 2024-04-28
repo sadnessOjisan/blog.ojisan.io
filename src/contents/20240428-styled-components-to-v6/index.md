@@ -128,8 +128,10 @@ function shouldForwardProp(propName, target) {
 ```
 
 `shouldForwardProp` を埋め込んだ `StyleSheetManager` でアプリ全体を囲えばOKというわけだ。
-
 ただやはり正攻法としてはtransient-propsを使っていきたいですな。
+
+ちなみにこれの面白いところは、emotionのパッケージを読み込んでいるところだ。
+そしてこのコードは styled-components の公式のコードである。
 
 ### props で呼び出す型引数の明示
 
