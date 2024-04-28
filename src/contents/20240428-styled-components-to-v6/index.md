@@ -86,7 +86,6 @@ HTMLのattributeには存在していないはずのものだ。
 
 ```jsx
 <Flex
-  bg={variables.BACKGROUND.HOKUTO_BLUE}
   width="100vw"
   position="fixed"
   bottom="0"
