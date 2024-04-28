@@ -9,7 +9,7 @@ isFavorite: false
 isProtect: false
 ---
 
-少し前に Next.js の v12 から v14 への update を依頼されたことがあり、必然的に React のアップデートもするのだが、そのときに先に styled-components を update しなければいけないという状況に陥った。
+少し前に Next.js の v12 から v14 への update を依頼されたことがあり、必然的に React のアップデートもするのだが、そのときに先に [styled-components](https://styled-components.com/) を update しなければいけないという状況に陥った。
 普段は CSS modules や tailwind を使っているのでもう s-c の記憶は朧げであり、updateにかなり苦労したのでその時のメモである。
 
 ## どうして v6 へのアップデートが必要になったのか
@@ -49,7 +49,7 @@ see: https://styled-components.com/docs/faqs#what-do-i-need-to-do-to-migrate-to-
 ### 型定義ファイルの削除
 
 v6 から TypeScript サポートが入り、d.ts がライブラリに含まれる。
-そのため @types/styled-components がいらなくなる。
+そのため [@types/styled-components](https://www.npmjs.com/package/@types/styled-components) がいらなくなる。
 
 ### snapshot test を更新する
 
