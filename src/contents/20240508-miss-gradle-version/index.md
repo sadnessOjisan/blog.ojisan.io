@@ -25,6 +25,8 @@ Could not open init generic class cache for initialization script '/private/var/
 
 みたところ Gradle が何かおかしいようです。
 
+Gradle も JVM も Kotlin も InteliJ の設定が全部面倒見てくれるはずなので、new project でビルドが通らないというのは「ほにゅ？」となりました。
+
 ## Gradle と Java の対応を合わせる
 
 Java と Gradle のバージョンが合っていないときにこのエラーが出るらしいです。
