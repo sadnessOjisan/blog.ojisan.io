@@ -1,7 +1,7 @@
 ---
 path: /miss-gradle-version
 created: "2024-05-08"
-title: InteliJ で作った Kotlin new Project が Gradle のバージョン設定が古くてビルドできなかった
+title: InteliJ で作った new Kotlin Project が、Gradle のバージョン設定が古くてビルドできなかった
 visual: "./visual.png"
 tags: ["kotlin", "intelij", "gradle"]
 userId: sadnessOjisan
