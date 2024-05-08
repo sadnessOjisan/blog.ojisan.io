@@ -80,5 +80,6 @@ sleep 5 && nginx -s reload &
 htpasswdは Apache のためのようにも思えますが、Nginx も auth_basic_user_file で htpasswd を指定するとBasic認証ができます。
 そのため htpasswd を作り、それをコンテナ立ち上げ時にdefault設定されているNginxの設定に対して htpasswd を使うように書き換えます。
 そうすることで Basic 認証が実現できます。
+上の設定では、usernameをhoge, passwordをfugafugaでログインできます。
 
 このやり方は https://github.com/ravindu1024/swagger-ui-basic-auth/blob/master/Dockerfile にある Dockerfile を参考にしました。
