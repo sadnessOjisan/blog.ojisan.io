@@ -1,7 +1,7 @@
 ---
 path: /pokeka-hajimeta
 created: "2024-09-12"
-title: ポケカ始めた
+title: ポケカ始めた、対戦相手求
 visual: "./visual.png"
 tags: ["雑記"]
 userId: sadnessOjisan
