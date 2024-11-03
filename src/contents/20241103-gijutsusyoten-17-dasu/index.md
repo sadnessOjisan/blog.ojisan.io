@@ -21,7 +21,7 @@ https://techbookfest.org/product/riz8dNLcwjV00bygdf5rAt
 
 でも、これから完成品になるから！！！！！！
 
-いま書くと！！！！！！
+いま買うと！！！！！！
 
 お得！！！！！！！！！！！！！！
 
