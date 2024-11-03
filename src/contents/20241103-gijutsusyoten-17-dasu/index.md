@@ -13,6 +13,8 @@ isProtect: false
 
 なんと！！！今日だけ！！！半額で販売します！！！！！！！
 
+https://techbookfest.org/product/riz8dNLcwjV00bygdf5rAt
+
 なぜなら！！！！！！！！！
 
 完成品にまだなっていないから！！！！！！！！！！
