@@ -9,14 +9,18 @@ isFavorite: false
 isProtect: false
 ---
 
-悪い人たちに唆されたので1人アドベントカレンダーやります。
+悪い人たちに唆されたので[1人アドベントカレンダー](https://adventar.org/calendars/11050) やります。
+彼らが本当に悪いのは、その人たちも1人アドベントカレンダーをやるということです。
+外堀を埋めるな！
+
 OGPは、火災報知器が鳴ったときの画像です。
 マンションで誰かの家で火事になると、全てのインターホンがこんな感じになって、めちゃくちゃうるさい音が鳴ります。
 初見だとかなりビックリするので鳴ってる動画とか一度見ておいた方が良いです。
 あと、いざ避難するときは、どうやって避難したらいいかが頭がパニックになって分からなくなってしまうので、避難経路や持って逃げるものはあらかじめ知っておいた方が良いです。
 自分は危うく Wifi しか繋がらないスマホを持って逃げるところでした。
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/Fmfe2R1-g9E?si=czOtyBQOqR3Tcluz" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;"><iframe style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" src="https://www.youtube.com/embed/Fmfe2R1-g9E?si=czOtyBQOqR3Tcluz" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</div>
 
 ## なぜいま Firebase でアドベントカレンダーを書くのか
 
