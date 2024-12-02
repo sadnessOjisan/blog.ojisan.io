@@ -1,7 +1,7 @@
 ---
 path: /firebase-id-saiban
 created: "2024-12-02"
-title: Firestore の ID 採番は雑にやってもいいのか
+title: Firestore の ID 採番を人力でやりたい
 visual: "./visual.png"
 tags: ["firebase"]
 userId: sadnessOjisan
