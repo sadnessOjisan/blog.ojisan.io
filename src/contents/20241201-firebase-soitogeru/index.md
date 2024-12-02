@@ -1,6 +1,6 @@
 ---
 path: /firebase-soitogeru
-created: "2024-12-02"
+created: "2024-12-01"
 title: Firebase と添い遂げるアドベントカレンダーをやるよ
 visual: "./visual.png"
 tags: ["firebase"]

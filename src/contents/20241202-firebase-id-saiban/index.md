@@ -1,6 +1,6 @@
 ---
 path: /firebase-id-saiban
-created: "2024-12-01"
+created: "2024-12-02"
 title: Firestore の ID 採番は雑にやってもいいのか
 visual: "./visual.png"
 tags: ["firebase"]
