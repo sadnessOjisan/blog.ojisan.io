@@ -29,7 +29,7 @@ OGP 画像は
 ```html
 <meta
   property="og:image"
-  content="https://twiogp.ojisan.dev/images/shirankedo.png"
+  content="/images/shirankedo.png"
 />
 ```
 
