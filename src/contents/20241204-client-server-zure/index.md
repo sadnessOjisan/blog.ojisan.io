@@ -70,7 +70,7 @@ private constructor を持っているので `z.instanceof` が使えないワ�
 see: [型安全firestore](https://zenn.dev/arark/articles/9ef42ee801050e0f9b88)
 
 この人のやり方は必要に応じて型を上書きしているのだが、このやり方は使いたいフィールドや機能が増えたときに面倒なので綺麗な方法ではない。
-綺麗な方法で良いなら、自分はclient/admin共通の型定義を作り、それを z.extend で client 向けと admin 向けのスキーマを作り、そこからclient 向けと admin 向けのスキーマを作るだろう。
+綺麗な方法で良いのならば、自分はclient/admin共通の型定義を作り、それを z.extend で client 向けと admin 向けのスキーマを作り、そこからclient 向けと admin 向けのスキーマを作る方法も取るかもしれない。
 
 ```js
 const sharedSchema = z.object({
@@ -92,7 +92,8 @@ export const adminSchema = sharedSchema.extend({
 });
 ```
 
-しかしこれだと完成系のスキーマが見づらかったり、やっぱり良いものとは言えなさそうだ。
+一見よさそうだが、これだと完成系のスキーマが見づらかったり、やっぱり良いものとは言えなさそうだ。
+どうすればいいんだろう？
 
 ## 自分にとっての完全な解決策
 
