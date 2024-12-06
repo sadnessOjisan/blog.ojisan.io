@@ -1,5 +1,5 @@
 ---
-path: /dinosaur extinction
+path: /dinosaur-extinction
 created: "2024-12-05"
 title: typesaurus は救いなのか？
 visual: "./visual.png"
