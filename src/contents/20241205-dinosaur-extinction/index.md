@@ -1,6 +1,6 @@
 ---
-path: /typesaurus-is-sukui
-created: "2024-12-04"
+path: /dinosaur extinction
+created: "2024-12-05"
 title: typesaurus は救いなのか？
 visual: "./visual.png"
 tags: ["firebase"]
