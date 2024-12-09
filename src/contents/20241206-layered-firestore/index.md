@@ -73,6 +73,8 @@ try {
 }
 ```
 
+see: https://firebase.google.com/docs/firestore/manage-data/transactions?hl=ja
+
 runTransaction の仮引数を使い回さないと 1 transaction にまとめられないのである。
 
 ## レイヤードアーキテクチャにする方法
