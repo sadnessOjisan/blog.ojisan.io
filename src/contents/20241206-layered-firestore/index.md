@@ -96,13 +96,30 @@ RepositoryやEntityはCollectionの単位で作り、RepositoryはEntity（も�
 
 ```ts
 f.get("/hoge", (req, res) => {
+  const db = firebaseAdmin.initialize();
   runTransaction(db, async (transaction) => {
     const usecase = new Usecase(
-      new RepositoryA(transaction),
-      new RepositoryB(transaction),
+      new RepositoryA(db, transaction),
+      new RepositoryB(db, transaction),
     );
     const data = await usecae.exec(userId);
     return json(data);
   });
 });
+
+class RepositpryA {
+  constructor(
+    private firestore: Firestore,
+    private tx: Transaction,
+  ) {}
+
+  get(id: string) {
+    const doc = this.firestore.collection("hoge").doc(id);
+    return this.tx.get(doc);
+  }
+
+  update(currentDoc: Document, newDoc: Document) {
+    this.tx.update(currentDoc, newDoc);
+  }
+}
 ```
