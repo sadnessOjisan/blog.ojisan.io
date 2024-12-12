@@ -1,6 +1,6 @@
 ---
 path: /layered-firestore
-created: "2024-12-06"
+created: "2024-12-09"
 title: Firestoreを使う際のレイヤードアーキテクチャ
 visual: "./visual.png"
 tags: ["firebase"]
