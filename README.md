@@ -1,6 +1,6 @@
 # blob.ojisan.io
 
-sadnessOjisan のブログ。 技術以外も何でもアリ。
+sadnessOjisan のブログ。 技術以外も何でもアリ.
 
 ## URL
 
