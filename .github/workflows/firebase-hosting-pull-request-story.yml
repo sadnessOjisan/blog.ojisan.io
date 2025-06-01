@@ -8,11 +8,11 @@ jobs:
     if: "${{ github.event.pull_request.head.repo.full_name == github.repository }}"
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: v18.x
+          node-version: v22.x
           registry-url: "https://registry.npmjs.org"
       - uses: actions/cache@v3
         id: node_modules_cache_id
