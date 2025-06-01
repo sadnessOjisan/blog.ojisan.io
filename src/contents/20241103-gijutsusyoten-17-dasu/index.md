@@ -3,7 +3,7 @@ path: /gijutsusyoten-17-dasu
 created: "2024-11-03"
 title: 【く15】技術書典17にAPI仕様書の本を出すぞ！！！！
 visual: "./visual.png"
-tags: ["雑記"]
+tags: ["技術書典"]
 userId: sadnessOjisan
 isFavorite: false
 isProtect: false
